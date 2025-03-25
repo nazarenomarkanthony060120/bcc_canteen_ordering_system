@@ -1,0 +1,10 @@
+Dependency!
+
+npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
+npm install expo-constants
+npm install @tanstack/react-query nativewind firebase react-native-dotenv
+npm add @react-native-firebase/app
+npm add @react-native-firebase/auth
+npm expo install expo-build-properties
+npm install tailwindcss
+npm add @react-native-firebase/firestore
