@@ -13,13 +13,11 @@ interface LoginActionContainerProps {
 
 const LoginActionContainer = ({ handleSubmit, onSubmit, isPending }: LoginActionContainerProps) => {
   return (
-    <SafeAreaView className=''>
-      <View className='gap-2 mb-32'>
-        <Button className='w-full flex-row bg-sky-300 p-5 rounded-2xl' onPress={handleSubmit(onSubmit)} loading={isPending}>Login</Button>
-        <Typo className="text-right text-white">Forgot Password</Typo>
-      </View>
-      <Button className='w-full flex-row bg-emerald-300 p-5 rounded-2xl' onPress={handleSubmit(onSubmit)} loading={isPending}>Register Here</Button>
-    </SafeAreaView>
+    <View className='gap-2 mb-32'>
+      <Button className='w-full flex-row bg-sky-300 p-5 rounded-2xl' onPress={handleSubmit(onSubmit)} loading={isPending}>Login</Button>
+      <Button className='w-full flex-row bg-emerald-300 p-5 rounded-2xl' onPress={handleSubmit(onSubmit)} loading={isPending}>Sign Up</Button>
+      <Typo className="text-right text-[15px] text-white">Forgot Password</Typo>
+    </View>
   )
 }
 
