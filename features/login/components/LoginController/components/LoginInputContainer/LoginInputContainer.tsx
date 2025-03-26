@@ -9,13 +9,13 @@ interface LoginInputContainerProps {
 
 const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
   return (
-    <View className='gap-2'>
+    <View className='gap-2 pt-11'>
       <Controller
         control={control}
         name="email"
         rules={{ required: 'Email is required' }}
         render={({ field: { onChange, value } }) => (
-          <Input className=" w-full placeholder:text-slate-400" placeholder="Enter Email" value={value} onChangeText={onChange}></Input>
+          <Input className=" w-full placeholder:text-slate-400" placeholder="Email" value={value} onChangeText={onChange}></Input>
         )}
       />
       <Controller
@@ -23,7 +23,7 @@ const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
         name="password"
         rules={{ required: 'Password is required' }}
         render={({ field: { onChange, value } }) => (
-          <Input className=" w-full placeholder:text-slate-400" placeholder="Enter Password"value={value} onChangeText={onChange} secureTextEntry></Input>
+          <Input className=" w-full placeholder:text-slate-400" placeholder="Password"value={value} onChangeText={onChange} secureTextEntry></Input>
         )}
       />
       

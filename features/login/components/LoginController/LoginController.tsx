@@ -20,11 +20,11 @@ const LoginController = () => {
   }
   
   return (
-    <Animated.View entering={FadeInUp.delay(600).duration(500).damping(1).springify()} className="pt-6 flex items-center px-5 gap-2">
-      <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>Login</Text>
+    <Animated.View entering={FadeInUp.delay(600).duration(500).damping(1).springify()} className="pt-6 px-5 gap-2">
+      <Typo className='text-white text-[24px] font-bold text-center'>BCC Canten Order App</Typo>
       <LoginInputContainer control={control} />
       <LoginActionContainer handleSubmit={handleSubmit} isPending={isPending} onSubmit={onSubmit} />
-      <Text>{error && <Text style={{ color: "red" }}>{error.message}</Text>}</Text>
+      <Typo>{error && <Typo className='text-red'>{error.message}</Typo>}</Typo>
     </Animated.View>
   )
 }

@@ -7,7 +7,7 @@ import LoginLogoIcon from './components/loginLogoIcon/LoginLogoIcon'
 
 const Login = () => {
   return (
-    <View className="h-screen w-full flex justify-center items-center">
+    <View className="h-screen w-full">
       <LoginBackground />
       <LoginLogoIcon />
       <LoginController />
