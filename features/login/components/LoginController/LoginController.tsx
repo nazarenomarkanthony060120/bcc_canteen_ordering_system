@@ -21,7 +21,7 @@ const LoginController = () => {
   
   return (
     <Animated.View entering={FadeInUp.delay(600).duration(500).damping(1).springify()} className="pt-6 px-5 gap-2">
-      <Typo className='text-white text-[24px] font-bold text-center'>BCC Canten Order App</Typo>
+      <Typo className='text-white text-[24px] font-bold text-center'>BCC Canteen Order App</Typo>
       <LoginInputContainer control={control} />
       <LoginActionContainer handleSubmit={handleSubmit} isPending={isPending} onSubmit={onSubmit} />
       <Typo>{error && <Typo className='text-red'>{error.message}</Typo>}</Typo>
