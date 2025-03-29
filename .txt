@@ -8,3 +8,4 @@ npm add @react-native-firebase/auth
 npm expo install expo-build-properties
 npm install tailwindcss
 npm add @react-native-firebase/firestore
+npm i react-native-responsive-screen

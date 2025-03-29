@@ -1,7 +1,6 @@
-import { View, Text } from 'react-native'
+import { View, TextInput } from 'react-native'
 import React from 'react'
 import { Control, Controller, FieldValues } from 'react-hook-form'
-import Input from '@/components/input'
 
 interface LoginInputContainerProps {
   control: Control<FieldValues>
@@ -15,7 +14,9 @@ const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
         name="email"
         rules={{ required: 'Email is required' }}
         render={({ field: { onChange, value } }) => (
-          <Input className=" w-full placeholder:text-slate-400" placeholder="Email" value={value} onChangeText={onChange}></Input>
+          <View className="flex-row px-4 py-2 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
+            <TextInput className={' w-full placeholder:text-slate-400'} placeholder={'Email'} value={value} onChangeText={onChange}></TextInput>
+          </View>
         )}
       />
       <Controller
@@ -23,7 +24,9 @@ const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
         name="password"
         rules={{ required: 'Password is required' }}
         render={({ field: { onChange, value } }) => (
-          <Input className=" w-full placeholder:text-slate-400" placeholder="Password"value={value} onChangeText={onChange} secureTextEntry></Input>
+          <View className="flex-row px-4 py-2 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
+            <TextInput className={' w-full placeholder:text-slate-400'} placeholder={'Password'} value={value} onChangeText={onChange} secureTextEntry></TextInput>
+          </View>
         )}
       />
       

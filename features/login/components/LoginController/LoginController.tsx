@@ -4,9 +4,9 @@ import { Text, TouchableOpacity } from 'react-native'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
 import { useLogin } from '@/hooks/login'
 import Animated, { FadeInUp } from 'react-native-reanimated'
-import Button from "@/components/button"
+import Button from "@/components/common/button"
 import { LoginRequest } from '@/utils/types'
-import Typo from '@/components/typo'
+import Typo from '@/components/common/typo'
 import LoginInputContainer from './components/LoginInputContainer/LoginInputContainer'
 import LoginActionContainer from './components/LoginActionContainer/LoginActionContainer'
 

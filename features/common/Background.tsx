@@ -1,9 +1,6 @@
 import { View, Text, ScrollViewComponent, ScrollView } from 'react-native'
 import React from 'react'
-import Typo from '@/components/typo'
-import DashboardAddStudent from '../dashboard/dashboardAddStudent/DashboardAddStudent'
-import DashboardLogout from '../dashboard/dashboardLogout/DashboardLogout'
-import DashboardProfile from '../dashboard/dashboardProfile/DashboardProfile'
+import Typo from '@/components/common/typo'
 
 const Background = ({ children, header }: { children: React.ReactNode, header: string}) => {
   return (
@@ -14,9 +11,6 @@ const Background = ({ children, header }: { children: React.ReactNode, header: s
           {children}
         </View>
       </ScrollView>
-      <DashboardAddStudent />
-      <DashboardLogout />
-      <DashboardProfile />
     </View>
   )
 }

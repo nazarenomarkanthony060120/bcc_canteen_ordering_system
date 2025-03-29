@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import Animated, { FadeInUp } from 'react-native-reanimated'
-import Icon from '@/components/icon'
+import Icon from '@/components/common/icon'
 
 const LoginProviderIcon = () => {
   return (
