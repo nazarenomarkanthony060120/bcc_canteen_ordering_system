@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.jpeg",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.nazarenomarkanthony060120.BCC_Canteen_Ordering_System"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "aca07842-7d72-4444-94fd-fa23ad800b80"
+      }
     }
   }
 }

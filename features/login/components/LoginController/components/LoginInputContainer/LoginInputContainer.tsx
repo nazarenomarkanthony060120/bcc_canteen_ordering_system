@@ -14,8 +14,8 @@ const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
         name="email"
         rules={{ required: 'Email is required' }}
         render={({ field: { onChange, value } }) => (
-          <View className="flex-row px-4 py-2 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
-            <TextInput className={' w-full placeholder:text-slate-400'} placeholder={'Email'} value={value} onChangeText={onChange}></TextInput>
+          <View className="flex-row px-4 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
+            <TextInput className={' w-full py-5 placeholder:text-slate-400 '} placeholder={'Email'} value={value} onChangeText={onChange}></TextInput>
           </View>
         )}
       />
@@ -24,8 +24,8 @@ const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
         name="password"
         rules={{ required: 'Password is required' }}
         render={({ field: { onChange, value } }) => (
-          <View className="flex-row px-4 py-2 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
-            <TextInput className={' w-full placeholder:text-slate-400'} placeholder={'Password'} value={value} onChangeText={onChange} secureTextEntry></TextInput>
+          <View className="flex-row px-4 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
+            <TextInput className={' w-full py-5 placeholder:text-slate-400'} placeholder={'Password'} value={value} onChangeText={onChange} secureTextEntry></TextInput>
           </View>
         )}
       />
