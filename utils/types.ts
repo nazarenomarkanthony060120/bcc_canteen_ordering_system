@@ -1,6 +1,5 @@
 import { Href } from "expo-router"
 // import { Firestore, Timestamp } from "firebase/firestore" 
-import { Icon } from "phosphor-react-native"
 import React, { ReactNode } from "react"
 import {
   ActivityIndicator,
@@ -85,3 +84,17 @@ export type LoginRequest = {
   email: string,
   password: string
 } 
+
+export type RegisterRequest = {
+  id: string,
+  fullName: string,
+  gradeAndSection: string
+  type: string
+  phoneNumber: string
+  email: string
+  password: string
+}
+
+export type UserIdRequest = {
+  id: string | undefined 
+}

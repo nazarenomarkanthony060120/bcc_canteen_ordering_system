@@ -11,7 +11,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { buildHref } = useLinkBuilder()
 
   return (
-    <View className='absolute bottom-2 flex-row justify-between bg-white items-center gap-3 rounded-3xl shadow' style={{ marginHorizontal: 40}}>
+    <View className='absolute bottom-4 flex-row justify-between bg-white items-center gap-3 rounded-3xl shadow' style={{ marginHorizontal: 40}}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key]
         const label =

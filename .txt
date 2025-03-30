@@ -15,3 +15,4 @@ npm install --global eas-cli
 for build
  eas build --platform android // for aab 
  eas build --profile preview --platform android // for apk
+npm install @react-native-picker/picker

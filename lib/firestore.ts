@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
-import { getFirestore } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc, serverTimestamp} from "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_API_KEY,
@@ -17,4 +17,7 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
 
-export { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword }
+export { 
+  auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  setDoc, doc, getDoc, serverTimestamp
+}

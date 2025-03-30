@@ -1,19 +1,42 @@
-import React, { useContext, useEffect } from "react"
-import { useRouter } from "expo-router"
-import { AuthContext } from "@/context/auth"
-import LoginScreen from "./screens/login"
+import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "expo-router";
+import { AuthContext } from "@/context/auth";
+import LoginScreen from "./screens/login";
+import { useFetchUserById } from "@/hooks/common/fetchUserById";
+import { View, ActivityIndicator } from "react-native";
 
 const index = () => {
-  const { user } = useContext(AuthContext) 
-  const router = useRouter()
+  const { user } = useContext(AuthContext);
+  const router = useRouter();
+  const { data: userData, isLoading } = useFetchUserById({ id: user?.uid });
+
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || isLoading) return;
+
     if (user) {
-      router.replace("/screens/(admin)/dashboard")
+      if (userData?.type !== "seller") {
+        router.replace("/screens/(admin)/dashboard/dashboard");
+      } else {
+        router.replace("/_sitemap");
+      }
     }
-  }, [user, router])
+  }, [user, userData, isLoading, isMounted, router]);
 
-  return <LoginScreen />
-}
+  if (isLoading || !isMounted) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
-export default index
+  return <LoginScreen />;
+};
+
+export default index;

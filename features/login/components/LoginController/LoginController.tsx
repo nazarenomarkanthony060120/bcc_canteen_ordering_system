@@ -7,8 +7,8 @@ import Animated, { FadeInUp } from 'react-native-reanimated'
 import Button from "@/components/common/button"
 import { LoginRequest } from '@/utils/types'
 import Typo from '@/components/common/typo'
-import LoginInputContainer from './components/LoginInputContainer/LoginInputContainer'
-import LoginActionContainer from './components/LoginActionContainer/LoginActionContainer'
+import LoginInputContainer from './components/loginInputContainer/LoginInputContainer'
+import LoginActionContainer from './components/loginActionContainer/LoginActionContainer'
 
 
 const LoginController = () => {
