@@ -9,7 +9,7 @@ const index = () => {
 
   useEffect(() => {
     if (user) {
-      router.replace("/screens/dashboard")
+      router.replace("/screens/(admin)/dashboard")
     }
   }, [user, router])
 

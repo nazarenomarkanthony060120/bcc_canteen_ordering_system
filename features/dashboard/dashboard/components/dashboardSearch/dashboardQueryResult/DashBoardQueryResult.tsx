@@ -4,7 +4,7 @@ import DashboardShopSales from './components/dashboardShopSales/DashboardShopSal
 
 const DashBoardQueryResult = () => {
   return (
-    <View className='flex flex-wrap flex-row space-x-2 space-y-2 gap-4 mt-3'>
+    <View className='flex flex-wrap flex-row space-x-2 space-y-2 gap-4'>
       <DashboardShopSales />
       <DashboardShopSales />
       <DashboardShopSales />

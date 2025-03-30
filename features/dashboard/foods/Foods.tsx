@@ -2,10 +2,10 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import Layout from '../Layout'
 
-const Foods = () => {
+const Foods = ({ params}: any) => {
   return (
     <Layout>
-      <Text className='text-white'>Foods</Text>
+      <Text className='text-white'>Foods {params.id}</Text>
     </Layout>
   )
 }
