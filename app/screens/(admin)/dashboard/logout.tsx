@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from "react-native"
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { useRouter } from "expo-router"
 import { auth } from "@/lib/firestore"
 import { AuthContext } from "@/context/auth"
@@ -17,6 +17,10 @@ const Logout = () => {
       console.error("Logout Error:", error)
     }
   }
+
+  useEffect(() => {
+    handleLogout()
+  }, [])
 
   return (
     <Pressable onPress={handleLogout}>

@@ -23,7 +23,7 @@ const index = () => {
       if (userData?.type !== "seller") {
         router.replace("/screens/(admin)/dashboard/dashboard");
       } else {
-        router.replace("/_sitemap");
+        router.replace("/screens/(seller)/dashboard/dashboard");
       }
     }
   }, [user, userData, isLoading, isMounted, router]);
