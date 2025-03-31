@@ -1,5 +1,5 @@
+import Dashboard from '@/features/admin/dashboard/Dashboard'
 import React from 'react'
-import Dashboard from '@/features/dashboard/dashboard/Dashboard'
 
 const DashboardScreen = () => {
   return <Dashboard />

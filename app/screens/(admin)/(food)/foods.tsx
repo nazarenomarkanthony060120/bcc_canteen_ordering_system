@@ -1,6 +1,6 @@
 import React from 'react'
-import Foods from '@/features/dashboard/foods/Foods'
 import { useSearchParams } from 'expo-router/build/hooks'
+import Foods from '@/features/admin/foods/Foods'
 
 const FoodPage = () => {
   const params = useSearchParams()

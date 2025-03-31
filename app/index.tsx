@@ -21,9 +21,9 @@ const index = () => {
 
     if (user) {
       if (userData?.type !== "seller") {
-        router.replace("/screens/(admin)/dashboard/dashboard");
+        router.navigate(`/screens/(admin)/dashboard/dashboard?name=${encodeURIComponent(userData?.name)}`);
       } else {
-        router.replace("/screens/(seller)/dashboard/dashboard");
+        router.navigate(`/screens/(seller)/dashboard/dashboard?name=${encodeURIComponent(userData?.name)}&page=2`);
       }
     }
   }, [user, userData, isLoading, isMounted, router]);

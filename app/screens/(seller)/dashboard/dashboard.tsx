@@ -1,12 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import Dashboard from '@/features/seller/dashboard/Dashboard'
 
 const DashboardPage = () => {
-  return (
-    <View>
-      <Text>DashboardPage</Text>
-    </View>
-  )
+  return <Dashboard />
 }
 
 export default DashboardPage

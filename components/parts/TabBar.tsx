@@ -2,9 +2,7 @@ import { View } from 'react-native'
 import { useLinkBuilder, useTheme } from '@react-navigation/native'
 import { Text, PlatformPressable } from '@react-navigation/elements'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import Icon from '../common/icon'
 import { Icons } from '@/constants/icons'
-import { AntDesign, Feather } from '@expo/vector-icons'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { colors } = useTheme()

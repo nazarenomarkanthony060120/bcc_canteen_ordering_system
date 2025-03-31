@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 import React from 'react'
-import Layout from '../Layout'
+import Layout from '../../common/Layout'
 
 const Foods = ({ params}: any) => {
   return (

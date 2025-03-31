@@ -9,11 +9,13 @@ import { LoginRequest } from '@/utils/types'
 import Typo from '@/components/common/typo'
 import LoginInputContainer from './components/loginInputContainer/LoginInputContainer'
 import LoginActionContainer from './components/loginActionContainer/LoginActionContainer'
+import { useRouter } from 'expo-router'
 
 
 const LoginController = () => {
   const { control, handleSubmit } = useForm()
   const { mutate: login, error, isPending } = useLogin()
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     login(data as LoginRequest)

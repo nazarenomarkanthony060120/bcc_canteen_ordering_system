@@ -7,7 +7,7 @@ export const fetchUserById = async ({ id }: UserIdRequest) => {
   const docSnap = await getDoc(docRef)
 
   if (docSnap.exists()) {
-    return { id: docSnap.id, type: docSnap.data().type, ...docSnap.data() }
+    return { id: docSnap.id, type: docSnap.data().type, name: docSnap.data().fullName, ...docSnap.data() }
   }
   return undefined
 }
