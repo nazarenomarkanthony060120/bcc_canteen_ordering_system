@@ -5,14 +5,14 @@ import RegisterInputContainer from '../registerInputContainer/RegisterInputConta
 import Typo from '@/components/common/typo'
 import RegisterActionContainer from '../registerActionContainer/RegisterActionContainer'
 import { userRegister } from '@/hooks'
-import { RegisterRequeset } from '@/utils/types'
+import { RegisterRequest } from '@/utils/types'
 
 const RegisterController = () => {
   const { control, handleSubmit } = useForm()
   const { mutate: register, error, isPending } = userRegister()
   
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    register(data as RegisterRequeset)
+    register(data as RegisterRequest)
   }
 
   return (

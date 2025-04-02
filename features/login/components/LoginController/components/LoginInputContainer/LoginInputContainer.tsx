@@ -1,6 +1,8 @@
-import { View, TextInput } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import { Control, Controller, FieldValues } from 'react-hook-form'
+import Input from '@/components/common/input'
+import IconMaterialUi from '@/components/common/iconMaterialUi'
 
 interface LoginInputContainerProps {
   control: Control<FieldValues>
@@ -14,9 +16,7 @@ const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
         name="email"
         rules={{ required: 'Email is required' }}
         render={({ field: { onChange, value } }) => (
-          <View className="flex-row px-4 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
-            <TextInput className={' w-full py-5 placeholder:text-slate-400 '} placeholder={'Email'} value={value} onChangeText={onChange}></TextInput>
-          </View>
+          <Input className={'w-full py-3 placeholder:text-slate-400 '} placeholder={'Email'} value={value} onChangeText={onChange} icon={<IconMaterialUi name={'alternate-email'} size={20} color="gray"/>} />
         )}
       />
       <Controller
@@ -24,12 +24,9 @@ const LoginInputContainer = ({ control }: LoginInputContainerProps) => {
         name="password"
         rules={{ required: 'Password is required' }}
         render={({ field: { onChange, value } }) => (
-          <View className="flex-row px-4 bg-slate-200 w-full rounded-2xl border-2 border-gray-300">
-            <TextInput className={' w-full py-5 placeholder:text-slate-400'} placeholder={'Password'} value={value} onChangeText={onChange} secureTextEntry></TextInput>
-          </View>
+          <Input className={'w-full py-3 placeholder:text-slate-400 '} placeholder={'Password'} value={value} onChangeText={onChange} secureTextEntry icon={<IconMaterialUi name={'key'} size={20} color="gray"/>} isPassword={true}/>
         )}
       />
-      
     </View>
   )
 }

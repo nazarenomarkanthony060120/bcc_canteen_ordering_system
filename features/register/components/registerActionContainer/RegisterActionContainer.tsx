@@ -3,6 +3,7 @@ import React from 'react'
 import Typo from '@/components/common/typo'
 import { FieldValues, SubmitHandler, UseFormHandleSubmit } from 'react-hook-form'
 import { useRouter } from 'expo-router'
+import Button from '@/components/common/button'
 
 interface RegisterActionContainerProps { 
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>,
@@ -11,12 +12,18 @@ interface RegisterActionContainerProps {
 }
 
 const RegisterActionContainer = ({ handleSubmit, onSubmit, isPending }: RegisterActionContainerProps) => {
+
+  const router = useRouter()
+  
+  const navigateToLogin = () => {
+    router.replace('/screens/login')
+  }
+
   return (
     <View className='gap-2 mb-32'>
-      <TouchableOpacity onPress={handleSubmit(onSubmit)} className={'w-full flex-row bg-sky-300 p-5 rounded-2xl'}>
-        <View className='flex-row justify-center items-center w-full'>
-          { isPending ? <ActivityIndicator /> : <Text className={'uppercase font-[18]'}>Register</Text>}
-        </View>
+      <Button className='w-full flex-row bg-sky-300 p-5 rounded-2xl' onPress={handleSubmit(onSubmit)} loading={isPending}>Login</Button>
+      <TouchableOpacity onPress={navigateToLogin}>
+        <Text className='text-center text-white mt-10'>Already have an account</Text>
       </TouchableOpacity>
     </View>
   )

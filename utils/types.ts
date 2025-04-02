@@ -61,6 +61,7 @@ export interface InputProps extends TextInputProps {
   inputStyle?: TextStyle
   inputRef?: React.RefObject<TextInput>
   className?: string
+  isPassword?: boolean
   //   label?: string
   //   error?: string
 }
