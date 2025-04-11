@@ -16,3 +16,9 @@ for build
  eas build --platform android // for aab 
  eas build --profile preview --platform android // for apk
 npm install @react-native-picker/picker
+
+
+
+
+## Run command
+npx expo start --tunnel
