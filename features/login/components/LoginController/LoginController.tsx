@@ -4,9 +4,9 @@ import { useLogin } from "@/hooks/login";
 import { LoginRequest } from "@/utils/types";
 import Typo from "@/components/common/typo";
 import { View } from "react-native";
-import LoginInputContainer from "./components/LoginInputContainer/LoginInputContainer";
-import LoginActionContainer from "./components/LoginActionContainer/LoginActionContainer";
 import { useRouter } from "expo-router";
+import LoginInputContainer from "./components/loginInputContainer/LoginInputContainer";
+import LoginActionContainer from "./components/loginActionContainer/LoginActionContainer";
 
 const LoginController = () => {
   const { control, handleSubmit } = useForm();

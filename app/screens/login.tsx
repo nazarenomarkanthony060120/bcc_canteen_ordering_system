@@ -1,8 +1,8 @@
-import React from "react"
-import Login from "@/features/login/Login"
+import React from "react";
+import Login from "@/features/login/Login";
 
 const LoginScreen = () => {
-  return <Login />
-}
+  return <Login />;
+};
 
-export default LoginScreen
+export default LoginScreen;

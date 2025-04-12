@@ -1,9 +1,20 @@
-import { auth, createUserWithEmailAndPassword, db, doc, setDoc, serverTimestamp } from "@/lib/firestore"
-import { RegisterRequeset } from "@/utils/types"
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  db,
+  doc,
+  setDoc,
+  serverTimestamp,
+} from "@/lib/firestore";
+import { RegisterRequeset } from "@/utils/types";
 
 export const registerUser = async (data: RegisterRequeset) => {
-  const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password)
-  const user = userCredential.user
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    data.email,
+    data.password,
+  );
+  const user = userCredential.user;
 
   await setDoc(doc(db, "users", user.uid), {
     id: data.id,
@@ -15,7 +26,7 @@ export const registerUser = async (data: RegisterRequeset) => {
     password: data.password,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-  })
+  });
 
-  return user
-}
+  return user;
+};

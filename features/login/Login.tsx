@@ -1,8 +1,8 @@
-import { View } from 'react-native'
-import React from 'react'
-import LoginBackground from './components/loginBackground/LoginBackground'
-import LoginController from './components/LoginController/LoginController'
-import LoginLogoIcon from './components/loginLogoIcon/LoginLogoIcon'
+import { View } from "react-native";
+import React from "react";
+import LoginBackground from "./components/loginBackground/LoginBackground";
+import LoginController from "./components/LoginController/LoginController";
+import LoginLogoIcon from "./components/loginLogoIcon/LoginLogoIcon";
 
 const Login = () => {
   return (
@@ -12,7 +12,7 @@ const Login = () => {
       <LoginController />
       {/* <LoginProviderIcon /> */}
     </View>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
