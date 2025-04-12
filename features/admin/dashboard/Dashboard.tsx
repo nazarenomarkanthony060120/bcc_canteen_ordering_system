@@ -1,7 +1,7 @@
-import React from "react";
-import DashboardSearch from "./components/dashboardSearch/DashboardSearch";
-import DashBoardQueryResult from "./components/dashboardSearch/dashboardQueryResult/DashBoardQueryResult";
-import Layout from "../../common/Layout";
+import React from 'react'
+import DashboardSearch from './components/dashboardSearch/DashboardSearch'
+import DashBoardQueryResult from './components/dashboardSearch/dashboardQueryResult/DashBoardQueryResult'
+import Layout from '../../common/Layout'
 
 const Dashboard = () => {
   return (
@@ -10,7 +10,7 @@ const Dashboard = () => {
         <DashBoardQueryResult />
       </DashboardSearch>
     </Layout>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

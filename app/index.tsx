@@ -1,24 +1,28 @@
-import React from "react";
-import { View } from "react-native";
-import ImageWrapper from "@/components/parts/Image";
-import Button from "@/components/common/button";
-import Typo from "@/components/common/typo";
-import { useRouter } from "expo-router";
+import React from 'react'
+import { View } from 'react-native'
+import ImageWrapper from '@/components/parts/Image'
+import Button from '@/components/common/button'
+import Typo from '@/components/common/typo'
+import { useRouter } from 'expo-router'
+import { SPLASH_ICON } from '@/constants/image'
+import Footer from '@/components/parts/Footer'
 
 const index = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  if (!router) return;
+  if (!router) return
   const navigateToLogin = () => {
-    router.replace("/screens/login");
-  };
+    router.replace('/(auth)/login')
+  }
+
+  const navigateToRegister = () => {
+    router.replace('/(auth)/register')
+  }
 
   return (
-    <View className="flex-1 px-10 bg-[#f0faf1]">
+    <View className="flex-1 px-10 bg-[#ccffcc]">
       <View className="h-1/2 flex items-center justify-center">
-        <ImageWrapper
-          source={require("@/assets/images/logo-removebg-preview.png")}
-        />
+        <ImageWrapper source={SPLASH_ICON} />
       </View>
       <View className="flex justify-between h-1/2 pb-5 ">
         <View className="flex gap-5">
@@ -36,25 +40,20 @@ const index = () => {
           </View>
         </View>
 
-        <View className="flex gap-5">
+        <Footer className="flex gap-4">
           <Button
-            className="bg-emerald-800 rounded-3xl p-5"
+            className="bg-emerald-800 items-center rounded-3xl p-5"
             onPress={navigateToLogin}
           >
             <Typo className="text-white">Sign In</Typo>
           </Button>
-          <Button className="p-5">
-            <Typo className="">Create an account</Typo>
+          <Button className="items-center p-5" onPress={navigateToRegister}>
+            <Typo>Create an account</Typo>
           </Button>
-        </View>
+        </Footer>
       </View>
-
-      {/* <ActivityIndicator size="large" color="#0000ff" /> */}
     </View>
-  );
-  // }
+  )
+}
 
-  // return <LoginScreen />;
-};
-
-export default index;
+export default index

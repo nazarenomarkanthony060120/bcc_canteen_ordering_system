@@ -1,18 +1,13 @@
-import { View } from "react-native";
-import React from "react";
-import LoginBackground from "./components/loginBackground/LoginBackground";
-import LoginController from "./components/LoginController/LoginController";
-import LoginLogoIcon from "./components/loginLogoIcon/LoginLogoIcon";
+import React from 'react'
+import LoginController from './components/LoginFormCard'
+import LoginLayout from './components/LoginLayout'
 
 const Login = () => {
   return (
-    <View className="h-screen w-full">
-      <LoginBackground />
-      <LoginLogoIcon />
+    <LoginLayout className="flex-1 justify-between px-5">
       <LoginController />
-      {/* <LoginProviderIcon /> */}
-    </View>
-  );
-};
+    </LoginLayout>
+  )
+}
 
-export default Login;
+export default Login

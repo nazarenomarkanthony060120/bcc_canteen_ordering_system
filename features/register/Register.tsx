@@ -1,17 +1,13 @@
-import { View, Text } from "react-native";
-import React from "react";
-import RegisterBackground from "./components/registerBackground/RegisterBackground";
-import RegisterController from "./components/registerController/RegisterController";
-import RegisterIconText from "./components/registerIconText/RegisterIconText";
+import React from 'react'
+import RegisterLayout from './components/RegisterLayout'
+import RegisterFormCard from './components/RegisterFormCard'
 
 const Register = () => {
   return (
-    <View className="h-screen w-full">
-      <RegisterBackground />
-      <RegisterIconText />
-      <RegisterController />
-    </View>
-  );
-};
+    <RegisterLayout className="flex-1 justify-between px-5">
+      <RegisterFormCard />
+    </RegisterLayout>
+  )
+}
 
-export default Register;
+export default Register

@@ -1,6 +1,6 @@
-import { View } from "react-native";
-import React from "react";
-import DashboardShopSales from "./components/dashboardShopSales/DashboardShopSales";
+import { View } from 'react-native'
+import React from 'react'
+import DashboardShopSales from './components/dashboardShopSales/DashboardShopSales'
 
 const DashBoardQueryResult = () => {
   return (
@@ -15,7 +15,7 @@ const DashBoardQueryResult = () => {
       <DashboardShopSales />
       <DashboardShopSales />
     </View>
-  );
-};
+  )
+}
 
-export default DashBoardQueryResult;
+export default DashBoardQueryResult

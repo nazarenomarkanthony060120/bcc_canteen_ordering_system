@@ -1,36 +1,70 @@
-import { View, TextInput, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import { InputProps } from "@/utils/types";
-import { Eye, EyeOff } from "lucide-react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  TextInputProps,
+  ViewStyle,
+  TextStyle,
+} from 'react-native'
+import React, { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react-native'
+import { Text } from 'react-native'
 
-const Input = (props: InputProps) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+interface InputProps extends TextInputProps {
+  icon?: React.ReactNode
+  containerStyle?: ViewStyle
+  inputStyle?: TextStyle
+  inputRef?: React.RefObject<TextInput>
+  className?: string
+  isPassword?: boolean
+  error?: string
+  isIconRight?: boolean
+  isIconLeft?: boolean
+}
+
+const Input = ({
+  isIconRight = false,
+  isIconLeft = false,
+  icon,
+  className,
+  placeholder,
+  secureTextEntry,
+  value,
+  onChangeText,
+  isPassword,
+  error,
+}: InputProps) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
 
   return (
-    <View className="flex-row px-4 py-1 items-center gap-2 bg-slate-200 w-full rounded-2xl border-2 border-gray-300 relative">
-      {props.icon && props.icon}
-      <TextInput
-        className={props.className}
-        placeholder={props.placeholder}
-        secureTextEntry={props.secureTextEntry}
-        value={props.value}
-        onChangeText={props.onChangeText}
-        style={{ flex: 1 }}
-      />
-      {props.isPassword && (
-        <TouchableOpacity
-          onPress={() => setIsPasswordVisible((prev) => !prev)}
-          className="absolute right-5"
-        >
-          {isPasswordVisible ? (
-            <Eye size={24} color="gray" />
-          ) : (
-            <EyeOff size={24} color="gray" />
-          )}
-        </TouchableOpacity>
-      )}
+    <View>
+      <View className="flex-row px-4 py-1 items-center gap-2 bg-emerald-100 w-full rounded-2xl border-2 border-emerald-600 placeholder:text-red-600 relative">
+        {isIconLeft && icon && icon}
+        <TextInput
+          className={className}
+          placeholder={placeholder}
+          secureTextEntry={secureTextEntry}
+          value={value}
+          onChangeText={onChangeText}
+          style={{ flex: 1, height: 40 }}
+        />
+        {isIconRight && icon && icon}
+        {isPassword && (
+          <TouchableOpacity
+            onPress={() => setIsPasswordVisible((prev) => !prev)}
+            className="absolute right-5"
+          >
+            {isPasswordVisible ? (
+              <Eye size={24} color="gray" />
+            ) : (
+              <EyeOff size={24} color="gray" />
+            )}
+          </TouchableOpacity>
+        )}
+      </View>
+      {error && <Text className="text-red">{error}</Text>}
     </View>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

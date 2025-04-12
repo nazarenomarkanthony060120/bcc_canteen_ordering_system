@@ -1,15 +1,15 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity } from 'react-native'
+import React from 'react'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import ImageWrapper from "@/components/parts/Image";
-import TitleWrapper from "@/components/parts/Title";
-import { useRouter } from "expo-router";
+} from 'react-native-responsive-screen'
+import ImageWrapper from '@/components/parts/Image'
+import TitleWrapper from '@/components/parts/Title'
+import { useRouter } from 'expo-router'
 
 const DashboardShopSales = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <View
@@ -18,12 +18,12 @@ const DashboardShopSales = () => {
     >
       <TouchableOpacity
         onPress={() =>
-          router.navigate("/screens/(admin)/(food)/foods?id=123&page=1")
+          router.navigate('/screens/(admin)/(food)/foods?id=123&page=1')
         }
       >
         <ImageWrapper
-          source={require("@/assets/images/logo.jpeg")}
-          style={{ width: "100%", height: "100%", borderRadius: 10 }}
+          source={require('@/assets/images/logo.png')}
+          style={{ width: '100%', height: '100%', borderRadius: 10 }}
           resizeMode="cover"
         />
         <TitleWrapper />
@@ -32,7 +32,7 @@ const DashboardShopSales = () => {
         </View>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
-export default DashboardShopSales;
+export default DashboardShopSales

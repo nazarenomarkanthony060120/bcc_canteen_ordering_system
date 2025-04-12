@@ -1,31 +1,45 @@
-import React, { createContext, useState, useEffect } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/lib/firestore";
+import React, { createContext, useState, useEffect, useContext } from 'react'
+import { onAuthStateChanged, User } from 'firebase/auth'
+import { auth } from '@/lib/firestore'
+import { useFetchUserById } from '@/hooks/common/fetchUserById'
 
 type ContextProps = {
-  user: User | null;
-};
-
-const AuthContext = createContext<Partial<ContextProps>>({});
-
-interface Props {
-  children: React.ReactNode;
+  user: User | null
+  type: UserType | null
 }
 
-const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(null);
+export enum UserType {
+  BUYER = 'Buyer',
+  TEACHER = 'Teacher',
+  STUDENT = 'Student',
+  OTHERS = 'Others',
+}
 
+const AuthContext = createContext<Partial<ContextProps>>({})
+
+interface AuthProviderProps {
+  children: React.ReactNode
+}
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<User | null>(null)
+  const [userType, setUserType] = useState<UserType | null>(null)
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
-    });
+    if (!auth) return
 
-    return () => unsubscribe();
-  }, []);
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      const userType = useFetchUserById({ id: firebaseUser?.uid }).data?.type
+      if (userType) setUserType(userType)
+      setUser(firebaseUser)
+    })
+    return () => unsubscribe()
+  }, [])
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
-  );
-};
+    <AuthContext.Provider value={{ user, type: userType }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
 
-export { AuthContext, AuthProvider };
+export const useAuth = () => useContext(AuthContext)

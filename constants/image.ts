@@ -1,2 +1,4 @@
-export const LOGO_ICON = require("@/assets/images/logo.jpeg");
-export const BACKGROUND_ICON = require("@/assets/images/loginBackground.jpg");
+export const LOGO_ICON = require('@/assets/images/logo.png')
+export const BACKGROUND_ICON = require('@/assets/images/loginBackground.png')
+export const SPLASH_ICON = require('@/assets/images/splash.png')
+export const CANTEEN_IMAGE = require('@/assets/images/canteen.png')

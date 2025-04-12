@@ -1,13 +1,12 @@
-import React from "react";
-import { View } from "react-native";
-import { useLinkBuilder, useTheme } from "@react-navigation/native";
-import { Text, PlatformPressable } from "@react-navigation/elements";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { Icons } from "@/constants/icons";
+import React from 'react'
+import { View } from 'react-native'
+import { useTheme } from '@react-navigation/native'
+import { Text, PlatformPressable } from '@react-navigation/elements'
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
+import { Icons } from '@/constants/icons'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
-  const { colors } = useTheme();
-  const { buildHref } = useLinkBuilder();
+  const { colors } = useTheme()
 
   return (
     <View
@@ -15,39 +14,38 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
       style={{ marginHorizontal: 40 }}
     >
       {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
+        const { options } = descriptors[route.key]
         const label =
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
               ? options.title
-              : route.name;
+              : route.name
 
-        const isFocused = state.index === index;
+        const isFocused = state.index === index
 
         const onPress = () => {
           const event = navigation.emit({
-            type: "tabPress",
+            type: 'tabPress',
             target: route.key,
             canPreventDefault: true,
-          });
+          })
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
+            navigation.navigate(route.name, route.params)
           }
-        };
+        }
 
         const onLongPress = () => {
           navigation.emit({
-            type: "tabLongPress",
+            type: 'tabLongPress',
             target: route.key,
-          });
-        };
+          })
+        }
 
         return (
           <PlatformPressable
             key={route.name}
-            href={buildHref(route.name, route.params)}
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarButtonTestID}
@@ -62,8 +60,8 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               {label as any}
             </Text>
           </PlatformPressable>
-        );
+        )
       })}
     </View>
-  );
+  )
 }

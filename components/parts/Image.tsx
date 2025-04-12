@@ -8,16 +8,16 @@ import {
   Falsy,
   RegisteredStyle,
   ImageResizeMode,
-} from "react-native";
-import React, { CSSProperties } from "react";
+} from 'react-native'
+import React, { CSSProperties } from 'react'
 
 interface ImageWrapperProps {
-  source: ImageSourcePropType | undefined;
+  source: ImageSourcePropType | undefined
   style?:
     | ImageStyle
-    | RecursiveArray<Falsy | ImageStyle | RegisteredStyle<ImageStyle>>;
-  resizeMode?: ImageResizeMode;
-  className?: string;
+    | RecursiveArray<Falsy | ImageStyle | RegisteredStyle<ImageStyle>>
+  resizeMode?: ImageResizeMode
+  className?: string
 }
 
 const ImageWrapper = ({
@@ -30,7 +30,7 @@ const ImageWrapper = ({
     <View className={className}>
       <Image source={source} style={style} resizeMode={resizeMode} />
     </View>
-  );
-};
+  )
+}
 
-export default ImageWrapper;
+export default ImageWrapper

@@ -2,11 +2,20 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ButtonProps,
   ActivityIndicator,
-} from "react-native";
-import React from "react";
-import { CustomButtonProps } from "@/utils/types";
+  ViewStyle,
+  TouchableOpacityProps,
+} from 'react-native'
+import React from 'react'
+
+interface CustomButtonProps extends TouchableOpacityProps {
+  style?: ViewStyle
+  icon?: React.ReactNode
+  onPress?: () => void
+  loading?: boolean
+  children: React.ReactNode
+  className?: string
+}
 
 const Button = ({
   onPress,
@@ -16,17 +25,17 @@ const Button = ({
   className,
 }: CustomButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} className={className}>
-      <View className="flex-row justify-center items-center w-full">
+    <TouchableOpacity onPress={onPress}>
+      <View className={className}>
         {icon && icon}
         {loading ? (
           <ActivityIndicator />
         ) : (
-          <Text className={"uppercase font-[18]"}>{children}</Text>
+          <Text className={'uppercase font-[18]'}>{children}</Text>
         )}
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button
