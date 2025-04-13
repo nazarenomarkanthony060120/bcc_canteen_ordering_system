@@ -12,6 +12,7 @@ import { useCreateStore } from '@/hooks/(seller)/store/useCreateStore'
 
 const AddStoreFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)
+  const [isCreate, setIsCreate] = useState(false)
   const auth = useAuth()
   const {
     control,
@@ -21,6 +22,7 @@ const AddStoreFormCard = () => {
   const { mutate: userCreateStore, isPending } = useCreateStore()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsCreate(true)
     const formData = {
       id: auth.user?.uid,
       store: data.store,
@@ -52,6 +54,7 @@ const AddStoreFormCard = () => {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           isPending={isPending}
+          isCreate={isCreate}
         />
       </SafeAreaView>
       {Object.keys(errors).length > 0 && <Error errors={errors} />}

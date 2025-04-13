@@ -33,7 +33,7 @@ const Store = () => {
   }
 
   return (
-    <Seller className="flex-1 justify-between bg-slate-200 p-7">
+    <Seller className="flex-1 justify-between bg-white px-7 py-3">
       {content}
     </Seller>
   )

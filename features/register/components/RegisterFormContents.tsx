@@ -122,7 +122,7 @@ const RegisterFormContents = ({
             placeholder={'Password'}
             value={value}
             onChangeText={onChange}
-            secureTextEntry={true}
+            secureTextEntry
             isIconLeft
             icon={<MaterialIcons name={'key'} size={20} color="#02bf15" />}
             isPassword={true}
@@ -140,10 +140,10 @@ const RegisterFormContents = ({
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3 placeholder:text-slate-400 '}
-            placeholder={'Password'}
+            placeholder={'Confirm Password'}
             value={value}
             onChangeText={onChange}
-            secureTextEntry={true}
+            secureTextEntry
             isIconLeft
             icon={<MaterialIcons name={'key'} size={20} color="#02bf15" />}
             isPassword={true}

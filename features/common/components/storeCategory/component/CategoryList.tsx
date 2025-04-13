@@ -34,15 +34,11 @@ const CategoryList = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        className="px-2"
-      >
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {data.map((item) => (
           <TouchableOpacity
             key={item.id}
-            className="w-32 h-24 p-2 rounded-lg mr-1 items-center justify-center"
+            className="w-32 h-24 rounded-lg mr-1 items-center justify-center"
           >
             <ImageWrapper
               source={item.icon}

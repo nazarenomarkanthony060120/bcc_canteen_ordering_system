@@ -11,7 +11,7 @@ import NewlyAddFood from '@/features/common/components/newlyAddFood/NewlyAddFood
 const Dashboard = () => {
   return (
     <Seller className="flex-1 bg-emerald-300 justify-between">
-      <SafeAreaView className="p-7">
+      <SafeAreaView className="p-5">
         <Input
           className="text-center"
           placeholder="Search for restaurant and food"

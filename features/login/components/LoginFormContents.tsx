@@ -42,7 +42,7 @@ const LoginFormContents = ({ control }: LoginFormContentsProps) => {
             placeholder={'Password'}
             value={value}
             onChangeText={onChange}
-            secureTextEntry={true}
+            secureTextEntry
             isIconLeft
             icon={<MaterialIcons name={'key'} size={20} color="#02bf15" />}
             isPassword={true}

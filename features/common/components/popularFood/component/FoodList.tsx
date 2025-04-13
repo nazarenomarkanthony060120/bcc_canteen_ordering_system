@@ -17,7 +17,7 @@ const FoodList = () => {
   ]
 
   return (
-    <SafeAreaView className="flex-1 bg-white px-4">
+    <SafeAreaView className="flex-1 bg-white">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex-row flex-wrap justify-between">
           {data.map((item) => (

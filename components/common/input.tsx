@@ -43,7 +43,7 @@ const Input = ({
         <TextInput
           className={className}
           placeholder={placeholder}
-          secureTextEntry={secureTextEntry}
+          secureTextEntry={isPassword ? !isPasswordVisible : secureTextEntry}
           value={value}
           onChangeText={onChangeText}
           style={{ flex: 1, height: 40 }}

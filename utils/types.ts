@@ -53,6 +53,10 @@ export type UserIdRequest = {
   id: string | undefined
 }
 
+export type StoreIdRequest = {
+  storeId: string | null
+}
+
 export type UserKYC = {
   id: string
   name: string

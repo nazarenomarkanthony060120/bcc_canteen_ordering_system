@@ -10,7 +10,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
   return (
     <View
-      className="absolute bottom-4 flex-row justify-between bg-white items-center gap-3 rounded-3xl shadow"
+      className="absolute bottom-4 flex-row justify-between bg-white border-2 border-gray-300 items-center gap-3 rounded-3xl shadow "
       style={{ marginHorizontal: 40 }}
     >
       {state.routes.map((route, index) => {
