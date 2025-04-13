@@ -5,28 +5,29 @@ import { useRouter } from 'expo-router'
 interface CountDownProps {
   time: number
   route: any
+  message: string
 }
 
-const CountDown = ({ time, route }: CountDownProps) => {
+const CountDown = ({ time, route, message }: CountDownProps) => {
   const router = useRouter()
   const [countdown, setCountdown] = useState<number>(time)
-  // useEffect(() => {
-  //   if (countdown === null) return
+  useEffect(() => {
+    if (countdown === null) return
 
-  //   if (countdown === 0) {
-  //     router.replace(route)
-  //   } else {
-  //     const timer = setTimeout(() => {
-  //       setCountdown((prev) => prev - 1)
-  //     }, 1000)
+    if (countdown === 0) {
+      router.replace(route)
+    } else {
+      const timer = setTimeout(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
 
-  //     return () => clearTimeout(timer)
-  //   }
-  // }, [countdown])
+      return () => clearTimeout(timer)
+    }
+  }, [countdown])
   return (
     <View className="items-center pt-5">
       <Text className="text-xl text-emerald-800">
-        You will be redirected to Login in {countdown}
+        {message} - {countdown}
       </Text>
     </View>
   )

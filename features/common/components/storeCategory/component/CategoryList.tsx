@@ -1,14 +1,7 @@
 import ImageWrapper from '@/components/parts/Image'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import React from 'react'
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native'
+import { Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 
 const CategoryList = () => {
   const data = [

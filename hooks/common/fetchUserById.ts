@@ -7,5 +7,6 @@ export const useFetchUserById = ({ id }: UserIdRequest) => {
     queryKey: ['user', id],
     queryFn: () => fetchUserById({ id }),
     enabled: !!id,
+    refetchInterval: 2000,
   })
 }

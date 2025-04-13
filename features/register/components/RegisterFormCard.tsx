@@ -32,7 +32,13 @@ const RegisterFormCard = () => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2">
         <RegisterFormHeader />
-        {showCountdown && <CountDown time={5} route={'/(auth)/login'} />}
+        {showCountdown && (
+          <CountDown
+            time={5}
+            route={'/(auth)/login'}
+            message="You will be redirected to Login in"
+          />
+        )}
         <RegisterFormContents control={control} getValues={getValues} />
         <RegisterFormFooter
           handleSubmit={handleSubmit}

@@ -15,7 +15,6 @@ export const registerUser = async (data: RegisterRequest) => {
     data.password,
   )
   const user = userCredential.user
-  console.log(data)
 
   await setDoc(doc(db, 'users', user.uid), {
     id: data.id,

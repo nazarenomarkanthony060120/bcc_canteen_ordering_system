@@ -8,12 +8,12 @@ import {
 } from 'react-hook-form'
 import Input from '@/components/common/input'
 import { AntDesign, Entypo, FontAwesome } from '@expo/vector-icons'
+
 interface KYCFormContentsProps {
   control: Control<FieldValues>
-  getValues: UseFormGetValues<FieldValues>
 }
 
-const KYCFormContents = ({ control, getValues }: KYCFormContentsProps) => {
+const KYCFormContents = ({ control }: KYCFormContentsProps) => {
   return (
     <View className="gap-2 pt-11">
       <Controller

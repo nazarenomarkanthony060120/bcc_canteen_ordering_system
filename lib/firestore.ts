@@ -3,6 +3,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  User,
 } from 'firebase/auth'
 import {
   getFirestore,
@@ -10,6 +12,7 @@ import {
   doc,
   getDoc,
   serverTimestamp,
+  FieldValue,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -36,4 +39,7 @@ export {
   doc,
   getDoc,
   serverTimestamp,
+  onAuthStateChanged,
+  User,
+  FieldValue,
 }

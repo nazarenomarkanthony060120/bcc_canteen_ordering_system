@@ -11,7 +11,7 @@ export const fetchUserById = async ({ id }: UserIdRequest) => {
       id: docSnap.id,
       type: docSnap.data().type,
       name: docSnap.data().name,
-      ...docSnap.data(),
+      status: docSnap.data().status,
     }
   }
   return undefined

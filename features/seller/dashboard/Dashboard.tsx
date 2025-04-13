@@ -3,10 +3,10 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Input from '@/components/common/input'
 import { AntDesign } from '@expo/vector-icons'
-import PopularFood from '@/features/common/popularFood/PopularFood'
-import StoreCategory from '@/features/common/storeCategory/StoreCategory'
-import NewlyAddFood from '@/features/common/newlyAddFood/NewlyAddFood'
 import Seller from '../Seller'
+import StoreCategory from '@/features/common/components/storeCategory/StoreCategory'
+import PopularFood from '@/features/common/components/popularFood/PopularFood'
+import NewlyAddFood from '@/features/common/components/newlyAddFood/NewlyAddFood'
 
 const Dashboard = () => {
   return (

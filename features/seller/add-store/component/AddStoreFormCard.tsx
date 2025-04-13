@@ -1,17 +1,16 @@
+import { ScrollView, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import KYCFormHeader from './KYCFormHeader'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { UserKYC } from '@/utils/types'
-import KYCFormContents from './KYCFormContents'
-import { ScrollView } from 'react-native'
-import KYCFormFooter from './KYCFormFooter'
-import { useUserKYCRegister } from '@/hooks/common/useUserKYCRegister'
-import Error from '@/components/parts/Error'
 import { useAuth } from '@/context/auth'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { CreateStore } from '@/utils/types'
 import CountDown from '@/components/parts/CountDown'
+import Error from '@/components/parts/Error'
+import AddStoreFormHeader from './AddStoreFormHeader'
+import AddStoreFormFooter from './AddStoreFormFooter'
+import AddStoreFormContents from './AddStoreFormContents'
+import { useCreateStore } from '@/hooks/(seller)/store/useCreateStore'
 
-const KYCFormCard = () => {
+const AddStoreFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)
   const auth = useAuth()
   const {
@@ -19,19 +18,20 @@ const KYCFormCard = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const { mutate: userKycRegister, isPending } = useUserKYCRegister()
+  const { mutate: userCreateStore, isPending } = useCreateStore()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = {
       id: auth.user?.uid,
-      name: data.name,
-      phoneNumber: data.phoneNumber,
+      store: data.store,
       address: data.address,
-      birthDate: data.birthDate,
     }
-    userKycRegister(formData as UserKYC, {
+    userCreateStore(formData as CreateStore, {
       onSuccess: () => {
         setShowCountdown(true)
+      },
+      onError: (error) => {
+        console.log(error)
       },
     })
   }
@@ -39,7 +39,7 @@ const KYCFormCard = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2 p-5">
-        <KYCFormHeader />
+        <AddStoreFormHeader />
         {showCountdown && (
           <CountDown
             time={5}
@@ -47,8 +47,8 @@ const KYCFormCard = () => {
             message="You will be redirected to your store in"
           />
         )}
-        <KYCFormContents control={control} />
-        <KYCFormFooter
+        <AddStoreFormContents control={control} />
+        <AddStoreFormFooter
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           isPending={isPending}
@@ -59,4 +59,4 @@ const KYCFormCard = () => {
   )
 }
 
-export default KYCFormCard
+export default AddStoreFormCard

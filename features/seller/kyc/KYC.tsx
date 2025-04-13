@@ -6,7 +6,7 @@ import KYCFooter from './component/KYCFooter'
 
 const KYC = () => {
   return (
-    <Seller className="flex-1 bg-slate-700 justify-between">
+    <Seller className="flex-1 bg-[#ccffcc] justify-between">
       <KYCHeader />
       <KYCFormCard />
       <KYCFooter />
