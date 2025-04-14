@@ -9,10 +9,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { colors } = useTheme()
 
   return (
-    <View
-      className="absolute bottom-4 flex-row justify-between bg-white border-2 border-gray-300 items-center gap-3 rounded-3xl shadow "
-      style={{ marginHorizontal: 40 }}
-    >
+    <View className="absolute bottom-0 flex-row justify-between bg-white items-center gap-3 shadow ">
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key]
         const label =
@@ -51,12 +48,17 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             testID={options.tabBarButtonTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            className="flex-1 justify-center items-center rounded-3xl py-1 gap-1"
+            className="flex-1 justify-center items-center rounded-3xl py-2 gap-1"
           >
             {Icons[route.name as keyof typeof Icons]?.({
               color: isFocused ? colors.primary : colors.text,
             })}
-            <Text style={{ color: isFocused ? colors.primary : colors.text }}>
+            <Text
+              style={{
+                color: isFocused ? colors.primary : colors.text,
+                fontSize: 11,
+              }}
+            >
               {label as any}
             </Text>
           </PlatformPressable>

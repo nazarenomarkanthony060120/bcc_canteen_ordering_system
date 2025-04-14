@@ -25,23 +25,28 @@ const FoodList = () => {
               key={item.id}
               className="w-[47%] bg-gray-100 mb-4 rounded-xl gap-1 justify-center p-3"
             >
-              <Typo
-                className="text-sm mt-2 text-center"
-                icon={<AntDesign name="star" size={16} color="yellow" />}
-              >
-                {item.stars}
-              </Typo>
               <ImageWrapper
                 className="items-center"
                 source={item.icon}
                 style={{ height: 60, width: 100 }}
               />
-              <SafeAreaView className="items-start">
-                <Typo className="text-sm mt-2 text-center">{item.name}</Typo>
-                <Typo className="text-sm mt-2 text-center">
-                  Php: {item.price}
+              <View className="">
+                <Text className="text-sm mt-2 text-center">{item.name}</Text>
+                <View className="flex-row justify-between">
+                  <Text className="text-sm mt-2 text-center">
+                    Php: {item.price}
+                  </Text>
+                  <Text className="text-sm mt-2 text-center">Php:</Text>
+                </View>
+
+                <Typo
+                  className="text-sm mt-2"
+                  isNeed
+                  icon={<AntDesign name="star" size={16} color="yellow" />}
+                >
+                  {item.stars}
                 </Typo>
-              </SafeAreaView>
+              </View>
             </TouchableOpacity>
           ))}
         </View>

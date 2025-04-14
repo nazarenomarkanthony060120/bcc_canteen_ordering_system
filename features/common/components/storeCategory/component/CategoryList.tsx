@@ -38,7 +38,7 @@ const CategoryList = () => {
         {data.map((item) => (
           <TouchableOpacity
             key={item.id}
-            className="w-32 h-24 rounded-lg mr-1 items-center justify-center"
+            className="w-32 h-24 rounded-lg mr-1 items-center gap-3 justify-center"
           >
             <ImageWrapper
               source={item.icon}

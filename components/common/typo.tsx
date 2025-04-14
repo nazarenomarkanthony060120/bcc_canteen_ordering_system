@@ -11,11 +11,14 @@ type TypoProps = {
   textProps?: TextProps
   className?: string
   icon?: React.ReactNode
+  isNeed?: boolean
 }
 
-const Typo = ({ children, className, icon }: TypoProps) => {
+const Typo = ({ children, className, icon, isNeed = false }: TypoProps) => {
   return (
-    <View className="flex-row gap-1 items-center justify-center">
+    <View
+      className={`flex-row gap-1 items-center ${isNeed ? '' : 'justify-center'} `}
+    >
       {icon && icon}
       <Text className={className}>{children}</Text>
     </View>
