@@ -4,12 +4,12 @@ import { useLogin } from '@/hooks/login'
 import { LoginRequest } from '@/utils/types'
 import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
-import Button from '@/components/common/button'
 import LoginFormHeader from './LoginFormHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import LoginFormContents from './LoginFormContents'
 import LoginFormFooter from './LoginFormFooter'
 import { ScrollView } from 'react-native'
+import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
 
 const LoginController = () => {
   const { control, handleSubmit } = useForm()
@@ -20,8 +20,9 @@ const LoginController = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     login(data as LoginRequest, {
-      onSuccess: () => {
-        router.replace('/screens/(seller)/dashboard/dashboard')
+      onSuccess: (data) => {
+        const route = getUserRoutes(data?.type)
+        router.replace(route)
       },
     })
   }

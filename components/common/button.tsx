@@ -29,7 +29,7 @@ const Button = ({
       <View className={className}>
         {icon && icon}
         {loading ? (
-          <ActivityIndicator />
+          <ActivityIndicator className="text-red-500" />
         ) : (
           <Text className={'uppercase font-[18]'}>{children}</Text>
         )}

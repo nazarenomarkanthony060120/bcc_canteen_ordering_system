@@ -5,6 +5,7 @@ import {
   TextInputProps,
   ViewStyle,
   TextStyle,
+  KeyboardTypeOptions,
 } from 'react-native'
 import React, { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react-native'
@@ -20,6 +21,8 @@ interface InputProps extends TextInputProps {
   error?: string
   isIconRight?: boolean
   isIconLeft?: boolean
+  multiline?: boolean
+  numberOfLines?: number
 }
 
 const Input = ({
@@ -33,6 +36,8 @@ const Input = ({
   onChangeText,
   isPassword,
   error,
+  multiline = false,
+  numberOfLines = 1,
 }: InputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
 
@@ -46,7 +51,8 @@ const Input = ({
           secureTextEntry={isPassword ? !isPasswordVisible : secureTextEntry}
           value={value}
           onChangeText={onChangeText}
-          style={{ flex: 1, height: 40 }}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
         />
         {isIconRight && icon && icon}
         {isPassword && (
