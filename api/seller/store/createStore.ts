@@ -4,7 +4,7 @@ import { addDoc, collection } from 'firebase/firestore'
 
 export const createStore = async (data: CreateStore) => {
   return await addDoc(collection(db, 'stores'), {
-    id: data.id,
+    userId: data.userId,
     store: data.store,
     address: data.address,
     status: 0,

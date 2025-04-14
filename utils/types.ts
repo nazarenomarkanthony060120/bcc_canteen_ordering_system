@@ -11,6 +11,85 @@ export type LoginRequest = {
   password: string
 }
 
+export type RegisterRequest = {
+  id: string
+  name: string
+  type: UserType
+  email: string
+  password: string
+  confirmPassword: string
+}
+
+export type UserIdRequest = {
+  id: string | undefined
+}
+
+export type StoreIdRequest = {
+  id: string | null | undefined
+}
+
+export type UserKYC = {
+  id: string
+  name: string
+  phoneNumber: string
+  address: string
+  birthDate: string
+}
+
+export type UpdateProfile = {
+  phoneNumber: string
+  address: string
+  birthDate: string
+  status: number
+  updatedAt: FieldValue
+}
+
+export type CreateStore = {
+  userId: string
+  store: string
+  address: string
+}
+
+export type Store = {
+  id: string
+  store: string
+  address: string
+  status: StoreStatus
+  createdAt: FieldValue
+  updatedAt: FieldValue
+}
+
+export type AddFood = {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  type: FoodType
+  description: string
+}
+
+export type Food = {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  type: FoodType
+  description: string
+  createdAt: FieldValue
+  updatedAt: FieldValue
+}
+
+// Enum Decleared
+
+export enum FoodType {
+  VEGETABLE = 'Vegetable',
+  FRUITS = 'Fruits',
+  MEAT = 'Meat',
+  SNACKS = 'Snacks',
+  DRINKS = 'Drinks',
+  OTHER = 'Other',
+}
+
 export enum UserType {
   SELLER = 'Seller',
   TEACHER = 'Teacher',
@@ -38,52 +117,4 @@ export enum StoreStatusText {
   APPROVED = 'Approved',
   REJECTED = 'Rejected',
   UNKWON = 'Unknown',
-}
-
-export type RegisterRequest = {
-  id: string
-  name: string
-  type: UserType
-  email: string
-  password: string
-  confirmPassword: string
-}
-
-export type UserIdRequest = {
-  id: string | undefined
-}
-
-export type StoreIdRequest = {
-  storeId: string | null
-}
-
-export type UserKYC = {
-  id: string
-  name: string
-  phoneNumber: string
-  address: string
-  birthDate: string
-}
-
-export type UpdateProfile = {
-  phoneNumber: string
-  address: string
-  birthDate: string
-  status: number
-  updatedAt: FieldValue
-}
-
-export type CreateStore = {
-  id: string
-  store: string
-  address: string
-}
-
-export type Store = {
-  id: string
-  store: string
-  address: string
-  status: StoreStatus
-  createdAt: FieldValue
-  updatedAt: FieldValue
 }

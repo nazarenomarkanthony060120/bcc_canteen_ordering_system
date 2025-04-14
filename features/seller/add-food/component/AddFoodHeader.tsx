@@ -5,11 +5,15 @@ import { Ionicons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
 
-const AddFoodHeader = () => {
+interface AddFoodHeaderProps {
+  storeId: string | null
+}
+
+const AddFoodHeader = ({ storeId }: AddFoodHeaderProps) => {
   const router = useRouter()
 
   const navigateToMyStore = () => {
-    router.replace('/screens/(seller)/my-store/myStore')
+    router.replace(`/screens/(seller)/my-store/myStore?storeId=${storeId}`)
   }
 
   return (

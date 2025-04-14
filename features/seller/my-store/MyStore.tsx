@@ -10,9 +10,9 @@ interface MyStoreProps {
   params: URLSearchParams
 }
 const MyStore = ({ params }: MyStoreProps) => {
-  const storeId = params.get('id')
+  const storeId = params.get('storeId')
   const { data: storeData, isLoading } = useGetStoreById({
-    storeId: storeId,
+    id: storeId,
   })
 
   return (
@@ -26,7 +26,7 @@ const MyStore = ({ params }: MyStoreProps) => {
         <>
           <MyStoreHeader />
           <MyStoreFormCard store={storeData} />
-          <MyStoreFooter />
+          <MyStoreFooter storeId={storeId} />
         </>
       )}
     </Seller>

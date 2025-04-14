@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form'
 import Input from '@/components/common/input'
 import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons'
+import { UserType } from '@/utils/types'
 
 interface RegisterFormContentsProps {
   control: Control<FieldValues>
@@ -68,7 +69,12 @@ const RegisterFormContents = ({
         rules={{
           required: 'Type is required',
           validate: (value) =>
-            ['Seller', 'Student', 'Teacher', 'Outsider'].includes(value)
+            [
+              UserType.SELLER,
+              UserType.STUDENT,
+              UserType.TEACHER,
+              UserType.OUTSIDER,
+            ].includes(value)
               ? true
               : 'Type must be one of: Seller, Student, Teacher, Outsider',
         }}

@@ -1,15 +1,13 @@
-import { View, Text, TextInput } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import { Control, Controller, FieldValues } from 'react-hook-form'
 import Input from '@/components/common/input'
 import {
-  AntDesign,
-  Entypo,
-  FontAwesome,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons'
+import { FoodType } from '@/utils/types'
 
 interface AddFoodFormContentsProps {
   control: Control<FieldValues>
@@ -54,6 +52,7 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
             onChangeText={onChange}
             secureTextEntry={false}
             isIconLeft
+            keyboardType="numeric"
             icon={
               <MaterialCommunityIcons
                 name={'currency-php'}
@@ -76,22 +75,40 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
             onChangeText={onChange}
             secureTextEntry={false}
             isIconLeft
+            keyboardType="numeric"
             icon={<MaterialIcons name={'numbers'} size={20} color="#02bf15" />}
           />
         )}
       />
       <Controller
         control={control}
-        name="category"
-        rules={{ required: 'Category is required' }}
+        name="type"
+        rules={{
+          required: 'Food Type is required',
+          validate: (value) =>
+            [
+              FoodType.DRINKS,
+              FoodType.FRUITS,
+              FoodType.MEAT,
+              FoodType.SNACKS,
+              FoodType.VEGETABLE,
+              FoodType.OTHER,
+            ].includes(value)
+              ? true
+              : 'Type must be one of: Drink, Fruits, Meat, Snacks, Vegetable, Other',
+        }}
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3  placeholder:text-slate-400 '}
-            placeholder={'Category'}
+            placeholder={
+              'ex: [ Drinks, Fruits, Meat, Snacks, Vegetables, Others ]'
+            }
             value={value}
             onChangeText={onChange}
             secureTextEntry={false}
             isIconLeft
+            multiline={true}
+            numberOfLines={4}
             icon={<MaterialIcons name={'category'} size={20} color="#02bf15" />}
           />
         )}

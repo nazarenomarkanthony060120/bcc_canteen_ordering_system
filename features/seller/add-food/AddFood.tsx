@@ -4,11 +4,17 @@ import AddFoodHeader from './component/AddFoodHeader'
 import AddFoodFooter from './component/AddFoodFooter'
 import AddFoodFormCard from './component/AddFoodFormCard'
 
-const AddFood = () => {
+interface AddFoodProps {
+  params: URLSearchParams
+}
+
+const AddFood = ({ params }: AddFoodProps) => {
+  const storeId = params.get('storeId')
+
   return (
     <Seller className="flex-1 justify-between bg-[#ccffcc] px-5">
-      <AddFoodHeader />
-      <AddFoodFormCard />
+      <AddFoodHeader storeId={storeId} />
+      <AddFoodFormCard storeId={storeId} />
       <AddFoodFooter />
     </Seller>
   )

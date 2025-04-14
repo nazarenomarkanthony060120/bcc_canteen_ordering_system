@@ -38,6 +38,7 @@ const Input = ({
   error,
   multiline = false,
   numberOfLines = 1,
+  keyboardType = 'default',
 }: InputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
 
@@ -53,6 +54,7 @@ const Input = ({
           onChangeText={onChangeText}
           multiline={multiline}
           numberOfLines={numberOfLines}
+          keyboardType={keyboardType}
         />
         {isIconRight && icon && icon}
         {isPassword && (

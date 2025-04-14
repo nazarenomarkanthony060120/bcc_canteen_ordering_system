@@ -1,11 +1,22 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { Food } from '@/utils/types'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Key } from 'lucide-react-native'
 
-const MyStoreFormContents = () => {
+interface MyStoreFormContentsProps {
+  foods: Food[] | undefined
+}
+const MyStoreFormContents = ({ foods }: MyStoreFormContentsProps) => {
   return (
-    <View>
-      <Text>MyStoreFormContents</Text>
-    </View>
+    <SafeAreaView>
+      {foods?.map((food, index) => (
+        <View key={index}>
+          <Text>{food.name}</Text>
+          <Text>MyStoreFormContents</Text>
+        </View>
+      ))}
+    </SafeAreaView>
   )
 }
 

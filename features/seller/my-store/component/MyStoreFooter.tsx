@@ -4,11 +4,15 @@ import Button from '@/components/common/button'
 import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
 
-const MyStoreFooter = () => {
+interface MyStoreFooterProps {
+  storeId: string | null
+}
+
+const MyStoreFooter = ({ storeId }: MyStoreFooterProps) => {
   const router = useRouter()
 
   const navigateToAddFood = () => {
-    router.replace('/screens/(seller)/add-food/add-food')
+    router.replace(`/screens/(seller)/add-food/add-food?storeId=${storeId}`)
   }
 
   return (

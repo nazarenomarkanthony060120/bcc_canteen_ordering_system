@@ -24,7 +24,7 @@ const AddStoreFormCard = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsCreate(true)
     const formData = {
-      id: auth.user?.uid,
+      userId: auth.user?.uid,
       store: data.store,
       address: data.address,
     }

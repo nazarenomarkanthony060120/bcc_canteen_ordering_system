@@ -49,6 +49,7 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
             value={value}
             onChangeText={onChange}
             secureTextEntry={false}
+            keyboardType="numeric"
             isIconLeft
             icon={<AntDesign name={'phone'} size={20} color="#02bf15" />}
           />
@@ -77,10 +78,11 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3  placeholder:text-slate-400 '}
-            placeholder={'Month / Day / Year'}
+            placeholder={'Month - Day - Year'}
             value={value}
             onChangeText={onChange}
             secureTextEntry={false}
+            keyboardType="numeric"
             isIconLeft
             icon={
               <FontAwesome name={'birthday-cake'} size={20} color="#02bf15" />
