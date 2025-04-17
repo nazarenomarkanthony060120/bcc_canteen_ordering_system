@@ -16,11 +16,11 @@ const NoStore = () => {
   const userKYCStatus = userData?.status
 
   const navigateToAddStore = () => {
-    router.replace('/screens/(seller)/add-store/add-store')
+    router.push('/screens/(seller)/add-store/add-store')
   }
 
   const navigateToKYC = () => {
-    router.replace('/screens/(seller)/kyc/kyc')
+    router.push('/screens/(seller)/kyc/kyc')
   }
 
   let content = <ActivityIndicator />

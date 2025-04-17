@@ -9,7 +9,7 @@ const AddStoreHeader = () => {
   const router = useRouter()
 
   const navigateToStore = () => {
-    router.replace('/screens/(seller)/dashboard/store')
+    router.push('/screens/(seller)/dashboard/store')
   }
 
   return (

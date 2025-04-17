@@ -1,21 +1,10 @@
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  TextInputProps,
-  ViewStyle,
-  TextStyle,
-  KeyboardTypeOptions,
-} from 'react-native'
+import { View, TextInput, TouchableOpacity, TextInputProps } from 'react-native'
 import React, { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react-native'
 import { Text } from 'react-native'
 
 interface InputProps extends TextInputProps {
   icon?: React.ReactNode
-  containerStyle?: ViewStyle
-  inputStyle?: TextStyle
-  inputRef?: React.RefObject<TextInput>
   className?: string
   isPassword?: boolean
   error?: string

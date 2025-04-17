@@ -12,7 +12,7 @@ const MyStoreFooter = ({ storeId }: MyStoreFooterProps) => {
   const router = useRouter()
 
   const navigateToAddFood = () => {
-    router.replace(`/screens/(seller)/add-food/add-food?storeId=${storeId}`)
+    router.push(`/screens/(seller)/add-food/add-food?storeId=${storeId}`)
   }
 
   return (

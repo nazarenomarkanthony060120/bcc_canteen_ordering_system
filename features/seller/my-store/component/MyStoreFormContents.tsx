@@ -12,7 +12,7 @@ const MyStoreFormContents = ({ foods }: MyStoreFormContentsProps) => {
     <SafeAreaView>
       {foods?.map((food, index) => (
         <View key={index}>
-          <Text>{food.name}</Text>
+          <Text>{food.name} sdf</Text>
           <Text>MyStoreFormContents</Text>
         </View>
       ))}

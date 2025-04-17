@@ -8,7 +8,7 @@ const StoreFooter = () => {
   const router = useRouter()
 
   const navigateToCreateStore = () => {
-    router.replace('/screens/add-store/add-store')
+    router.push('/screens/add-store/add-store')
   }
 
   return (

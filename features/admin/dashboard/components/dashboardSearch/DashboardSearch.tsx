@@ -10,7 +10,7 @@ const DashboardSearch = ({ children }: DashboardSearchProps) => {
   return (
     <View className="flex-1 px-5 py-2">
       <DashboardWelcome />
-      <View className="flex-row px-3 py-1 items-center bg-slate-200 justify-center w-full rounded-2xl border-2 border-gray-300 pr-6 mt-5 mb-5">
+      <View className="flex-row px-3 py-1 items-center bg-slate-200 justify-center w-full border-2 border-gray-300 pr-6 mt-5 mb-5">
         <TextInput
           className={'w-full py-2 placeholder:text-slate-400 text-center'}
           placeholder={'Search'}

@@ -12,11 +12,11 @@ const index = () => {
 
   if (!router) return
   const navigateToLogin = () => {
-    router.replace('/(auth)/login')
+    router.navigate('/(auth)/login')
   }
 
   const navigateToRegister = () => {
-    router.replace('/(auth)/register')
+    router.navigate('/(auth)/register')
   }
 
   return (

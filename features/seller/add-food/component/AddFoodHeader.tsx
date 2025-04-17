@@ -13,7 +13,7 @@ const AddFoodHeader = ({ storeId }: AddFoodHeaderProps) => {
   const router = useRouter()
 
   const navigateToMyStore = () => {
-    router.replace(`/screens/(seller)/my-store/myStore?storeId=${storeId}`)
+    router.push(`/screens/(seller)/my-store/myStore?storeId=${storeId}`)
   }
 
   return (

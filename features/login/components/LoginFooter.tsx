@@ -8,7 +8,7 @@ const LoginFooter = () => {
   const router = useRouter()
 
   const navigateToRegister = () => {
-    router.replace('/(auth)/register')
+    router.push('/(auth)/register')
   }
 
   return (

@@ -23,7 +23,7 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2 p-5">
         <MyStoreFormHeader store={store?.store} />
-        <Text>{error?.stack}sdf</Text>
+        <Text>{error?.stack}</Text>
         {isLoading ? (
           <ActivityIndicator />
         ) : (

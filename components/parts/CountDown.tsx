@@ -15,7 +15,7 @@ const CountDown = ({ time, route, message }: CountDownProps) => {
     if (countdown === null) return
 
     if (countdown === 0) {
-      router.replace(route)
+      router.push(route)
     } else {
       const timer = setTimeout(() => {
         setCountdown((prev) => prev - 1)

@@ -43,7 +43,7 @@ const StoreFormContents = ({ store }: StoreFormContentsProps) => {
   const router = useRouter()
 
   const navigateToMyStore = () => {
-    router.replace(`/screens/(seller)/my-store/myStore?storeId=${store.id}`)
+    router.push(`/screens/(seller)/my-store/myStore?storeId=${store.id}`)
   }
 
   return (
