@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export const useGetStoreById = ({ id }: StoreIdRequest) => {
   return useQuery({
-    queryKey: ['stores', id],
+    queryKey: ['store', id],
     queryFn: () => getStoreById({ id }),
     enabled: !!id,
   })
