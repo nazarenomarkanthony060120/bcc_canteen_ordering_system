@@ -32,7 +32,7 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
             renderItem={({ item }) => <MyStoreFormContents food={item} />}
             keyExtractor={(item) => item.id}
             estimatedItemSize={100}
-            ItemSeparatorComponent={() => <View className="h-4" />}
+            ItemSeparatorComponent={() => <View className="h-2" />}
             showsVerticalScrollIndicator={false}
           />
         )}
