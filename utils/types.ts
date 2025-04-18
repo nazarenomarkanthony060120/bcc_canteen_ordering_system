@@ -87,6 +87,7 @@ export enum FoodType {
   MEAT = 'Meat',
   SNACKS = 'Snacks',
   DRINKS = 'Drinks',
+  RICE = 'Rice',
   OTHER = 'Other',
 }
 

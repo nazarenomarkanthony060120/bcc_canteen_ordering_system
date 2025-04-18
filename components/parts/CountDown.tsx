@@ -26,7 +26,7 @@ const CountDown = ({ time, route, message }: CountDownProps) => {
   }, [countdown])
   return (
     <View className="items-center pt-5">
-      <Text className="text-xl text-emerald-800">
+      <Text className="text-lg text-emerald-800">
         {message} - {countdown}
       </Text>
     </View>

@@ -6,5 +6,6 @@ export const useFetchFoodById = ({ id }: StoreIdRequest) => {
   return useQuery<Food[]>({
     queryKey: ['food', id],
     queryFn: () => fetchFoodByStoreId({ id }),
+    enabled: !!id,
   })
 }

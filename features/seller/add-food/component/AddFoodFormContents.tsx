@@ -92,10 +92,11 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
               FoodType.MEAT,
               FoodType.SNACKS,
               FoodType.VEGETABLE,
+              FoodType.RICE,
               FoodType.OTHER,
             ].includes(value)
               ? true
-              : 'Type must be one of: Drink, Fruits, Meat, Snacks, Vegetable, Other',
+              : 'Type must be one of: Rice, Drink, Fruits, Meat, Snacks, Vegetable, Other',
         }}
         render={({ field: { onChange, value } }) => (
           <Input
