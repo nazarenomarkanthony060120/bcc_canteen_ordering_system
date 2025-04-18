@@ -1,11 +1,5 @@
 import { FieldValue } from 'firebase/firestore'
 
-export type ResponseType = {
-  success: boolean
-  data?: any
-  msg?: string
-}
-
 export type LoginRequest = {
   email: string
   password: string
@@ -79,6 +73,16 @@ export type Food = {
   updatedAt: FieldValue
 }
 
+export type User = {
+  id: string
+  type: UserType
+  name: string
+  status: UserKYCStatus
+  createdAt: FieldValue
+  updatedAt: FieldValue
+  email: string
+}
+
 // Enum Decleared
 
 export enum FoodType {
@@ -113,6 +117,14 @@ export enum StoreStatus {
 }
 
 export enum StoreStatusText {
+  APPLIED = 'Applied',
+  PENDING = 'Pending',
+  APPROVED = 'Approved',
+  REJECTED = 'Rejected',
+  UNKWON = 'Unknown',
+}
+
+export enum UserKYCStatusText {
   APPLIED = 'Applied',
   PENDING = 'Pending',
   APPROVED = 'Approved',

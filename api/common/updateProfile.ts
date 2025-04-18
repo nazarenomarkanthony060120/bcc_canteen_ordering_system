@@ -14,7 +14,7 @@ export const updateProfile = async (
     phoneNumber: data.phoneNumber,
     address: data.address,
     birthDate: data.birthDate,
-    status: 1,
+    status: data.status,
     updatedAt: serverTimestamp(),
   }
 
