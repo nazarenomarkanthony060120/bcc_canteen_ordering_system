@@ -1,5 +1,9 @@
 import React from 'react'
-import { AntDesign, MaterialIcons } from '@expo/vector-icons'
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from '@expo/vector-icons'
 
 export const Icons = {
   dashboard: (props: any) => <AntDesign name="home" size={24} {...props} />,
@@ -8,4 +12,7 @@ export const Icons = {
     <MaterialIcons name="storefront" size={24} {...props} />
   ),
   cart: (props: any) => <AntDesign name="shoppingcart" size={24} {...props} />,
+  members: (props: any) => (
+    <MaterialCommunityIcons name="account-group-outline" size={24} {...props} />
+  ),
 }

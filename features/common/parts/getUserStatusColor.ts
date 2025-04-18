@@ -1,0 +1,16 @@
+import { UserKYCStatus } from '@/utils/types'
+
+export const getUserStatusColor = (status: number) => {
+  switch (status) {
+    case UserKYCStatus.APPLIED:
+      return { color: '#00f' }
+    case UserKYCStatus.PENDING:
+      return { color: '#ff0' }
+    case UserKYCStatus.APPROVED:
+      return { color: '#17bf41' }
+    case UserKYCStatus.REJECTED:
+      return { color: '#f00' }
+    default:
+      return { color: '#000' }
+  }
+}

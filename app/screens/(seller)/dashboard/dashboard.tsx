@@ -1,5 +1,5 @@
+import Dashboard from '@/features/common/components/dashboard/Dashboard'
 import React from 'react'
-import Dashboard from '@/features/seller/dashboard/Dashboard'
 
 const DashboardPage = () => {
   return <Dashboard />

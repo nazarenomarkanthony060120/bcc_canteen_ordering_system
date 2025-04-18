@@ -1,12 +1,8 @@
-import { View, Text } from 'react-native'
+import Profile from '@/features/admin/profile/Profile'
 import React from 'react'
 
-const ProfilePage = () => {
-  return (
-    <View>
-      <Text>ProfilePage</Text>
-    </View>
-  )
+const profilePage = () => {
+  return <Profile />
 }
 
-export default ProfilePage
+export default profilePage

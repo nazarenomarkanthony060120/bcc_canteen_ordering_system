@@ -77,10 +77,10 @@ export type User = {
   id: string
   type: UserType
   name: string
+  email: string
   status: UserKYCStatus
   createdAt: FieldValue
   updatedAt: FieldValue
-  email: string
 }
 
 // Enum Decleared

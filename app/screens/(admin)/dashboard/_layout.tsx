@@ -9,8 +9,9 @@ const _layout = () => {
       screenOptions={{ headerShown: false }}
     >
       <Tabs.Screen name="dashboard" options={{ title: 'Home' }} />
-      <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
       <Tabs.Screen name="cart" options={{ title: 'Cart' }} />
+      <Tabs.Screen name="members" options={{ title: 'Members' }} />
+      <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
     </Tabs>
   )
 }

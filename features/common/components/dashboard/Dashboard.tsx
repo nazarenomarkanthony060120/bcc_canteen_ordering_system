@@ -1,14 +1,14 @@
 import React from 'react'
-import Seller from '../Seller'
 import DashboardSearch from './components/DashboardSearch'
 import DashboardFormCard from './components/DashboardFormCard'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Dashboard = () => {
   return (
-    <Seller className="flex-1 bg-slate-900 justify-between">
+    <SafeAreaView className="flex-1 bg-slate-900 justify-between">
       <DashboardSearch />
       <DashboardFormCard />
-    </Seller>
+    </SafeAreaView>
   )
 }
 
