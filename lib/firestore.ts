@@ -13,6 +13,8 @@ import {
   getDoc,
   serverTimestamp,
   FieldValue,
+  orderBy,
+  limit,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -42,4 +44,6 @@ export {
   onAuthStateChanged,
   User,
   FieldValue,
+  orderBy,
+  limit,
 }

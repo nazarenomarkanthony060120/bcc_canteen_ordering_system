@@ -5,7 +5,7 @@ import { Store, UserIdRequest } from '@/utils/types'
 export const fetchStoreById = async ({ id }: UserIdRequest) => {
   if (!id) throw new Error('User ID is required')
 
-  const q = query(collection(db, 'stores'), where('id', '==', id))
+  const q = query(collection(db, 'stores'), where('userId', '==', id))
   const querySnapshot = await getDocs(q)
 
   if (!querySnapshot.empty) {

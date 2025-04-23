@@ -3,6 +3,7 @@ import { CreateStore } from '@/utils/types'
 import { addDoc, collection } from 'firebase/firestore'
 
 export const createStore = async (data: CreateStore) => {
+  console.log(data)
   return await addDoc(collection(db, 'stores'), {
     userId: data.userId,
     store: data.store,

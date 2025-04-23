@@ -1,56 +1,22 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import React from 'react'
-import { CANTEEN_IMAGE } from '@/constants/image'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import ImageWrapper from '@/components/parts/Image'
-import Typo from '@/components/common/typo'
-import { AntDesign } from '@expo/vector-icons'
+import { Food } from '@/utils/types'
+import { FlashList } from '@shopify/flash-list'
+import PopularFoodItem from './PopularFoodItem'
 
-const FoodList = () => {
-  const data = [
-    { id: 1, name: 'Pizza', price: 200, stars: 3.4, icon: CANTEEN_IMAGE },
-    { id: 2, name: 'Cantoon', price: 20, stars: 3.4, icon: CANTEEN_IMAGE },
-    { id: 3, name: 'Bingka', price: 10, stars: 3.4, icon: CANTEEN_IMAGE },
-    { id: 4, name: 'Dinugoan', price: 15, stars: 3.4, icon: CANTEEN_IMAGE },
-    { id: 5, name: 'Spagetti', price: 25, stars: 3.4, icon: CANTEEN_IMAGE },
-    { id: 6, name: 'Sinigang', price: 60, stars: 3.4, icon: CANTEEN_IMAGE },
-  ]
-
+interface FoodListProps {
+  foods: Food[] | undefined
+}
+const FoodList = ({ foods }: FoodListProps) => {
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="flex-row flex-wrap justify-between">
-          {data.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              className="w-[47%] bg-gray-100 mb-4 rounded-xl gap-1 justify-center p-3"
-            >
-              <ImageWrapper
-                className="items-center"
-                source={item.icon}
-                style={{ height: 60, width: 100 }}
-              />
-              <View className="">
-                <Text className="text-sm mt-2 text-center">{item.name}</Text>
-                <View className="flex-row justify-between">
-                  <Text className="text-sm mt-2 text-center">
-                    Php: {item.price}
-                  </Text>
-                  <Text className="text-sm mt-2 text-center">Php:</Text>
-                </View>
-
-                <Typo
-                  className="text-sm mt-2"
-                  isNeed
-                  icon={<AntDesign name="star" size={16} color="yellow" />}
-                >
-                  {item.stars}
-                </Typo>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+    <SafeAreaView className="flex-1">
+      <View className="flex-row flex-wrap justify-between">
+        <FlashList
+          data={foods}
+          renderItem={({ item }) => <PopularFoodItem food={item} />}
+        />
+      </View>
     </SafeAreaView>
   )
 }

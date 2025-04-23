@@ -5,7 +5,7 @@ import InputSearch from '@/components/common/inputSearch'
 
 const DashboardSearch = () => {
   return (
-    <SafeAreaView className="p-5">
+    <SafeAreaView className="mb-5">
       <InputSearch
         className="text-center flex-1"
         placeholder="Search for restaurant and food"

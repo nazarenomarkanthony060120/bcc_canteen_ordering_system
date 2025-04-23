@@ -1,4 +1,5 @@
 import { FieldValue } from 'firebase/firestore'
+import { Field } from 'react-hook-form'
 
 export type LoginRequest = {
   email: string
@@ -62,17 +63,6 @@ export type AddFood = {
   description: string
 }
 
-export type Food = {
-  id: string
-  name: string
-  price: number
-  quantity: number
-  type: FoodType
-  description: string
-  createdAt: FieldValue
-  updatedAt: FieldValue
-}
-
 export type User = {
   id: string
   type: UserType
@@ -81,6 +71,19 @@ export type User = {
   status: UserKYCStatus
   createdAt: FieldValue
   updatedAt: FieldValue
+}
+
+export type Food = {
+  id: string
+  storeId: string
+  name: string
+  price: number
+  quantity: number
+  popularity: number
+  type: FoodType
+  description: string
+  createdAt: FieldValue
+  updatedAt: Field
 }
 
 // Enum Decleared

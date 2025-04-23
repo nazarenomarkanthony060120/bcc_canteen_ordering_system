@@ -1,26 +1,38 @@
-import { ActivityIndicator, Text } from 'react-native'
+import { ActivityIndicator, Text, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CategoryList from './component/CategoryList'
-import { useFetchAllStores } from '@/hooks/common/useFetchAllStores'
 import { FlashList } from '@shopify/flash-list'
+import { useFetchAllStores } from '@/hooks/common/useFetchAllStores'
+import Typo from '@/components/common/typo'
 
 const StoreCategory = () => {
   const { data: stores, isFetching } = useFetchAllStores()
-  return (
-    <SafeAreaView className="gap-2 pb-5">
-      <Text className="text-lg font-semibold">Stores</Text>
-      {isFetching ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
+
+  let content = <ActivityIndicator size="large" color="#0000ff" />
+  if (isFetching) {
+    content = <ActivityIndicator size="large" color="#0000ff" />
+  } else if (stores?.length == 0) {
+    content = <Typo>No Stores for today!.</Typo>
+  } else {
+    content = (
+      <View style={{ height: 100 }}>
         <FlashList
           data={stores}
+          horizontal
           renderItem={({ item }) => <CategoryList store={item} />}
           keyExtractor={(item) => item.id}
           estimatedItemSize={100}
-          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         />
-      )}
+      </View>
+    )
+  }
+
+  return (
+    <SafeAreaView className="gap-2">
+      <Text className="text-lg font-semibold">Stores</Text>
+      {content}
     </SafeAreaView>
   )
 }

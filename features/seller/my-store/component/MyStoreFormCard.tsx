@@ -6,6 +6,7 @@ import { Store } from '@/utils/types'
 import MyStoreFormContents from './MyStoreFormContents'
 import { useFetchFoodById } from '@/hooks/common/useFetchFoodByStoreId'
 import { FlashList } from '@shopify/flash-list'
+import Typo from '@/components/common/typo'
 
 interface MyStoreFormCardProps {
   store: Store | null | undefined
@@ -19,23 +20,30 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
     id: store?.id,
   })
 
+  let content = <ActivityIndicator size="large" color="#0000ff" />
+  if (isFetching) {
+    content = <ActivityIndicator size="large" color="#0000ff" />
+  } else if (foods?.length === 0) {
+    content = <Typo>You Don't have any foods yet.</Typo>
+  } else {
+    content = (
+      <FlashList
+        data={foods}
+        renderItem={({ item }) => <MyStoreFormContents food={item} />}
+        keyExtractor={(item) => item.id}
+        estimatedItemSize={100}
+        ItemSeparatorComponent={() => <View className="h-2" />}
+        showsVerticalScrollIndicator={false}
+      />
+    )
+  }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2">
         <MyStoreFormHeader store={store?.store} />
         <Text>{error?.stack}</Text>
-        {isFetching ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : (
-          <FlashList
-            data={foods}
-            renderItem={({ item }) => <MyStoreFormContents food={item} />}
-            keyExtractor={(item) => item.id}
-            estimatedItemSize={100}
-            ItemSeparatorComponent={() => <View className="h-2" />}
-            showsVerticalScrollIndicator={false}
-          />
-        )}
+        {content}
       </SafeAreaView>
     </ScrollView>
   )
