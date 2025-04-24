@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { Food } from '@/utils/types'
-import { FlashList } from '@shopify/flash-list'
+import { MasonryFlashList } from '@shopify/flash-list'
 import NewlyAddFoodItem from './NewlyAddFoodItem'
 
 interface NewAddFoodListProps {
@@ -11,12 +11,13 @@ interface NewAddFoodListProps {
 const NewAddFoodList = ({ foods }: NewAddFoodListProps) => {
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-row flex-wrap justify-between">
-        <FlashList
-          data={foods}
-          renderItem={({ item }) => <NewlyAddFoodItem food={item} />}
-        />
-      </View>
+      <MasonryFlashList
+        data={foods}
+        numColumns={2}
+        renderItem={({ item }) => <NewlyAddFoodItem food={item} />}
+        ItemSeparatorComponent={() => <View className="gap-2" />}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </SafeAreaView>
   )
 }

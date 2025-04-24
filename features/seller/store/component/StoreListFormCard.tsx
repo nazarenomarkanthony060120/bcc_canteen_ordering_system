@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import StoreFormContents from './StoreFormContents'
 import { Store } from '@/utils/types'
+import { MasonryFlashList } from '@shopify/flash-list'
 
 interface Props {
   stores: Store[] | undefined
@@ -12,9 +13,10 @@ const StoreListFormCard = ({ stores }: Props) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2 flex-1">
-        {stores?.map((store) => (
-          <StoreFormContents key={store.id} store={store} />
-        ))}
+        <MasonryFlashList
+          data={stores}
+          renderItem={({ item }) => <StoreFormContents store={item} />}
+        />
       </SafeAreaView>
     </ScrollView>
   )
