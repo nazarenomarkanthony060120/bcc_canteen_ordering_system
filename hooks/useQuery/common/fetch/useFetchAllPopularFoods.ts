@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export const useFetchAllPopularFoods = () => {
   return useQuery<Food[]>({
-    queryKey: ['popularFoods'],
+    queryKey: ['fetchAllPopularFoods'],
     queryFn: () => fetchAllPopularFoods(),
   })
 }

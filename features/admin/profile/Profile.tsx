@@ -5,12 +5,12 @@ import Admin from '../Admin'
 import ProfileHeader from './component/ProfileHeader'
 import ProfileFormCard from './component/ProfileFormCard'
 import ProfileFooter from './component/ProfileFooter'
-import { useFetchUserById } from '@/hooks/common/fetchUserById'
+import { useGetUserByUserId } from '@/hooks/common/useQuery/useGetUserByUserId'
 
 const Profile = () => {
   const auth = useAuth()
 
-  const { data: userData, isFetching } = useFetchUserById({
+  const { data: userData, isFetching } = useGetUserByUserId({
     id: auth.user?.uid,
   })
 

@@ -3,9 +3,9 @@ import { UserIdRequest } from '@/utils/types'
 import { useQuery } from '@tanstack/react-query'
 import { Store } from '@/utils/types'
 
-export const useFetchStoreById = ({ id }: UserIdRequest) => {
+export const useFetchStoreByUserId = ({ id }: UserIdRequest) => {
   return useQuery<Store[]>({
-    queryKey: ['store', id],
+    queryKey: ['fetchStoreById', id],
     queryFn: () => fetchStoreById({ id }),
   })
 }

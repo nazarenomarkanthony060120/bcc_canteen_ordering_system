@@ -7,8 +7,8 @@ import Error from '@/components/parts/Error'
 import { ScrollView } from 'react-native'
 import AddFoodFormHeader from './AddFoodFormHeader'
 import AddFoodFormFooter from './AddFoodFormFooter'
-import { useSellerAddFood } from '@/hooks/seller/add-food/useSellerAddFood'
 import CountDown from '@/components/parts/CountDown'
+import { useSellerAddFood } from '@/hooks/useMutation/seller/add-food/useSellerAddFood'
 
 interface AddFoodFormCardProps {
   storeId: string | null

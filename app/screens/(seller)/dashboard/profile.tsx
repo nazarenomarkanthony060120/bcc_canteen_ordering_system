@@ -1,8 +1,8 @@
 import React from 'react'
 import Profile from '@/features/seller/profile/Profile'
 
-const profile = () => {
+const ProfileScreen = () => {
   return <Profile />
 }
 
-export default profile
+export default ProfileScreen

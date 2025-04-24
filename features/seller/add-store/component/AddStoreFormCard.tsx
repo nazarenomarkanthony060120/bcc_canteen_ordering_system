@@ -8,7 +8,7 @@ import Error from '@/components/parts/Error'
 import AddStoreFormHeader from './AddStoreFormHeader'
 import AddStoreFormFooter from './AddStoreFormFooter'
 import AddStoreFormContents from './AddStoreFormContents'
-import { useCreateStore } from '@/hooks/seller/store/useCreateStore'
+import { useCreateStore } from '@/hooks/seller/store/useMutation/useCreateStore'
 
 const AddStoreFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)

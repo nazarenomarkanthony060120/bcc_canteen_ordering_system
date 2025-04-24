@@ -6,13 +6,16 @@ import Typo from '@/components/common/typo'
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useAuth } from '@/context/auth'
-import { useFetchUserById } from '@/hooks/common/fetchUserById'
 import { UserKYCStatus } from '@/utils/types'
+import { useGetUserByUserId } from '@/hooks/common/useQuery/useGetUserByUserId'
+
 const NoStore = () => {
   const router = useRouter()
   const auth = useAuth()
 
-  const { data: userData, isLoading } = useFetchUserById({ id: auth.user?.uid })
+  const { data: userData, isLoading } = useGetUserByUserId({
+    id: auth.user?.uid,
+  })
   const userKYCStatus = userData?.status
 
   const navigateToAddStore = () => {

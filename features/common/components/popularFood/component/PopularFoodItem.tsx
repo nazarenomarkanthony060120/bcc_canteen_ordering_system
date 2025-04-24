@@ -5,16 +5,24 @@ import ImageWrapper from '@/components/parts/Image'
 import Typo from '@/components/common/typo'
 import { AntDesign } from '@expo/vector-icons'
 import { CANTEEN_IMAGE } from '@/constants/image'
+import { useRouter } from 'expo-router'
 
 interface PopularFoodItemProps {
   food: Food
 }
 
 const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
+  const router = useRouter()
+
+  const navigateToViewFood = () => {
+    router.push(`/screens/common/viewFood?foodId=${food.id}`)
+  }
+
   const popularity = food.popularity / 5
   return (
     <Pressable
       key={food.id}
+      onPress={navigateToViewFood}
       className="w-[95%] bg-gray-100 mb-4 rounded-xl gap-1 justify-center p-3"
     >
       <ImageWrapper

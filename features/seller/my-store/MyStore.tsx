@@ -4,14 +4,14 @@ import Seller from '../Seller'
 import MyStoreFormCard from './component/MyStoreFormCard'
 import MyStoreHeader from './component/MyStoreHeader'
 import MyStoreFooter from './component/MyStoreFooter'
-import { useGetStoreById } from '@/hooks/common/getStoreById'
+import { useGetStoreByStoreId } from '@/hooks/common/useQuery/useGetStoreByStoreId'
 
 interface MyStoreProps {
   params: URLSearchParams
 }
 const MyStore = ({ params }: MyStoreProps) => {
   const storeId = params.get('storeId')
-  const { data: storeData, isLoading } = useGetStoreById({
+  const { data: storeData, isLoading } = useGetStoreByStoreId({
     id: storeId,
   })
 

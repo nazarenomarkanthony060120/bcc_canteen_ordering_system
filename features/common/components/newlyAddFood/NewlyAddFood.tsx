@@ -2,7 +2,7 @@ import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import NewAddFoodList from './component/NewAddFoodList'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useFetchNewlyAddedFoods } from '@/hooks/common/useFetchNewlyAddedFoods'
+import { useFetchNewlyAddedFoods } from '@/hooks/common/useQuery/useFetchNewlyAddedFoods'
 import Typo from '@/components/common/typo'
 
 const NewlyAddFood = () => {

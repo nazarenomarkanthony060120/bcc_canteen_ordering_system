@@ -1,8 +1,8 @@
 import React from 'react'
 import AddStore from '@/features/seller/add-store/AddStore'
 
-const addStore = () => {
+const addStoreScreen = () => {
   return <AddStore />
 }
 
-export default addStore
+export default addStoreScreen

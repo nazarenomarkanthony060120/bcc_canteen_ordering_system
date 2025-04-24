@@ -2,7 +2,7 @@ import { db } from '@/lib/firestore'
 import { doc, getDoc } from 'firebase/firestore'
 import { Store, StoreIdRequest } from '@/utils/types'
 
-export const getStoreById = async ({
+export const getStoreByStoreId = async ({
   id,
 }: StoreIdRequest): Promise<Store | null> => {
   if (!id) throw new Error('Store ID is required')

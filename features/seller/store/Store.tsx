@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Seller from '../Seller'
 import NoStore from './component/NoStore'
 import { useAuth } from '@/context/auth'
-import { useFetchStoreById } from '@/hooks/common/fetchStoreById'
+import { useFetchStoreByUserId } from '@/hooks/common/useQuery/useFetchStoreByUserId'
 import StoreListFormCard from './component/StoreListFormCard'
 import StoreHeader from './component/StoreHeader'
 import StoreFooter from './component/StoreFooter'
@@ -16,7 +16,7 @@ const Store = () => {
     data: storeData,
     isLoading,
     refetch,
-  } = useFetchStoreById({
+  } = useFetchStoreByUserId({
     id: auth.user?.uid,
   })
 

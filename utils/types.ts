@@ -23,6 +23,10 @@ export type StoreIdRequest = {
   id: string | null | undefined
 }
 
+export type FoodIdRequest = {
+  id: string | null | undefined
+}
+
 export type UserKYC = {
   id: string
   name: string

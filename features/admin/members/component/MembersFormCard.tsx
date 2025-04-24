@@ -1,11 +1,11 @@
 import { ActivityIndicator, ScrollView, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useFetchAllMembers } from '@/hooks/admin/members/useFetchAllMembers'
 import { FlashList } from '@shopify/flash-list'
 import MemberFormContents from './MemberFormContents'
 import { useAuth } from '@/context/auth'
 import MembersFormHeader from './MembersFormHeader'
+import { useFetchAllMembers } from '@/hooks/useQuery/admin/members/useFetchAllMembers'
 
 const MembersFormCard = () => {
   const auth = useAuth()

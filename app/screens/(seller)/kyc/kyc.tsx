@@ -1,8 +1,8 @@
 import React from 'react'
 import KYC from '@/features/seller/kyc/KYC'
 
-const kyc = () => {
+const KycScreen = () => {
   return <KYC />
 }
 
-export default kyc
+export default KycScreen

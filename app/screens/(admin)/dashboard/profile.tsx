@@ -1,8 +1,8 @@
 import Profile from '@/features/admin/profile/Profile'
 import React from 'react'
 
-const profilePage = () => {
+const ProfileScreen = () => {
   return <Profile />
 }
 
-export default profilePage
+export default ProfileScreen

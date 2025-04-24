@@ -1,8 +1,8 @@
 import React from 'react'
 import Members from '@/features/admin/members/Members'
 
-const members = () => {
+const MembersScreen = () => {
   return <Members />
 }
 
-export default members
+export default MembersScreen

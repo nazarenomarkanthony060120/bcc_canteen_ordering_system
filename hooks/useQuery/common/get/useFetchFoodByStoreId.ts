@@ -2,10 +2,9 @@ import { fetchFoodByStoreId } from '@/api/common/fetchFoodByStoreId'
 import { Food, StoreIdRequest } from '@/utils/types'
 import { useQuery } from '@tanstack/react-query'
 
-export const useFetchFoodById = ({ id }: StoreIdRequest) => {
+export const useFetchFoodByStoreId = ({ id }: StoreIdRequest) => {
   return useQuery<Food[]>({
-    queryKey: ['food', id],
+    queryKey: ['fetchFoodByStoreId', id],
     queryFn: () => fetchFoodByStoreId({ id }),
-    enabled: !!id,
   })
 }
