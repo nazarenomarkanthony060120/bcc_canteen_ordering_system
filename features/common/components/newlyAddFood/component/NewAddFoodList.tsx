@@ -11,7 +11,7 @@ interface NewAddFoodListProps {
 const NewAddFoodList = ({ foods }: NewAddFoodListProps) => {
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-row bg-red-500 flex-wrap justify-between">
+      <View className="flex-row flex-wrap justify-between">
         <FlashList
           data={foods}
           renderItem={({ item }) => <NewlyAddFoodItem food={item} />}

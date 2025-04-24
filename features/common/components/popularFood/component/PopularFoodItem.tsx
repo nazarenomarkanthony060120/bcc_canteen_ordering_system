@@ -11,6 +11,7 @@ interface PopularFoodItemProps {
 }
 
 const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
+  const popularity = food.popularity / 5
   return (
     <Pressable
       key={food.id}
@@ -33,7 +34,7 @@ const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
           isNeed
           icon={<AntDesign name="star" size={16} color="yellow" />}
         >
-          {food.popularity}
+          {popularity}
         </Typo>
       </View>
     </Pressable>

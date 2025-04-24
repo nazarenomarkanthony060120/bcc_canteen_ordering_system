@@ -1,30 +1,35 @@
 import { db } from '@/lib/firestore'
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  where,
-} from 'firebase/firestore'
-import { Food } from '@/utils/types'
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
+import { Food, StoreStatus } from '@/utils/types'
 
 export const fetchNewlyAddedFoods = async () => {
-  const q = query(collection(db, 'foods'), orderBy('createdAt', 'desc'))
-  const querySnapshot = await getDocs(q)
+  const storesQuery = query(
+    collection(db, 'stores'),
+    where('status', '==', StoreStatus.APPROVED),
+  )
+  const storesSnapshot = await getDocs(storesQuery)
+  const approvedStoreIds = storesSnapshot.docs.map((doc) => doc.id)
 
-  if (!querySnapshot.empty) {
-    return querySnapshot.docs.map((docSnap) => ({
-      id: docSnap.id,
-      storeId: docSnap.data().storeId,
-      name: docSnap.data().name,
-      price: docSnap.data().price,
-      quantity: docSnap.data().quantity,
-      popularity: docSnap.data().popularity,
-      description: docSnap.data().description,
-      createdAt: docSnap.data().createdAt,
-      updatedAt: docSnap.data().updatedAt,
-    })) as Food[]
+  const foodsQuery = query(
+    collection(db, 'foods'),
+    orderBy('createdAt', 'desc'),
+  )
+  const foodsSnapshot = await getDocs(foodsQuery)
+
+  if (!foodsSnapshot.empty) {
+    return foodsSnapshot.docs
+      .filter((food) => approvedStoreIds.includes(food.data().id))
+      .map((docSnap) => ({
+        id: docSnap.id,
+        storeId: docSnap.data().id,
+        name: docSnap.data().name,
+        price: docSnap.data().price,
+        quantity: docSnap.data().quantity,
+        popularity: docSnap.data().popularity,
+        description: docSnap.data().description,
+        createdAt: docSnap.data().createdAt,
+        updatedAt: docSnap.data().updatedAt,
+      })) as Food[]
   }
 
   return []
