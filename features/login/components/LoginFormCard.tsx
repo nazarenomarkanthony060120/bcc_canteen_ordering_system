@@ -1,6 +1,5 @@
 import React from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
-import { useLogin } from '@/hooks/login'
 import { LoginRequest } from '@/utils/types'
 import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
@@ -10,6 +9,7 @@ import LoginFormContents from './LoginFormContents'
 import LoginFormFooter from './LoginFormFooter'
 import { ScrollView } from 'react-native'
 import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
+import { useLogin } from '@/hooks/useMutation/login'
 
 const LoginController = () => {
   const { control, handleSubmit } = useForm()

@@ -4,9 +4,9 @@ import StoreCategory from '@/features/common/components/storeCategory/StoreCateg
 import PopularFood from '@/features/common/components/popularFood/PopularFood'
 import NewlyAddFood from '@/features/common/components/newlyAddFood/NewlyAddFood'
 import DashboardSearch from './DashboardSearch'
-import { useFetchAllStores } from '@/hooks/common/useQuery/useFetchAllStores'
-import { useFetchAllPopularFoods } from '@/hooks/common/useQuery/useFetchAllPopularFoods'
-import { useFetchNewlyAddedFoods } from '@/hooks/common/useQuery/useFetchNewlyAddedFoods'
+import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStores'
+import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
+import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
 
 const DashboardFormCard = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)

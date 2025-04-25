@@ -7,7 +7,7 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useAuth } from '@/context/auth'
 import { UserKYCStatus } from '@/utils/types'
-import { useGetUserByUserId } from '@/hooks/common/useQuery/useGetUserByUserId'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 
 const NoStore = () => {
   const router = useRouter()

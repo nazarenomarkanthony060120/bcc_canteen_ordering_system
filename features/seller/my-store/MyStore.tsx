@@ -4,7 +4,7 @@ import Seller from '../Seller'
 import MyStoreFormCard from './component/MyStoreFormCard'
 import MyStoreHeader from './component/MyStoreHeader'
 import MyStoreFooter from './component/MyStoreFooter'
-import { useGetStoreByStoreId } from '@/hooks/common/useQuery/useGetStoreByStoreId'
+import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
 
 interface MyStoreProps {
   params: URLSearchParams

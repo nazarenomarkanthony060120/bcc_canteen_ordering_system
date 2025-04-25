@@ -2,8 +2,8 @@ import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import NewAddFoodList from './component/NewAddFoodList'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useFetchNewlyAddedFoods } from '@/hooks/common/useQuery/useFetchNewlyAddedFoods'
 import Typo from '@/components/common/typo'
+import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
 
 const NewlyAddFood = () => {
   const { data: newlyAddedFood, isFetching } = useFetchNewlyAddedFoods()

@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
 import Button from '@/components/common/button'
 import Typo from '@/components/common/typo'
-import { useLogout } from '@/hooks/logout/useLogout'
+import { useLogout } from '@/hooks/useMutation/logout/useLogout'
 
 const ProfileFooter = () => {
   const { mutate: logout, error, isPending } = useLogout()

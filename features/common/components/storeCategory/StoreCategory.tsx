@@ -3,8 +3,8 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CategoryList from './component/CategoryList'
 import { FlashList } from '@shopify/flash-list'
-import { useFetchAllStores } from '@/hooks/common/useQuery/useFetchAllStores'
 import Typo from '@/components/common/typo'
+import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStores'
 
 const StoreCategory = () => {
   const { data: stores, isFetching } = useFetchAllStores()

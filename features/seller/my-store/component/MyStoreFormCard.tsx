@@ -4,9 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native'
 import { Store } from '@/utils/types'
 import MyStoreFormContents from './MyStoreFormContents'
-import { useFetchFoodByStoreId } from '@/hooks/common/useQuery/useFetchFoodByStoreId'
 import { FlashList } from '@shopify/flash-list'
 import Typo from '@/components/common/typo'
+import { useFetchFoodByStoreId } from '@/hooks/useQuery/common/get/useFetchFoodByStoreId'
 
 interface MyStoreFormCardProps {
   store: Store | null | undefined

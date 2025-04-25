@@ -6,10 +6,10 @@ import { UserKYC } from '@/utils/types'
 import KYCFormContents from './KYCFormContents'
 import { ScrollView } from 'react-native'
 import KYCFormFooter from './KYCFormFooter'
-import { useUserKYCRegister } from '@/hooks/common/useMutation/useUserKYCRegister'
 import Error from '@/components/parts/Error'
 import { useAuth } from '@/context/auth'
 import CountDown from '@/components/parts/CountDown'
+import { useUserKYCRegister } from '@/hooks/useMutation/common/useUserKYCRegister'
 
 const KYCFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)

@@ -1,8 +1,8 @@
 import { Text, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import FoodList from './component/FoodList'
-import { useFetchAllPopularFoods } from '@/hooks/common/useQuery/useFetchAllPopularFoods'
 import Typo from '@/components/common/typo'
+import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
 
 const PopularFood = () => {
   const { data: popularFood, isFetching } = useFetchAllPopularFoods()

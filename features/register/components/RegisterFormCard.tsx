@@ -6,9 +6,9 @@ import RegisterFormFooter from './RegisterFormFooter'
 import { RegisterRequest } from '@/utils/types'
 import RegisterFormHeader from './RegisterFormHeader'
 import Error from '@/components/parts/Error'
-import { ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import CountDown from '@/components/parts/CountDown'
-import { userRegister } from '@/hooks/register/useMutation'
+import { userRegister } from '@/hooks/useMutation/register'
 
 const RegisterFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)

@@ -5,7 +5,7 @@ import Admin from '../Admin'
 import ProfileHeader from './component/ProfileHeader'
 import ProfileFormCard from './component/ProfileFormCard'
 import ProfileFooter from './component/ProfileFooter'
-import { useGetUserByUserId } from '@/hooks/common/useQuery/useGetUserByUserId'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 
 const Profile = () => {
   const auth = useAuth()

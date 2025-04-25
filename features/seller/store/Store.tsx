@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import Seller from '../Seller'
 import NoStore from './component/NoStore'
 import { useAuth } from '@/context/auth'
-import { useFetchStoreByUserId } from '@/hooks/common/useQuery/useFetchStoreByUserId'
 import StoreListFormCard from './component/StoreListFormCard'
 import StoreHeader from './component/StoreHeader'
 import StoreFooter from './component/StoreFooter'
+import { useFetchStoreByUserId } from '@/hooks/useQuery/common/fetch/useFetchStoreByUserId'
 
 const Store = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
