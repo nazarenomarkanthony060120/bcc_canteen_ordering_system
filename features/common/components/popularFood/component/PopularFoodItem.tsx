@@ -23,7 +23,7 @@ const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
     <Pressable
       key={food.id}
       onPress={navigateToViewFood}
-      className="w-[95%] bg-gray-100 mb-4 rounded-xl gap-1 justify-center p-3"
+      className="w-[95%] h-fit bg-gray-100 mb-4 rounded-xl gap-1 justify-center p-3"
     >
       <ImageWrapper
         className="items-center"

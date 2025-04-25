@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native'
 import React from 'react'
-import ProtectedRoutes from '@/components/parts/ProtectedRoutes'
+import ScreenLayout from '@/features/common/components/screenLayout/ScreenLayout'
 
 interface SellerLayoutProps {
   children: React.ReactNode
@@ -9,9 +9,9 @@ interface SellerLayoutProps {
 
 const SellerLayout = ({ children, className }: SellerLayoutProps) => {
   return (
-    <ProtectedRoutes>
+    <ScreenLayout>
       <SafeAreaView className={className}>{children}</SafeAreaView>
-    </ProtectedRoutes>
+    </ScreenLayout>
   )
 }
 

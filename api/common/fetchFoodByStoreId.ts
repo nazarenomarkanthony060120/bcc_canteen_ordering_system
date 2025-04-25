@@ -3,7 +3,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 import { Food, StoreIdRequest } from '@/utils/types'
 
 export const fetchFoodByStoreId = async ({ id }: StoreIdRequest) => {
-  console.log(`ohyeah id ni sa store ${id}`)
   if (!id) throw new Error('Store ID is required')
 
   const q = query(collection(db, 'foods'), where('id', '==', id))

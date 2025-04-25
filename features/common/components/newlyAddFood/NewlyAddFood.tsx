@@ -1,9 +1,10 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import NewAddFoodList from './component/NewAddFoodList'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Typo from '@/components/common/typo'
 import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
+import ScreenLayout from '../screenLayout/ScreenLayout'
 
 const NewlyAddFood = () => {
   const { data: newlyAddedFood, isFetching } = useFetchNewlyAddedFoods()
@@ -18,10 +19,12 @@ const NewlyAddFood = () => {
   }
 
   return (
-    <SafeAreaView className="gap-3 mb-28">
-      <Text className="text-lg font-bold">Newly Added Foods</Text>
-      {content}
-    </SafeAreaView>
+    <ScreenLayout>
+      <SafeAreaView className="gap-3 mb-28">
+        <Text className="text-lg font-bold">Newly Added Foods</Text>
+        {content}
+      </SafeAreaView>
+    </ScreenLayout>
   )
 }
 

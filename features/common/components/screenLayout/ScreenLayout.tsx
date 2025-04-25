@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { AuthGuard } from '@/components/parts/AuthGaurd'
 import React from 'react'
 
 interface ScreenLayoutProps {
@@ -6,12 +6,7 @@ interface ScreenLayoutProps {
 }
 
 const ScreenLayout = ({ children }: ScreenLayoutProps) => {
-  return (
-    <View>
-      <Text>ScreenLayout</Text>
-      {children}
-    </View>
-  )
+  return <AuthGuard>{children}</AuthGuard>
 }
 
 export default ScreenLayout

@@ -14,6 +14,7 @@ const FoodList = ({ foods }: FoodListProps) => {
       <MasonryFlashList
         data={foods}
         numColumns={2}
+        estimatedItemSize={132}
         renderItem={({ item }) => <PopularFoodItem food={item} />}
         ItemSeparatorComponent={() => <View className="gap-2" />}
         keyExtractor={(item) => item.id.toString()}

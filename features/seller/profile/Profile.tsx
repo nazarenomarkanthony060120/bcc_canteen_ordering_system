@@ -1,4 +1,4 @@
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 import React from 'react'
 import { useAuth } from '@/context/auth'
 import ProfileHeader from './component/ProfileHeader'
@@ -6,17 +6,26 @@ import Seller from '../Seller'
 import ProfileFormCard from './component/ProfileFormCard'
 import ProfileFooter from './component/ProfileFooter'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { AuthGuard } from '@/components/parts/AuthGaurd'
+import Typo from '@/components/common/typo'
 
 const Profile = () => {
-  const auth = useAuth()
+  const { user } = useAuth()
 
   const { data: userData, isFetching } = useGetUserByUserId({
-    id: auth.user?.uid,
+    id: user?.uid,
   })
 
   let content = <ActivityIndicator size="large" color="#0000ff" />
   if (isFetching) {
-    content = <ActivityIndicator size="large" color="#0000ff" />
+    content = (
+      <>
+        <View className="flex-1 justify-center items-center">
+          <ActivityIndicator size="large" color="#fff" />
+          <Typo className="text-white">Loading</Typo>
+        </View>
+      </>
+    )
   } else {
     content = (
       <>
@@ -26,10 +35,13 @@ const Profile = () => {
       </>
     )
   }
+
   return (
-    <Seller className="flex-1 bg-slate-800 justify-between p-5">
-      {content}
-    </Seller>
+    <AuthGuard>
+      <Seller className="flex-1 bg-slate-800 justify-between p-5">
+        {content}
+      </Seller>
+    </AuthGuard>
   )
 }
 

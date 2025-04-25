@@ -14,8 +14,9 @@ const NewAddFoodList = ({ foods }: NewAddFoodListProps) => {
       <MasonryFlashList
         data={foods}
         numColumns={2}
+        estimatedItemSize={100}
         renderItem={({ item }) => <NewlyAddFoodItem food={item} />}
-        ItemSeparatorComponent={() => <View className="gap-2" />}
+        ItemSeparatorComponent={() => <View className="gap-5" />}
         keyExtractor={(item) => item.id.toString()}
       />
     </SafeAreaView>

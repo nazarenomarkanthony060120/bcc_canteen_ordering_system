@@ -15,6 +15,7 @@ const StoreListFormCard = ({ stores }: Props) => {
       <SafeAreaView className="gap-2 flex-1">
         <MasonryFlashList
           data={stores}
+          estimatedItemSize={132}
           renderItem={({ item }) => <StoreFormContents store={item} />}
         />
       </SafeAreaView>

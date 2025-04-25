@@ -4,7 +4,7 @@ import { useSearchParams } from 'expo-router/build/hooks'
 
 const ViewFoodScreen = () => {
   const param = useSearchParams()
-  return <ViewFood />
+  return <ViewFood params={param} />
 }
 
 export default ViewFoodScreen
