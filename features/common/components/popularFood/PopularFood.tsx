@@ -8,20 +8,14 @@ import ScreenLayout from '../screenLayout/ScreenLayout'
 const PopularFood = () => {
   const { data: popularFood, isFetching } = useFetchAllPopularFoods()
 
-  let content = <ActivityIndicator size="large" color="#0000ff" />
-  if (isFetching) {
-    content = <ActivityIndicator size="large" color="#0000ff" />
-  } else if (popularFood?.length == 0) {
-    content = <Typo>No popular food for today!</Typo>
-  } else {
-    content = <FoodList foods={popularFood} />
-  }
+  if (isFetching) return <ActivityIndicator size="large" color="#0000ff" />
+  if (popularFood?.length == 0) return <Typo>No popular food for today!</Typo>
 
   return (
     <ScreenLayout>
       <SafeAreaView className="gap-3 pb-5">
         <Text className="text-lg font-semibold">Popular Foods</Text>
-        {content}
+        <FoodList key={popularFood?.length} foods={popularFood} />
       </SafeAreaView>
     </ScreenLayout>
   )

@@ -20,7 +20,7 @@ export const getFoodByFoodId = async ({
       price: data.price,
       description: data.description,
       popularity: data.popularity,
-      storeId: data.storeId,
+      storeId: data.id,
       type: data.type,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,

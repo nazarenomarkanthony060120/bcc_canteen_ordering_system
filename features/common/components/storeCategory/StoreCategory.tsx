@@ -10,9 +10,8 @@ import ScreenLayout from '../screenLayout/ScreenLayout'
 const StoreCategory = () => {
   const { data: stores, isFetching } = useFetchAllStores()
 
-  let content = <ActivityIndicator size="large" color="#0000ff" />
-  if (isFetching) {
-    content = (
+  if (isFetching)
+    return (
       <>
         <View className="flex-1 justify-center items-center">
           <ActivityIndicator size="large" color="#0000ff" />
@@ -20,28 +19,22 @@ const StoreCategory = () => {
         </View>
       </>
     )
-  } else if (stores?.length == 0) {
-    content = <Typo>No Stores for today!.</Typo>
-  } else {
-    content = (
-      <View style={{ height: 100 }}>
-        <FlashList
-          data={stores}
-          horizontal
-          renderItem={({ item }) => <CategoryList store={item} />}
-          keyExtractor={(item) => item.id}
-          estimatedItemSize={100}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
-    )
-  }
+  if (stores?.length == 0) return <Typo>No Stores for today!.</Typo>
 
   return (
     <ScreenLayout>
       <SafeAreaView className="gap-2">
         <Text className="text-lg font-semibold">Stores</Text>
-        {content}
+        <View style={{ height: 100 }}>
+          <FlashList
+            horizontal
+            data={stores}
+            estimatedItemSize={136}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <CategoryList store={item} />}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
       </SafeAreaView>
     </ScreenLayout>
   )

@@ -5,14 +5,21 @@ import ImageWrapper from '@/components/parts/Image'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Typo from '@/components/common/typo'
 import { CANTEEN_IMAGE } from '@/constants/image'
+import { useRouter } from 'expo-router'
 
 interface NewlyAddFoodItemProps {
   food: Food
 }
 const NewlyAddFoodItem = ({ food }: NewlyAddFoodItemProps) => {
+  const router = useRouter()
+
+  const navigateToViewFood = () => {
+    router.push(`/screens/common/viewFood?foodId=${food.id}`)
+  }
   return (
     <Pressable
       key={food.id}
+      onPress={navigateToViewFood}
       className="w-[95%] h-fit bg-gray-100 mb-4 rounded-xl gap-1 justify-center p-3"
     >
       <ImageWrapper

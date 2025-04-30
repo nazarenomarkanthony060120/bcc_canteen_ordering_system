@@ -9,20 +9,14 @@ import ScreenLayout from '../screenLayout/ScreenLayout'
 const NewlyAddFood = () => {
   const { data: newlyAddedFood, isFetching } = useFetchNewlyAddedFoods()
 
-  let content = <ActivityIndicator size="large" color="#0000ff" />
-  if (isFetching) {
-    content = <ActivityIndicator size="large" color="#0000ff" />
-  } else if (newlyAddedFood?.length == 0) {
-    content = <Typo>No Newly Food Added!.</Typo>
-  } else {
-    content = <NewAddFoodList foods={newlyAddedFood} />
-  }
+  if (isFetching) return <ActivityIndicator size="large" color="#0000ff" />
+  if (newlyAddedFood?.length == 0) return <Typo>No Newly Food Added!.</Typo>
 
   return (
     <ScreenLayout>
       <SafeAreaView className="gap-3 mb-28">
         <Text className="text-lg font-bold">Newly Added Foods</Text>
-        {content}
+        <NewAddFoodList foods={newlyAddedFood} />
       </SafeAreaView>
     </ScreenLayout>
   )
