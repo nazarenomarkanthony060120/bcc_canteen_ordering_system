@@ -1,4 +1,3 @@
-import { View } from 'react-native'
 import React from 'react'
 import { Food } from '@/utils/types'
 import { MasonryFlashList } from '@shopify/flash-list'
