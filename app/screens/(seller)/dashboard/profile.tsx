@@ -1,5 +1,5 @@
+import Profile from '@/features/common/components/profile/Profile'
 import React from 'react'
-import Profile from '@/features/seller/profile/Profile'
 
 const ProfileScreen = () => {
   return <Profile />

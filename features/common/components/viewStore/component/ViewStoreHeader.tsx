@@ -1,22 +1,21 @@
+import Button from '@/components/common/button'
+import Typo from '@/components/common/typo'
+import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Button from '@/components/common/button'
-import { Ionicons } from '@expo/vector-icons'
-import Typo from '@/components/common/typo'
-import { useRouter } from 'expo-router'
 
-const MyStoreHeader = () => {
+const ViewStoreHeader = () => {
   const router = useRouter()
 
-  const navigateToStore = () => {
-    router.push('/screens/(seller)/dashboard/store')
+  const navigateToBack = () => {
+    router.push('/screens/(seller)/dashboard/dashboard')
   }
-
   return (
     <SafeAreaView className="p-5">
       <Button
         className="w-44 flex-row items-center gap-2"
-        onPress={navigateToStore}
+        onPress={navigateToBack}
         icon={
           <Ionicons
             name="arrow-back"
@@ -32,4 +31,4 @@ const MyStoreHeader = () => {
   )
 }
 
-export default MyStoreHeader
+export default ViewStoreHeader

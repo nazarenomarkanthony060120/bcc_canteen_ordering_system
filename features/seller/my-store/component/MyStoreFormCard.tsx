@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native'
 import { Store } from '@/utils/types'
 import MyStoreFormContents from './MyStoreFormContents'
-import { FlashList } from '@shopify/flash-list'
+import { MasonryFlashList } from '@shopify/flash-list'
 import Typo from '@/components/common/typo'
 import { useFetchFoodByStoreId } from '@/hooks/useQuery/common/get/useFetchFoodByStoreId'
 
@@ -27,12 +27,11 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
     content = <Typo>You Don't have any foods yet.</Typo>
   } else {
     content = (
-      <FlashList
+      <MasonryFlashList
         data={foods}
         renderItem={({ item }) => <MyStoreFormContents food={item} />}
-        keyExtractor={(item) => item.id}
-        estimatedItemSize={100}
-        ItemSeparatorComponent={() => <View className="h-2" />}
+        keyExtractor={(item) => item.id.toString()}
+        estimatedItemSize={136}
         showsVerticalScrollIndicator={false}
       />
     )

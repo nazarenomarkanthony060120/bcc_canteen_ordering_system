@@ -6,6 +6,7 @@ import ImageWrapper from '@/components/parts/Image'
 import { SPLASH_ICON } from '@/constants/image'
 import Button from '@/components/common/button'
 import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
+import { getRatingFromPopularity } from '@/features/common/parts/getFoodPopularity'
 
 interface ViewFoodFormCardProps {
   food: Food | null | undefined
@@ -60,7 +61,7 @@ const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
           icon={<AntDesign name="star" size={20} color={'#f7d320'} />}
         >
           <View className="flex-row gap-2">
-            <Typo>{food?.popularity}</Typo>
+            <Typo>{getRatingFromPopularity(food?.popularity ?? 0)}</Typo>
             <Typo>Like it!</Typo>
           </View>
         </Button>

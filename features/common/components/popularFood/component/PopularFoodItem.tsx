@@ -6,6 +6,7 @@ import Typo from '@/components/common/typo'
 import { AntDesign } from '@expo/vector-icons'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import { useRouter } from 'expo-router'
+import { getRatingFromPopularity } from '@/features/common/parts/getFoodPopularity'
 
 interface PopularFoodItemProps {
   food: Food
@@ -42,7 +43,7 @@ const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
           isNeed
           icon={<AntDesign name="star" size={16} color="yellow" />}
         >
-          {popularity}
+          {getRatingFromPopularity(popularity)}
         </Typo>
       </View>
     </Pressable>

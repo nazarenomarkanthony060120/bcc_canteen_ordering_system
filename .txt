@@ -22,3 +22,11 @@ npm install @react-native-picker/picker
 
 ## Run command
 npx expo start --tunnel
+
+
+
+## if error occured
+Error: Cannot find module '../lightningcss.win32-x64-msvc.node'
+download this 
+x64 - Latest Microsoft Visual C++ Redistributable Version
+https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170

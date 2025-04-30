@@ -5,30 +5,33 @@ import MyStoreFormCard from './component/MyStoreFormCard'
 import MyStoreHeader from './component/MyStoreHeader'
 import MyStoreFooter from './component/MyStoreFooter'
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
+import Typo from '@/components/common/typo'
 
 interface MyStoreProps {
   params: URLSearchParams
 }
+
 const MyStore = ({ params }: MyStoreProps) => {
   const storeId = params.get('storeId')
-  const { data: storeData, isLoading } = useGetStoreByStoreId({
+  const { data: storeData, isFetching } = useGetStoreByStoreId({
     id: storeId,
   })
 
-  return (
-    <Seller className="flex-1 justify-between bg-[#ccffcc] px-5">
-      {isLoading ? (
-        <View className="flex-1 items-center justify-center">
-          <Text>Loading...</Text>
-          <ActivityIndicator />
+  if (isFetching)
+    return (
+      <>
+        <View className="flex-1 justify-center items-center">
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Typo>Loading</Typo>
         </View>
-      ) : (
-        <>
-          <MyStoreHeader />
-          <MyStoreFormCard store={storeData} />
-          <MyStoreFooter storeId={storeId} />
-        </>
-      )}
+      </>
+    )
+
+  return (
+    <Seller className="flex-1 justify-between bg-[#ccffcc]">
+      <MyStoreHeader />
+      <MyStoreFormCard store={storeData} />
+      <MyStoreFooter storeId={storeId} />
     </Seller>
   )
 }

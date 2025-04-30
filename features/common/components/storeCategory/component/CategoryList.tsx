@@ -13,7 +13,7 @@ const CategoryList = ({ store }: CategoryListProps) => {
   const router = useRouter()
 
   const navigateToViewStore = () => {
-    router.push('/screens/common/viewStore')
+    router.push(`/screens/common/viewStore?storeId=${store.id}`)
   }
 
   return (

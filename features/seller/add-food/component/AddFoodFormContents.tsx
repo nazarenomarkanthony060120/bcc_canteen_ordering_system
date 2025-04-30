@@ -94,7 +94,7 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
               FoodType.VEGETABLE,
               FoodType.RICE,
               FoodType.OTHER,
-            ].includes(value)
+            ].includes(value.trim())
               ? true
               : 'Type must be one of: Rice, Drink, Fruits, Meat, Snacks, Vegetable, Other',
         }}

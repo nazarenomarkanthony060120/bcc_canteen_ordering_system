@@ -1,8 +1,10 @@
 import React from 'react'
 import ViewStore from '@/features/common/components/viewStore/ViewStore'
+import { useSearchParams } from 'expo-router/build/hooks'
 
 const ViewStoreScreen = () => {
-  return <ViewStore />
+  const params = useSearchParams()
+  return <ViewStore params={params} />
 }
 
 export default ViewStoreScreen

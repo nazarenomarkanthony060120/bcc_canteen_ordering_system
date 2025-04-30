@@ -16,7 +16,7 @@ const MyStoreFooter = ({ storeId }: MyStoreFooterProps) => {
   }
 
   return (
-    <SafeAreaView className="gap-3 mb-10">
+    <SafeAreaView className="gap-3 px-5 py-2">
       <Button
         className="bg-cyan-400 items-center rounded-3xl p-5"
         onPress={navigateToAddFood}
