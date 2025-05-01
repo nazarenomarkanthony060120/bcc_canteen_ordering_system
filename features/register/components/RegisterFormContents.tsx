@@ -74,7 +74,7 @@ const RegisterFormContents = ({
               UserType.STUDENT,
               UserType.TEACHER,
               UserType.OUTSIDER,
-            ].includes(value)
+            ].includes(value.trim())
               ? true
               : 'Type must be one of: Seller, Student, Teacher, Outsider',
         }}
