@@ -6,3 +6,8 @@ export enum Collection {
 export enum System {
   SYSTEM = 'system',
 }
+
+export enum SystemHealth {
+  ALIVE = 'alive',
+  DEAD = 'dead',
+}
