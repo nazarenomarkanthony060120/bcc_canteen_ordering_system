@@ -6,8 +6,10 @@ import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
 import { SPLASH_ICON } from '@/constants/image'
 import Footer from '@/components/parts/Footer'
+import { useGetSystemHealth } from '@/hooks/useQuery/health/health'
 
 const index = () => {
+  const { data: health } = useGetSystemHealth()
   const router = useRouter()
 
   if (!router) return
@@ -18,6 +20,8 @@ const index = () => {
   const navigateToRegister = () => {
     router.navigate('/(auth)/register')
   }
+
+  console.log(health)
 
   return (
     <View className="flex-1 px-10 bg-[#ccffcc]">
