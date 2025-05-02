@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { StatusBar } from 'react-native'
 import { verifyInstallation } from 'nativewind'
 import { AuthProvider } from '@/context/auth'
+import HealthMiddleware from '../context/middleware'
 
 const client = new QueryClient()
 
@@ -14,8 +15,10 @@ const RootLayout = () => {
   return (
     <QueryClientProvider client={client}>
       <AuthProvider>
-        <Stack screenOptions={{ headerShown: false }} />
-        <StatusBar backgroundColor="black"></StatusBar>
+        <HealthMiddleware>
+          <Stack screenOptions={{ headerShown: false }} />
+        </HealthMiddleware>
+        <StatusBar backgroundColor="black" />
       </AuthProvider>
     </QueryClientProvider>
   )

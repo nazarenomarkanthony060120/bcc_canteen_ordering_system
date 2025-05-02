@@ -1,5 +1,6 @@
 import { SystemHealth } from '@/utils/collections'
 
 export const getSystemHealth = (status: String): Boolean => {
-  return status !== SystemHealth.ALIVE
+  console.log(`status ni ${status}`)
+  return status !== SystemHealth.DEAD
 }
