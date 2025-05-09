@@ -41,7 +41,13 @@ const LoginFormContents = ({ control }: LoginFormContentsProps) => {
       <Controller
         control={control}
         name="password"
-        rules={{ required: 'Password is required', minLength: 8 }}
+        rules={{
+          required: 'Password is required',
+          minLength: {
+            value: 8,
+            message: 'Password must be at least 8 characters',
+          },
+        }}
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3 placeholder:text-slate-400 '}

@@ -5,6 +5,5 @@ export const useGetSystemHealth = () => {
   return useQuery({
     queryKey: ['fetchSystemHealth'],
     queryFn: () => fetchSystemHealth(),
-    refetchInterval: 1000,
   })
 }

@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { SetStateAction, useState } from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
 import { LoginRequest } from '@/utils/types'
-import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
 import LoginFormHeader from './LoginFormHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,19 +9,34 @@ import LoginFormFooter from './LoginFormFooter'
 import { ScrollView } from 'react-native'
 import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
 import { useLogin } from '@/hooks/useMutation/login'
+import { getErrorMessage } from '@/features/common/parts/getErrorMessage'
+import Error from '@/components/parts/Error'
+import Typo from '@/components/common/typo'
 
+type AuthErrorType =
+  | String
+  | 'No account found with this email'
+  | 'Invalid password'
+  | 'Invalid email address'
 const LoginController = () => {
-  const { control, handleSubmit } = useForm()
-  const { mutate: login, error, isPending } = useLogin()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+  const { mutate: login, isPending } = useLogin()
+  const [authError, setAuthError] = useState<AuthErrorType>()
   const router = useRouter()
-
-  if (!router) return
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     login(data as LoginRequest, {
       onSuccess: (data) => {
         const route = getUserRoutes(data?.type)
         router.push(route)
+      },
+      onError: (error: Error) => {
+        const errorMessage = getErrorMessage(error.message)
+        setAuthError(errorMessage)
       },
     })
   }
@@ -37,10 +51,8 @@ const LoginController = () => {
           onSubmit={onSubmit}
           isPending={isPending}
         />
-
-        <Typo>
-          {error && <Typo className="text-red">{error.message}</Typo>}
-        </Typo>
+        {authError && <Typo className="text-red-500">{authError}</Typo>}
+        {Object.keys(errors).length > 0 && <Error errors={errors} />}
       </SafeAreaView>
     </ScrollView>
   )

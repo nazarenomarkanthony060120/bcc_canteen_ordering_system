@@ -3,7 +3,7 @@ import React from 'react'
 import { FieldErrors, FieldValues } from 'react-hook-form'
 
 interface ErrorProps {
-  errors: FieldErrors<FieldValues>
+  errors: FieldErrors<FieldValues> | String
 }
 
 const Error = ({ errors }: ErrorProps) => {
