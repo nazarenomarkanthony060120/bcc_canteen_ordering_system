@@ -13,7 +13,13 @@ const LoginFormContents = ({ control }: LoginFormContentsProps) => {
       <Controller
         control={control}
         name="email"
-        rules={{ required: 'Email is required' }}
+        rules={{
+          required: 'Email is required',
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Enter a valid email address',
+          },
+        }}
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3  placeholder:text-slate-400 '}
@@ -35,7 +41,7 @@ const LoginFormContents = ({ control }: LoginFormContentsProps) => {
       <Controller
         control={control}
         name="password"
-        rules={{ required: 'Password is required' }}
+        rules={{ required: 'Password is required', minLength: 8 }}
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3 placeholder:text-slate-400 '}

@@ -18,7 +18,7 @@ const HealthMiddleware = ({ children }: { children: React.ReactNode }) => {
     )
   }
 
-  if (result) return <TimeOut />
+  if (!result) return <TimeOut />
 
   return <>{children}</>
 }

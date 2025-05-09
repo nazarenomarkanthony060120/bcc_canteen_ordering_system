@@ -1,12 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import Cart from '@/features/common/components/cart/Cart'
 
 const CartScreen = () => {
-  return (
-    <View>
-      <Text>CartScreen Teacher</Text>
-    </View>
-  )
+  return <Cart />
 }
 
 export default CartScreen

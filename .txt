@@ -22,7 +22,7 @@ npm install @react-native-picker/picker
 
 ## Run command
 npx expo start --tunnel
-
+npx expo start --clear
 
 
 ## if error occured
