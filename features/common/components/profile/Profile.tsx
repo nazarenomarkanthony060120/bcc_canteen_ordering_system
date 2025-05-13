@@ -5,9 +5,9 @@ import ProfileHeader from './component/ProfileHeader'
 import ProfileFormCard from './component/ProfileFormCard'
 import ProfileFooter from './component/ProfileFooter'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
-import { AuthGuard } from '@/components/parts/AuthGaurd'
 import Typo from '@/components/common/typo'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import ScreenLayout from '../screenLayout/ScreenLayout'
 
 const Profile = () => {
   const { user } = useAuth()
@@ -16,32 +16,22 @@ const Profile = () => {
     id: user?.uid,
   })
 
-  let content = <ActivityIndicator size="large" color="#0000ff" />
-  if (isFetching) {
-    content = (
-      <>
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color="#fff" />
-          <Typo className="text-white">Loading</Typo>
-        </View>
-      </>
+  if (isFetching)
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" color="#fff" />
+        <Typo className="text-white">Loading</Typo>
+      </View>
     )
-  } else {
-    content = (
-      <>
+
+  return (
+    <ScreenLayout>
+      <SafeAreaView className="flex-1 bg-slate-800 justify-between p-5">
         <ProfileHeader />
         <ProfileFormCard user={userData} />
         <ProfileFooter />
-      </>
-    )
-  }
-
-  return (
-    <AuthGuard>
-      <SafeAreaView className="flex-1 bg-slate-800 justify-between p-5">
-        {content}
       </SafeAreaView>
-    </AuthGuard>
+    </ScreenLayout>
   )
 }
 
