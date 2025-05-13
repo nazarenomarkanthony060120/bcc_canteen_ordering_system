@@ -9,7 +9,6 @@ const HealthMiddleware = ({ children }: { children: React.ReactNode }) => {
   const { data: health, isFetching } = useGetSystemHealth()
   const result = getSystemHealth(health ?? SystemHealth.DEAD)
 
-  console.log({ result, health })
   if (isFetching) {
     return (
       <View className="flex-1 justify-center items-center">

@@ -1,6 +1,5 @@
 const INVALID_CREDENTIAL_ERROR = 'Firebase: Error (auth/invalid-credential).'
 export const getErrorMessage = (errorCode: String) => {
-  console.log(errorCode)
   switch (errorCode) {
     case 'auth/user-not-found':
       return 'No account found with this email'
