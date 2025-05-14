@@ -1,7 +1,6 @@
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
 import React from 'react'
 import { useAuth } from '@/context/auth'
-import ProfileHeader from './component/ProfileHeader'
 import ProfileFormCard from './component/ProfileFormCard'
 import ProfileFooter from './component/ProfileFooter'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
@@ -26,10 +25,11 @@ const Profile = () => {
 
   return (
     <ScreenLayout>
-      <SafeAreaView className="flex-1 bg-slate-800 justify-between p-5">
-        <ProfileHeader />
-        <ProfileFormCard user={userData} />
-        <ProfileFooter />
+      <SafeAreaView className="flex-1 bg-slate-800 justify-between">
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <ProfileFormCard user={userData} />
+          <ProfileFooter />
+        </ScrollView>
       </SafeAreaView>
     </ScreenLayout>
   )

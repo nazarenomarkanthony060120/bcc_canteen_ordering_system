@@ -10,7 +10,7 @@ interface UserDetailsFooterProps {
 
 const UserDetailsFooter = ({ userId }: UserDetailsFooterProps) => {
   return (
-    <View className="flex-row justify-between items-center">
+    <View className="flex-row justify-between items-center p-5">
       <Button
         className="w-44 flex-row items-center justify-center gap-2 rounded-lg bg-emerald-700"
         icon={

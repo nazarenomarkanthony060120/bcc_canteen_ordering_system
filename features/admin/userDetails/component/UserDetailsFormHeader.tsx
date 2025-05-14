@@ -1,11 +1,11 @@
 import React from 'react'
-import { useRouter } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '@/components/common/button'
 import { Ionicons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
+import { useRouter } from 'expo-router'
 
-const UserDetailsHeader = () => {
+const UserDetailsFormHeader = () => {
   const router = useRouter()
 
   const navigateToDashboard = () => {
@@ -26,10 +26,10 @@ const UserDetailsHeader = () => {
           />
         }
       >
-        <Typo>Back</Typo>
+        <Typo className="text-white">Back</Typo>
       </Button>
     </SafeAreaView>
   )
 }
 
-export default UserDetailsHeader
+export default UserDetailsFormHeader

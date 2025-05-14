@@ -1,17 +1,19 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { MaterialIcons, AntDesign, Ionicons } from '@expo/vector-icons'
 import { User } from '@/utils/types'
 import { getUserStatus } from '@/features/common/parts/getUserStatus'
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
 import { Timestamp } from 'firebase/firestore'
+import { useFetchStoreByUserId } from '@/hooks/useQuery/common/fetch/useFetchStoreByUserId'
 
-interface ProfileFormContentsProps {
+interface UserDetailsFormContentsProps {
   user: User | undefined
 }
 
-const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {
+const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
+  const { data: stores, isFetching } = useFetchStoreByUserId({ id: user?.id })
   if (!user) return null
 
   const infoList = [
@@ -19,6 +21,11 @@ const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {
       label: 'Email',
       value: user.email,
       icon: <MaterialIcons name="alternate-email" size={16} color="#4B5563" />,
+    },
+    {
+      label: 'Stores',
+      value: isFetching ? <ActivityIndicator /> : stores?.length || 0,
+      icon: <MaterialIcons name="numbers" size={16} color="#4B5563" />,
     },
     {
       label: 'Status',
@@ -52,4 +59,4 @@ const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {
   )
 }
 
-export default ProfileFormContents
+export default UserDetailsFormContents

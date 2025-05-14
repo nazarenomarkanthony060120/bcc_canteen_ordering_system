@@ -6,7 +6,7 @@ import MembersFormCard from './component/MembersFormCard'
 
 const Members = () => {
   return (
-    <Admin className="flex-1 bg-[#ccffcc] px-5">
+    <Admin className="flex-1 bg-[#ccffcc] px-2">
       <MembersHeader />
       <MembersFormCard />
     </Admin>
