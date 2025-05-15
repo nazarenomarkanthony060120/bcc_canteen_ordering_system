@@ -11,7 +11,7 @@ const FoodList = ({ foods }: FoodListProps) => {
     <MasonryFlashList
       data={foods}
       numColumns={2}
-      estimatedItemSize={136}
+      estimatedItemSize={140}
       renderItem={({ item }) => <PopularFoodItem food={item} />}
       keyExtractor={(item) => item.id.toString()}
     />

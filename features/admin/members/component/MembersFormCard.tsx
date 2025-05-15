@@ -1,4 +1,4 @@
-import { ActivityIndicator, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { FlashList } from '@shopify/flash-list'
@@ -6,6 +6,7 @@ import MemberFormContents from './MemberFormContents'
 import { useAuth } from '@/context/auth'
 import MembersFormHeader from './MembersFormHeader'
 import { useFetchAllMembers } from '@/hooks/useQuery/admin/members/useFetchAllMembers'
+import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 
 const MembersFormCard = () => {
   const auth = useAuth()
@@ -13,12 +14,7 @@ const MembersFormCard = () => {
     id: auth.user?.uid,
   })
 
-  if (isFetching)
-    return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    )
+  if (isFetching) return <LoadingIndicator />
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

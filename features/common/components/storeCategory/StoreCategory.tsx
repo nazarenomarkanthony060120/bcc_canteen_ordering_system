@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CategoryList from './component/CategoryList'
@@ -6,19 +6,12 @@ import { FlashList } from '@shopify/flash-list'
 import Typo from '@/components/common/typo'
 import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStores'
 import ScreenLayout from '../screenLayout/ScreenLayout'
+import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 
 const StoreCategory = () => {
   const { data: stores, isFetching } = useFetchAllStores()
 
-  if (isFetching)
-    return (
-      <>
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Typo>Loading</Typo>
-        </View>
-      </>
-    )
+  if (isFetching) return <LoadingIndicator />
   if (stores?.length == 0) return <Typo>No Stores for today!.</Typo>
 
   return (

@@ -1,15 +1,16 @@
-import { Text, ActivityIndicator } from 'react-native'
+import { Text } from 'react-native'
 import React from 'react'
 import NewAddFoodList from './component/NewAddFoodList'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Typo from '@/components/common/typo'
 import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
 import ScreenLayout from '../screenLayout/ScreenLayout'
+import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 
 const NewlyAddFood = () => {
   const { data: newlyAddedFood, isFetching } = useFetchNewlyAddedFoods()
 
-  if (isFetching) return <ActivityIndicator size="large" color="#0000ff" />
+  if (isFetching) return <LoadingIndicator />
   if (newlyAddedFood?.length == 0) return <Typo>No Newly Food Added!.</Typo>
 
   return (

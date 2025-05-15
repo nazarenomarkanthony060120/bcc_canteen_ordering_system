@@ -9,7 +9,7 @@ const UserDetailsFormHeader = () => {
   const router = useRouter()
 
   const navigateToDashboard = () => {
-    router.push('/screens/(admin)/dashboard/dashboard')
+    router.push('/screens/(admin)/dashboard/members')
   }
 
   return (

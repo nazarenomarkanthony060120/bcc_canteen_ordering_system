@@ -15,7 +15,7 @@ const ProfileFormCard = ({ user }: ProfileFormCardProps) => {
     <SafeAreaView className="gap-5">
       <View className="bg-blue-500 rounded-bl-3xl rounded-br-3xl p-5">
         <ProfileFormHeader />
-        <ProfileFormProfile name={user?.name} />
+        <ProfileFormProfile name={user?.name} managedId={user?.managedId} />
       </View>
       <ProfileFormContents user={user} />
     </SafeAreaView>

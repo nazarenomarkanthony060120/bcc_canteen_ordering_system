@@ -1,10 +1,4 @@
-import {
-  ScrollView,
-  SafeAreaView,
-  RefreshControl,
-  ActivityIndicator,
-  View,
-} from 'react-native'
+import { ScrollView, SafeAreaView, RefreshControl } from 'react-native'
 import React, { useState } from 'react'
 import StoreCategory from '@/features/common/components/storeCategory/StoreCategory'
 import PopularFood from '@/features/common/components/popularFood/PopularFood'
@@ -14,6 +8,7 @@ import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStor
 import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
 import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
 import Typo from '@/components/common/typo'
+import LoadingIndicator from '../../loadingIndicator/LoadingIndicator'
 
 const DashboardFormCard = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -30,25 +25,7 @@ const DashboardFormCard = () => {
     setIsRefreshing(false)
   }
 
-  let content = <ActivityIndicator size="large" color="#0000ff" />
-  if (isRefreshing) {
-    content = (
-      <>
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Typo>Loading</Typo>
-        </View>
-      </>
-    )
-  } else {
-    content = (
-      <>
-        <StoreCategory />
-        <PopularFood />
-        <NewlyAddFood />
-      </>
-    )
-  }
+  if (isRefreshing) return <LoadingIndicator />
 
   return (
     <SafeAreaView className="flex-1 bg-emerald-50">
@@ -60,7 +37,9 @@ const DashboardFormCard = () => {
         }
       >
         <DashboardSearch />
-        {content}
+        <StoreCategory />
+        <PopularFood />
+        <NewlyAddFood />
       </ScrollView>
     </SafeAreaView>
   )

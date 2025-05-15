@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useAuth } from '@/context/auth'
 import { useRouter } from 'expo-router'
-import { ActivityIndicator, View } from 'react-native'
+import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 
 interface AuthGuardProps {
   children: React.ReactNode
@@ -17,13 +17,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     }
   }, [user, loading, router])
 
-  if (loading) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    )
-  }
+  if (loading) return <LoadingIndicator />
 
   return user ? <>{children}</> : null
 }

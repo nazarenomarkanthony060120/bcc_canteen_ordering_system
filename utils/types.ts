@@ -78,6 +78,7 @@ export type AddFood = {
 
 export type User = {
   id: string
+  managedId: string
   type: UserType
   name: string
   email: string

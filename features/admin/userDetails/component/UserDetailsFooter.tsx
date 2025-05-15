@@ -1,4 +1,4 @@
-import { ActivityIndicator, View } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import Button from '@/components/common/button'
 import { AntDesign } from '@expo/vector-icons'
@@ -7,6 +7,7 @@ import { useApproveUser } from '@/hooks/useMutation/admin/useApproveUser'
 import { useRouter } from 'expo-router'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 import { UserKYCStatus } from '@/utils/types'
+import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 
 interface UserDetailsFooterProps {
   userId: string
@@ -32,7 +33,7 @@ const UserDetailsFooter = ({ userId }: UserDetailsFooterProps) => {
     )
   }
 
-  if (isPending) return <ActivityIndicator size="large" color="#0000ff" />
+  if (isPending) return <LoadingIndicator />
 
   if (user?.status === UserKYCStatus.PENDING)
     return (

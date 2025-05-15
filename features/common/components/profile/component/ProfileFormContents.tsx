@@ -6,6 +6,7 @@ import { User } from '@/utils/types'
 import { getUserStatus } from '@/features/common/parts/getUserStatus'
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
 import { Timestamp } from 'firebase/firestore'
+import { getUserStatusColor } from '@/features/common/parts/getUserStatusColor'
 
 interface ProfileFormContentsProps {
   user: User | undefined
@@ -22,7 +23,11 @@ const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {
     },
     {
       label: 'Status',
-      value: getUserStatus(user.status),
+      value: (
+        <Text style={{ color: getUserStatusColor(user.status).color }}>
+          {getUserStatus(user.status)}
+        </Text>
+      ),
       icon: <AntDesign name={'infocirlceo'} size={16} color="#4B5563" />,
     },
     {

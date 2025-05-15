@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import Admin from '../Admin'
 import MembersHeader from './component/MembersHeader'
