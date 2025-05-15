@@ -22,7 +22,7 @@ const MembersFormCard = () => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <SafeAreaView className="gap-4 p-5">
+      <SafeAreaView className="gap-4  mb-20">
         <MembersFormHeader />
         <FlashList
           data={members}

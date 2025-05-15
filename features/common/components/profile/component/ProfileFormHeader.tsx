@@ -4,12 +4,18 @@ import { useRouter } from 'expo-router'
 import Button from '@/components/common/button'
 import { Ionicons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
+import { useAuth } from '@/context/auth'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
 
 const ProfileFormHeader = () => {
+  const auth = useAuth()
+  const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
   const router = useRouter()
 
   const navigateToDashboard = () => {
-    router.push('/screens/(admin)/dashboard/dashboard')
+    const route = getUserRoutes({ type: user?.type })
+    router.push(route)
   }
 
   return (

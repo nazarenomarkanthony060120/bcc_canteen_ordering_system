@@ -11,11 +11,11 @@ import ScreenLayout from '../screenLayout/ScreenLayout'
 const Profile = () => {
   const { user } = useAuth()
 
-  const { data: userData, isFetching } = useGetUserByUserId({
+  const { data: userData, isLoading } = useGetUserByUserId({
     id: user?.uid,
   })
 
-  if (isFetching)
+  if (isLoading)
     return (
       <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" color="#fff" />
@@ -25,7 +25,7 @@ const Profile = () => {
 
   return (
     <ScreenLayout>
-      <SafeAreaView className="flex-1 bg-slate-800 justify-between">
+      <SafeAreaView className="flex-1 justify-between">
         <ScrollView showsVerticalScrollIndicator={false}>
           <ProfileFormCard user={userData} />
           <ProfileFooter />

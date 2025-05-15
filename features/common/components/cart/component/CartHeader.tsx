@@ -14,7 +14,7 @@ const CartHeader = () => {
   const router = useRouter()
 
   const navigateToDashboard = () => {
-    const route = getUserRoutes(user?.type)
+    const route = getUserRoutes({ type: user?.type })
     router.push(route)
   }
 

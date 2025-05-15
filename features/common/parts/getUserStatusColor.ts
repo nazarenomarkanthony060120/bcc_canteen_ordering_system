@@ -5,7 +5,7 @@ export const getUserStatusColor = (status: number) => {
     case UserKYCStatus.APPLIED:
       return { color: '#00f' }
     case UserKYCStatus.PENDING:
-      return { color: '#ff0' }
+      return { color: '#e407e8' }
     case UserKYCStatus.APPROVED:
       return { color: '#17bf41' }
     case UserKYCStatus.REJECTED:

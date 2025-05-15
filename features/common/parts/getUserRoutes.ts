@@ -1,10 +1,10 @@
 import { UserType } from '@/utils/types'
 
-type getUserRoutes = {
-  type: UserType
+type GetUserRoutesType = {
+  type: UserType | undefined
 }
 
-export const getUserRoutes = (type: UserType) => {
+export const getUserRoutes = ({ type }: GetUserRoutesType) => {
   switch (type) {
     case UserType.SELLER:
       return '/screens/(seller)/dashboard/dashboard'

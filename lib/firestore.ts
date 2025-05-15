@@ -15,6 +15,7 @@ import {
   FieldValue,
   orderBy,
   limit,
+  updateDoc,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -46,4 +47,5 @@ export {
   FieldValue,
   orderBy,
   limit,
+  updateDoc,
 }

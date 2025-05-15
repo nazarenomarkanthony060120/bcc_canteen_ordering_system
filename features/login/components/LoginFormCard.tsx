@@ -31,7 +31,7 @@ const LoginController = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     login(data as LoginRequest, {
       onSuccess: (data) => {
-        const route = getUserRoutes(data?.type)
+        const route = getUserRoutes({ type: data?.type })
         router.push(route)
       },
       onError: (error: Error) => {
