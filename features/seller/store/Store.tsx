@@ -1,9 +1,4 @@
-import {
-  ActivityIndicator,
-  RefreshControl,
-  ScrollView,
-  View,
-} from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import Seller from '../Seller'
 import NoStore from './component/NoStore'
@@ -12,7 +7,7 @@ import StoreListFormCard from './component/StoreListFormCard'
 import StoreHeader from './component/StoreHeader'
 import StoreFooter from './component/StoreFooter'
 import { useFetchStoreByUserId } from '@/hooks/useQuery/common/fetch/useFetchStoreByUserId'
-import Typo from '@/components/common/typo'
+import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 
 const Store = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -32,27 +27,8 @@ const Store = () => {
     setIsRefreshing(false)
   }
 
-  let content = <ActivityIndicator />
-
-  if (isLoading) {
-    content = (
-      <>
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Typo>Loading</Typo>
-        </View>
-      </>
-    )
-  } else if (!storeData || storeData.length === 0) {
-    content = <NoStore />
-  } else {
-    content = (
-      <>
-        <StoreHeader />
-        <StoreListFormCard stores={storeData} />
-      </>
-    )
-  }
+  if (isLoading) return <LoadingIndicator />
+  if (!storeData || storeData.length === 0) return <NoStore />
 
   return (
     <Seller className="flex-1 bg-white px-7 py-3">
@@ -62,7 +38,8 @@ const Store = () => {
           <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
         }
       >
-        {content}
+        <StoreHeader />
+        <StoreListFormCard stores={storeData} />
       </ScrollView>
       {storeData && storeData.length > 0 && !isLoading && <StoreFooter />}
     </Seller>

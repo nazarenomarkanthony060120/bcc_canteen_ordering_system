@@ -41,7 +41,13 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
       <Controller
         control={control}
         name="phoneNumber"
-        rules={{ required: 'Phone number is required' }}
+        rules={{
+          required: 'Phone number is required',
+          minLength: {
+            value: 11,
+            message: 'Phone number must be at least 11characters',
+          },
+        }}
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3  placeholder:text-slate-400 '}

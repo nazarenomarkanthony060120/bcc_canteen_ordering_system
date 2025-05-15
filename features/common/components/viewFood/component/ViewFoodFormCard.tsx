@@ -6,7 +6,7 @@ import ImageWrapper from '@/components/parts/Image'
 import { SPLASH_ICON } from '@/constants/image'
 import Button from '@/components/common/button'
 import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
-import { getRatingFromPopularity } from '@/features/common/parts/getFoodPopularity'
+import { useUserAddCart } from '@/hooks/useMutation/common/useUserAddCart'
 
 interface ViewFoodFormCardProps {
   food: Food | null | undefined
@@ -14,6 +14,7 @@ interface ViewFoodFormCardProps {
 }
 
 const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
+  const { mutate: cart, isPending } = useUserAddCart()
   const [foodPrice, setFoodPrice] = useState<number>(food?.price ?? 0)
   const [foodQuantity, setFoodQuantity] = useState<number>(1)
   const [foodIncrementLimit, setFoodIncrementLimit] = useState<Boolean>(false)
@@ -46,6 +47,8 @@ const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
     setFoodIncrementLimit(false)
   }
 
+  const addCart = () => {}
+
   return (
     <View className="justify-between flex-1 p-5">
       <View className="gap-5">
@@ -58,12 +61,9 @@ const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
       <View className="flex-row justify-center items-center gap-3">
         <Button
           className="flex-row justify-center items-center rounded-lg border border-slate-600 bg-green-100 p-3 gap-3"
-          icon={<AntDesign name="star" size={20} color={'#f7d320'} />}
+          icon={<AntDesign name="star" size={20} color={'#f9e892'} />}
         >
-          <View className="flex-row gap-2">
-            <Typo>{getRatingFromPopularity(food?.popularity ?? 0)}</Typo>
-            <Typo>Like it!</Typo>
-          </View>
+          <Typo>Like it!</Typo>
         </Button>
       </View>
 

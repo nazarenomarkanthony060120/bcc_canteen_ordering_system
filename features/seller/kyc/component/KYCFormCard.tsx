@@ -9,8 +9,7 @@ import KYCFormFooter from './KYCFormFooter'
 import Error from '@/components/parts/Error'
 import { useAuth } from '@/context/auth'
 import CountDown from '@/components/parts/CountDown'
-import { useUserKYCRegister } from '@/hooks/useMutation/common/useUserKYCRegister'
-
+import { useUserKYCRegister } from '@/hooks/useMutation/seller/kyc/useUserKYCRegister'
 const KYCFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)
   const auth = useAuth()

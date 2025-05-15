@@ -33,7 +33,7 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
             <Typo className="text-sm leading-6">{food.description}</Typo>
           </View>
         </View>
-        <Typo className="text-sm">Php: {food.price}</Typo>
+        <Typo className="text-sm">Price: {food.price} Php</Typo>
         <Typo className="text-sm">Quantity: {food.quantity}</Typo>
         <View className="flex-row w-full justify-between">
           <View className="flex-row items-center">

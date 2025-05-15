@@ -8,7 +8,7 @@ import RegisterFormHeader from './RegisterFormHeader'
 import Error from '@/components/parts/Error'
 import { ScrollView } from 'react-native'
 import CountDown from '@/components/parts/CountDown'
-import { userRegister } from '@/hooks/useMutation/register'
+import { useUserRegister } from '@/hooks/useMutation/register/useUserRegister'
 
 const RegisterFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)
@@ -18,7 +18,7 @@ const RegisterFormCard = () => {
     formState: { errors },
     getValues,
   } = useForm()
-  const { mutate: register, error, isPending } = userRegister()
+  const { mutate: register, isPending } = useUserRegister()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     register(data as RegisterRequest, {

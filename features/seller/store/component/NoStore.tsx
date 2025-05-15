@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ImageWrapper from '@/components/parts/Image'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import Typo from '@/components/common/typo'
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
+import {
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { useRouter } from 'expo-router'
 import { useAuth } from '@/context/auth'
 import { UserKYCStatus } from '@/utils/types'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 
 const NoStore = () => {
   const router = useRouter()
   const auth = useAuth()
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
-  const { data: userData, isLoading } = useGetUserByUserId({
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useGetUserByUserId({
     id: auth.user?.uid,
   })
   const userKYCStatus = userData?.status
@@ -26,42 +37,88 @@ const NoStore = () => {
     router.push('/screens/(seller)/kyc/kyc')
   }
 
-  let content = <ActivityIndicator />
+  const onRefresh = async () => {
+    setIsRefreshing(true)
+    await refetch()
+    setIsRefreshing(false)
+  }
 
-  if (isLoading) {
-    content = <ActivityIndicator />
-  } else if (userKYCStatus === UserKYCStatus.APPROVED) {
-    content = (
-      <TouchableOpacity
-        className="gap-3 items-center"
-        onPress={navigateToAddStore}
+  if (isLoading) return <LoadingIndicator />
+
+  if (userKYCStatus === UserKYCStatus.APPROVED)
+    return (
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        className="flex-1 px-7 py-3"
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+        }
       >
-        <View>
-          <Typo>You don't have store yet!</Typo>
-          <Typo>Click the image to add Store</Typo>
-        </View>
-        <ImageWrapper
-          source={CANTEEN_IMAGE}
-          style={{ height: 100, width: 160 }}
-        />
-      </TouchableOpacity>
+        <TouchableOpacity
+          className="gap-3 items-center"
+          onPress={navigateToAddStore}
+        >
+          <View>
+            <Typo>You don't have store yet!</Typo>
+            <Typo>Click the image to add Store</Typo>
+          </View>
+          <ImageWrapper
+            source={CANTEEN_IMAGE}
+            style={{ height: 100, width: 160 }}
+          />
+        </TouchableOpacity>
+      </ScrollView>
     )
-  } else if (userKYCStatus === UserKYCStatus.APPLIED) {
-    content = (
-      <TouchableOpacity className="gap-3 items-center" onPress={navigateToKYC}>
-        <View>
-          <Typo>To continue, please finish your KYC first</Typo>
-          <Typo>Click the image to go to KYC</Typo>
-        </View>
-        <ImageWrapper
-          source={CANTEEN_IMAGE}
-          style={{ height: 100, width: 160 }}
-        />
-      </TouchableOpacity>
+
+  if (userKYCStatus === UserKYCStatus.APPLIED)
+    return (
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        className="flex-1 px-7 py-3"
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+        }
+      >
+        <TouchableOpacity
+          className="gap-3 items-center"
+          onPress={navigateToKYC}
+        >
+          <View>
+            <Typo>To continue, please finish your KYC first</Typo>
+            <Typo>Click the image to go to KYC</Typo>
+          </View>
+          <ImageWrapper
+            source={CANTEEN_IMAGE}
+            style={{ height: 100, width: 160 }}
+          />
+        </TouchableOpacity>
+      </ScrollView>
     )
-  } else if (userKYCStatus === UserKYCStatus.PENDING) {
-    content = (
-      <TouchableOpacity className="gap-3 items-center">
+
+  if (userKYCStatus === UserKYCStatus.PENDING)
+    return (
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        className="flex-1 px-7 py-3"
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+        }
+      >
         <View>
           <Typo>Your KYC is under review</Typo>
           <Typo>Please wait a moment</Typo>
@@ -70,15 +127,8 @@ const NoStore = () => {
           source={CANTEEN_IMAGE}
           style={{ height: 100, width: 160 }}
         />
-      </TouchableOpacity>
+      </ScrollView>
     )
-  }
-
-  return (
-    <SafeAreaView className="flex-1 items-center justify-center">
-      {content}
-    </SafeAreaView>
-  )
 }
 
 export default NoStore

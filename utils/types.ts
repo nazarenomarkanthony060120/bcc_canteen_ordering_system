@@ -27,6 +27,15 @@ export type FoodIdRequest = {
   id: string | null | undefined
 }
 
+export type AddCartRequest = {
+  foodId: string
+  storeId: string
+  quantity: number
+  totalPrice: number
+  createdAt: FieldValue
+  updatedAt: FieldValue
+}
+
 export type UserKYC = {
   id: string
   name: string
@@ -138,3 +147,10 @@ export enum UserKYCStatusText {
   REJECTED = 'Rejected',
   UNKWON = 'Unknown',
 }
+
+// String declared
+export type AuthErrorType =
+  | String
+  | 'No account found with this email'
+  | 'Invalid password'
+  | 'Invalid email address'

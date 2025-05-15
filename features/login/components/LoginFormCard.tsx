@@ -1,23 +1,18 @@
 import React, { SetStateAction, useState } from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
-import { LoginRequest } from '@/utils/types'
+import { AuthErrorType, LoginRequest } from '@/utils/types'
 import { useRouter } from 'expo-router'
 import LoginFormHeader from './LoginFormHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import LoginFormContents from './LoginFormContents'
 import LoginFormFooter from './LoginFormFooter'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
 import { useLogin } from '@/hooks/useMutation/login'
 import { getErrorMessage } from '@/features/common/parts/getErrorMessage'
 import Error from '@/components/parts/Error'
 import Typo from '@/components/common/typo'
 
-type AuthErrorType =
-  | String
-  | 'No account found with this email'
-  | 'Invalid password'
-  | 'Invalid email address'
 const LoginController = () => {
   const {
     control,
@@ -51,7 +46,11 @@ const LoginController = () => {
           onSubmit={onSubmit}
           isPending={isPending}
         />
-        {authError && <Typo className="text-red-500">{authError}</Typo>}
+        {authError && (
+          <View className="items-start">
+            <Typo className="text-red-500">{authError}</Typo>
+          </View>
+        )}
         {Object.keys(errors).length > 0 && <Error errors={errors} />}
       </SafeAreaView>
     </ScrollView>

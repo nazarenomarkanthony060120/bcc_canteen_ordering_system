@@ -93,7 +93,13 @@ const RegisterFormContents = ({
       <Controller
         control={control}
         name="email"
-        rules={{ required: 'Email is required' }}
+        rules={{
+          required: 'Email is required',
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Enter a valid email address',
+          },
+        }}
         render={({ field: { onChange, value } }) => (
           <Input
             className={'w-full py-3  placeholder:text-slate-400 '}
@@ -118,8 +124,8 @@ const RegisterFormContents = ({
         rules={{
           required: 'Password is required',
           minLength: {
-            value: 6,
-            message: 'Password must be at least 6 characters',
+            value: 8,
+            message: 'Password must be at least 8 characters',
           },
         }}
         render={({ field: { onChange, value } }) => (
