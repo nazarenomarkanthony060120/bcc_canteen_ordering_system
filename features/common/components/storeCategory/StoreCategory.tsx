@@ -18,7 +18,7 @@ const StoreCategory = () => {
     <ScreenLayout>
       <SafeAreaView className="gap-2">
         <Text className="text-lg font-semibold">Stores</Text>
-        <View style={{ height: 100 }}>
+        <View style={{ height: 140 }}>
           <FlashList
             horizontal
             data={stores}
