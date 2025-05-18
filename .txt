@@ -14,6 +14,11 @@ npm install --global eas-cli
 
 for build
  eas build --platform android // for aab 
+
+
+ eas build:configure
+ npx expo-doctor
+ npx expo install --check
  eas build --profile preview --platform android // for apk
 npm install @react-native-picker/picker
 
