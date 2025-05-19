@@ -7,9 +7,10 @@ import Typo from '@/components/common/typo'
 import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStores'
 import ScreenLayout from '../screenLayout/ScreenLayout'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
+import { useFetchAllStoresByStatus } from '@/hooks/useQuery/common/fetch/useFetchAllStoresByStatus'
 
 const StoreCategory = () => {
-  const { data: stores, isFetching } = useFetchAllStores()
+  const { data: stores, isFetching } = useFetchAllStoresByStatus()
 
   if (isFetching) return <LoadingIndicator />
   if (stores?.length == 0) return <Typo>No Stores for today!.</Typo>

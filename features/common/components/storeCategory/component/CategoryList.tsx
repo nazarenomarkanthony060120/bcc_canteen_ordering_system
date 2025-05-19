@@ -1,6 +1,6 @@
 import ImageWrapper from '@/components/parts/Image'
 import { CANTEEN_IMAGE } from '@/constants/image'
-import { Store } from '@/utils/types'
+import { Store, StoreStatus } from '@/utils/types'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, Text } from 'react-native'
