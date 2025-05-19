@@ -1,12 +1,9 @@
 import { db } from '@/lib/firestore'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { Store, StoreStatus } from '@/utils/types'
+import { collection, getDocs, query } from 'firebase/firestore'
+import { Store } from '@/utils/types'
 
 export const fetchAllStores = async () => {
-  const q = query(
-    collection(db, 'stores'),
-    where('status', '==', StoreStatus.APPROVED),
-  )
+  const q = query(collection(db, 'stores'))
   const querySnapshot = await getDocs(q)
 
   if (!querySnapshot.empty) {
