@@ -10,6 +10,8 @@ export const getUserStatusColor = (status: number) => {
       return { color: '#17bf41' }
     case UserKYCStatus.REJECTED:
       return { color: '#f00' }
+    case UserKYCStatus.DISABLED:
+      return { color: '#ad219d' }
     default:
       return { color: '#000' }
   }

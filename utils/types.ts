@@ -123,6 +123,7 @@ export enum UserKYCStatus {
   APPLIED = 0,
   PENDING = 1,
   APPROVED = 2,
+  DISABLED = 3,
   REJECTED = 9,
 }
 
@@ -146,6 +147,7 @@ export enum UserKYCStatusText {
   PENDING = 'Pending',
   APPROVED = 'Approved',
   REJECTED = 'Rejected',
+  DISABLED = 'Disabled',
   UNKWON = 'Unknown',
 }
 

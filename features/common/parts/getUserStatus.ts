@@ -10,6 +10,8 @@ export const getUserStatus = (status: number) => {
       return UserKYCStatusText.APPROVED
     case UserKYCStatus.REJECTED:
       return UserKYCStatusText.REJECTED
+    case UserKYCStatus.DISABLED:
+      return UserKYCStatusText.DISABLED
     default:
       return UserKYCStatusText.UNKWON
   }
