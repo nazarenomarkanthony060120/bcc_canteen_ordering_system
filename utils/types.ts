@@ -60,6 +60,7 @@ export type CreateStore = {
 
 export type Store = {
   id: string
+  userId: string
   store: string
   address: string
   status: StoreStatus
