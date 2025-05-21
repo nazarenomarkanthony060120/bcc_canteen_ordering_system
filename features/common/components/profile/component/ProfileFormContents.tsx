@@ -9,7 +9,7 @@ import { Timestamp } from 'firebase/firestore'
 import { getUserStatusColor } from '@/features/common/parts/getUserStatusColor'
 
 interface ProfileFormContentsProps {
-  user: User | undefined
+  user: User | undefined | null
 }
 
 const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {

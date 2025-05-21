@@ -15,7 +15,7 @@ const ProfileFormProfile = ({ name, managedId }: ProfileFormProfileProps) => {
     <SafeAreaView className="items-center justify-center my-4">
       <View className="bg-white/30 rounded-full p-2 mb-2">
         <ImageWrapper
-          className="rounded-full"
+          className="rounded-full p-4"
           source={PERSON_ICON}
           style={{ height: 80, width: 80 }}
         />

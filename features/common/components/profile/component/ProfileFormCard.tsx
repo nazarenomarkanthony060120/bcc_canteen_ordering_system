@@ -7,7 +7,7 @@ import ProfileFormHeader from './ProfileFormHeader'
 import ProfileFormProfile from './ProfileFormProfile'
 
 interface ProfileFormCardProps {
-  user: User | undefined
+  user: User | undefined | null
 }
 
 const ProfileFormCard = ({ user }: ProfileFormCardProps) => {

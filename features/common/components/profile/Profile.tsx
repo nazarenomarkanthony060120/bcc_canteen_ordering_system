@@ -5,10 +5,8 @@ import ProfileFormCard from './component/ProfileFormCard'
 import ProfileFooter from './component/ProfileFooter'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import ScreenLayout from '../screenLayout/ScreenLayout'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import { LinearGradient } from 'expo-linear-gradient'
-// import ProfileFormHeader from './component/ProfileFormHeader'
 
 const Profile = () => {
   const { user } = useAuth()
