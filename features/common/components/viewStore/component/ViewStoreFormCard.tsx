@@ -10,6 +10,7 @@ import { getStoreStatus } from '@/features/common/parts/getStoreStatus'
 import { getStoreStatusColor } from '@/features/common/parts/getStoreStatusColor'
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
 import { Timestamp } from 'firebase/firestore'
+import ViewStoreActionStatus from './ViewStoreActionStatus'
 
 interface ViewStoreFormCardProps {
   foods: Food[] | null | undefined
@@ -45,23 +46,23 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
               {store?.store}
             </Text>
             <View className="flex-row items-center gap-2">
-              <View 
+              <View
                 className="px-3.5 py-2 rounded-full"
-                style={{ 
+                style={{
                   backgroundColor,
                   shadowColor: textColor,
                   shadowOffset: { width: 0, height: 1 },
                   shadowOpacity: 0.2,
                   shadowRadius: 2,
-                  elevation: 2
+                  elevation: 2,
                 }}
               >
                 <View className="flex-row items-center gap-2">
-                  <View 
+                  <View
                     className="w-2 h-2 rounded-full"
                     style={{ backgroundColor: textColor }}
                   />
-                  <Text 
+                  <Text
                     className="text-xs font-semibold"
                     style={{ color: textColor }}
                   >
@@ -79,7 +80,9 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
               </View>
               <View className="flex-1">
                 <Text className="text-gray-500 text-sm mb-0.5">Address</Text>
-                <Text className="text-gray-800 font-medium">{store?.address}</Text>
+                <Text className="text-gray-800 font-medium">
+                  {store?.address}
+                </Text>
               </View>
             </View>
 
@@ -97,7 +100,9 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
           </View>
         </View>
       </View>
-
+      <View>
+        <ViewStoreActionStatus storeId={store?.id} status={store?.status} />
+      </View>
       <View className="mb-6">
         <ViewStoreFood foods={foods} />
       </View>
