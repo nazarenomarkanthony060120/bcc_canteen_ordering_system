@@ -4,6 +4,7 @@ import Button from '@/components/common/button'
 import { Ionicons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
+import { Pressable, Text, View } from 'react-native'
 
 const MembersHeader = () => {
   const router = useRouter()
@@ -13,22 +14,37 @@ const MembersHeader = () => {
   }
 
   return (
-    <SafeAreaView className="py-5">
-      <Button
-        className="w-44 flex-row items-center gap-2"
+    <View className="flex-row items-center mt-2 mb-2">
+      <Pressable
         onPress={navigateToDashboard}
-        icon={
-          <Ionicons
-            name="arrow-back"
-            className="bg-emerald-700 rounded-lg p-2"
-            size={16}
-            color="white"
-          />
-        }
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: 'rgba(255,255,255,0.18)',
+          borderRadius: 18,
+          paddingVertical: 8,
+          paddingHorizontal: 14,
+          marginLeft: 4,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.13,
+          shadowRadius: 6,
+          elevation: 4,
+        }}
       >
-        <Typo>Back</Typo>
-      </Button>
-    </SafeAreaView>
+        <Ionicons name="arrow-back" size={22} color="#fff" />
+        <Text
+          style={{
+            color: '#fff',
+            fontWeight: 'bold',
+            fontSize: 16,
+            marginLeft: 6,
+          }}
+        >
+          Back
+        </Text>
+      </Pressable>
+    </View>
   )
 }
 

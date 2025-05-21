@@ -17,40 +17,59 @@ const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {
 
   const infoList = [
     {
-      label: 'Email',
+      label: 'Email Address',
       value: user.email,
-      icon: <MaterialIcons name="alternate-email" size={16} color="#4B5563" />,
+      icon: <MaterialIcons name="alternate-email" size={22} color="#fff" />,
     },
     {
-      label: 'Status',
+      label: 'Account Status',
       value: (
-        <Text style={{ color: getUserStatusColor(user.status).color }}>
-          {getUserStatus(user.status)}
-        </Text>
+        <View className="flex-row items-center">
+          <View
+            className="w-2 h-2 rounded-full mr-2"
+            style={{ backgroundColor: getUserStatusColor(user.status).color }}
+          />
+          <Text
+            style={{
+              color: getUserStatusColor(user.status).color,
+              fontWeight: 'bold',
+            }}
+          >
+            {getUserStatus(user.status)}
+          </Text>
+        </View>
       ),
-      icon: <AntDesign name={'infocirlceo'} size={16} color="#4B5563" />,
+      icon: <AntDesign name={'infocirlceo'} size={22} color="#fff" />,
     },
     {
-      label: 'Type',
-      value: user.type,
-      icon: <MaterialIcons name="category" size={16} color="#4B5563" />,
-    },
-    {
-      label: 'Created Date',
+      label: 'Account Created',
       value: createdAtFormatted(user.createdAt as unknown as Timestamp),
-      icon: <Ionicons name={'create-outline'} size={16} color="#4B5563" />,
+      icon: <Ionicons name={'create-outline'} size={22} color="#fff" />,
+    },
+    {
+      label: 'Role',
+      value: user.type,
+      icon: (
+        <MaterialIcons name="admin-panel-settings" size={22} color="#fff" />
+      ),
     },
   ]
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="space-y-3">
       {infoList.map((item, index) => (
-        <View key={index} className="flex-start border-b gap-2 p-5">
-          <View className="flex-row items-center gap-1">
-            <View>{item.icon}</View>
-            <Text className="text-sm">{item.label}</Text>
+        <View
+          key={index}
+          className="bg-white/15 rounded-2xl px-4 py-3 flex-row items-center mb-1"
+          style={{ minHeight: 60 }}
+        >
+          <View className="bg-white/20 p-2 rounded-xl mr-4">{item.icon}</View>
+          <View className="flex-1">
+            <Text className="text-white/80 text-xs mb-1 font-medium">
+              {item.label}
+            </Text>
+            <Text className="text-white text-base font-bold">{item.value}</Text>
           </View>
-          <Text className="text-sm">{item.value}</Text>
         </View>
       ))}
     </SafeAreaView>

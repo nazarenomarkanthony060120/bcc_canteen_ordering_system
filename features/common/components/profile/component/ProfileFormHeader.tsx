@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, View } from 'react-native'
 import { useRouter } from 'expo-router'
 import Button from '@/components/common/button'
 import { Ionicons } from '@expo/vector-icons'
@@ -19,20 +19,17 @@ const ProfileFormHeader = () => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="w-full flex-row justify-end items-center mb-2">
       <Button
-        className="w-44 flex-row items-center gap-2"
+        className="flex-row items-center bg-white/20 rounded-xl px-3 py-2 mr-1 mt-2"
         onPress={navigateToDashboard}
         icon={
-          <Ionicons
-            name="arrow-back"
-            className="bg-emerald-700 rounded-lg p-2"
-            size={16}
-            color="white"
-          />
+          <View className="bg-white/30 rounded-full p-1 mr-2">
+            <Ionicons name="arrow-back" size={22} color="#fff" />
+          </View>
         }
       >
-        <Typo className="text-white">Back</Typo>
+        <Typo className="text-white font-bold text-base">Back</Typo>
       </Button>
     </SafeAreaView>
   )

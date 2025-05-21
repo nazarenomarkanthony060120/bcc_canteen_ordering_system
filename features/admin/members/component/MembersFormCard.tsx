@@ -41,23 +41,25 @@ const MembersFormCard = () => {
         <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
       }
     >
-      <SafeAreaView className="gap-4 mb-20">
-        <MembersFormHeader />
-        <View className="h-[calc(100vh-200px)]">
-          <FlashList
-            data={members}
-            renderItem={({ item }) => <MemberFormContents user={item} />}
-            keyExtractor={(item) => item.id}
-            estimatedItemSize={100}
-            ItemSeparatorComponent={() => <View className="h-2" />}
-            showsVerticalScrollIndicator={false}
-            onEndReachedThreshold={0.5}
-            ListEmptyComponent={() => (
-              <View className="flex-1 items-center justify-center p-4">
-                <Typo className="text-gray-500">No members found</Typo>
-              </View>
-            )}
-          />
+      <SafeAreaView className="items-center w-full mb-20">
+        <View className="w-full max-w-md bg-white/10 rounded-3xl p-4 shadow-lg border border-white/20 mt-4">
+          <MembersFormHeader />
+          <View className="h-[calc(100vh-200px)] mt-2">
+            <FlashList
+              data={members}
+              renderItem={({ item }) => <MemberFormContents user={item} />}
+              keyExtractor={(item) => item.id}
+              estimatedItemSize={100}
+              ItemSeparatorComponent={() => <View className="h-2" />}
+              showsVerticalScrollIndicator={false}
+              onEndReachedThreshold={0.5}
+              ListEmptyComponent={() => (
+                <View className="flex-1 items-center justify-center p-4">
+                  <Typo className="text-gray-200">No members found</Typo>
+                </View>
+              )}
+            />
+          </View>
         </View>
       </SafeAreaView>
     </ScrollView>

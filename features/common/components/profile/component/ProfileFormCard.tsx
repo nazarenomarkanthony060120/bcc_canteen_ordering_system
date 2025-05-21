@@ -12,12 +12,14 @@ interface ProfileFormCardProps {
 
 const ProfileFormCard = ({ user }: ProfileFormCardProps) => {
   return (
-    <SafeAreaView className="gap-5">
-      <View className="bg-blue-500 rounded-bl-3xl rounded-br-3xl p-5">
+    <SafeAreaView className="w-full items-center">
+      <View className="w-full max-w-md bg-white/10 rounded-3xl p-4 pt-2 mt-4 mb-6 shadow-lg border border-white/20">
         <ProfileFormHeader />
-        <ProfileFormProfile name={user?.name} managedId={user?.managedId} />
+        <ProfileFormProfile name={user?.name} managedId={user?.email} />
+        <View className="mt-2 mb-4">
+          <ProfileFormContents user={user} />
+        </View>
       </View>
-      <ProfileFormContents user={user} />
     </SafeAreaView>
   )
 }
