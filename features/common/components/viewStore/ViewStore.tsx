@@ -6,6 +6,7 @@ import ViewStoreHeader from './component/ViewStoreHeader'
 import ViewStoreFormCard from './component/ViewStoreFormCard'
 import { useFetchFoodByStoreId } from '@/hooks/useQuery/common/get/useFetchFoodByStoreId'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
+import { LinearGradient } from 'expo-linear-gradient'
 
 interface ViewStoreProps {
   params: URLSearchParams
@@ -20,10 +21,17 @@ const ViewStore = ({ params }: ViewStoreProps) => {
 
   return (
     <ScreenLayout>
-      <SafeAreaView className="flex-1 bg-emerald-50">
-        <ViewStoreHeader />
-        <ViewStoreFormCard foods={foods} store={store} />
-      </SafeAreaView>
+      <LinearGradient
+        colors={['#E0F2FE', '#F0F9FF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        className="flex-1"
+      >
+        <SafeAreaView className="flex-1">
+          <ViewStoreHeader />
+          <ViewStoreFormCard foods={foods} store={store} />
+        </SafeAreaView>
+      </LinearGradient>
     </ScreenLayout>
   )
 }

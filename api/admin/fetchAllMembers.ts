@@ -1,9 +1,9 @@
 import { db } from '@/lib/firestore'
-import { User, UserIdRequest } from '@/utils/types'
-import { collection, getDocs, query } from 'firebase/firestore'
+import { User, UserIdRequest, UserType } from '@/utils/types'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 
 export const fetchAllMembers = async ({ id }: UserIdRequest) => {
-  const q = query(collection(db, 'users'))
+  const q = query(collection(db, 'users'), where('type', '==', UserType.SELLER))
   const querySnapshot = await getDocs(q)
 
   return querySnapshot.docs

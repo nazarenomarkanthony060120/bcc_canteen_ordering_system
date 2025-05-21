@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 import Typo from '@/components/common/typo'
 import { AntDesign } from '@expo/vector-icons'
+import { Text } from 'react-native'
 
 interface ApproveAccountProps {
   userId: string
@@ -34,12 +35,12 @@ const ApproveAccount = ({ userId }: ApproveAccountProps) => {
   return (
     <Button
       onPress={handleApprove}
-      className="w-44 flex-row items-center justify-center gap-2 rounded-lg bg-emerald-700"
+      className="flex-1 w-44 bg-gradient-to-r from-emerald-500 to-emerald-600 flex-row items-center justify-center gap-2 rounded-xl py-3.5 shadow-lg shadow-emerald-500/20"
       icon={
-        <AntDesign className="py-3" name="adduser" size={20} color="white" />
+        <AntDesign name="checkcircle" size={22} color="white" />
       }
     >
-      <Typo className="text-white">Approve</Typo>
+      <Text className="text-white font-semibold text-base">Approve</Text>
     </Button>
   )
 }

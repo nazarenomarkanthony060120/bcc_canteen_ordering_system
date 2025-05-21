@@ -1,11 +1,10 @@
-import { View } from 'react-native'
 import React from 'react'
 import Button from '@/components/common/button'
-import { AntDesign } from '@expo/vector-icons'
-import Typo from '@/components/common/typo'
 import { useDisableAccount } from '@/hooks/useMutation/admin/useDisableAccount'
-import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 import { useRouter } from 'expo-router'
+import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
+import { AntDesign } from '@expo/vector-icons'
+import { Text, View } from 'react-native'
 
 interface DisableAccountProps {
   userId: string
@@ -15,7 +14,7 @@ const DisableAccount = ({ userId }: DisableAccountProps) => {
   const { mutate: disableUser, isPending } = useDisableAccount()
   const router = useRouter()
 
-  const handleDisableAccount = () => {
+  const handleDisable = () => {
     disableUser(
       { id: userId },
       {
@@ -24,23 +23,27 @@ const DisableAccount = ({ userId }: DisableAccountProps) => {
           router.push('/screens/(admin)/dashboard/members')
         },
         onError: (error) => {
-          console.error('Error approving user:', error)
+          console.error('Error disabling user:', error)
         },
       },
     )
   }
 
   if (isPending) return <LoadingIndicator />
+
   return (
-    <View className="p-5">
+    <View>
+      <Text className="text-white text-center text-lg font-semibold mb-4">
+        Account Actions
+      </Text>
       <Button
-        onPress={handleDisableAccount}
-        className="w-full flex-row items-center justify-center gap-2 rounded-lg bg-red-700"
+        onPress={handleDisable}
+        className="w-full bg-gradient-to-r from-orange-500 to-orange-600 flex-row items-center justify-center gap-2 rounded-xl py-3.5 shadow-lg shadow-orange-500/20"
         icon={
-          <AntDesign className="py-3" name="minus" size={20} color="white" />
+          <AntDesign name="closecircle" size={22} color="white" />
         }
       >
-        <Typo className="text-white">Disable</Typo>
+        <Text className="text-white font-semibold text-base">Disable Account</Text>
       </Button>
     </View>
   )

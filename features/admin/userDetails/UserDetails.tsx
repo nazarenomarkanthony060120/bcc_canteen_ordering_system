@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import UserDetailsFormCard from './component/UserDetailsFormCard'
 import { ScrollView, RefreshControl } from 'react-native'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { LinearGradient } from 'expo-linear-gradient'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 
 interface UserDetailsProps {
@@ -29,21 +30,29 @@ const UserDetails = ({ params }: UserDetailsProps) => {
   }
 
   if (isLoading && !isRefreshing) return <LoadingIndicator />
+  if (!user) return null
 
   return (
-    <ScreenLayout>
-      <SafeAreaView className="flex-1 justify-between">
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-          }
-        >
-          <UserDetailsFormCard user={user} />
-          <UserDetailsFooter userId={userId} />
-        </ScrollView>
-      </SafeAreaView>
-    </ScreenLayout>
+    <LinearGradient
+      colors={['#6a11cb', '#2575fc']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+    >
+      <ScreenLayout>
+        <SafeAreaView className="flex-1 justify-between">
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+            }
+          >
+            <UserDetailsFormCard user={user} />
+            <UserDetailsFooter userId={userId} />
+          </ScrollView>
+        </SafeAreaView>
+      </ScreenLayout>
+    </LinearGradient>
   )
 }
 

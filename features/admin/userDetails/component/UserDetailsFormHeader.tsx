@@ -4,6 +4,7 @@ import Button from '@/components/common/button'
 import { Ionicons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { useRouter } from 'expo-router'
+import { View } from 'react-native'
 
 const UserDetailsFormHeader = () => {
   const router = useRouter()
@@ -14,20 +15,21 @@ const UserDetailsFormHeader = () => {
 
   return (
     <SafeAreaView>
-      <Button
-        className="w-44 flex-row items-center gap-2"
-        onPress={navigateToDashboard}
-        icon={
-          <Ionicons
-            name="arrow-back"
-            className="bg-emerald-700 rounded-lg p-2"
-            size={16}
-            color="white"
-          />
-        }
-      >
-        <Typo className="text-white">Back</Typo>
-      </Button>
+      <View className="flex-row items-center">
+        <Button
+          className="flex-row items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl"
+          onPress={navigateToDashboard}
+          icon={
+            <Ionicons
+              name="arrow-back"
+              size={20}
+              color="white"
+            />
+          }
+        >
+          <Typo className="text-white font-medium">Back</Typo>
+        </Button>
+      </View>
     </SafeAreaView>
   )
 }

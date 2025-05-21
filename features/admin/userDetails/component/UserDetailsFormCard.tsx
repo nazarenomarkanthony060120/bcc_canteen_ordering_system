@@ -12,12 +12,19 @@ interface UserDetailsFormCardProps {
 
 const UserDetailsFormCard = ({ user }: UserDetailsFormCardProps) => {
   return (
-    <SafeAreaView className="gap-5">
-      <View className="bg-blue-500 rounded-bl-3xl rounded-br-3xl p-5">
+    <SafeAreaView className="flex-1">
+      <View className="p-5">
         <UserDetailsFormHeader />
         <UserDetailsFormProfile name={user?.name} managedId={user?.managedId} />
       </View>
-      <UserDetailsFormContents user={user} />
+      <View className="px-4 pb-6">
+        <View className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/30">
+          <View className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-indigo-50/50" />
+          <View className="relative">
+            <UserDetailsFormContents user={user} />
+          </View>
+        </View>
+      </View>
     </SafeAreaView>
   )
 }

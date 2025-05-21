@@ -4,10 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { FlashList } from '@shopify/flash-list'
 import { useAuth } from '@/context/auth'
 import { useFetchAllMembers } from '@/hooks/useQuery/admin/members/useFetchAllMembers'
-import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 import Typo from '@/components/common/typo'
 import MembersFormHeader from './MembersFormHeader'
 import MemberFormContents from './MemberFormContents'
+import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 
 const MembersFormCard = () => {
   const auth = useAuth()

@@ -5,7 +5,7 @@ import LoadingIndicator from '@/features/common/components/loadingIndicator/Load
 import Button from '@/components/common/button'
 import { AntDesign } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 interface EnableAccountProps {
   userId: string
@@ -33,15 +33,18 @@ const EnableAccount = ({ userId }: EnableAccountProps) => {
   if (isPending) return <LoadingIndicator />
 
   return (
-    <View className="p-5">
+    <View>
+      <Text className="text-white text-center text-lg font-semibold mb-4">
+        Account Actions
+      </Text>
       <Button
         onPress={handleEnable}
-        className="w-full flex-row items-center justify-center gap-2 rounded-lg bg-cyan-500"
+        className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 flex-row items-center justify-center gap-2 rounded-xl py-3.5 shadow-lg shadow-cyan-500/20"
         icon={
-          <AntDesign className="py-3" name="adduser" size={20} color="white" />
+          <AntDesign name="checkcircle" size={22} color="white" />
         }
       >
-        <Typo className="text-white">Enable</Typo>
+        <Text className="text-white font-semibold text-base">Enable Account</Text>
       </Button>
     </View>
   )

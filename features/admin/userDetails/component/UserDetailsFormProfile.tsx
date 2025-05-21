@@ -15,16 +15,19 @@ const UserDetailsFormProfile = ({
   managedId,
 }: UserDetailsFormProfileProps) => {
   return (
-    <SafeAreaView className="items-center justify-center relative bg-blue-500 my-6 gap-5">
-      <Typo className="text-white text-lg">Profile</Typo>
-      <ImageWrapper
-        className="rounded-full border-2 border-slate-200 pb-10 px-10 pt-10"
-        source={PERSON_ICON}
-        style={{ height: 50, width: 50 }}
-      />
-      <View>
-        <Typo className="text-white text-3xl">{name}</Typo>
-        <Typo className="text-white text-lg">{managedId}</Typo>
+    <SafeAreaView className="items-center justify-center relative my-6 gap-4">
+      <View className="bg-white/10 backdrop-blur-sm p-4 rounded-full">
+        <ImageWrapper
+          className="rounded-full"
+          source={PERSON_ICON}
+          style={{ height: 80, width: 80 }}
+        />
+      </View>
+      <View className="items-center">
+        <Typo className="text-white text-3xl font-bold mb-1">{name}</Typo>
+        <View className="bg-white/20 px-4 py-1 rounded-full">
+          <Typo className="text-white/90 text-sm">{managedId}</Typo>
+        </View>
       </View>
     </SafeAreaView>
   )
