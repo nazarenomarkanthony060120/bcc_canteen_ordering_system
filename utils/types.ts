@@ -29,7 +29,7 @@ export type FoodIdRequest = {
 
 export type AddCartRequest = {
   foodId: string
-  storeId: string
+  userId: string
   quantity: number
   totalPrice: number
   createdAt: FieldValue
