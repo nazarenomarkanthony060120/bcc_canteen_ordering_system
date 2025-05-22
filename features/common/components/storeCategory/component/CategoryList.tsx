@@ -97,7 +97,7 @@ const CategoryList = ({ store }: CategoryListProps) => {
                   )}
                 </View>
               </View>
-              <View className="flex-row items-center justify-between">
+              <View className="flex-row items-center justify-between gap-5">
                 <View className="flex-row items-center">
                   <View className="bg-emerald-50 px-2 py-1 rounded-full">
                     <View className="flex-row items-center">

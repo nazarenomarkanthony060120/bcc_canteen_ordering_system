@@ -41,7 +41,7 @@ const ViewStoreActionStatus = ({
       return <DisableStore storeId={storeId} status={status} />
     if (status === StoreStatus.PENDING)
       return <ApproveRejectStore storeId={storeId} status={status} />
-    if (status === StoreStatus.REJECTED)
+    if (status === StoreStatus.REJECTED || status === StoreStatus.DISABLED)
       return <ApproveStore storeId={storeId} status={status} />
     return null
   }

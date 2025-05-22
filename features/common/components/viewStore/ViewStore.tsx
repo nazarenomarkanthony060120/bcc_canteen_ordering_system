@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ScreenLayout from '../screenLayout/ScreenLayout'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
@@ -7,17 +7,28 @@ import ViewStoreFormCard from './component/ViewStoreFormCard'
 import { useFetchFoodByStoreId } from '@/hooks/useQuery/common/get/useFetchFoodByStoreId'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import { LinearGradient } from 'expo-linear-gradient'
+import { ScrollView, RefreshControl } from 'react-native'
 
 interface ViewStoreProps {
   params: URLSearchParams
 }
 
 const ViewStore = ({ params }: ViewStoreProps) => {
+  const [refreshing, setRefreshing] = useState(false)
   const storeId = params.get('storeId')
-  const { data: store } = useGetStoreByStoreId({ id: storeId })
-  const { data: foods, isFetching } = useFetchFoodByStoreId({ id: store?.id })
+  const { data: store, refetch: refetchStore } = useGetStoreByStoreId({ id: storeId })
+  const { data: foods, isFetching, refetch: refetchFoods } = useFetchFoodByStoreId({ id: store?.id })
 
-  if (isFetching) return <LoadingIndicator />
+  const onRefresh = async () => {
+    setRefreshing(true)
+    try {
+      await Promise.all([refetchStore(), refetchFoods()])
+    } finally {
+      setRefreshing(false)
+    }
+  }
+
+  if (isFetching && !refreshing) return <LoadingIndicator />
 
   return (
     <ScreenLayout>
@@ -29,7 +40,13 @@ const ViewStore = ({ params }: ViewStoreProps) => {
       >
         <SafeAreaView className="flex-1">
           <ViewStoreHeader />
-          <ViewStoreFormCard foods={foods} store={store} />
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          >
+            <ViewStoreFormCard foods={foods} store={store} />
+          </ScrollView>
         </SafeAreaView>
       </LinearGradient>
     </ScreenLayout>

@@ -30,6 +30,7 @@ export type FoodIdRequest = {
 export type AddCartRequest = {
   foodId: string
   userId: string
+  storeId: string
   quantity: number
   totalPrice: number
   createdAt: FieldValue
@@ -99,6 +100,16 @@ export type Food = {
   description: string
   createdAt: FieldValue
   updatedAt: Field
+}
+
+export type Cart = {
+  id: string
+  foodId: string
+  userId: string
+  quantity: number
+  totalPrice: number
+  createdAt: FieldValue
+  updatedAt: FieldValue
 }
 
 // Enum Decleared

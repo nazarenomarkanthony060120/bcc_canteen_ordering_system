@@ -10,6 +10,8 @@ export const getStoreStatusColor = (status: number) => {
       return { color: '#17bf41' }
     case StoreStatus.REJECTED:
       return { color: '#f00' }
+    case StoreStatus.DISABLED:
+      return { color: '#B91C1C' }
     default:
       return { color: '#000' }
   }

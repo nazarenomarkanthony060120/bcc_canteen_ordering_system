@@ -10,6 +10,8 @@ export const getStoreStatus = (status: number) => {
       return StoreStatusText.APPROVED
     case StoreStatus.REJECTED:
       return StoreStatusText.REJECTED
+    case StoreStatus.DISABLED:
+      return StoreStatusText.DISABLED
     default:
       return StoreStatusText.UNKWON
   }

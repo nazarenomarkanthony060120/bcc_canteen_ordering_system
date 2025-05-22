@@ -6,6 +6,7 @@ export const userAddCart = async (data: AddCartRequest) => {
   return await addDoc(collection(db, 'carts'), {
     foodId: data.foodId,
     userId: data.userId,
+    storeId: data.storeId,
     totalPrice: Number(data.totalPrice),
     quantity: Number(data.quantity),
     createdAt: serverTimestamp(),

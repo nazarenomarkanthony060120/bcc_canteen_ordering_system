@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, Animated } from 'react-native'
 import React, { useEffect, useRef } from 'react'
-import { Food, Store } from '@/utils/types'
+import { Food, Store, UserType } from '@/utils/types'
 import ImageWrapper from '@/components/parts/Image'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import ViewStoreFood from './ViewStoreFood'
@@ -11,6 +11,8 @@ import { getStoreStatusColor } from '@/features/common/parts/getStoreStatusColor
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
 import { Timestamp } from 'firebase/firestore'
 import ViewStoreActionStatus from './ViewStoreActionStatus'
+import { useAuth } from '@/context/auth'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 
 interface ViewStoreFormCardProps {
   foods: Food[] | null | undefined
@@ -18,6 +20,9 @@ interface ViewStoreFormCardProps {
 }
 
 const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
+  const auth = useAuth()
+  const { data: user } = useGetUserByUserId({id: auth.user?.uid})
+
   const fadeAnim = useRef(new Animated.Value(0)).current
   const statusColor = getStoreStatusColor(store?.status || 0)
   const isApplied = store?.status === 0
@@ -152,9 +157,11 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
         </View>
       </Animated.View>
 
-      <Animated.View style={{ opacity: fadeAnim }}>
-        <ViewStoreActionStatus storeId={store?.id} status={store?.status} />
-      </Animated.View>
+      {user?.type === UserType.ADMIN && (
+        <Animated.View style={{ opacity: fadeAnim }}>
+          <ViewStoreActionStatus storeId={store?.id} status={store?.status} />
+        </Animated.View>
+      )}
 
       <Animated.View className="mb-6" style={{ opacity: fadeAnim }}>
         <ViewStoreFood foods={foods} />

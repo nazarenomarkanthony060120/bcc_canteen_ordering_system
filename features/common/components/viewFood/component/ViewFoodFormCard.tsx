@@ -17,6 +17,9 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { serverTimestamp } from '@/lib/firestore'
 import { useAuth } from '@/context/auth'
+import { useToggleFavorite } from '@/hooks/useMutation/common/useToggleFavorite'
+import { useIsFoodFavorited } from '@/hooks/useQuery/common/useIsFoodFavorited'
+import { useUpdateFoodPopularity } from '@/hooks/useMutation/common/useUpdateFoodPopularity'
 
 interface ViewFoodFormCardProps {
   food: Food | null | undefined
@@ -24,14 +27,19 @@ interface ViewFoodFormCardProps {
 }
 
 const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
-  const auth = useAuth()
+  const { user } = useAuth()
+  const { data: isFavorite = false } = useIsFoodFavorited({
+    userId: user?.uid || '',
+    foodId: food?.id || ''
+  })
+  const toggleFavoriteMutation = useToggleFavorite()
+  const updatePopularityMutation = useUpdateFoodPopularity()
 
   const { mutate: addToCart, isPending } = useUserAddCart()
   const [foodPrice, setFoodPrice] = useState<number>(food?.price ?? 0)
   const [foodQuantity, setFoodQuantity] = useState<number>(1)
   const [foodIncrementLimit, setFoodIncrementLimit] = useState<Boolean>(false)
   const [foodDecrementLimit, setFoodDecrementLimit] = useState<Boolean>(false)
-  const [isFavorite, setIsFavorite] = useState(false)
 
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
@@ -101,7 +109,8 @@ const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
 
     addToCart({
       foodId: food.id,
-      userId: auth.user?.uid ?? '',
+      userId: user?.uid ?? '',
+      storeId: store.id,
       quantity: foodQuantity,
       totalPrice: foodPrice,
       createdAt: serverTimestamp(),
@@ -109,21 +118,38 @@ const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
     })
   }
 
-  const toggleFavorite = () => {
-    Animated.sequence([
-      Animated.timing(heartScale, {
-        toValue: 1.3,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.spring(heartScale, {
-        toValue: 1,
-        friction: 3,
-        tension: 40,
-        useNativeDriver: true,
-      }),
-    ]).start()
-    setIsFavorite(!isFavorite)
+  const toggleFavorite = async () => {
+    if (!user?.uid || !food?.id) return
+
+    try {
+      const newFavoriteState = await toggleFavoriteMutation.mutateAsync({
+        userId: user.uid,
+        foodId: food.id
+      })
+
+      // Update popularity based on the new favorite state
+      await updatePopularityMutation.mutateAsync({
+        foodId: food.id,
+        increment: newFavoriteState
+      })
+
+      // Animate the heart icon
+      Animated.sequence([
+        Animated.timing(heartScale, {
+          toValue: 1.3,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+        Animated.spring(heartScale, {
+          toValue: 1,
+          friction: 3,
+          tension: 40,
+          useNativeDriver: true,
+        }),
+      ]).start()
+    } catch (error) {
+      console.error('Error toggling favorite:', error)
+    }
   }
 
   return (

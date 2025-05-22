@@ -83,8 +83,7 @@ const DashboardSearch = ({ onSearch, onFilter }: DashboardSearchProps) => {
       popularFoods.forEach((food) => {
         if (
           approvedStoreIds.includes(food.storeId) &&
-          (food.name.toLowerCase().includes(searchLower) ||
-            food.description?.toLowerCase().includes(searchLower))
+          (food.name.toLowerCase().includes(searchLower))
         ) {
           results.push({ type: 'food', item: food, category: 'popular' })
         }
