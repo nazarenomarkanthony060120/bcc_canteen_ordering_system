@@ -41,7 +41,7 @@ const MembersFormCard = () => {
         <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
       }
     >
-      <SafeAreaView className="items-center w-full mb-20">
+      <SafeAreaView className="items-center w-full">
         <View className="w-full max-w-md bg-white/10 rounded-3xl p-4 shadow-lg border border-white/20 mt-4">
           <MembersFormHeader />
           <View className="h-[calc(100vh-200px)] mt-2">

@@ -51,7 +51,7 @@ const Stores = () => {
       <Admin className="flex-1">
         <ScrollView
           showsVerticalScrollIndicator={false}
-          className="p-5 mb-16"
+          className="p-5"
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -69,7 +69,7 @@ const Stores = () => {
             }}
           >
             <StoresHeader />
-            <View className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl overflow-hidden border border-white/30">
+            <View className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl overflow-hidden border border-white/30 ">
               <MasonryFlashList
                 data={stores}
                 estimatedItemSize={200}
