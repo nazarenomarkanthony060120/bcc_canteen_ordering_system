@@ -24,6 +24,13 @@ const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
       key={food.id}
       onPress={navigateToViewFood}
       className="mb-6 overflow-hidden rounded-3xl"
+      style={{
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+        elevation: 1,
+      }}
     >
       <LinearGradient
         colors={['#ffffff', '#f8fafc']}

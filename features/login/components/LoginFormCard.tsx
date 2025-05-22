@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
 import { AuthErrorType, LoginRequest } from '@/utils/types'
 import { useRouter } from 'expo-router'
@@ -7,11 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import LoginFormContents from './LoginFormContents'
 import LoginFormFooter from './LoginFormFooter'
 import { ScrollView, View } from 'react-native'
-import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
 import { useLogin } from '@/hooks/useMutation/login'
 import { getErrorMessage } from '@/features/common/parts/getErrorMessage'
 import Error from '@/components/parts/Error'
 import Typo from '@/components/common/typo'
+import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
 
 const LoginController = () => {
   const {
