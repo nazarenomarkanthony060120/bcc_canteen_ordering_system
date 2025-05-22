@@ -1,21 +1,45 @@
-import { ScrollView, SafeAreaView, RefreshControl } from 'react-native'
-import React, { useState } from 'react'
+import {
+  ScrollView,
+  SafeAreaView,
+  RefreshControl,
+  Animated,
+  View,
+} from 'react-native'
+import React, { useState, useRef, useEffect } from 'react'
 import StoreCategory from '@/features/common/components/storeCategory/StoreCategory'
 import PopularFood from '@/features/common/components/popularFood/PopularFood'
 import NewlyAddFood from '@/features/common/components/newlyAddFood/NewlyAddFood'
-import DashboardSearch from './DashboardSearch'
 import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStores'
 import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
 import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
-import Typo from '@/components/common/typo'
 import LoadingIndicator from '../../loadingIndicator/LoadingIndicator'
+import { BlurView } from 'expo-blur'
+import Typo from '@/components/common/typo'
+import { MaterialIcons } from '@expo/vector-icons'
 
 const DashboardFormCard = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const fadeAnim = useRef(new Animated.Value(0)).current
+  const slideAnim = useRef(new Animated.Value(20)).current
 
   const { refetch: refetchStores } = useFetchAllStores()
   const { refetch: refetchPopularFoods } = useFetchAllPopularFoods()
   const { refetch: refetchNewlyAddedFoods } = useFetchNewlyAddedFoods()
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start()
+  }, [])
 
   const onRefresh = async () => {
     setIsRefreshing(true)
@@ -28,20 +52,64 @@ const DashboardFormCard = () => {
   if (isRefreshing) return <LoadingIndicator />
 
   return (
-    <SafeAreaView className="flex-1 bg-emerald-50">
-      <ScrollView
-        className="flex gap-10 px-7 py-4"
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      >
-        <DashboardSearch />
-        <StoreCategory />
-        <PopularFood />
-        <NewlyAddFood />
-      </ScrollView>
-    </SafeAreaView>
+    <Animated.View
+      style={{
+        opacity: fadeAnim,
+        transform: [{ translateY: slideAnim }],
+      }}
+    >
+      <BlurView intensity={10} className="rounded-3xl overflow-hidden">
+        <View className="bg-white/90">
+          <ScrollView
+            className="flex-1"
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={onRefresh}
+                tintColor="#10B981"
+              />
+            }
+          >
+            <View className="p-4">
+              <View className="flex-row items-center gap-2 mb-4">
+                <View className="bg-emerald-50 p-2 rounded-full">
+                  <MaterialIcons name="store" size={20} color="#10B981" />
+                </View>
+                <Typo className="text-gray-800 font-semibold">
+                  Featured Stores
+                </Typo>
+              </View>
+              <StoreCategory />
+
+              <View className="flex-row items-center gap-2 mt-6 mb-4">
+                <View className="bg-emerald-50 p-2 rounded-full">
+                  <MaterialIcons name="star" size={20} color="#10B981" />
+                </View>
+                <Typo className="text-gray-800 font-semibold">
+                  Popular Foods
+                </Typo>
+              </View>
+              <PopularFood />
+
+              <View className="flex-row items-center gap-2 mt-6 mb-4">
+                <View className="bg-emerald-50 p-2 rounded-full">
+                  <MaterialIcons
+                    name="new-releases"
+                    size={20}
+                    color="#10B981"
+                  />
+                </View>
+                <Typo className="text-gray-800 font-semibold">
+                  New Arrivals
+                </Typo>
+              </View>
+              <NewlyAddFood />
+            </View>
+          </ScrollView>
+        </View>
+      </BlurView>
+    </Animated.View>
   )
 }
 

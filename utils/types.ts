@@ -114,6 +114,7 @@ export enum FoodType {
 }
 
 export enum UserType {
+  ADMIN = 'Admin',
   SELLER = 'Seller',
   TEACHER = 'Teacher',
   STUDENT = 'Student',

@@ -11,7 +11,6 @@ const NewAddFoodList = ({ foods }: NewAddFoodListProps) => {
   return (
     <MasonryFlashList
       data={foods}
-      numColumns={2}
       estimatedItemSize={136}
       renderItem={({ item }) => <NewlyAddFoodItem food={item} />}
       ItemSeparatorComponent={() => <View className="gap-5" />}

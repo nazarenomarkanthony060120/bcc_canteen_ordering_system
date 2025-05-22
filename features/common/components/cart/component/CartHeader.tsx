@@ -1,40 +1,23 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import Button from '@/components/common/button'
-import { Ionicons } from '@expo/vector-icons'
+import { View } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
-import { useRouter } from 'expo-router'
-import { useAuth } from '@/context/auth'
-import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
-import { getUserRoutes } from '@/features/common/parts/getUserRoutes'
 
-const CartHeader = () => {
-  const auth = useAuth()
-  const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
-  const router = useRouter()
+interface CartHeaderProps {
+  totalItems: number
+}
 
-  const navigateToDashboard = () => {
-    const route = getUserRoutes({ type: user?.type })
-    router.push(route)
-  }
-
+const CartHeader = ({ totalItems }: CartHeaderProps) => {
   return (
-    <SafeAreaView>
-      <Button
-        className="w-44 flex-row items-center gap-3"
-        onPress={navigateToDashboard}
-        icon={
-          <Ionicons
-            name="arrow-back"
-            className="bg-cyan-500 rounded-lg p-2"
-            size={16}
-            color="white"
-          />
-        }
-      >
-        <Typo>Back</Typo>
-      </Button>
-    </SafeAreaView>
+    <View className="flex-row items-center justify-between mb-4">
+      <View>
+        <Typo className="text-gray-800 text-xl font-semibold">Your Cart</Typo>
+        <Typo className="text-gray-500">{totalItems} items</Typo>
+      </View>
+      <View className="bg-emerald-50 p-2 rounded-full">
+        <MaterialIcons name="shopping-cart" size={24} color="#10B981" />
+      </View>
+    </View>
   )
 }
 

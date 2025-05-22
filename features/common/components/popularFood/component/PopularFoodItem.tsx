@@ -1,12 +1,14 @@
-import { View, Text, Pressable } from 'react-native'
-import React from 'react'
+import { View, Pressable, Animated } from 'react-native'
+import React, { useRef } from 'react'
 import { Food } from '@/utils/types'
 import ImageWrapper from '@/components/parts/Image'
 import Typo from '@/components/common/typo'
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, FontAwesome6, MaterialIcons } from '@expo/vector-icons'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import { useRouter } from 'expo-router'
 import { getRatingFromPopularity } from '@/features/common/parts/getFoodPopularity'
+import { BlurView } from 'expo-blur'
+import { LinearGradient } from 'expo-linear-gradient'
 
 interface PopularFoodItemProps {
   food: Food
@@ -14,38 +16,79 @@ interface PopularFoodItemProps {
 
 const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
   const router = useRouter()
+  const scaleAnim = useRef(new Animated.Value(1)).current
 
   const navigateToViewFood = () => {
+    Animated.sequence([
+      Animated.timing(scaleAnim, {
+        toValue: 0.95,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        friction: 3,
+        useNativeDriver: true,
+      }),
+    ]).start()
+
     router.push(`/screens/common/viewFood?foodId=${food.id}`)
   }
 
   const popularity = food.popularity / 5
-  return (
-    <Pressable
-      key={food.id}
-      onPress={navigateToViewFood}
-      className="w-[95%] h-fit bg-gray-100 mb-4 rounded-xl gap-1 justify-center p-3"
-    >
-      <ImageWrapper
-        className="items-center"
-        source={CANTEEN_IMAGE}
-        style={{ height: 60, width: 100 }}
-      />
-      <View className="">
-        <Text className="text-sm mt-2 text-center">{food.name}</Text>
-        <View className="flex-row justify-between">
-          <Text className="text-sm mt-2 text-center">Php: {food.price}</Text>
-          <Text className="text-sm mt-2 text-center">Php:</Text>
-        </View>
 
-        <Typo
-          className="text-sm mt-2"
-          isNeed
-          icon={<AntDesign name="star" size={16} color="yellow" />}
-        >
-          {getRatingFromPopularity(popularity)}
-        </Typo>
-      </View>
+  return (
+    <Pressable key={food.id} onPress={navigateToViewFood} className="mb-4">
+      <Animated.View
+        style={{
+          transform: [{ scale: scaleAnim }],
+        }}
+      >
+        <BlurView intensity={10} className="rounded-2xl overflow-hidden">
+          <View className="bg-white/90">
+            <View className="relative">
+              <ImageWrapper
+                source={CANTEEN_IMAGE}
+                className="rounded-t-2xl"
+                style={{ height: 120, width: '100%' }}
+              />
+              <LinearGradient
+                colors={['transparent', 'rgba(0,0,0,0.7)']}
+                className="absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl"
+              />
+              <View className="absolute bottom-2 left-2 right-2">
+                <View className="flex-row items-center justify-between">
+                  <View className="flex-row items-center">
+                    <AntDesign name="star" size={16} color="#FCD34D" />
+                    <Typo className="text-white ml-1 text-sm">
+                      {getRatingFromPopularity(popularity)}
+                    </Typo>
+                  </View>
+                  <View className="bg-emerald-500 px-2 py-1 rounded-full">
+                    <Typo className="text-white text-xs">Popular</Typo>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View className="p-3">
+              <Typo className="text-gray-800 font-semibold mb-1">
+                {food.name}
+              </Typo>
+              <View className="flex-row items-center justify-between">
+                <View className="flex-row items-center">
+                  <FontAwesome6 name="peso-sign" size={16} color="#10B981" />
+                  <Typo className="text-emerald-600 font-semibold ml-1">
+                    {food.price}
+                  </Typo>
+                </View>
+                <View className="bg-emerald-50 px-2 py-1 rounded-full">
+                  <Typo className="text-emerald-600 text-xs">View Details</Typo>
+                </View>
+              </View>
+            </View>
+          </View>
+        </BlurView>
+      </Animated.View>
     </Pressable>
   )
 }
