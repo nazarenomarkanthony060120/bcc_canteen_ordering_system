@@ -2,7 +2,7 @@ import { View, Text, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { User, UserKYCStatus } from '@/utils/types'
 import ImageWrapper from '@/components/parts/Image'
-import { PERSON_BLACK_ICON, PERSON_ICON } from '@/constants/image'
+import { PERSON_ICON } from '@/constants/image'
 import { getUserStatus } from '@/features/common/parts/getUserStatus'
 import { getUserStatusColor } from '@/features/common/parts/getUserStatusColor'
 import { useRouter } from 'expo-router'
@@ -54,23 +54,23 @@ const MemberFormContents = ({ user }: MemberFormContentsProps) => {
       <View className="flex-1">
         <Text className="font-bold text-white text-lg mb-1">{user.name}</Text>
         <View className="flex-row items-center mb-1">
-          <View 
+          <View
             className="px-3.5 py-2 rounded-full"
-            style={{ 
+            style={{
               backgroundColor,
               shadowColor: textColor,
               shadowOffset: { width: 0, height: 1 },
               shadowOpacity: 0.2,
               shadowRadius: 2,
-              elevation: 2
+              elevation: 2,
             }}
           >
             <View className="flex-row items-center gap-2">
-              <View 
+              <View
                 className="w-2 h-2 rounded-full"
                 style={{ backgroundColor: textColor }}
               />
-              <Text 
+              <Text
                 className="text-xs font-semibold"
                 style={{ color: textColor }}
               >

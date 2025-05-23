@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 import Button from '@/components/common/button'
 import { AntDesign } from '@expo/vector-icons'
-import Typo from '@/components/common/typo'
 import { View, Text } from 'react-native'
 
 interface EnableAccountProps {
@@ -40,11 +39,11 @@ const EnableAccount = ({ userId }: EnableAccountProps) => {
       <Button
         onPress={handleEnable}
         className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 flex-row items-center justify-center gap-2 rounded-xl py-3.5 shadow-lg shadow-cyan-500/20"
-        icon={
-          <AntDesign name="checkcircle" size={22} color="white" />
-        }
+        icon={<AntDesign name="checkcircle" size={22} color="white" />}
       >
-        <Text className="text-white font-semibold text-base">Enable Account</Text>
+        <Text className="text-white font-semibold text-base">
+          Enable Account
+        </Text>
       </Button>
     </View>
   )

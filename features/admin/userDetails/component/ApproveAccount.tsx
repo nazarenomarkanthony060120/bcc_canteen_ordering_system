@@ -3,7 +3,6 @@ import Button from '@/components/common/button'
 import { useApproveAccount } from '@/hooks/useMutation/admin/useApproveAccount'
 import { useRouter } from 'expo-router'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
-import Typo from '@/components/common/typo'
 import { AntDesign } from '@expo/vector-icons'
 import { Text } from 'react-native'
 

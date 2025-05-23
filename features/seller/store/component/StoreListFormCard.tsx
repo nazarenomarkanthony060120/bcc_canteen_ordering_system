@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { View, Animated, Dimensions } from 'react-native'
+import { View, Animated } from 'react-native'
 import { MasonryFlashList } from '@shopify/flash-list'
 import { Store, User } from '@/utils/types'
 import StoreFormContents from './StoreFormContents'
@@ -12,8 +12,6 @@ interface Props {
   stores: Store[]
   user: User | null | undefined
 }
-
-const { width } = Dimensions.get('window')
 
 const StoreListFormCard = ({ stores, user }: Props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current

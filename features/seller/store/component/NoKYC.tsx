@@ -9,11 +9,11 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BlurView } from 'expo-blur'
 
-interface NoStoreProps {
+interface NoKYCProps {
   onRefresh: () => Promise<void>
 }
 
-const NoStore = ({ onRefresh }: NoStoreProps) => {
+const NoKYC = ({ onRefresh }: NoKYCProps) => {
   const router = useRouter()
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
@@ -42,7 +42,7 @@ const NoStore = ({ onRefresh }: NoStoreProps) => {
   }, [])
 
   const handleAddStore = () => {
-    router.push('/screens/(seller)/add-store/add-store')
+    router.push('/screens/(seller)/kyc/kyc')
   }
 
   const handleRefresh = async () => {
@@ -92,14 +92,18 @@ const NoStore = ({ onRefresh }: NoStoreProps) => {
               <View className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-sm border border-white/30">
                 <View className="items-center mb-6">
                   <Animated.View className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-full mb-4 shadow-sm">
-                    <MaterialIcons name="store" size={48} color="#10B981" />
+                    <MaterialIcons
+                      name="verified-user"
+                      size={48}
+                      color="#10B981"
+                    />
                   </Animated.View>
                   <Typo className="text-gray-800 text-2xl font-bold mb-2">
-                    No Store Found
+                    Verification Required
                   </Typo>
                   <Typo className="text-gray-500 text-center leading-6">
-                    You haven't created a store yet. Create your first store to
-                    start selling your products.
+                    To ensure a safe and secure marketplace, please complete the
+                    KYC verification process to start creating your store.
                   </Typo>
                 </View>
 
@@ -120,7 +124,7 @@ const NoStore = ({ onRefresh }: NoStoreProps) => {
                         color="#10B981"
                       />
                       <Typo className="text-emerald-700 text-sm">
-                        Store name and address
+                        Apply for the kyc
                       </Typo>
                     </View>
                   </View>
@@ -136,9 +140,13 @@ const NoStore = ({ onRefresh }: NoStoreProps) => {
                     className="flex-row items-center justify-center gap-2 py-4"
                     onPress={handleAddStore}
                   >
-                    <MaterialIcons name="add" size={24} color="white" />
+                    <MaterialIcons
+                      name="verified-user"
+                      size={24}
+                      color="white"
+                    />
                     <Typo className="text-white font-semibold text-lg">
-                      Create Store
+                      Start Verification
                     </Typo>
                   </Button>
                 </LinearGradient>
@@ -151,4 +159,4 @@ const NoStore = ({ onRefresh }: NoStoreProps) => {
   )
 }
 
-export default NoStore
+export default NoKYC

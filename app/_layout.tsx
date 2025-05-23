@@ -6,6 +6,7 @@ import { StatusBar } from 'react-native'
 import { verifyInstallation } from 'nativewind'
 import { AuthProvider } from '@/context/auth'
 import HealthMiddleware from '../context/middleware'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const client = new QueryClient()
 
@@ -13,14 +14,16 @@ const RootLayout = () => {
   verifyInstallation()
 
   return (
-    <QueryClientProvider client={client}>
-      <AuthProvider>
-        <HealthMiddleware>
-          <Stack screenOptions={{ headerShown: false }} />
-        </HealthMiddleware>
-        <StatusBar backgroundColor="black" />
-      </AuthProvider>
-    </QueryClientProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={client}>
+        <AuthProvider>
+          <HealthMiddleware>
+            <Stack screenOptions={{ headerShown: false }} />
+          </HealthMiddleware>
+          <StatusBar backgroundColor="black" />
+        </AuthProvider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   )
 }
 

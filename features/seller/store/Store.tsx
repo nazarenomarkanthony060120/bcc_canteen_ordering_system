@@ -12,6 +12,8 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Animated } from 'react-native'
 import { BlurView } from 'expo-blur'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { UserKYCStatus } from '@/utils/types'
+import NoKYC from './component/NoKYC'
 
 const Store = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -63,7 +65,10 @@ const Store = () => {
   }
 
   if (isLoading) return <LoadingIndicator />
-  if (!storeData || storeData.length === 0) return <NoStore />
+  if (user?.status === UserKYCStatus.APPLIED)
+    return <NoKYC onRefresh={onRefresh} />
+  if (!storeData || storeData.length === 0)
+    return <NoStore onRefresh={onRefresh} />
 
   return (
     <Seller className="flex-1">

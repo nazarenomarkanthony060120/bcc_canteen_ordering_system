@@ -39,11 +39,12 @@ const DashboardHeader = () => {
                   className="text-gray-800 text-xl font-semibold"
                   style={{ width: '100%' }}
                 >
-                  {userData?.name
-                    ? userData.name.length > 8
-                      ? userData.name.slice(0, 8) + '...'
+                  {/* {userData?.name
+                    ? userData.name.length > 30
+                      ? userData.name.slice(0, 30) + '...'
                       : userData.name
-                    : 'User'}
+                    : 'User'} */}
+                  {userData?.name}
                 </Typo>
               </View>
             </View>

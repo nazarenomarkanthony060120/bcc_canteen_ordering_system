@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Animated } from 'react-native'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { Store, StoreStatus, StoreStatusText, User } from '@/utils/types'
 import { Timestamp } from 'firebase/firestore'
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
@@ -9,7 +9,6 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
 import { MaterialIcons } from '@expo/vector-icons'
 import { BlurView } from 'expo-blur'
-import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 
 interface StoreFormContentsProps {
   store: Store
