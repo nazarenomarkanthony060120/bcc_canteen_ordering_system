@@ -15,8 +15,12 @@ import DashboardHeader from './components/DashboardHeader'
 import DashboardSearch from './components/DashboardSearch'
 import DashboardCategories from './components/DashboardCategories'
 import DashboardFormCard from './components/DashboardFormCard'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { useAuth } from '@/context/auth'
 
 const Dashboard = () => {
+  const auth = useAuth()
+  const { refetch } = useGetUserByUserId({ id: auth.user?.uid })
   const [refreshing, setRefreshing] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('1')
   const [searchQuery, setSearchQuery] = useState('')
@@ -28,6 +32,7 @@ const Dashboard = () => {
     // Simulate data refresh
     setTimeout(() => {
       setRefreshing(false)
+      refetch()
     }, 2000)
   }, [])
 

@@ -8,7 +8,8 @@ import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
 import { getUserProfileRoutes } from '@/features/common/parts/getUserProfileRoutes'
 import { UserType } from '@/utils/types'
-import AdminHeaderIcons from './AdminHeaderIcons'
+import AdminHeaderIcons from './admin/AdminHeaderIcons'
+import SellerHeaderIcons from './seller/SellerHeaderIcons'
 
 const DashboardHeader = () => {
   const { user } = useAuth()
@@ -33,12 +34,22 @@ const DashboardHeader = () => {
             </TouchableOpacity>
             <View>
               <Typo className="text-gray-500">Welcome back,</Typo>
-              <Typo className="text-gray-800 text-xl font-semibold">
-                {userData?.name || 'User'}
-              </Typo>
+              <View style={{ maxWidth: 150 }}>
+                <Typo
+                  className="text-gray-800 text-xl font-semibold"
+                  style={{ width: '100%' }}
+                >
+                  {userData?.name
+                    ? userData.name.length > 8
+                      ? userData.name.slice(0, 8) + '...'
+                      : userData.name
+                    : 'User'}
+                </Typo>
+              </View>
             </View>
           </View>
           {userData?.type === UserType.ADMIN && <AdminHeaderIcons />}
+          {userData?.type === UserType.SELLER && <SellerHeaderIcons />}
         </View>
         <View className="flex-row justify-between mt-4 pt-4 border-t border-gray-100">
           <View className="items-center">

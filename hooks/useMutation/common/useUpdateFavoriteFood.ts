@@ -15,15 +15,12 @@ export const useUpdateFavoriteFood = () => {
       foodId,
       increment: shouldIncrement,
     }: UpdateFavoriteFoodProps) => {
-      console.log('Updating favorite food:', { foodId, shouldIncrement })
       const foodRef = doc(db, 'foods', foodId)
       await updateDoc(foodRef, {
         popularity: increment(shouldIncrement ? 1 : -1),
       })
-      console.log('Updated favorite food in Firestore')
     },
     onSuccess: (_, { foodId }) => {
-      console.log('Invalidating queries for foodId:', foodId)
       queryClient.invalidateQueries({
         queryKey: ['foodPopularity', foodId],
         exact: true,

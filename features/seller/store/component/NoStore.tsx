@@ -1,134 +1,93 @@
-import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import ImageWrapper from '@/components/parts/Image'
-import { CANTEEN_IMAGE } from '@/constants/image'
+import React, { useRef, useEffect } from 'react'
+import { View, Animated } from 'react-native'
+import Seller from '../../Seller'
+import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
-import {
-  RefreshControl,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import Button from '@/components/common/button'
 import { useRouter } from 'expo-router'
-import { useAuth } from '@/context/auth'
-import { UserKYCStatus } from '@/utils/types'
-import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
-import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
+import { LinearGradient } from 'expo-linear-gradient'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { BlurView } from 'expo-blur'
 
 const NoStore = () => {
   const router = useRouter()
-  const auth = useAuth()
-  const [isRefreshing, setIsRefreshing] = useState(false)
+  const fadeAnim = useRef(new Animated.Value(0)).current
+  const slideAnim = useRef(new Animated.Value(20)).current
+  const scaleAnim = useRef(new Animated.Value(0.95)).current
 
-  const {
-    data: userData,
-    isLoading,
-    refetch,
-  } = useGetUserByUserId({
-    id: auth.user?.uid,
-  })
-  const userKYCStatus = userData?.status
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        friction: 8,
+        tension: 40,
+        useNativeDriver: true,
+      }),
+    ]).start()
+  }, [])
 
-  const navigateToAddStore = () => {
+  const handleAddStore = () => {
     router.push('/screens/(seller)/add-store/add-store')
   }
 
-  const navigateToKYC = () => {
-    router.push('/screens/(seller)/kyc/kyc')
-  }
-
-  const onRefresh = async () => {
-    setIsRefreshing(true)
-    await refetch()
-    setIsRefreshing(false)
-  }
-
-  if (isLoading) return <LoadingIndicator />
-
-  if (userKYCStatus === UserKYCStatus.APPROVED)
-    return (
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        className="flex-1 px-7 py-3"
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      >
-        <TouchableOpacity
-          className="gap-3 items-center"
-          onPress={navigateToAddStore}
+  return (
+    <Seller className="flex-1">
+      <LinearGradient
+        colors={['#F0FDF4', '#FFFFFF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        className="absolute inset-0"
+      />
+      <SafeAreaView className="flex-1 px-6">
+        <Animated.View
+          className="flex-1 items-center justify-center"
+          style={{
+            opacity: fadeAnim,
+            transform: [{ translateY: slideAnim }, { scale: scaleAnim }],
+          }}
         >
-          <View>
-            <Typo>You don't have store yet!</Typo>
-            <Typo>Click the image to add Store</Typo>
-          </View>
-          <ImageWrapper
-            source={CANTEEN_IMAGE}
-            style={{ height: 100, width: 160 }}
-          />
-        </TouchableOpacity>
-      </ScrollView>
-    )
+          <BlurView
+            intensity={20}
+            tint="light"
+            className="rounded-3xl overflow-hidden w-full max-w-sm"
+          >
+            <View className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-sm border border-white/30">
+              <View className="items-center mb-6">
+                <View className="bg-emerald-50 p-4 rounded-full mb-4">
+                  <MaterialIcons name="store" size={48} color="#10B981" />
+                </View>
+                <Typo className="text-gray-800 text-2xl font-bold mb-2">
+                  No Store Found
+                </Typo>
+                <Typo className="text-gray-500 text-center">
+                  You haven't created any stores yet. Start by adding your first
+                  store to begin selling your products.
+                </Typo>
+              </View>
 
-  if (userKYCStatus === UserKYCStatus.APPLIED)
-    return (
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        className="flex-1 px-7 py-3"
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      >
-        <TouchableOpacity
-          className="gap-3 items-center"
-          onPress={navigateToKYC}
-        >
-          <View>
-            <Typo>To continue, please finish your KYC first</Typo>
-            <Typo>Click the image to go to KYC</Typo>
-          </View>
-          <ImageWrapper
-            source={CANTEEN_IMAGE}
-            style={{ height: 100, width: 160 }}
-          />
-        </TouchableOpacity>
-      </ScrollView>
-    )
-
-  if (userKYCStatus === UserKYCStatus.PENDING)
-    return (
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        className="flex-1 px-7 py-3"
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      >
-        <View>
-          <Typo>Your KYC is under review</Typo>
-          <Typo>Please wait a moment</Typo>
-        </View>
-        <ImageWrapper
-          source={CANTEEN_IMAGE}
-          style={{ height: 100, width: 160 }}
-        />
-      </ScrollView>
-    )
+              <Button
+                className="bg-emerald-500 rounded-xl flex-row items-center justify-center gap-2 py-4"
+                onPress={handleAddStore}
+              >
+                <MaterialIcons name="add" size={24} color="white" />
+                <Typo className="text-white font-semibold">Add New Store</Typo>
+              </Button>
+            </View>
+          </BlurView>
+        </Animated.View>
+      </SafeAreaView>
+    </Seller>
+  )
 }
 
 export default NoStore
