@@ -36,9 +36,7 @@ const ApproveAccount = ({ userId }: ApproveAccountProps) => {
     <Button
       onPress={handleApprove}
       className="flex-1 w-44 bg-gradient-to-r from-emerald-500 to-emerald-600 flex-row items-center justify-center gap-2 rounded-xl py-3.5 shadow-lg shadow-emerald-500/20"
-      icon={
-        <AntDesign name="checkcircle" size={22} color="white" />
-      }
+      icon={<AntDesign name="checkcircle" size={22} color="white" />}
     >
       <Text className="text-white font-semibold text-base">Approve</Text>
     </Button>

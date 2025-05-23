@@ -14,7 +14,9 @@ export const getUserProfileRoutes = ({ type }: GetUserRoutesType) => {
       return '/screens/(teacher)/dashboard/profile'
     case UserType.OUTSIDER:
       return '/screens/(student)/dashboard/profile'
-    default:
+    case UserType.ADMIN:
       return '/screens/(admin)/dashboard/profile'
+    default:
+      return '/not-found'
   }
 }
