@@ -7,9 +7,7 @@ import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUser
 import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
 import { getUserProfileRoutes } from '@/features/common/parts/getUserProfileRoutes'
-import { UserType } from '@/utils/types'
-import AdminHeaderIcons from './admin/AdminHeaderIcons'
-import SellerHeaderIcons from './seller/SellerHeaderIcons'
+import DashboardHeaderIcons from './DashboardHeaderIcons'
 
 const DashboardHeader = () => {
   const { user } = useAuth()
@@ -49,8 +47,7 @@ const DashboardHeader = () => {
               </View>
             </View>
           </View>
-          {userData?.type === UserType.ADMIN && <AdminHeaderIcons />}
-          {userData?.type === UserType.SELLER && <SellerHeaderIcons />}
+          <DashboardHeaderIcons />
         </View>
         <View className="flex-row justify-between mt-4 pt-4 border-t border-gray-100">
           <View className="items-center">

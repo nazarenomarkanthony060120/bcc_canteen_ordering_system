@@ -4,12 +4,13 @@ import KYCFormHeader from './KYCFormHeader'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { UserKYC } from '@/utils/types'
 import KYCFormContents from './KYCFormContents'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import KYCFormFooter from './KYCFormFooter'
 import Error from '@/components/parts/Error'
 import { useAuth } from '@/context/auth'
 import CountDown from '@/components/parts/CountDown'
 import { useUserKYCRegister } from '@/hooks/useMutation/seller/kyc/useUserKYCRegister'
+
 const KYCFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)
   const auth = useAuth()
@@ -21,6 +22,7 @@ const KYCFormCard = () => {
   const { mutate: userKycRegister, isPending } = useUserKYCRegister()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data) 
     const formData = {
       id: auth.user?.uid,
       name: data.name,
@@ -36,25 +38,32 @@ const KYCFormCard = () => {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <SafeAreaView className="gap-2 p-5">
-        <KYCFormHeader />
+      <View className="bg-white/60 rounded-2xl shadow-lg p-6">
         {showCountdown && (
-          <CountDown
-            time={5}
-            route={'/screens/(seller)/dashboard/store'}
-            message="You will be redirected to your store in"
-          />
+          <View className="my-4">
+            <CountDown
+              time={5}
+              route={'/screens/(seller)/dashboard/store'}
+              message="You will be redirected to your store in"
+            />
+          </View>
         )}
-        <KYCFormContents control={control} />
-        <KYCFormFooter
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          isPending={isPending}
-        />
-      </SafeAreaView>
-      {Object.keys(errors).length > 0 && <Error errors={errors} />}
-    </ScrollView>
+        <View className="mt-6">
+          <KYCFormContents control={control} />
+        </View>
+        <View className="mt-8">
+          <KYCFormFooter
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            isPending={isPending}
+          />
+        </View>
+        {Object.keys(errors).length > 0 && (
+          <View className="mt-4">
+            <Error errors={errors} />
+          </View>
+        )}
+      </View>
   )
 }
 

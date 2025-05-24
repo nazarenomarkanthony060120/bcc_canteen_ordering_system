@@ -14,7 +14,7 @@ const MyStoreFormHeader = ({ store }: MyStoreFormHeaderProps) => {
   const router = useRouter()
 
   return (
-    <SafeAreaView className="items-center justify-center gap-3 p-5">
+    <SafeAreaView className="items-center justify-center gap-3 p-5 mt-5">
       <View className="w-full flex-row items-center">
         <TouchableOpacity
           onPress={() => router.back()}

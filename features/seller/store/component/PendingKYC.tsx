@@ -9,11 +9,11 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BlurView } from 'expo-blur'
 
-interface NoKYCProps {
+interface PendingKYCProps {
   onRefresh: () => Promise<void>
 }
 
-const NoKYC = ({ onRefresh }: NoKYCProps) => {
+const PendingKYC = ({ onRefresh }: PendingKYCProps) => {
   const router = useRouter()
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
@@ -41,7 +41,7 @@ const NoKYC = ({ onRefresh }: NoKYCProps) => {
     ]).start()
   }, [])
 
-  const handleSetupKYC = () => {
+  const handleAddStore = () => {
     router.push('/screens/(seller)/kyc/kyc')
   }
 
@@ -99,11 +99,10 @@ const NoKYC = ({ onRefresh }: NoKYCProps) => {
                     />
                   </Animated.View>
                   <Typo className="text-gray-800 text-2xl font-bold mb-2">
-                    Verification Required
+                    KYC Verification Pending
                   </Typo>
                   <Typo className="text-gray-500 text-center leading-6">
-                    To ensure a safe and secure marketplace, please complete the
-                    KYC verification process to start creating your store.
+                    We're currently reviewing your KYC submission. This process helps us ensure a secure and trustworthy marketplace for all users.
                   </Typo>
                 </View>
 
@@ -113,43 +112,22 @@ const NoKYC = ({ onRefresh }: NoKYCProps) => {
                       <MaterialIcons name="info" size={20} color="#10B981" />
                     </View>
                     <Typo className="text-emerald-800 font-medium flex-1">
-                      What you'll need
+                      What to Expect
                     </Typo>
                   </View>
-                  <View className="space-y-2">
+                  <View className="space-y-3">
                     <View className="flex-row items-center gap-2">
                       <MaterialIcons
-                        name="check-circle"
+                        name="schedule"
                         size={16}
                         color="#10B981"
                       />
                       <Typo className="text-emerald-700 text-sm">
-                        Apply for the kyc
+                        Verification typically takes 1-2 business days
                       </Typo>
                     </View>
                   </View>
                 </View>
-
-                <LinearGradient
-                  colors={['#10B981', '#059669']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  className="rounded-xl overflow-hidden shadow-lg"
-                >
-                  <Button
-                    className="flex-row items-center justify-center gap-2 py-4"
-                    onPress={handleSetupKYC}
-                  >
-                    <MaterialIcons
-                      name="verified-user"
-                      size={24}
-                      color="white"
-                    />
-                    <Typo className="text-white font-semibold text-lg">
-                      Start Verification
-                    </Typo>
-                  </Button>
-                </LinearGradient>
               </View>
             </BlurView>
           </Animated.View>
@@ -159,4 +137,4 @@ const NoKYC = ({ onRefresh }: NoKYCProps) => {
   )
 }
 
-export default NoKYC
+export default PendingKYC
