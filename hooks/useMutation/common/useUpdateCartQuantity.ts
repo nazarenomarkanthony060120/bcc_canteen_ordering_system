@@ -10,4 +10,4 @@ export const useUpdateCartQuantity = () => {
       queryClient.invalidateQueries({ queryKey: ['fetchCartByUserId'] })
     },
   })
-} 
+}

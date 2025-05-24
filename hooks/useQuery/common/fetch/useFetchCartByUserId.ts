@@ -9,4 +9,4 @@ export const useFetchCartByUserId = ({ id }: UserIdRequest) => {
     queryFn: () => fetchCartByUserId({ id }),
     enabled: !!id,
   })
-} 
+}

@@ -7,6 +7,7 @@ import LoadingIndicator from '@/features/common/components/loadingIndicator/Load
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { useState } from 'react'
+import MyStoreHeader from './component/MyStoreHeader'
 
 interface MyStoreProps {
   params: URLSearchParams
@@ -16,7 +17,7 @@ const MyStore = ({ params }: MyStoreProps) => {
   const storeId = params.get('storeId')
   const {
     data: storeData,
-    isFetching,
+    isLoading,
     refetch,
   } = useGetStoreByStoreId({
     id: storeId,
@@ -27,7 +28,7 @@ const MyStore = ({ params }: MyStoreProps) => {
   const scaleAnim = useRef(new Animated.Value(0.95)).current
 
   useEffect(() => {
-    if (!isFetching) {
+    if (!isLoading) {
       Animated.parallel([
         Animated.timing(fadeAnim, {
           toValue: 1,
@@ -47,7 +48,7 @@ const MyStore = ({ params }: MyStoreProps) => {
         }),
       ]).start()
     }
-  }, [isFetching])
+  }, [isLoading])
 
   const onRefresh = async () => {
     setRefreshing(true)
@@ -58,7 +59,7 @@ const MyStore = ({ params }: MyStoreProps) => {
     }
   }
 
-  if (isFetching) return <LoadingIndicator />
+  if (isLoading) return <LoadingIndicator />
 
   return (
     <Seller className="flex-1">
@@ -94,6 +95,10 @@ const MyStore = ({ params }: MyStoreProps) => {
               tint="light"
               className="rounded-3xl overflow-hidden mb-4"
             >
+              <MyStoreHeader
+                storeId={storeData?.id}
+                status={storeData?.status}
+              />
               <View className="bg-white/90 backdrop-blur-md rounded-3xl shadow-sm overflow-hidden border border-white/30">
                 <MyStoreFormCard store={storeData} />
               </View>

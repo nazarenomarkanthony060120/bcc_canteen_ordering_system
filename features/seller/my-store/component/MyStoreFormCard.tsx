@@ -36,7 +36,7 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
   if (foods?.length === 0)
     return (
       <SafeAreaView className="flex-1">
-        <MyStoreFormHeader store={store?.store} />
+        <MyStoreFormHeader store={store} />
         <LinearGradient
           colors={['#f0fdf4', '#ecfdf5', '#d1fae5']}
           className="flex-1"
@@ -118,7 +118,7 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2">
-        <MyStoreFormHeader store={store?.store} />
+        <MyStoreFormHeader store={store} />
         <Text>{error?.stack}</Text>
         <MasonryFlashList
           data={foods}

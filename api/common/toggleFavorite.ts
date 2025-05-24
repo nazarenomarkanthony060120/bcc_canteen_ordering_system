@@ -6,7 +6,10 @@ interface ToggleFavoriteParams {
   foodId: string
 }
 
-export const toggleFavorite = async ({ userId, foodId }: ToggleFavoriteParams) => {
+export const toggleFavorite = async ({
+  userId,
+  foodId,
+}: ToggleFavoriteParams) => {
   if (!userId || !foodId) {
     throw new Error('User ID and Food ID are required')
   }
@@ -23,8 +26,8 @@ export const toggleFavorite = async ({ userId, foodId }: ToggleFavoriteParams) =
     await setDoc(favoriteRef, {
       userId,
       foodId,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     })
     return true
   }
-} 
+}

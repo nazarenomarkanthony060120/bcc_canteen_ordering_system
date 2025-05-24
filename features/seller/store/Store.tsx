@@ -74,7 +74,7 @@ const Store = () => {
     return <NoStore onRefresh={onRefresh} />
 
   return (
-    <Seller className="flex-1">
+    <Seller className="flex-1 pt-5">
       <LinearGradient
         colors={['#F0FDF4', '#FFFFFF']}
         start={{ x: 0, y: 0 }}

@@ -19,13 +19,7 @@ const UserDetailsFormHeader = () => {
         <Button
           className="flex-row items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl"
           onPress={navigateToDashboard}
-          icon={
-            <Ionicons
-              name="arrow-back"
-              size={20}
-              color="white"
-            />
-          }
+          icon={<Ionicons name="arrow-back" size={20} color="white" />}
         >
           <Typo className="text-white font-medium">Back</Typo>
         </Button>

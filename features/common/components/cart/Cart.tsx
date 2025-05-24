@@ -23,8 +23,12 @@ const Cart = () => {
   const slideAnim = useRef(new Animated.Value(20)).current
   const [refreshing, setRefreshing] = useState(false)
   const auth = useAuth()
-  
-  const { data: cartItems, isLoading, refetch } = useFetchCartByUserId({
+
+  const {
+    data: cartItems,
+    isLoading,
+    refetch,
+  } = useFetchCartByUserId({
     id: auth.user?.uid,
   })
   const { mutate: updateQuantity } = useUpdateCartQuantity()
@@ -54,7 +58,11 @@ const Cart = () => {
     }
   }
 
-  const handleQuantityChange = (id: string, newQuantity: number, foodPrice: number) => {
+  const handleQuantityChange = (
+    id: string,
+    newQuantity: number,
+    foodPrice: number,
+  ) => {
     if (newQuantity < 0) return
 
     if (newQuantity === 0) {
@@ -73,11 +81,10 @@ const Cart = () => {
 
   if (isLoading && !refreshing) return <LoadingIndicator />
 
-  const totalItems = cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0
-  const subtotal = cartItems?.reduce(
-    (sum, item) => sum + item.totalPrice,
-    0,
-  ) || 0
+  const totalItems =
+    cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0
+  const subtotal =
+    cartItems?.reduce((sum, item) => sum + item.totalPrice, 0) || 0
   const total = subtotal
 
   return (
@@ -117,16 +124,17 @@ const Cart = () => {
               <BlurView intensity={10} className="rounded-3xl overflow-hidden">
                 <View className="bg-white/90 p-4">
                   {cartItems?.map((item) => (
-                    <CartItemWithFood key={item.id} cartItem={item} onQuantityChange={handleQuantityChange} />
+                    <CartItemWithFood
+                      key={item.id}
+                      cartItem={item}
+                      onQuantityChange={handleQuantityChange}
+                    />
                   ))}
                 </View>
               </BlurView>
 
               <BlurView intensity={10} className="rounded-3xl overflow-hidden">
-                <CartSummary
-                  subtotal={subtotal}
-                  total={total}
-                />
+                <CartSummary subtotal={subtotal} total={total} />
               </BlurView>
             </View>
           </ScrollView>
@@ -143,7 +151,13 @@ const Cart = () => {
 }
 
 // Component to fetch and display food details for each cart item
-const CartItemWithFood = ({ cartItem, onQuantityChange }: { cartItem: CartType, onQuantityChange: (id: string, quantity: number, foodPrice: number) => void }) => {
+const CartItemWithFood = ({
+  cartItem,
+  onQuantityChange,
+}: {
+  cartItem: CartType
+  onQuantityChange: (id: string, quantity: number, foodPrice: number) => void
+}) => {
   const { data: food } = useGetFoodByFoodId({ id: cartItem.foodId })
   const { data: store } = useGetStoreByStoreId({ id: food?.storeId })
 
@@ -157,7 +171,9 @@ const CartItemWithFood = ({ cartItem, onQuantityChange }: { cartItem: CartType, 
       quantity={cartItem.quantity}
       image={HUMBA_IMAGE}
       store={store.store}
-      onQuantityChange={(id, quantity) => onQuantityChange(id, quantity, food.price)}
+      onQuantityChange={(id, quantity) =>
+        onQuantityChange(id, quantity, food.price)
+      }
     />
   )
 }

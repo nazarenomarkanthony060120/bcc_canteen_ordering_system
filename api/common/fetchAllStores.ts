@@ -1,9 +1,9 @@
 import { db } from '@/lib/firestore'
-import { collection, getDocs, query } from 'firebase/firestore'
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 import { Store } from '@/utils/types'
 
 export const fetchAllStores = async () => {
-  const q = query(collection(db, 'stores'))
+  const q = query(collection(db, 'stores'), orderBy('createdAt', 'desc'))
   const querySnapshot = await getDocs(q)
 
   if (!querySnapshot.empty) {
@@ -15,6 +15,7 @@ export const fetchAllStores = async () => {
       status: docSnap.data().status,
       createdAt: docSnap.data().createdAt,
       updatedAt: docSnap.data().updatedAt,
+      image: docSnap.data().image,
     })) as Store[]
   }
 

@@ -7,16 +7,19 @@ interface UseIsFoodFavoritedParams {
   foodId: string
 }
 
-export const useIsFoodFavorited = ({ userId, foodId }: UseIsFoodFavoritedParams) => {
+export const useIsFoodFavorited = ({
+  userId,
+  foodId,
+}: UseIsFoodFavoritedParams) => {
   return useQuery({
     queryKey: ['favorites', userId, foodId],
     queryFn: async () => {
       if (!userId || !foodId) return false
-      
+
       const favoriteRef = doc(db, 'favorites', `${userId}_${foodId}`)
       const favoriteDoc = await getDoc(favoriteRef)
       return favoriteDoc.exists()
     },
-    enabled: !!userId && !!foodId
+    enabled: !!userId && !!foodId,
   })
-} 
+}

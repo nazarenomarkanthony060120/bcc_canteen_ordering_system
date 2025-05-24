@@ -21,4 +21,4 @@ export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
   }
 
   return []
-} 
+}

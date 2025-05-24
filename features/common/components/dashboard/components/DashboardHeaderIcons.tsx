@@ -13,7 +13,7 @@ const DashboardHeaderIcons = () => {
   const router = useRouter()
 
   const handleCartPress = () => {
-		const route = getUserCartRoutes({type: user?.type})
+    const route = getUserCartRoutes({ type: user?.type })
     router.push(route)
   }
 
@@ -25,7 +25,7 @@ const DashboardHeaderIcons = () => {
     router.push('/screens/(admin)/dashboard/stores')
   }
 
-	const handleStorePress = () => {
+  const handleStorePress = () => {
     router.push('/screens/(seller)/dashboard/store')
   }
 
@@ -37,33 +37,33 @@ const DashboardHeaderIcons = () => {
       >
         <MaterialIcons name="shopping-cart" size={24} color="#10B981" />
       </TouchableOpacity>
-			{user?.type === UserType.SELLER && (
-				<>
-				<TouchableOpacity
-					className="bg-emerald-50 p-3 rounded-full"
-					onPress={handleStorePress}
-				>
-					<MaterialIcons name="store" size={24} color="#10B981" />
-				</TouchableOpacity>
-				</>
-			)}
+      {user?.type === UserType.SELLER && (
+        <>
+          <TouchableOpacity
+            className="bg-emerald-50 p-3 rounded-full"
+            onPress={handleStorePress}
+          >
+            <MaterialIcons name="store" size={24} color="#10B981" />
+          </TouchableOpacity>
+        </>
+      )}
 
-			{user?.type === UserType.ADMIN && (
-				<>
-					<TouchableOpacity
-						className="bg-emerald-50 p-3 rounded-full"
-						onPress={handleMembersPress}
-					>
-						<MaterialIcons name="people" size={24} color="#10B981" />
-					</TouchableOpacity>
-					<TouchableOpacity
-						className="bg-emerald-50 p-3 rounded-full"
-						onPress={handleStoresPress}
-					>
-						<MaterialIcons name="store" size={24} color="#10B981" />
-					</TouchableOpacity>
-				</>
-			)}
+      {user?.type === UserType.ADMIN && (
+        <>
+          <TouchableOpacity
+            className="bg-emerald-50 p-3 rounded-full"
+            onPress={handleMembersPress}
+          >
+            <MaterialIcons name="people" size={24} color="#10B981" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="bg-emerald-50 p-3 rounded-full"
+            onPress={handleStoresPress}
+          >
+            <MaterialIcons name="store" size={24} color="#10B981" />
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   )
 }

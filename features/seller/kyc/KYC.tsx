@@ -13,7 +13,7 @@ const KYC = () => {
         colors={['#dcfce7', '#bbf7d0', '#f0fdf4']}
         className="flex-1"
       >
-        <ScrollView 
+        <ScrollView
           showsVerticalScrollIndicator={false}
           className="flex-1"
           contentContainerStyle={{ flexGrow: 1 }}

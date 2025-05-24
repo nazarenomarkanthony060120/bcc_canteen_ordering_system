@@ -1,9 +1,8 @@
 import { View, Text, Pressable } from 'react-native'
 import React from 'react'
-import { Store, StoreStatus } from '@/utils/types'
+import { Store } from '@/utils/types'
 import ImageWrapper from '@/components/parts/Image'
 import { CANTEEN_IMAGE } from '@/constants/image'
-import { getStoreStatus } from '@/features/common/parts/getStoreStatus'
 import { getStoreStatusColor } from '@/features/common/parts/getStoreStatusColor'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 import { Timestamp } from 'firebase/firestore'
@@ -26,13 +25,10 @@ const StoresList = ({ store }: StoresListProps) => {
     router.push(`/screens/common/viewStore?storeId=${store.id}`)
   }
 
-  const statusColor = getStoreStatusColor(store.status)
-  const isApplied = store.status === StoreStatus.APPLIED
-  const backgroundColor = isApplied ? '#E0F2FE' : statusColor.color + '15'
-  const textColor = isApplied ? '#0284C7' : statusColor.color
+  const status = getStoreStatusColor(store.status)
 
   return (
-    <Pressable 
+    <Pressable
       onPress={navigateToViewStore}
       className="mb-4 overflow-hidden rounded-2xl"
     >
@@ -46,20 +42,19 @@ const StoresList = ({ store }: StoresListProps) => {
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.05,
           shadowRadius: 8,
-          elevation: 3
+          elevation: 3,
         }}
       >
         <View className="flex-row gap-4">
           <View className="relative">
-            <View className="relative">
+            <View className="overflow-hidden rounded-xl">
               <ImageWrapper
-                source={CANTEEN_IMAGE}
-                className="rounded-xl"
+                source={
+                  store.image
+                    ? { uri: `data:image/jpeg;base64,${store.image}` }
+                    : CANTEEN_IMAGE
+                }
                 style={{ height: 120, width: 120 }}
-              />
-              <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.2)']}
-                className="absolute bottom-0 left-0 right-0 h-12 rounded-b-xl"
               />
             </View>
           </View>
@@ -70,27 +65,39 @@ const StoresList = ({ store }: StoresListProps) => {
                 {store.store}
               </Text>
               <View className="flex-row items-center mb-3">
-                <View 
-                  className="px-3 py-1.5 rounded-full"
-                  style={{ backgroundColor }}
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderColor: status.borderColor,
+                    borderRadius: 12,
+                    backgroundColor: status.bgColor,
+                    paddingHorizontal: 8,
+                    paddingVertical: 4,
+                    alignSelf: 'flex-start',
+                    marginBottom: 12,
+                  }}
                 >
-                  <View className="flex-row items-center gap-1.5">
-                    <View 
-                      className="w-1.5 h-1.5 rounded-full"
-                      style={{ backgroundColor: textColor }}
+                  <View className="flex-row items-center">
+                    <MaterialIcons
+                      name={status.icon}
+                      size={14}
+                      color={status.textColor}
                     />
-                    <Text 
-                      className="text-xs font-medium"
-                      style={{ color: textColor }}
+                    <Text
+                      className="ml-1 text-[10px] font-bold"
+                      style={{ color: status.textColor }}
                     >
-                      {getStoreStatus(store.status)}
+                      {status.text}
                     </Text>
                   </View>
                 </View>
               </View>
               <View className="flex-row items-center gap-1.5 mb-2">
                 <MaterialIcons name="location-on" size={16} color="#4B5563" />
-                <Text className="text-gray-600 text-sm flex-1" numberOfLines={1}>
+                <Text
+                  className="text-gray-600 text-sm flex-1"
+                  numberOfLines={1}
+                >
                   {store.address}
                 </Text>
               </View>
@@ -110,7 +117,8 @@ const StoresList = ({ store }: StoresListProps) => {
                   <MaterialIcons name="access-time" size={14} color="#4B5563" />
                 </View>
                 <Text className="text-gray-500 text-xs">
-                  Created: {createdAtFormatted(store.createdAt as unknown as Timestamp)}
+                  Created:{' '}
+                  {createdAtFormatted(store.createdAt as unknown as Timestamp)}
                 </Text>
               </View>
             </View>

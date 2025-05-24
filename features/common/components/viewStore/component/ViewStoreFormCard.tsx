@@ -21,13 +21,10 @@ interface ViewStoreFormCardProps {
 
 const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
   const auth = useAuth()
-  const { data: user } = useGetUserByUserId({id: auth.user?.uid})
+  const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
 
   const fadeAnim = useRef(new Animated.Value(0)).current
-  const statusColor = getStoreStatusColor(store?.status || 0)
-  const isApplied = store?.status === 0
-  const backgroundColor = isApplied ? '#E0F2FE' : statusColor.color + '15'
-  const textColor = isApplied ? '#0284C7' : statusColor.color
+  const status = getStoreStatusColor(store?.status || 0)
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -72,26 +69,28 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
             </Text>
             <View className="flex-row items-center gap-2">
               <View
-                className="px-4 py-2.5 rounded-full"
                 style={{
-                  backgroundColor,
-                  shadowColor: textColor,
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.15,
-                  shadowRadius: 4,
-                  elevation: 3,
+                  borderWidth: 1,
+                  borderColor: status.borderColor,
+                  borderRadius: 12,
+                  backgroundColor: status.bgColor,
+                  paddingHorizontal: 8,
+                  paddingVertical: 4,
+                  alignSelf: 'flex-start',
+                  marginBottom: 12,
                 }}
               >
-                <View className="flex-row items-center gap-2.5">
-                  <View
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: textColor }}
+                <View className="flex-row items-center">
+                  <MaterialIcons
+                    name={status.icon}
+                    size={14}
+                    color={status.textColor}
                   />
                   <Text
-                    className="text-sm font-semibold"
-                    style={{ color: textColor }}
+                    className="ml-1 text-[10px] font-bold"
+                    style={{ color: status.textColor }}
                   >
-                    {getStoreStatus(store?.status || 0)}
+                    {status.text}
                   </Text>
                 </View>
               </View>

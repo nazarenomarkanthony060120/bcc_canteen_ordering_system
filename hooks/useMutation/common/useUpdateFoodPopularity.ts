@@ -9,6 +9,6 @@ export const useUpdateFoodPopularity = () => {
     onSuccess: (_, variables) => {
       // Invalidate food queries
       queryClient.invalidateQueries({ queryKey: ['foods', variables.foodId] })
-    }
+    },
   })
-} 
+}

@@ -11,6 +11,7 @@ export const fetchStoreById = async ({ id }: UserIdRequest) => {
   if (!querySnapshot.empty) {
     return querySnapshot.docs.map((docSnap) => ({
       id: docSnap.id,
+      image: docSnap.data().image,
       store: docSnap.data().store,
       address: docSnap.data().address,
       status: docSnap.data().status,

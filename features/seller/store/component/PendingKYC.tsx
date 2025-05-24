@@ -102,7 +102,9 @@ const PendingKYC = ({ onRefresh }: PendingKYCProps) => {
                     KYC Verification Pending
                   </Typo>
                   <Typo className="text-gray-500 text-center leading-6">
-                    We're currently reviewing your KYC submission. This process helps us ensure a secure and trustworthy marketplace for all users.
+                    We're currently reviewing your KYC submission. This process
+                    helps us ensure a secure and trustworthy marketplace for all
+                    users.
                   </Typo>
                 </View>
 

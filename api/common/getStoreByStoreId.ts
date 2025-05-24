@@ -15,7 +15,9 @@ export const getStoreByStoreId = async ({
 
     return {
       id: docSnap.id,
+      userId: data.userId,
       store: data.store,
+      image: data.image,
       address: data.address,
       status: data.status,
       createdAt: data.createdAt,

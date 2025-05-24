@@ -6,15 +6,18 @@ interface UpdateFoodPopularityParams {
   increment: boolean // true to increment, false to decrement
 }
 
-export const updateFoodPopularity = async ({ foodId, increment: shouldIncrement }: UpdateFoodPopularityParams) => {
+export const updateFoodPopularity = async ({
+  foodId,
+  increment: shouldIncrement,
+}: UpdateFoodPopularityParams) => {
   if (!foodId) {
     throw new Error('Food ID is required')
   }
 
   const foodRef = doc(db, 'foods', foodId)
-  
+
   await updateDoc(foodRef, {
     popularity: increment(shouldIncrement ? 1 : -1),
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   })
-} 
+}

@@ -10,7 +10,9 @@ const KYCFooter = () => {
       <View className="bg-emerald-50 rounded-2xl p-6 border border-emerald-100">
         <View className="flex-row items-center gap-3 mb-3">
           <ShieldCheck size={24} color="#059669" />
-          <Typo className="text-emerald-700 font-semibold text-lg">Data Security</Typo>
+          <Typo className="text-emerald-700 font-semibold text-lg">
+            Data Security
+          </Typo>
         </View>
         <View className="gap-2">
           <Typo className="text-gray-600">

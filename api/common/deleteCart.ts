@@ -8,4 +8,4 @@ export const deleteCart = async (id: string) => {
   await deleteDoc(docRef)
 
   return true
-} 
+}

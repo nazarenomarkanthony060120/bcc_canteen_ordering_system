@@ -16,8 +16,14 @@ interface ViewStoreProps {
 const ViewStore = ({ params }: ViewStoreProps) => {
   const [refreshing, setRefreshing] = useState(false)
   const storeId = params.get('storeId')
-  const { data: store, refetch: refetchStore } = useGetStoreByStoreId({ id: storeId })
-  const { data: foods, isFetching, refetch: refetchFoods } = useFetchFoodByStoreId({ id: store?.id })
+  const { data: store, refetch: refetchStore } = useGetStoreByStoreId({
+    id: storeId,
+  })
+  const {
+    data: foods,
+    isFetching,
+    refetch: refetchFoods,
+  } = useFetchFoodByStoreId({ id: store?.id })
 
   const onRefresh = async () => {
     setRefreshing(true)

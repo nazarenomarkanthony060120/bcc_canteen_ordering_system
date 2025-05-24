@@ -22,11 +22,7 @@ const ViewStoreHeader = () => {
           onPress={navigateToBack}
           icon={
             <View className="bg-white rounded-full p-2.5 shadow-sm">
-              <Ionicons
-                name="chevron-back"
-                size={24}
-                color="#1E40AF"
-              />
+              <Ionicons name="chevron-back" size={24} color="#1E40AF" />
             </View>
           }
         >

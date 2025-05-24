@@ -22,7 +22,7 @@ const KYCFormCard = () => {
   const { mutate: userKycRegister, isPending } = useUserKYCRegister()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data) 
+    console.log(data)
     const formData = {
       id: auth.user?.uid,
       name: data.name,
@@ -38,32 +38,32 @@ const KYCFormCard = () => {
   }
 
   return (
-      <View className="bg-white/60 rounded-2xl shadow-lg p-6">
-        {showCountdown && (
-          <View className="my-4">
-            <CountDown
-              time={5}
-              route={'/screens/(seller)/dashboard/store'}
-              message="You will be redirected to your store in"
-            />
-          </View>
-        )}
-        <View className="mt-6">
-          <KYCFormContents control={control} />
-        </View>
-        <View className="mt-8">
-          <KYCFormFooter
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-            isPending={isPending}
+    <View className="bg-white/60 rounded-2xl shadow-lg p-6">
+      {showCountdown && (
+        <View className="my-4">
+          <CountDown
+            time={5}
+            route={'/screens/(seller)/dashboard/store'}
+            message="You will be redirected to your store in"
           />
         </View>
-        {Object.keys(errors).length > 0 && (
-          <View className="mt-4">
-            <Error errors={errors} />
-          </View>
-        )}
+      )}
+      <View className="mt-6">
+        <KYCFormContents control={control} />
       </View>
+      <View className="mt-8">
+        <KYCFormFooter
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          isPending={isPending}
+        />
+      </View>
+      {Object.keys(errors).length > 0 && (
+        <View className="mt-4">
+          <Error errors={errors} />
+        </View>
+      )}
+    </View>
   )
 }
 

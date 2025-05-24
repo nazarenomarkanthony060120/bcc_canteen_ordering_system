@@ -9,6 +9,6 @@ export const useToggleFavorite = () => {
     onSuccess: () => {
       // Invalidate relevant queries
       queryClient.invalidateQueries({ queryKey: ['favorites'] })
-    }
+    },
   })
-} 
+}

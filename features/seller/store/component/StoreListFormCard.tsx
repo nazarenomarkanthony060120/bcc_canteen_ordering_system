@@ -88,7 +88,7 @@ const StoreListFormCard = ({ stores, user }: Props) => {
             }}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={renderEmptyList}
-            ItemSeparatorComponent={() => <View className="h-4" />}
+            ItemSeparatorComponent={() => <View className="h-2" />}
             overScrollMode="never"
           />
         </LinearGradient>

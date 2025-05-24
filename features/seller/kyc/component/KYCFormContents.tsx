@@ -1,10 +1,6 @@
 import { View } from 'react-native'
 import React from 'react'
-import {
-  Control,
-  Controller,
-  FieldValues,
-} from 'react-hook-form'
+import { Control, Controller, FieldValues } from 'react-hook-form'
 import Input from '@/components/common/input'
 import { AntDesign, Entypo, FontAwesome } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
@@ -78,7 +74,7 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
         <Controller
           control={control}
           name="address"
-          rules={{ 
+          rules={{
             required: 'Address is required',
             minLength: {
               value: 7,
@@ -104,7 +100,7 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
         <Controller
           control={control}
           name="birthDate"
-          rules={{ 
+          rules={{
             required: 'Birth date is required',
             pattern: {
               value: /^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-(19|20)\d{2}$/,
@@ -120,7 +116,9 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
               secureTextEntry={false}
               keyboardType="numeric"
               isIconLeft
-              icon={<FontAwesome name="birthday-cake" size={20} color="#059669" />}
+              icon={
+                <FontAwesome name="birthday-cake" size={20} color="#059669" />
+              }
             />
           )}
         />

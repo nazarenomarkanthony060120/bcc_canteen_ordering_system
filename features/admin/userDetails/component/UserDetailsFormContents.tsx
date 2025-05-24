@@ -20,9 +20,13 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
   const infoList = [
     {
       label: 'Email',
-      value: <Text className="text-gray-800 font-semibold text-base">{user.email}</Text>,
+      value: (
+        <Text className="text-gray-800 font-semibold text-base">
+          {user.email}
+        </Text>
+      ),
       icon: <MaterialIcons name="alternate-email" size={22} color="#4B5563" />,
-      description: 'User contact email address'
+      description: 'User contact email address',
     },
     {
       label: 'Stores',
@@ -31,47 +35,60 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
           <ActivityIndicator size="small" color="#4B5563" />
           <Text className="text-gray-500 text-sm">Loading stores...</Text>
         </View>
-      ) : <Text className="text-gray-800 font-semibold text-base">{stores?.length || 0}</Text>,
+      ) : (
+        <Text className="text-gray-800 font-semibold text-base">
+          {stores?.length || 0}
+        </Text>
+      ),
       icon: <MaterialIcons name="store" size={22} color="#4B5563" />,
-      description: 'Number of stores managed'
+      description: 'Number of stores managed',
     },
     {
       label: 'Status',
       value: (
         <View className="flex-row items-center gap-2">
-          <View 
-            className="w-2.5 h-2.5 rounded-full" 
-            style={{ backgroundColor: getUserStatusColor(user.status).color }} 
+          <View
+            className="w-2.5 h-2.5 rounded-full"
+            style={{ backgroundColor: getUserStatusColor(user.status).color }}
           />
-          <Text style={{ color: getUserStatusColor(user.status).color }} className="font-medium">
+          <Text
+            style={{ color: getUserStatusColor(user.status).color }}
+            className="font-medium"
+          >
             {getUserStatus(user.status)}
           </Text>
         </View>
       ),
       icon: <AntDesign name="infocirlceo" size={22} color="#4B5563" />,
-      description: 'Current account status'
+      description: 'Current account status',
     },
     {
       label: 'Type',
-      value: <Text className="text-gray-800 font-semibold text-base">{user.type}</Text>,
+      value: (
+        <Text className="text-gray-800 font-semibold text-base">
+          {user.type}
+        </Text>
+      ),
       icon: <MaterialIcons name="category" size={22} color="#4B5563" />,
-      description: 'User account type'
+      description: 'User account type',
     },
     {
       label: 'Created Date',
-      value: <Text className="text-gray-800 font-semibold text-base">
-        {createdAtFormatted(user.createdAt as unknown as Timestamp)}
-      </Text>,
+      value: (
+        <Text className="text-gray-800 font-semibold text-base">
+          {createdAtFormatted(user.createdAt as unknown as Timestamp)}
+        </Text>
+      ),
       icon: <Ionicons name="create-outline" size={22} color="#4B5563" />,
-      description: 'Account creation date'
+      description: 'Account creation date',
     },
   ]
 
   return (
     <SafeAreaView>
       {infoList.map((item, index) => (
-        <View 
-          key={index} 
+        <View
+          key={index}
           className={`p-4 ${
             index !== infoList.length - 1 ? 'border-b border-gray-100' : ''
           }`}
@@ -82,7 +99,9 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
             </View>
             <View className="flex-1">
               <View className="flex-row justify-between items-center mb-1">
-                <Text className="text-gray-600 font-medium text-base">{item.label}</Text>
+                <Text className="text-gray-600 font-medium text-base">
+                  {item.label}
+                </Text>
                 {item.value}
               </View>
               <Text className="text-gray-400 text-sm">{item.description}</Text>

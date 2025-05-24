@@ -39,11 +39,11 @@ const DisableAccount = ({ userId }: DisableAccountProps) => {
       <Button
         onPress={handleDisable}
         className="w-full bg-gradient-to-r from-orange-500 to-orange-600 flex-row items-center justify-center gap-2 rounded-xl py-3.5 shadow-lg shadow-orange-500/20"
-        icon={
-          <AntDesign name="closecircle" size={22} color="white" />
-        }
+        icon={<AntDesign name="closecircle" size={22} color="white" />}
       >
-        <Text className="text-white font-semibold text-base">Disable Account</Text>
+        <Text className="text-white font-semibold text-base">
+          Disable Account
+        </Text>
       </Button>
     </View>
   )

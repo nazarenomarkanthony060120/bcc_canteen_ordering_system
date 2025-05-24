@@ -37,7 +37,11 @@ const CartItem = ({
     <View className="flex-row items-center justify-between p-4 border-b border-gray-200">
       <View className="flex-row items-center flex-1">
         <View className="w-16 h-16 rounded-lg overflow-hidden mr-3">
-          <ImageWrapper source={image} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
+          <ImageWrapper
+            source={image}
+            style={{ width: '100%', height: '100%' }}
+            resizeMode="cover"
+          />
         </View>
         <View className="flex-1">
           <Typo className="text-gray-800 font-semibold mb-1">{name}</Typo>

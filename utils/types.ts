@@ -55,6 +55,7 @@ export type UpdateProfile = {
 
 export type CreateStore = {
   userId: string
+  image: string
   store: string
   address: string
 }
@@ -62,6 +63,7 @@ export type CreateStore = {
 export type Store = {
   id: string
   userId: string
+  image: string
   store: string
   address: string
   status: StoreStatus

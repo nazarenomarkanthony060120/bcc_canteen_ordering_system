@@ -14,7 +14,7 @@ const AddStore = () => {
         end={{ x: 1, y: 1 }}
         className="absolute inset-0"
       />
-      <ScrollView 
+      <ScrollView
         showsVerticalScrollIndicator={false}
         className="flex-1"
         contentContainerStyle={{ flexGrow: 1 }}

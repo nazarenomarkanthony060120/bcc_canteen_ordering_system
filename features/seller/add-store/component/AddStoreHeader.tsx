@@ -31,7 +31,11 @@ const AddStoreHeader = () => {
   return (
     <SafeAreaView className="py-5">
       <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-        <BlurView intensity={20} tint="light" className="rounded-2xl overflow-hidden">
+        <BlurView
+          intensity={20}
+          tint="light"
+          className="rounded-2xl overflow-hidden"
+        >
           <TouchableOpacity
             onPress={navigateToStore}
             activeOpacity={0.9}
