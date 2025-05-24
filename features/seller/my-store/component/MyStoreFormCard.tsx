@@ -28,10 +28,6 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
     id: store?.id,
   })
 
-  const handleAddFood = () => {
-    router.push(`/screens/(seller)/add-food/add-food?storeId=${store?.id}`)
-  }
-
   if (isFetching) return <LoadingIndicator />
   if (foods?.length === 0)
     return (

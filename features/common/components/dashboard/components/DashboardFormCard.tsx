@@ -1,10 +1,4 @@
-import {
-  ScrollView,
-  SafeAreaView,
-  RefreshControl,
-  Animated,
-  View,
-} from 'react-native'
+import { ScrollView, RefreshControl, Animated, View } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
 import StoreCategory from '@/features/common/components/storeCategory/StoreCategory'
 import PopularFood from '@/features/common/components/popularFood/PopularFood'

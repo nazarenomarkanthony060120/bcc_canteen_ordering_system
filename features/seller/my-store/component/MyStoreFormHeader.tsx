@@ -124,7 +124,7 @@ const MyStoreFormHeader = ({ store }: MyStoreFormHeaderProps) => {
                   </View>
                 </View>
 
-                <View className="space-y-4">
+                <View className="space-y-4 gap-3">
                   <View className="flex-row items-start gap-3">
                     <View className="bg-gray-50 p-2.5 rounded-lg mt-1">
                       <MaterialIcons

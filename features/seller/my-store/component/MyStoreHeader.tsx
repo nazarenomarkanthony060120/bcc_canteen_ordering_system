@@ -108,44 +108,44 @@ const MyStoreHeader = ({ storeId, status }: MyStoreHeaderProps) => {
             tint="light"
             className="rounded-full overflow-hidden"
           >
-              <TouchableOpacity
-                onPress={handlePendingStore}
-                disabled={!isApplied}
-                className={`flex-row items-center gap-3 ${isApplied ? 'bg-white/90' : `${applyStatus.bgColor} ${applyStatus.borderColor} ${applyStatus.color}`} px-7 py-4 rounded-full`}
+            <TouchableOpacity
+              onPress={handlePendingStore}
+              disabled={!isApplied}
+              className={`flex-row items-center gap-3 ${isApplied ? 'bg-white/90' : `${applyStatus.bgColor} ${applyStatus.borderColor} ${applyStatus.color}`} py-4 rounded-full`}
+              style={{
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+              }}
+            >
+              <View
                 style={{
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
+                  borderWidth: 1,
+                  borderColor: applyStatus.borderColor,
+                  borderRadius: 16,
+                  backgroundColor: applyStatus.bgColor,
+                  paddingHorizontal: 14,
+                  paddingVertical: 8,
+                  alignSelf: 'center',
                 }}
               >
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: applyStatus.borderColor,
-                    borderRadius: 16,
-                    backgroundColor: applyStatus.bgColor,
-                    paddingHorizontal: 14,
-                    paddingVertical: 8,
-                    alignSelf: 'center',
-                  }}
-                >
-                  <View className="flex-row items-center gap-3">
-                    <MaterialIcons
-                      name={applyStatus.icon}
-                      size={20}
-                      color={applyStatus.textColor}
-                    />
-                    <Text
-                      className="text-base font-bold"
-                      style={{ color: applyStatus.textColor }}
-                    >
-                      {isApplied ? 'Apply for Approval' : 'Pending Application'}
-                    </Text>
-                  </View>
+                <View className="flex-row items-center gap-3">
+                  <MaterialIcons
+                    name={applyStatus.icon}
+                    size={20}
+                    color={applyStatus.textColor}
+                  />
+                  <Text
+                    className="text-base font-bold"
+                    style={{ color: applyStatus.textColor }}
+                  >
+                    {isApplied ? 'Apply for Approval' : 'Pending Application'}
+                  </Text>
                 </View>
-              </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           </BlurView>
         </Animated.View>
       )}

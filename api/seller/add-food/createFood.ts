@@ -6,6 +6,7 @@ export const createFood = async (data: AddFood) => {
   return await addDoc(collection(db, 'foods'), {
     id: data.id,
     name: data.name,
+    image: data.image,
     price: Number(data.price),
     quantity: Number(data.quantity),
     type: data.type,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Food } from '@/utils/types'
-import { MasonryFlashList } from '@shopify/flash-list'
+import { FlashList } from '@shopify/flash-list'
 import PopularFoodItem from './PopularFoodItem'
 
 interface FoodListProps {
@@ -8,12 +8,14 @@ interface FoodListProps {
 }
 const FoodList = ({ foods }: FoodListProps) => {
   return (
-    <MasonryFlashList
+    <FlashList
       data={foods}
-      numColumns={2}
-      estimatedItemSize={140}
-      renderItem={({ item }) => <PopularFoodItem food={item} />}
+      horizontal
+      estimatedItemSize={150}
       keyExtractor={(item) => item.id.toString()}
+      contentContainerStyle={{ padding: 8 }}
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => <PopularFoodItem food={item} />}
     />
   )
 }

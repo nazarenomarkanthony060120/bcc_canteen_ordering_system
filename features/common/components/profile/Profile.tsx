@@ -47,28 +47,7 @@ const Profile = () => {
     setRefreshing(false)
   }
 
-  if (isLoading && !refreshing) {
-    return (
-      <LinearGradient
-        colors={['#6a11cb', '#2575fc']}
-        style={{ flex: 1 }}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
-        <SafeAreaView className="flex-1 justify-center items-center">
-          <View className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 items-center">
-            <View className="bg-white/20 p-4 rounded-full mb-4">
-              <MaterialIcons name="person" size={32} color="#FFFFFF" />
-            </View>
-            <LoadingIndicator />
-            <Typo className="text-white text-base mt-4 font-medium">
-              Loading profile...
-            </Typo>
-          </View>
-        </SafeAreaView>
-      </LinearGradient>
-    )
-  }
+  if (isLoading && !refreshing) return <LoadingIndicator />
 
   return (
     <LinearGradient

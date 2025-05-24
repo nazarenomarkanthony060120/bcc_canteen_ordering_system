@@ -68,16 +68,16 @@ const NewlyAddFoodItem = ({ food }: NewlyAddFoodItemProps) => {
         >
           <View className="bg-white/95">
             <View className="relative">
+            <View className="overflow-hidden rounded-xl">
               <ImageWrapper
-                source={CANTEEN_IMAGE}
-                className="rounded-t-2xl"
-                style={{ height: 160, width: '100%' }}
-                resizeMode="cover"
+                source={
+                  food.image
+                    ? { uri: `data:image/jpeg;base64,${food.image}` }
+                    : CANTEEN_IMAGE
+                }
+                style={{ height: 150, width: '100%' }}
               />
-              <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.8)']}
-                className="absolute bottom-0 left-0 right-0 h-20"
-              />
+            </View>
               <View className="absolute bottom-3 left-3 right-3">
                 <View className="flex-row items-center justify-between">
                   <View className="bg-emerald-500 px-3 py-1.5 rounded-full">

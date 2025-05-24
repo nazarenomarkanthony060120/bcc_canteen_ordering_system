@@ -23,6 +23,7 @@ export const fetchNewlyAddedFoods = async () => {
         id: docSnap.id,
         storeId: docSnap.data().id,
         name: docSnap.data().name,
+        image: docSnap.data().image,
         price: docSnap.data().price,
         quantity: docSnap.data().quantity,
         popularity: docSnap.data().popularity,

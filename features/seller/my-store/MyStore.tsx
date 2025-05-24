@@ -106,7 +106,6 @@ const MyStore = ({ params }: MyStoreProps) => {
           </View>
         </Animated.View>
       </ScrollView>
-      {/* {storeData && !isFetching && <MyStoreFooter storeId={storeId} />} */}
     </Seller>
   )
 }

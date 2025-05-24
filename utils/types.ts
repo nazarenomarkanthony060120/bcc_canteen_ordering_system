@@ -74,6 +74,7 @@ export type Store = {
 export type AddFood = {
   id: string
   name: string
+  image: string
   price: number
   quantity: number
   type: FoodType
@@ -95,6 +96,7 @@ export type Food = {
   id: string
   storeId: string
   name: string
+  image: string
   price: number
   quantity: number
   popularity: number

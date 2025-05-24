@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, View } from 'react-native'
 import Button from '@/components/common/button'
 import { Ionicons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
@@ -17,21 +17,16 @@ const AddFoodHeader = ({ storeId }: AddFoodHeaderProps) => {
   }
 
   return (
-    <SafeAreaView className="py-5">
-      <Button
-        className="w-44 flex-row items-center gap-2"
-        onPress={navigateToMyStore}
-        icon={
-          <Ionicons
-            name="arrow-back"
-            className="bg-emerald-700 rounded-lg p-2"
-            size={16}
-            color="white"
-          />
-        }
-      >
-        <Typo>Back</Typo>
-      </Button>
+    <SafeAreaView className="py-4">
+      <View className="flex-row items-center">
+        <Button
+          className="bg-white/90 px-4 py-2.5 rounded-xl flex-row items-center gap-2 shadow-sm"
+          onPress={navigateToMyStore}
+        >
+          <Ionicons name="chevron-back" size={20} color="#059669" />
+          <Typo className="text-emerald-600 font-medium">Back to Store</Typo>
+        </Button>
+      </View>
     </SafeAreaView>
   )
 }

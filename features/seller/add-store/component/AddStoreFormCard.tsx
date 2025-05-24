@@ -23,7 +23,7 @@ const AddStoreFormCard = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const { mutate: userCreateStore, isPending } = useCreateStore()
+  const { mutate: userCreateStore, isPending, reset } = useCreateStore()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsCreate(true)
@@ -36,6 +36,7 @@ const AddStoreFormCard = () => {
     userCreateStore(formData as CreateStore, {
       onSuccess: () => {
         setShowCountdown(true)
+        reset()
       },
       onError: (error) => {
         console.error('Store creation failed:', error)

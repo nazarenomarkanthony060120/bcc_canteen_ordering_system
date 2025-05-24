@@ -49,7 +49,7 @@ const DashboardHeader = () => {
           </View>
           <DashboardHeaderIcons />
         </View>
-        <View className="flex-row justify-between mt-4 pt-4 border-t border-gray-100">
+        {/* <View className="flex-row justify-between mt-4 pt-4 border-t border-gray-100">
           <View className="items-center">
             <Typo className="text-gray-800 font-semibold">Orders</Typo>
             <Typo className="text-emerald-600">12</Typo>
@@ -62,7 +62,7 @@ const DashboardHeader = () => {
             <Typo className="text-gray-800 font-semibold">Points</Typo>
             <Typo className="text-emerald-600">250</Typo>
           </View>
-        </View>
+        </View> */}
       </View>
     </BlurView>
   )

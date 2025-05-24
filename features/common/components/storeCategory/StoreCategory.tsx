@@ -1,6 +1,5 @@
 import { View, Animated } from 'react-native'
 import React, { useRef, useEffect } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import CategoryList from './component/CategoryList'
 import { FlashList } from '@shopify/flash-list'
 import Typo from '@/components/common/typo'

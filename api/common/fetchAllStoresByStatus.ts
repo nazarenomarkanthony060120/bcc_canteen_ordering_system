@@ -13,6 +13,7 @@ export const fetchAllStoresByStatus = async () => {
     return querySnapshot.docs.map((docSnap) => ({
       id: docSnap.id,
       userId: docSnap.data().userId,
+      image: docSnap.data().image,
       store: docSnap.data().store,
       address: docSnap.data().address,
       status: docSnap.data().status,

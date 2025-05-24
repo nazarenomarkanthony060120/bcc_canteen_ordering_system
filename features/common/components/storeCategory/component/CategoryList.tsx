@@ -1,4 +1,4 @@
-import { Pressable, View, Animated } from 'react-native'
+import { Pressable, View, Animated, Image } from 'react-native'
 import React, { useRef } from 'react'
 import { useRouter } from 'expo-router'
 import ImageWrapper from '@/components/parts/Image'
@@ -7,14 +7,10 @@ import Typo from '@/components/common/typo'
 import { BlurView } from 'expo-blur'
 import { MaterialIcons, Ionicons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Store } from '@/utils/types'
 
 interface CategoryListProps {
-  store: {
-    id: string
-    store: string
-    address?: string
-    status?: number
-  }
+  store: Store
 }
 
 const CategoryList = ({ store }: CategoryListProps) => {
@@ -48,12 +44,16 @@ const CategoryList = ({ store }: CategoryListProps) => {
         <BlurView intensity={10} className="rounded-2xl overflow-hidden">
           <View className="bg-white/90">
             <View className="relative">
+            <View className="overflow-hidden rounded-xl">
               <ImageWrapper
-                source={CANTEEN_IMAGE}
-                className="rounded-t-2xl"
-                style={{ height: 150, width: 180 }}
-                resizeMode="cover"
+                source={
+                  store.image
+                    ? { uri: `data:image/jpeg;base64,${store.image}` }
+                    : CANTEEN_IMAGE
+                }
+                style={{ height: 120, width: 120 }}
               />
+            </View>
               <LinearGradient
                 colors={['transparent', 'rgba(0,0,0,0.8)']}
                 className="absolute bottom-0 left-0 right-0 h-20 rounded-b-2xl"

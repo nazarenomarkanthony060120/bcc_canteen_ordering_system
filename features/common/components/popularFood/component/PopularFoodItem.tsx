@@ -38,7 +38,7 @@ const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
   const popularity = food.popularity / 5
 
   return (
-    <Pressable key={food.id} onPress={navigateToViewFood} className="mb-4">
+    <Pressable key={food.id} onPress={navigateToViewFood} className="mb-4 mr-5">
       <Animated.View
         style={{
           transform: [{ scale: scaleAnim }],
@@ -47,15 +47,16 @@ const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
         <BlurView intensity={10} className="rounded-2xl overflow-hidden">
           <View className="bg-white/90">
             <View className="relative">
+            <View className="overflow-hidden rounded-xl">
               <ImageWrapper
-                source={CANTEEN_IMAGE}
-                className="rounded-t-2xl"
-                style={{ height: 120, width: '100%' }}
+                source={
+                  food.image
+                    ? { uri: `data:image/jpeg;base64,${food.image}` }
+                    : CANTEEN_IMAGE
+                }
+                style={{ height: 150, width: 160 }}
               />
-              <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.7)']}
-                className="absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl"
-              />
+            </View>
               <View className="absolute bottom-2 left-2 right-2">
                 <View className="flex-row items-center justify-between">
                   <View className="flex-row items-center">
