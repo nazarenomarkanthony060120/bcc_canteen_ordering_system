@@ -70,7 +70,7 @@ const PopularFood: React.FC<PopularFoodProps> = ({ selectedFoodType }) => {
                   </View>
                 )}
               </View>
-              <View className="p-3">
+              <View className="">
                 <Typo className="text-gray-800 font-medium mb-1">
                   {food.name}
                 </Typo>

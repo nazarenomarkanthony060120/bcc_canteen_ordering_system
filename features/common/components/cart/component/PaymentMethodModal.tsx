@@ -1,5 +1,6 @@
 import React from 'react'
 import { Modal, View, TouchableOpacity, Text } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 
 interface PaymentMethodModalProps {
   visible: boolean
@@ -30,14 +31,22 @@ const PaymentMethodModal: React.FC<PaymentMethodModalProps> = ({
             className="bg-green-500 p-4 rounded-xl mb-3"
             onPress={() => onSelectPayment('GCash')}
           >
-            <Text className="text-white text-center font-semibold">Pay with GCash</Text>
+            <View className="flex-row items-center justify-center">
+              <MaterialIcons name="phone-android" size={24} color="white" />
+              <Text className="text-white text-center font-semibold ml-2">Pay with GCash</Text>
+            </View>
+            <Text className="text-white/80 text-center text-sm mt-1">Coming Soon</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
-            className="bg-gray-200 p-4 rounded-xl mb-3"
+            className="bg-emerald-600 p-4 rounded-xl mb-3"
             onPress={() => onSelectPayment('Cash')}
           >
-            <Text className="text-gray-800 text-center font-semibold">Pay with Cash</Text>
+            <View className="flex-row items-center justify-center">
+              <MaterialIcons name="payments" size={24} color="white" />
+              <Text className="text-white text-center font-semibold ml-2">Reserve & Pay at Counter</Text>
+            </View>
+            <Text className="text-white/80 text-center text-sm mt-1">Reserve your order and pay in cash when you collect it</Text>
           </TouchableOpacity>
           
           <TouchableOpacity

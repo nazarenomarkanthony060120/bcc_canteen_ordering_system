@@ -16,6 +16,7 @@ import { useGetFoodByFoodId } from '@/hooks/useQuery/common/get/useGetFoodByFood
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
 import { useUpdateCartQuantity } from '@/hooks/useMutation/common/useUpdateCartQuantity'
 import { useDeleteCart } from '@/hooks/useMutation/common/useDeleteCart'
+import { useSaveReservedOrder } from '@/hooks/useMutation/common/useSaveReservedOrder'
 import { Cart as CartType } from '@/utils/types'
 
 const Cart = () => {
@@ -23,6 +24,7 @@ const Cart = () => {
   const slideAnim = useRef(new Animated.Value(20)).current
   const [refreshing, setRefreshing] = useState(false)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [isReserving, setIsReserving] = useState(false)
   const auth = useAuth()
 
   const {
@@ -34,6 +36,7 @@ const Cart = () => {
   })
   const { mutate: updateQuantity } = useUpdateCartQuantity()
   const { mutate: deleteCartItem } = useDeleteCart()
+  const { mutate: saveReservedOrder } = useSaveReservedOrder()
 
   useEffect(() => {
     Animated.parallel([
@@ -93,20 +96,59 @@ const Cart = () => {
     setShowPaymentModal(false)
     if (method === 'GCash') {
       Alert.alert(
-        'GCash Payment',
-        'Gcash is not available yet.',
+        'GCash Payment Coming Soon',
+        'We are currently working on integrating GCash payments. For now, please use cash payment at the counter.',
         [{ text: 'OK' }]
       )
     } else {
-      Alert.alert(
-        'Cash Payment',
-        'Please proceed to the counter to pay in cash.',
-        [{ text: 'OK' }]
+      setIsReserving(true)
+      // Save the order to reserved collection
+      saveReservedOrder(
+        {
+          userId: auth.user?.uid || '',
+          cartItems: cartItems || [],
+          totalAmount: total,
+          paymentMethod: method,
+        },
+        {
+          onSuccess: () => {
+            // Delete all cart items after successful reservation
+            const deletePromises = cartItems?.map(item => deleteCartItem(item.id)) || []
+            Promise.all(deletePromises)
+              .then(() => {
+                setIsReserving(false)
+                Alert.alert(
+                  'Order Reserved Successfully!',
+                  'Your order has been reserved and is being prepared. Please proceed to the counter to pay in cash and collect your order. Thank you for your order!',
+                  [{ text: 'OK' }]
+                )
+              })
+              .catch((error) => {
+                console.error('Error clearing cart:', error)
+                setIsReserving(false)
+                Alert.alert(
+                  'Warning',
+                  'Your order was reserved but there was an error clearing your cart. Please try clearing it manually.',
+                  [{ text: 'OK' }]
+                )
+              })
+          },
+          onError: (error) => {
+            setIsReserving(false)
+            Alert.alert(
+              'Error',
+              'There was an error reserving your order. Please try again.',
+              [{ text: 'OK' }]
+            )
+            console.error('Error saving reserved order:', error)
+          },
+        }
       )
     }
   }
 
   if (isLoading && !refreshing) return <LoadingIndicator />
+  if (isReserving) return <LoadingIndicator />
 
   const totalItems =
     cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0
