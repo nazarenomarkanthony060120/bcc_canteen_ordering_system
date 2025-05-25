@@ -1,6 +1,6 @@
 import { db } from '@/lib/firestore'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-import { Cart } from '@/utils/types'
+import { Cart, ReservationStatus } from '@/utils/types'
 
 interface SaveReservedOrderParams {
   userId: string
@@ -21,7 +21,7 @@ export const saveReservedOrder = async ({
       items: cartItems,
       totalAmount,
       paymentMethod,
-      status: 'reserved',
+      status: ReservationStatus.RESERVED,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     }

@@ -118,6 +118,15 @@ export type Cart = {
   image?: string | null
 }
 
+export type Reservation = {
+  id: string
+  items: any[]
+  totalAmount: number
+  status: number
+  createdAt: any
+  paymentMethod: string
+}
+
 // Enum Decleared
 
 export enum FoodType {
@@ -136,6 +145,21 @@ export enum UserType {
   TEACHER = 'Teacher',
   STUDENT = 'Student',
   OUTSIDER = 'Outsider',
+}
+
+export enum ReservationStatusText {
+  RESERVED = 'Reserved',
+  PENDING = 'Pending',
+  COMPLETED = 'Completed',
+  CANCELLED = 'Cancelled',
+  UNKNOWN = 'Unknown'
+}
+
+export enum ReservationStatus {
+  RESERVED = 0,
+  PENDING = 1,
+  COMPLETED = 2,
+  CANCELLED = 3,
 }
 
 export enum UserKYCStatus {
