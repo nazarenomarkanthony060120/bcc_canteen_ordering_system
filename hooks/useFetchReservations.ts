@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/context/auth'
-import { fetchReservations, Reservation } from '@/api/reservations/fetchReservations'
+import { fetchReservations,  } from '@/api/reservations/fetchReservations'
+import { Reservation } from '@/utils/types'
 
 export const useFetchReservations = () => {
   const auth = useAuth()

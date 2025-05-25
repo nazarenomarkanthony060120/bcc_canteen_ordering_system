@@ -5,38 +5,14 @@ import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { format } from 'date-fns'
 import { Reservation } from '@/utils/types'
+import { getReservationStatusColor } from '@/features/common/parts/getReservationStatusColor'
+import { getReservationStatus } from '@/features/common/parts/getReservationStatus'
 
 interface ReservationDetailProps {
   reservation: Reservation
 }
 
 const ReservationDetail = ({ reservation }: ReservationDetailProps) => {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'reserved':
-        return '#10B981'
-      case 'completed':
-        return '#3B82F6'
-      case 'cancelled':
-        return '#EF4444'
-      default:
-        return '#6B7280'
-    }
-  }
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'reserved':
-        return 'Waiting for Pickup'
-      case 'completed':
-        return 'Order Completed'
-      case 'cancelled':
-        return 'Order Cancelled'
-      default:
-        return 'Unknown Status'
-    }
-  }
-
   return (
     <ScrollView className="flex-1">
       <View className="p-4">
@@ -54,13 +30,13 @@ const ReservationDetail = ({ reservation }: ReservationDetailProps) => {
               </View>
               <View
                 className="px-4 py-2 rounded-full"
-                style={{ backgroundColor: `${getStatusColor(reservation.status)}20` }}
+                style={{ backgroundColor: `${getReservationStatusColor(reservation.status)}20` }}
               >
                 <Typo
                   className="text-sm font-semibold"
-                  style={{ color: getStatusColor(reservation.status) }}
+                  style={{ color: getReservationStatusColor(reservation.status) }}
                 >
-                  {getStatusText(reservation.status)}
+                  {getReservationStatus(reservation.status)}
                 </Typo>
               </View>
             </View>
