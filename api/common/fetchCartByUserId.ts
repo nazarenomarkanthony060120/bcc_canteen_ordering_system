@@ -1,5 +1,5 @@
 import { db } from '@/lib/firestore'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
 import { Cart, UserIdRequest } from '@/utils/types'
 
 export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
@@ -9,15 +9,27 @@ export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
   const querySnapshot = await getDocs(q)
 
   if (!querySnapshot.empty) {
-    return querySnapshot.docs.map((docSnap) => ({
-      id: docSnap.id,
-      foodId: docSnap.data().foodId,
-      userId: docSnap.data().userId,
-      quantity: docSnap.data().quantity,
-      totalPrice: docSnap.data().totalPrice,
-      createdAt: docSnap.data().createdAt,
-      updatedAt: docSnap.data().updatedAt,
-    })) as Cart[]
+    const cartItems = await Promise.all(
+      querySnapshot.docs.map(async (docSnap) => {
+        const cartData = docSnap.data()
+        // Get food details including image
+        const foodDoc = await getDoc(doc(db, 'foods', cartData.foodId))
+        const foodData = foodDoc.data()
+
+        return {
+          id: docSnap.id,
+          foodId: cartData.foodId,
+          userId: cartData.userId,
+          quantity: cartData.quantity,
+          totalPrice: cartData.totalPrice,
+          createdAt: cartData.createdAt,
+          updatedAt: cartData.updatedAt,
+          image: foodData?.image, 
+        }
+      })
+    )
+
+    return cartItems
   }
 
   return []

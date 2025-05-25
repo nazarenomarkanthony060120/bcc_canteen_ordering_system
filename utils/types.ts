@@ -115,6 +115,7 @@ export type Cart = {
   totalPrice: number
   createdAt: FieldValue
   updatedAt: FieldValue
+  image?: string | null
 }
 
 // Enum Decleared

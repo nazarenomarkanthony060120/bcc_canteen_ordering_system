@@ -3,13 +3,14 @@ import { View, ImageSourcePropType } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import ImageWrapper from '@/components/parts/Image'
+import { CANTEEN_IMAGE } from '@/constants/image'
 
 interface CartItemProps {
   id: string
   name: string
   price: number
   quantity: number
-  image: ImageSourcePropType
+  image: string | null | undefined
   store: string
   onQuantityChange: (id: string, newQuantity: number) => void
 }
@@ -34,15 +35,18 @@ const CartItem = ({
   }
 
   return (
-    <View className="flex-row items-center justify-between p-4 border-b border-gray-200">
+    <View className="flex-row items-center justify-between py-4 border-b border-gray-200">
       <View className="flex-row items-center flex-1">
-        <View className="w-16 h-16 rounded-lg overflow-hidden mr-3">
-          <ImageWrapper
-            source={image}
-            style={{ width: '100%', height: '100%' }}
-            resizeMode="cover"
-          />
-        </View>
+      <View className="overflow-hidden rounded-xl">
+                <ImageWrapper
+                  source={
+                    image
+                      ? { uri: `data:image/jpeg;base64,${image}` }
+                      : CANTEEN_IMAGE
+                  }
+                  style={{ height: 90, width: 100 }}
+                />
+              </View>
         <View className="flex-1">
           <Typo className="text-gray-800 font-semibold mb-1">{name}</Typo>
           <Typo className="text-gray-600 text-sm">Store: {store}</Typo>

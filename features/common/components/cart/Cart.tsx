@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { View, Animated, ScrollView, RefreshControl } from 'react-native'
+import { View, Animated, ScrollView, RefreshControl, Alert } from 'react-native'
 import ScreenLayout from '../screenLayout/ScreenLayout'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -8,6 +8,7 @@ import CartHeader from './component/CartHeader'
 import CartItem from './component/CartItem'
 import CartSummary from './component/CartSummary'
 import CartFooter from './component/CartFooter'
+import PaymentMethodModal from './component/PaymentMethodModal'
 import { useAuth } from '@/context/auth'
 import { useFetchCartByUserId } from '@/hooks/useQuery/common/fetch/useFetchCartByUserId'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
@@ -16,12 +17,12 @@ import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByS
 import { useUpdateCartQuantity } from '@/hooks/useMutation/common/useUpdateCartQuantity'
 import { useDeleteCart } from '@/hooks/useMutation/common/useDeleteCart'
 import { Cart as CartType } from '@/utils/types'
-import { HUMBA_IMAGE } from '@/constants/image'
 
 const Cart = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
   const [refreshing, setRefreshing] = useState(false)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
   const auth = useAuth()
 
   const {
@@ -75,8 +76,34 @@ const Cart = () => {
   }
 
   const handleCheckout = () => {
-    // TODO: Implement checkout logic
-    console.log('Checkout clicked')
+    if (!auth.user) {
+      Alert.alert('Login Required', 'Please login to proceed with checkout')
+      return
+    }
+
+    if (!cartItems?.length) {
+      Alert.alert('Empty Cart', 'Your cart is empty')
+      return
+    }
+
+    setShowPaymentModal(true)
+  }
+
+  const handlePaymentSelection = (method: 'GCash' | 'Cash') => {
+    setShowPaymentModal(false)
+    if (method === 'GCash') {
+      Alert.alert(
+        'GCash Payment',
+        'Gcash is not available yet.',
+        [{ text: 'OK' }]
+      )
+    } else {
+      Alert.alert(
+        'Cash Payment',
+        'Please proceed to the counter to pay in cash.',
+        [{ text: 'OK' }]
+      )
+    }
   }
 
   if (isLoading && !refreshing) return <LoadingIndicator />
@@ -146,6 +173,13 @@ const Cart = () => {
           </BlurView>
         </Animated.View>
       </SafeAreaView>
+
+      <PaymentMethodModal
+        visible={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        onSelectPayment={handlePaymentSelection}
+        total={total}
+      />
     </ScreenLayout>
   )
 }
@@ -169,7 +203,7 @@ const CartItemWithFood = ({
       name={food.name}
       price={food.price}
       quantity={cartItem.quantity}
-      image={HUMBA_IMAGE}
+      image={cartItem.image}
       store={store.store}
       onQuantityChange={(id, quantity) =>
         onQuantityChange(id, quantity, food.price)
