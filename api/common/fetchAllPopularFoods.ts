@@ -19,7 +19,7 @@ export const fetchAllPopularFoods = async () => {
 
   const foodsQuery = query(
     collection(db, 'foods'),
-    where('popularity', '>', 1),
+    where('popularity', '>', 0),
     orderBy('popularity', 'desc'),
     limit(8),
   )

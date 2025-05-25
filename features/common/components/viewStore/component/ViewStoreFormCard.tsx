@@ -43,18 +43,16 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
       <Animated.View className="gap-6 mb-6" style={{ opacity: fadeAnim }}>
         <View className="items-center">
           <View className="relative">
-            <ImageWrapper
-              source={CANTEEN_IMAGE}
-              className="rounded-3xl"
-              style={{
-                height: 200,
-                width: 200,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.1,
-                shadowRadius: 8,
-              }}
-            />
+            <View className="overflow-hidden rounded-xl">
+              <ImageWrapper
+                source={
+                  store?.image
+                    ? { uri: `data:image/jpeg;base64,${store.image}` }
+                    : CANTEEN_IMAGE
+                }
+                style={{ height: 200, width: 300 }}
+              />
+            </View>
             <LinearGradient
               colors={['transparent', 'rgba(0,0,0,0.3)']}
               className="absolute bottom-0 left-0 right-0 h-16 rounded-b-3xl"

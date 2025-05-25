@@ -80,12 +80,17 @@ const ViewFoodFormHeader = ({ food, store }: ViewFoodFormHeaderProps) => {
 
   return (
     <View className="relative">
-      <ImageWrapper
-        source={CANTEEN_IMAGE}
-        className="w-full"
-        style={{ height: 320 }}
-        resizeMode="cover"
-      />
+      <View className="overflow-hidden rounded-xl">
+        <ImageWrapper
+          source={
+            food?.image
+              ? { uri: `data:image/jpeg;base64,${food.image}` }
+              : CANTEEN_IMAGE
+          }
+          style={{ height: 250, width: '100%' }}
+        />
+      </View>
+
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0,0.9)']}
         className="absolute bottom-0 left-0 right-0 h-40"

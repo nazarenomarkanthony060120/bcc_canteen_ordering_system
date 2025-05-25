@@ -17,10 +17,15 @@ import DashboardCategories from './components/DashboardCategories'
 import DashboardFormCard from './components/DashboardFormCard'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 import { useAuth } from '@/context/auth'
+import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
+import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
 
 const Dashboard = () => {
   const auth = useAuth()
-  const { refetch } = useGetUserByUserId({ id: auth.user?.uid })
+  const { refetch: refetchUser } = useGetUserByUserId({ id: auth.user?.uid })
+  const { refetch: refetchPopularFood } = useFetchAllPopularFoods()
+  const { refetch: refetchNewlyAddedFood } = useFetchNewlyAddedFoods()
+
   const [refreshing, setRefreshing] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('1')
   const [searchQuery, setSearchQuery] = useState('')
@@ -32,7 +37,9 @@ const Dashboard = () => {
     // Simulate data refresh
     setTimeout(() => {
       setRefreshing(false)
-      refetch()
+      refetchUser()
+      refetchPopularFood()
+      refetchNewlyAddedFood()
     }, 2000)
   }, [])
 

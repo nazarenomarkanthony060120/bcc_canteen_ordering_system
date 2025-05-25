@@ -8,6 +8,8 @@ import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
 import { getUserProfileRoutes } from '@/features/common/parts/getUserProfileRoutes'
 import DashboardHeaderIcons from './DashboardHeaderIcons'
+import ImageWrapper from '@/components/parts/Image'
+import { PERSON_ICON } from '@/constants/image'
 
 const DashboardHeader = () => {
   const { user } = useAuth()
@@ -25,10 +27,20 @@ const DashboardHeader = () => {
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center">
             <TouchableOpacity
-              className="bg-emerald-100 p-2 rounded-full mr-3"
+              className="bg-emerald-100 p-1 rounded-full mr-3 overflow-hidden"
               onPress={handleProfilePress}
             >
-              <MaterialIcons name="person" size={24} color="#10B981" />
+              <View className="overflow-hidden rounded-full">
+                <ImageWrapper
+                  source={
+                    userData?.image
+                      ? { uri: `data:image/jpeg;base64,${userData.image}` }
+                      : PERSON_ICON
+                  }
+                  style={{ height: 40, width: 40 }}
+                  resizeMode="cover"
+                />
+              </View>
             </TouchableOpacity>
             <View>
               <Typo className="text-gray-500">Welcome back,</Typo>

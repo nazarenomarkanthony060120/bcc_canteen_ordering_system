@@ -88,6 +88,7 @@ export type User = {
   name: string
   email: string
   status: UserKYCStatus
+  image?: string
   createdAt: FieldValue
   updatedAt: FieldValue
 }

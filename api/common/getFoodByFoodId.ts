@@ -16,6 +16,7 @@ export const getFoodByFoodId = async ({
     return {
       id: docSnap.id,
       name: data.name,
+      image: data.image,
       quantity: data.quantity,
       price: data.price,
       description: data.description,

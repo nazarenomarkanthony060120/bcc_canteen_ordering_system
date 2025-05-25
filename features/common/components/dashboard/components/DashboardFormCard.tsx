@@ -65,9 +65,9 @@ const DashboardFormCard = () => {
               />
             }
           >
-            <View className="p-4">
+            <View className="">
               <View className="flex-row items-center gap-2 mb-4">
-                <View className="bg-emerald-50 p-2 rounded-full">
+                <View className="bg-emerald-50 rounded-full">
                   <MaterialIcons name="store" size={20} color="#10B981" />
                 </View>
                 <Typo className="text-gray-800 font-semibold">

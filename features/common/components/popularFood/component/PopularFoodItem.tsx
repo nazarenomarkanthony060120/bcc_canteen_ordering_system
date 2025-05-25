@@ -3,7 +3,12 @@ import React, { useRef } from 'react'
 import { Food } from '@/utils/types'
 import ImageWrapper from '@/components/parts/Image'
 import Typo from '@/components/common/typo'
-import { AntDesign, FontAwesome6, MaterialIcons } from '@expo/vector-icons'
+import {
+  AntDesign,
+  FontAwesome6,
+  Ionicons,
+  MaterialIcons,
+} from '@expo/vector-icons'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import { useRouter } from 'expo-router'
 import { getRatingFromPopularity } from '@/features/common/parts/getFoodPopularity'
@@ -47,23 +52,26 @@ const PopularFoodItem = ({ food }: PopularFoodItemProps) => {
         <BlurView intensity={10} className="rounded-2xl overflow-hidden">
           <View className="bg-white/90">
             <View className="relative">
-            <View className="overflow-hidden rounded-xl">
-              <ImageWrapper
-                source={
-                  food.image
-                    ? { uri: `data:image/jpeg;base64,${food.image}` }
-                    : CANTEEN_IMAGE
-                }
-                style={{ height: 150, width: 160 }}
-              />
-            </View>
+              <View className="overflow-hidden rounded-xl">
+                <ImageWrapper
+                  source={
+                    food.image
+                      ? { uri: `data:image/jpeg;base64,${food.image}` }
+                      : CANTEEN_IMAGE
+                  }
+                  style={{ height: 150, width: 160 }}
+                />
+              </View>
               <View className="absolute bottom-2 left-2 right-2">
                 <View className="flex-row items-center justify-between">
-                  <View className="flex-row items-center">
-                    <AntDesign name="star" size={16} color="#FCD34D" />
-                    <Typo className="text-white ml-1 text-sm">
-                      {getRatingFromPopularity(popularity)}
-                    </Typo>
+                  <View className="bg-black/50 backdrop-blur-md px-2 py-1 rounded-full">
+                    <View className="flex-row items-center">
+                      <Ionicons name="star" size={14} color="#FCD34D" />
+                      <Typo className="text-white text-xs ml-1">
+                        {' '}
+                        {getRatingFromPopularity(popularity)}
+                      </Typo>
+                    </View>
                   </View>
                   <View className="bg-emerald-500 px-2 py-1 rounded-full">
                     <Typo className="text-white text-xs">Popular</Typo>

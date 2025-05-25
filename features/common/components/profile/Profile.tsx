@@ -1,4 +1,4 @@
-import { ScrollView, View, RefreshControl, Animated } from 'react-native'
+import { ScrollView, RefreshControl, Animated } from 'react-native'
 import React, { useRef, useEffect, useState } from 'react'
 import { useAuth } from '@/context/auth'
 import ProfileFormCard from './component/ProfileFormCard'
@@ -7,8 +7,6 @@ import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUser
 import { SafeAreaView } from 'react-native-safe-area-context'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import { LinearGradient } from 'expo-linear-gradient'
-import { MaterialIcons } from '@expo/vector-icons'
-import Typo from '@/components/common/typo'
 
 const Profile = () => {
   const { user } = useAuth()

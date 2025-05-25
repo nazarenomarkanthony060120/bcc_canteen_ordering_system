@@ -2,7 +2,7 @@ import { Pressable, View, Text } from 'react-native'
 import React from 'react'
 import { Food } from '@/utils/types'
 import ImageWrapper from '@/components/parts/Image'
-import { HUMBA_IMAGE } from '@/constants/image'
+import { CANTEEN_IMAGE, HUMBA_IMAGE } from '@/constants/image'
 import { useRouter } from 'expo-router'
 import { AntDesign } from '@expo/vector-icons'
 import Button from '@/components/common/button'
@@ -39,15 +39,16 @@ const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
         className="p-6"
       >
         <View className="relative mb-4">
-          <ImageWrapper
-            source={HUMBA_IMAGE}
-            className="rounded-2xl"
-            style={{
-              width: '100%',
-              height: 240,
-              resizeMode: 'cover',
-            }}
-          />
+          <View className="overflow-hidden rounded-xl">
+            <ImageWrapper
+              source={
+                food?.image
+                  ? { uri: `data:image/jpeg;base64,${food.image}` }
+                  : CANTEEN_IMAGE
+              }
+              style={{ height: 150, width: '100%' }}
+            />
+          </View>
           <LinearGradient
             colors={['transparent', 'rgba(0,0,0,0.8)']}
             className="absolute bottom-0 left-0 right-0 h-24 rounded-b-2xl"

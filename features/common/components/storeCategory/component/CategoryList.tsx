@@ -44,16 +44,16 @@ const CategoryList = ({ store }: CategoryListProps) => {
         <BlurView intensity={10} className="rounded-2xl overflow-hidden">
           <View className="bg-white/90">
             <View className="relative">
-            <View className="overflow-hidden rounded-xl">
-              <ImageWrapper
-                source={
-                  store.image
-                    ? { uri: `data:image/jpeg;base64,${store.image}` }
-                    : CANTEEN_IMAGE
-                }
-                style={{ height: 120, width: 120 }}
-              />
-            </View>
+              <View className="overflow-hidden rounded-xl">
+                <ImageWrapper
+                  source={
+                    store.image
+                      ? { uri: `data:image/jpeg;base64,${store.image}` }
+                      : CANTEEN_IMAGE
+                  }
+                  style={{ height: 140, width: '100%' }}
+                />
+              </View>
               <LinearGradient
                 colors={['transparent', 'rgba(0,0,0,0.8)']}
                 className="absolute bottom-0 left-0 right-0 h-20 rounded-b-2xl"
@@ -64,12 +64,6 @@ const CategoryList = ({ store }: CategoryListProps) => {
                     <Typo className="text-white text-sm font-medium">
                       Featured Store
                     </Typo>
-                  </View>
-                  <View className="bg-white/20 backdrop-blur-md px-2 py-1 rounded-full">
-                    <View className="flex-row items-center">
-                      <Ionicons name="star" size={14} color="#FCD34D" />
-                      <Typo className="text-white text-xs ml-1">4.5</Typo>
-                    </View>
                   </View>
                 </View>
               </View>

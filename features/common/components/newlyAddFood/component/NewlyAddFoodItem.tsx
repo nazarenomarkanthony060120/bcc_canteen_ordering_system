@@ -6,8 +6,8 @@ import Typo from '@/components/common/typo'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import { useRouter } from 'expo-router'
 import { BlurView } from 'expo-blur'
-import { LinearGradient } from 'expo-linear-gradient'
-import { FontAwesome6, MaterialIcons } from '@expo/vector-icons'
+import { FontAwesome6, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { getRatingFromPopularity } from '@/features/common/parts/getFoodPopularity'
 
 interface NewlyAddFoodItemProps {
   food: Food
@@ -68,16 +68,16 @@ const NewlyAddFoodItem = ({ food }: NewlyAddFoodItemProps) => {
         >
           <View className="bg-white/95">
             <View className="relative">
-            <View className="overflow-hidden rounded-xl">
-              <ImageWrapper
-                source={
-                  food.image
-                    ? { uri: `data:image/jpeg;base64,${food.image}` }
-                    : CANTEEN_IMAGE
-                }
-                style={{ height: 150, width: '100%' }}
-              />
-            </View>
+              <View className="overflow-hidden rounded-xl">
+                <ImageWrapper
+                  source={
+                    food.image
+                      ? { uri: `data:image/jpeg;base64,${food.image}` }
+                      : CANTEEN_IMAGE
+                  }
+                  style={{ height: 150, width: '100%' }}
+                />
+              </View>
               <View className="absolute bottom-3 left-3 right-3">
                 <View className="flex-row items-center justify-between">
                   <View className="bg-emerald-500 px-3 py-1.5 rounded-full">
@@ -85,11 +85,14 @@ const NewlyAddFoodItem = ({ food }: NewlyAddFoodItemProps) => {
                       New Item
                     </Typo>
                   </View>
-                  <View className="bg-white/20 backdrop-blur-md px-2 py-1 rounded-full">
+                  <View className="bg-black/50 backdrop-blur-md px-2 py-1 rounded-full">
                     <View className="flex-row items-center">
-                      <MaterialIcons name="star" size={14} color="#FCD34D" />
+                      <Ionicons name="star" size={14} color="#FCD34D" />
                       <Typo className="text-white text-xs ml-1">
-                        {food.popularity || 0}
+                        {' '}
+                        {food.popularity === 0
+                          ? 0
+                          : getRatingFromPopularity(food.popularity)}
                       </Typo>
                     </View>
                   </View>

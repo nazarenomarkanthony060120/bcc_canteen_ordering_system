@@ -14,6 +14,7 @@ export const fetchUserById = async ({ id }: UserIdRequest) => {
       name: docSnap.data().name,
       status: docSnap.data().status,
       email: docSnap.data().email,
+      image: docSnap.data().image,
       createdAt: docSnap.data().createdAt,
       updatedAt: docSnap.data().updatedAt,
     } as User
