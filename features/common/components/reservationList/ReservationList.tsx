@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { View, ScrollView, RefreshControl, Animated } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { LinearGradient } from 'expo-linear-gradient'
 import ScreenLayout from '../screenLayout/ScreenLayout'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import ReservationHeader from './components/ReservationHeader'

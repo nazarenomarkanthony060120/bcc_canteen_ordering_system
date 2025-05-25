@@ -318,12 +318,12 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
                     {filteredFoodsByType.map((food) => (
                       <TouchableOpacity
                         key={food.id}
-                        className="mr-4 w-40"
+                        className="mr-4 w-52"
                         onPress={() => handleFoodPress(food.id)}
                       >
                         <BlurView intensity={10} className="rounded-2xl overflow-hidden">
                           <View className="bg-white/90">
-                            <View className="aspect-square">
+                            <View className="mb-2">
                               {!imageErrors[food.id] ? (
                                 <View className="overflow-hidden rounded-xl">
                                 <ImageWrapper
@@ -332,7 +332,7 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
                                       ? { uri: `data:image/jpeg;base64,${food.image}` }
                                       : CANTEEN_IMAGE
                                   }
-                                  style={{ height: 120, width: '100%' }}
+                                  style={{ height: 150, width: '100%' }}
                                 />
                               </View>
                               ) : (
@@ -341,7 +341,7 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
                                 </View>
                               )}
                             </View>
-                            <View className="p-3">
+                            <View className="p-4">
                               <Typo className="text-gray-800 font-medium mb-1">
                                 {food.name}
                               </Typo>
