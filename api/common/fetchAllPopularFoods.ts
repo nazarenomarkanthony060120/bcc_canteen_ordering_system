@@ -36,6 +36,7 @@ export const fetchAllPopularFoods = async () => {
         price: docSnap.data().price,
         quantity: docSnap.data().quantity,
         popularity: docSnap.data().popularity,
+        type: docSnap.data().type,
         description: docSnap.data().description,
         createdAt: docSnap.data().createdAt,
         updatedAt: docSnap.data().updatedAt,

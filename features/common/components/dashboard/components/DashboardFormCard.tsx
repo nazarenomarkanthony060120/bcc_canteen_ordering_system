@@ -10,8 +10,13 @@ import LoadingIndicator from '../../loadingIndicator/LoadingIndicator'
 import { BlurView } from 'expo-blur'
 import Typo from '@/components/common/typo'
 import { MaterialIcons } from '@expo/vector-icons'
+import { FoodType } from '@/utils/types'
 
-const DashboardFormCard = () => {
+interface DashboardFormCardProps {
+  selectedFoodType: FoodType | null
+}
+
+const DashboardFormCard: React.FC<DashboardFormCardProps> = ({ selectedFoodType }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
@@ -84,7 +89,7 @@ const DashboardFormCard = () => {
                   Popular Foods
                 </Typo>
               </View>
-              <PopularFood />
+              <PopularFood selectedFoodType={selectedFoodType} />
 
               <View className="flex-row items-center gap-2 mt-6 mb-4">
                 <View className="bg-emerald-50 p-2 rounded-full">
@@ -98,7 +103,7 @@ const DashboardFormCard = () => {
                   New Arrivals
                 </Typo>
               </View>
-              <NewlyAddFood />
+              <NewlyAddFood selectedFoodType={selectedFoodType} />
             </View>
           </ScrollView>
         </View>

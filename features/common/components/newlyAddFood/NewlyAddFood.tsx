@@ -4,6 +4,8 @@ import {
   ScrollView,
   RefreshControl,
   Pressable,
+  TouchableOpacity,
+  Image,
 } from 'react-native'
 import React, { useRef, useEffect, useState } from 'react'
 import NewAddFoodList from './component/NewAddFoodList'
@@ -15,11 +17,19 @@ import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import { BlurView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MaterialIcons } from '@expo/vector-icons'
-import { Food } from '@/utils/types'
+import { Food, FoodType } from '@/utils/types'
+import { useRouter } from 'expo-router'
+import ImageWrapper from '@/components/parts/Image'
+import { CANTEEN_IMAGE } from '@/constants/image'
 
 type SortOption = 'price-asc' | 'price-desc' | 'popularity' | 'newest'
 
-const NewlyAddFood = () => {
+interface NewlyAddFoodProps {
+  selectedFoodType: FoodType | null
+}
+
+const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
+  const router = useRouter()
   const {
     data: newlyAddedFood,
     isFetching,
@@ -32,6 +42,7 @@ const NewlyAddFood = () => {
   const [sortBy, setSortBy] = useState<SortOption>('newest')
   const [showSortOptions, setShowSortOptions] = useState(false)
   const [filteredFoods, setFilteredFoods] = useState<Food[]>([])
+  const [imageErrors, setImageErrors] = useState<{ [key: string]: boolean }>({})
 
   useEffect(() => {
     // Initial animations
@@ -100,6 +111,14 @@ const NewlyAddFood = () => {
     await refetch()
     setRefreshing(false)
   }, [refetch])
+
+  const handleFoodPress = (foodId: string) => {
+    router.push(`/screens/common/viewFood?foodId=${foodId}`)
+  }
+
+  const handleImageError = (foodId: string) => {
+    setImageErrors(prev => ({ ...prev, [foodId]: true }))
+  }
 
   const renderSortOptions = () => (
     <Animated.View
@@ -194,6 +213,10 @@ const NewlyAddFood = () => {
 
   if (isFetching) return <LoadingIndicator />
 
+  const filteredFoodsByType = selectedFoodType
+    ? filteredFoods.filter((food) => food.type === selectedFoodType)
+    : filteredFoods
+
   return (
     <ScreenLayout>
       <SafeAreaView className="flex-1">
@@ -255,7 +278,7 @@ const NewlyAddFood = () => {
                 />
               }
             >
-              {filteredFoods?.length === 0 ? (
+              {filteredFoodsByType?.length === 0 ? (
                 <View className="flex-1 items-center justify-center p-8">
                   <Animated.View
                     style={{
@@ -287,7 +310,56 @@ const NewlyAddFood = () => {
                 </View>
               ) : (
                 <View className="px-4 pb-8">
-                  <NewAddFoodList foods={filteredFoods} />
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    className="flex-row"
+                  >
+                    {filteredFoodsByType.map((food) => (
+                      <TouchableOpacity
+                        key={food.id}
+                        className="mr-4 w-40"
+                        onPress={() => handleFoodPress(food.id)}
+                      >
+                        <BlurView intensity={10} className="rounded-2xl overflow-hidden">
+                          <View className="bg-white/90">
+                            <View className="aspect-square">
+                              {!imageErrors[food.id] ? (
+                                <View className="overflow-hidden rounded-xl">
+                                <ImageWrapper
+                                  source={
+                                    food.image
+                                      ? { uri: `data:image/jpeg;base64,${food.image}` }
+                                      : CANTEEN_IMAGE
+                                  }
+                                  style={{ height: 120, width: '100%' }}
+                                />
+                              </View>
+                              ) : (
+                                <View className="w-full h-full bg-gray-200 items-center justify-center">
+                                  <MaterialIcons name="restaurant" size={32} color="#9CA3AF" />
+                                </View>
+                              )}
+                            </View>
+                            <View className="p-3">
+                              <Typo className="text-gray-800 font-medium mb-1">
+                                {food.name}
+                              </Typo>
+                              <View className="flex-row items-center justify-between">
+                                <Typo className="text-emerald-600 font-semibold">
+                                  ₱{food.price.toFixed(2)}
+                                </Typo>
+                                <View className="flex-row items-center">
+                                  <MaterialIcons name="new-releases" size={16} color="#10B981" />
+                                  <Typo className="text-gray-600 text-sm ml-1">New</Typo>
+                                </View>
+                              </View>
+                            </View>
+                          </View>
+                        </BlurView>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
                 </View>
               )}
             </ScrollView>

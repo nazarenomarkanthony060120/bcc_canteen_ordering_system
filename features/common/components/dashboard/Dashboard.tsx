@@ -19,6 +19,7 @@ import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUser
 import { useAuth } from '@/context/auth'
 import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
 import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
+import { FoodType } from '@/utils/types'
 
 const Dashboard = () => {
   const auth = useAuth()
@@ -68,6 +69,33 @@ const Dashboard = () => {
     // Implement filter logic here
   }
 
+  const getSelectedFoodType = (categoryId: string): FoodType | null => {
+    switch (categoryId) {
+      case '1': // All
+        return null
+      case '2': // Vegetable
+        return FoodType.VEGETABLE
+      case '3': // Fruits
+        return FoodType.FRUITS
+      case '4': // Meat
+        return FoodType.MEAT
+      case '5': // Snacks
+        return FoodType.SNACKS
+      case '6': // Drinks
+        return FoodType.DRINKS
+      case '7': // Rice
+        return FoodType.RICE
+      case '8': // Other
+        return FoodType.OTHER
+      default:
+        return null
+    }
+  }
+
+  const handleCategorySelect = (categoryId: string) => {
+    setSelectedCategory(categoryId)
+  }
+
   return (
     <ScreenLayout>
       <SafeAreaView className="flex-1">
@@ -103,7 +131,7 @@ const Dashboard = () => {
                 />
                 <DashboardCategories
                   selectedCategory={selectedCategory}
-                  onSelectCategory={setSelectedCategory}
+                  onSelectCategory={handleCategorySelect}
                 />
                 <BlurView
                   intensity={10}
@@ -118,7 +146,7 @@ const Dashboard = () => {
                         <Typo className="text-emerald-600">See All</Typo>
                       </TouchableOpacity>
                     </View>
-                    <DashboardFormCard />
+                    <DashboardFormCard selectedFoodType={getSelectedFoodType(selectedCategory)} />
                   </View>
                 </BlurView>
               </View>
