@@ -16,6 +16,8 @@ export const getUserCartRoutes = ({ type }: GetUserCartRoutesType) => {
       return '/screens/(student)/dashboard/cart'
     case UserType.ADMIN:
       return '/screens/(admin)/dashboard/cart'
+    case UserType.OUTSIDER:
+      return '/screens/(other)/dashboard/cart'
     default:
       return '/not-found'
   }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { useAuth } from '@/context/auth'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'

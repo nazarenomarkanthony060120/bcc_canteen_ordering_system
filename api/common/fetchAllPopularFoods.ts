@@ -19,7 +19,6 @@ export const fetchAllPopularFoods = async () => {
 
   const foodsQuery = query(
     collection(db, 'foods'),
-    where('popularity', '>', 0),
     orderBy('popularity', 'desc'),
     limit(8),
   )
@@ -28,6 +27,7 @@ export const fetchAllPopularFoods = async () => {
   if (!foodsSnapshot.empty) {
     return foodsSnapshot.docs
       .filter((food) => approvedStoreIds.includes(food.data().id))
+      .filter((food) => food.data().quantity > 0)
       .map((docSnap) => ({
         id: docSnap.id,
         storeId: docSnap.data().id,
