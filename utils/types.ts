@@ -127,6 +127,13 @@ export type Reservation = {
   paymentMethod: string
 }
 
+export type SaveReservedOrderType = {
+  userId: string
+  cartItems: Cart[]
+  totalAmount: number
+  paymentMethod: 'Cash' | 'GCash'
+}
+
 // Enum Decleared
 
 export enum FoodType {
@@ -153,6 +160,20 @@ export enum ReservationStatusText {
   COMPLETED = 'Completed',
   CANCELLED = 'Cancelled',
   UNKNOWN = 'Unknown',
+}
+
+export enum FoodReservationStatusText {
+  PENDING = 'Pending',
+  COMPLETED = 'Completed',
+  CANCELLED = 'Cancelled',
+  UNKNOWN = 'Unknown'
+}
+
+export enum FoodReservationStatus {
+  UNKNOWN = 0,
+  PENDING = 1,
+  COMPLETED = 2,
+  CANCELLED = 3
 }
 
 export enum ReservationStatus {

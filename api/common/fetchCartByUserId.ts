@@ -31,7 +31,7 @@ export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
           totalPrice: cartData.totalPrice,
           createdAt: cartData.createdAt,
           updatedAt: cartData.updatedAt,
-          image: foodData?.image,
+          image: foodData?.image ?? '',
         }
       }),
     )
