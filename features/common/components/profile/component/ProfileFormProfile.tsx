@@ -15,7 +15,11 @@ interface ProfileFormProfileProps {
   image?: string
 }
 
-const ProfileFormProfile = ({ name, managedId, image }: ProfileFormProfileProps) => {
+const ProfileFormProfile = ({
+  name,
+  managedId,
+  image,
+}: ProfileFormProfileProps) => {
   const { user } = useAuth()
   const [profileImage, setProfileImage] = useState<string | null>(image || null)
   const { mutate: updateProfileImage, isPending } = useUpdateProfileImage()

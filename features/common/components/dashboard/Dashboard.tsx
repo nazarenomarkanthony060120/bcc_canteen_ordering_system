@@ -146,7 +146,9 @@ const Dashboard = () => {
                         <Typo className="text-emerald-600">See All</Typo>
                       </TouchableOpacity>
                     </View>
-                    <DashboardFormCard selectedFoodType={getSelectedFoodType(selectedCategory)} />
+                    <DashboardFormCard
+                      selectedFoodType={getSelectedFoodType(selectedCategory)}
+                    />
                   </View>
                 </BlurView>
               </View>

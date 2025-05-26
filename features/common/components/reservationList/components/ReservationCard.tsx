@@ -17,13 +17,18 @@ interface ReservationCardProps {
   scaleAnim: Animated.Value
 }
 
-const ReservationCard = ({ reservation, fadeAnim, slideAnim, scaleAnim }: ReservationCardProps) => {
+const ReservationCard = ({
+  reservation,
+  fadeAnim,
+  slideAnim,
+  scaleAnim,
+}: ReservationCardProps) => {
   const router = useRouter()
 
   const handlePress = () => {
     router.push({
       pathname: '/screens/common/reservationList',
-      params: { id: reservation.id }
+      params: { id: reservation.id },
     })
   }
 
@@ -31,23 +36,19 @@ const ReservationCard = ({ reservation, fadeAnim, slideAnim, scaleAnim }: Reserv
     <Animated.View
       style={{
         opacity: fadeAnim,
-        transform: [
-          { translateY: slideAnim },
-          { scale: scaleAnim }
-        ],
+        transform: [{ translateY: slideAnim }, { scale: scaleAnim }],
       }}
     >
       <TouchableOpacity onPress={handlePress}>
-        <BlurView
-          intensity={20}
-          className="rounded-3xl overflow-hidden mb-4"
-        >
+        <BlurView intensity={20} className="rounded-3xl overflow-hidden mb-4">
           <View className="bg-white/90 p-4">
             <View className="flex-row items-center justify-between mb-4">
               <View className="flex-row items-center">
                 <View
                   className="p-3 rounded-full mr-3"
-                  style={{ backgroundColor: `${getReservationStatusColor(reservation.status)}20` }}
+                  style={{
+                    backgroundColor: `${getReservationStatusColor(reservation.status)}20`,
+                  }}
                 >
                   <MaterialIcons
                     name={getReservationStatusIcon(reservation.status)}
@@ -60,17 +61,24 @@ const ReservationCard = ({ reservation, fadeAnim, slideAnim, scaleAnim }: Reserv
                     Order #{reservation.id.slice(-6)}
                   </Typo>
                   <Typo className="text-gray-500">
-                    {format(reservation.createdAt?.toDate() || new Date(), 'MMM d, yyyy h:mm a')}
+                    {format(
+                      reservation.createdAt?.toDate() || new Date(),
+                      'MMM d, yyyy h:mm a',
+                    )}
                   </Typo>
                 </View>
               </View>
               <View
                 className="px-4 py-2 rounded-full"
-                style={{ backgroundColor: `${getReservationStatusColor(reservation.status)}20` }}
+                style={{
+                  backgroundColor: `${getReservationStatusColor(reservation.status)}20`,
+                }}
               >
                 <Typo
                   className="text-sm font-semibold"
-                  style={{ color: getReservationStatusColor(reservation.status) }}
+                  style={{
+                    color: getReservationStatusColor(reservation.status),
+                  }}
                 >
                   {getReservationStatus(reservation.status)}
                 </Typo>
@@ -94,7 +102,11 @@ const ReservationCard = ({ reservation, fadeAnim, slideAnim, scaleAnim }: Reserv
                 <Typo className="text-gray-600">Payment Method</Typo>
                 <View className="flex-row items-center">
                   <MaterialIcons
-                    name={reservation.paymentMethod === 'Pay at Counter' ? 'payments' : 'credit-card'}
+                    name={
+                      reservation.paymentMethod === 'Pay at Counter'
+                        ? 'payments'
+                        : 'credit-card'
+                    }
                     size={16}
                     color="#6B7280"
                     style={{ marginRight: 4 }}
@@ -112,4 +124,4 @@ const ReservationCard = ({ reservation, fadeAnim, slideAnim, scaleAnim }: Reserv
   )
 }
 
-export default ReservationCard 
+export default ReservationCard

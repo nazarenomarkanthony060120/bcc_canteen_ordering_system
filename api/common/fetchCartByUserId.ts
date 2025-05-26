@@ -1,5 +1,12 @@
 import { db } from '@/lib/firestore'
-import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  getDoc,
+} from 'firebase/firestore'
 import { Cart, UserIdRequest } from '@/utils/types'
 
 export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
@@ -24,9 +31,9 @@ export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
           totalPrice: cartData.totalPrice,
           createdAt: cartData.createdAt,
           updatedAt: cartData.updatedAt,
-          image: foodData?.image, 
+          image: foodData?.image,
         }
-      })
+      }),
     )
 
     return cartItems

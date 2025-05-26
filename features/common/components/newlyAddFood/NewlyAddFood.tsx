@@ -117,7 +117,7 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
   }
 
   const handleImageError = (foodId: string) => {
-    setImageErrors(prev => ({ ...prev, [foodId]: true }))
+    setImageErrors((prev) => ({ ...prev, [foodId]: true }))
   }
 
   const renderSortOptions = () => (
@@ -321,23 +321,32 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
                         className="mr-4 w-52"
                         onPress={() => handleFoodPress(food.id)}
                       >
-                        <BlurView intensity={10} className="rounded-2xl overflow-hidden">
+                        <BlurView
+                          intensity={10}
+                          className="rounded-2xl overflow-hidden"
+                        >
                           <View className="bg-white/90">
                             <View className="mb-2">
                               {!imageErrors[food.id] ? (
                                 <View className="overflow-hidden rounded-xl">
-                                <ImageWrapper
-                                  source={
-                                    food.image
-                                      ? { uri: `data:image/jpeg;base64,${food.image}` }
-                                      : CANTEEN_IMAGE
-                                  }
-                                  style={{ height: 150, width: '100%' }}
-                                />
-                              </View>
+                                  <ImageWrapper
+                                    source={
+                                      food.image
+                                        ? {
+                                            uri: `data:image/jpeg;base64,${food.image}`,
+                                          }
+                                        : CANTEEN_IMAGE
+                                    }
+                                    style={{ height: 150, width: '100%' }}
+                                  />
+                                </View>
                               ) : (
                                 <View className="w-full h-full bg-gray-200 items-center justify-center">
-                                  <MaterialIcons name="restaurant" size={32} color="#9CA3AF" />
+                                  <MaterialIcons
+                                    name="restaurant"
+                                    size={32}
+                                    color="#9CA3AF"
+                                  />
                                 </View>
                               )}
                             </View>
@@ -350,8 +359,14 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
                                   ₱{food.price.toFixed(2)}
                                 </Typo>
                                 <View className="flex-row items-center">
-                                  <MaterialIcons name="new-releases" size={16} color="#10B981" />
-                                  <Typo className="text-gray-600 text-sm ml-1">New</Typo>
+                                  <MaterialIcons
+                                    name="new-releases"
+                                    size={16}
+                                    color="#10B981"
+                                  />
+                                  <Typo className="text-gray-600 text-sm ml-1">
+                                    New
+                                  </Typo>
                                 </View>
                               </View>
                             </View>

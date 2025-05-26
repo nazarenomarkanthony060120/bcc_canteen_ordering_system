@@ -26,10 +26,13 @@ export const saveReservedOrder = async ({
       updatedAt: serverTimestamp(),
     }
 
-    const docRef = await addDoc(collection(db, 'reserved_orders'), reservedOrder)
+    const docRef = await addDoc(
+      collection(db, 'reserved_orders'),
+      reservedOrder,
+    )
     return docRef.id
   } catch (error) {
     console.error('Error saving reserved order:', error)
     throw error
   }
-} 
+}

@@ -9,7 +9,7 @@ import { useFetchReservations } from '@/hooks/useFetchReservations'
 export default function ReservationDetailScreen() {
   const { id } = useLocalSearchParams()
   const { reservations } = useFetchReservations()
-  const reservation = reservations.find(r => r.id === id)
+  const reservation = reservations.find((r) => r.id === id)
 
   if (!reservation) return null
 
@@ -20,4 +20,4 @@ export default function ReservationDetailScreen() {
       </SafeAreaView>
     </ScreenLayout>
   )
-} 
+}

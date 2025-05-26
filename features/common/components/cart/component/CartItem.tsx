@@ -37,16 +37,14 @@ const CartItem = ({
   return (
     <View className="flex-row items-center justify-between py-4 border-b border-gray-200">
       <View className="flex-row items-center flex-1">
-      <View className="overflow-hidden rounded-xl">
-                <ImageWrapper
-                  source={
-                    image
-                      ? { uri: `data:image/jpeg;base64,${image}` }
-                      : CANTEEN_IMAGE
-                  }
-                  style={{ height: 90, width: 100 }}
-                />
-              </View>
+        <View className="overflow-hidden rounded-xl">
+          <ImageWrapper
+            source={
+              image ? { uri: `data:image/jpeg;base64,${image}` } : CANTEEN_IMAGE
+            }
+            style={{ height: 90, width: 100 }}
+          />
+        </View>
         <View className="flex-1">
           <Typo className="text-gray-800 font-semibold mb-1">{name}</Typo>
           <Typo className="text-gray-600 text-sm">Store: {store}</Typo>

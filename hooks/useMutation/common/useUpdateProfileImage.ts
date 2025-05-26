@@ -16,4 +16,4 @@ export const useUpdateProfileImage = () => {
       queryClient.invalidateQueries({ queryKey: ['user', userId] })
     },
   })
-} 
+}

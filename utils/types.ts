@@ -152,7 +152,7 @@ export enum ReservationStatusText {
   PENDING = 'Pending',
   COMPLETED = 'Completed',
   CANCELLED = 'Cancelled',
-  UNKNOWN = 'Unknown'
+  UNKNOWN = 'Unknown',
 }
 
 export enum ReservationStatus {

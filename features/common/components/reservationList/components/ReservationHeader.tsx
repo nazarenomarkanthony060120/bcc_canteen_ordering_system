@@ -16,7 +16,9 @@ const ReservationHeader = () => {
       >
         <View className="flex-row items-center justify-between">
           <View>
-            <Typo className="text-white text-2xl font-bold mb-1">Your Reservations</Typo>
+            <Typo className="text-white text-2xl font-bold mb-1">
+              Your Reservations
+            </Typo>
             <Typo className="text-white/80">Track your orders</Typo>
           </View>
           <View className="bg-white/20 p-3 rounded-full">
@@ -28,4 +30,4 @@ const ReservationHeader = () => {
   )
 }
 
-export default ReservationHeader 
+export default ReservationHeader

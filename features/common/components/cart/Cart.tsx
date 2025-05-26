@@ -98,7 +98,7 @@ const Cart = () => {
       Alert.alert(
         'GCash Payment Coming Soon',
         'We are currently working on integrating GCash payments. For now, please use cash payment at the counter.',
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       )
     } else {
       setIsReserving(true)
@@ -113,14 +113,15 @@ const Cart = () => {
         {
           onSuccess: () => {
             // Delete all cart items after successful reservation
-            const deletePromises = cartItems?.map(item => deleteCartItem(item.id)) || []
+            const deletePromises =
+              cartItems?.map((item) => deleteCartItem(item.id)) || []
             Promise.all(deletePromises)
               .then(() => {
                 setIsReserving(false)
                 Alert.alert(
                   'Order Reserved Successfully!',
                   'Your order has been reserved and is being prepared. Please proceed to the counter to pay in cash and collect your order. Thank you for your order!',
-                  [{ text: 'OK' }]
+                  [{ text: 'OK' }],
                 )
               })
               .catch((error) => {
@@ -129,7 +130,7 @@ const Cart = () => {
                 Alert.alert(
                   'Warning',
                   'Your order was reserved but there was an error clearing your cart. Please try clearing it manually.',
-                  [{ text: 'OK' }]
+                  [{ text: 'OK' }],
                 )
               })
           },
@@ -138,11 +139,11 @@ const Cart = () => {
             Alert.alert(
               'Error',
               'There was an error reserving your order. Please try again.',
-              [{ text: 'OK' }]
+              [{ text: 'OK' }],
             )
             console.error('Error saving reserved order:', error)
           },
-        }
+        },
       )
     }
   }

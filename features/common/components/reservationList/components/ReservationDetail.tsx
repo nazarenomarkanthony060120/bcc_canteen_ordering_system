@@ -25,16 +25,23 @@ const ReservationDetail = ({ reservation }: ReservationDetailProps) => {
                   Order #{reservation.id.slice(-6)}
                 </Typo>
                 <Typo className="text-gray-500">
-                  {format(reservation.createdAt?.toDate() || new Date(), 'MMM d, yyyy h:mm a')}
+                  {format(
+                    reservation.createdAt?.toDate() || new Date(),
+                    'MMM d, yyyy h:mm a',
+                  )}
                 </Typo>
               </View>
               <View
                 className="px-4 py-2 rounded-full"
-                style={{ backgroundColor: `${getReservationStatusColor(reservation.status)}20` }}
+                style={{
+                  backgroundColor: `${getReservationStatusColor(reservation.status)}20`,
+                }}
               >
                 <Typo
                   className="text-sm font-semibold"
-                  style={{ color: getReservationStatusColor(reservation.status) }}
+                  style={{
+                    color: getReservationStatusColor(reservation.status),
+                  }}
                 >
                   {getReservationStatus(reservation.status)}
                 </Typo>
@@ -51,7 +58,9 @@ const ReservationDetail = ({ reservation }: ReservationDetailProps) => {
                 <MaterialIcons name="store" size={24} color="#10B981" />
               </View>
               <View>
-                <Typo className="text-gray-800 font-semibold text-lg">BCC Canteen</Typo>
+                <Typo className="text-gray-800 font-semibold text-lg">
+                  BCC Canteen
+                </Typo>
                 <Typo className="text-gray-500">Main Building</Typo>
               </View>
             </View>
@@ -61,12 +70,19 @@ const ReservationDetail = ({ reservation }: ReservationDetailProps) => {
         {/* Order Items */}
         <BlurView intensity={20} className="rounded-3xl overflow-hidden mb-4">
           <View className="bg-white/90 p-4">
-            <Typo className="text-gray-800 font-semibold text-lg mb-4">Order Items</Typo>
+            <Typo className="text-gray-800 font-semibold text-lg mb-4">
+              Order Items
+            </Typo>
             {reservation.items.map((item, index) => (
-              <View key={index} className="flex-row justify-between items-center mb-3">
+              <View
+                key={index}
+                className="flex-row justify-between items-center mb-3"
+              >
                 <View className="flex-1">
                   <Typo className="text-gray-800 font-medium">{item.name}</Typo>
-                  <Typo className="text-gray-500 text-sm">Quantity: {item.quantity}</Typo>
+                  <Typo className="text-gray-500 text-sm">
+                    Quantity: {item.quantity}
+                  </Typo>
                 </View>
                 <Typo className="text-emerald-600 font-semibold">
                   ₱{(item.price * item.quantity).toFixed(2)}
@@ -87,11 +103,17 @@ const ReservationDetail = ({ reservation }: ReservationDetailProps) => {
         {/* Payment Information */}
         <BlurView intensity={20} className="rounded-3xl overflow-hidden">
           <View className="bg-white/90 p-4">
-            <Typo className="text-gray-800 font-semibold text-lg mb-3">Payment Details</Typo>
+            <Typo className="text-gray-800 font-semibold text-lg mb-3">
+              Payment Details
+            </Typo>
             <View className="flex-row items-center justify-between">
               <View className="flex-row items-center">
                 <MaterialIcons
-                  name={reservation.paymentMethod === 'Pay at Counter' ? 'payments' : 'credit-card'}
+                  name={
+                    reservation.paymentMethod === 'Pay at Counter'
+                      ? 'payments'
+                      : 'credit-card'
+                  }
                   size={20}
                   color="#6B7280"
                   style={{ marginRight: 8 }}
@@ -109,4 +131,4 @@ const ReservationDetail = ({ reservation }: ReservationDetailProps) => {
   )
 }
 
-export default ReservationDetail 
+export default ReservationDetail

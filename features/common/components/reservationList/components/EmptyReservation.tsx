@@ -11,7 +11,9 @@ const EmptyReservation = () => {
         <View className="bg-gray-100 p-6 rounded-full mb-4">
           <MaterialIcons name="receipt" size={40} color="#6B7280" />
         </View>
-        <Typo className="text-gray-800 text-xl font-semibold mb-2">No Reservations Yet</Typo>
+        <Typo className="text-gray-800 text-xl font-semibold mb-2">
+          No Reservations Yet
+        </Typo>
         <Typo className="text-gray-500 text-center">
           Your reservation history will appear here
         </Typo>
@@ -20,4 +22,4 @@ const EmptyReservation = () => {
   )
 }
 
-export default EmptyReservation 
+export default EmptyReservation

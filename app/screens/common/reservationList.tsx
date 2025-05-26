@@ -3,4 +3,4 @@ import ReservationList from '@/features/common/components/reservationList/Reserv
 
 export default function ReservationListScreen() {
   return <ReservationList />
-} 
+}

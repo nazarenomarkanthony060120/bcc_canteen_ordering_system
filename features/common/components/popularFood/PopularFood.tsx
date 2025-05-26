@@ -27,7 +27,7 @@ const PopularFood: React.FC<PopularFoodProps> = ({ selectedFoodType }) => {
   }
 
   const handleImageError = (foodId: string) => {
-    setImageErrors(prev => ({ ...prev, [foodId]: true }))
+    setImageErrors((prev) => ({ ...prev, [foodId]: true }))
   }
 
   if (!filteredFoods?.length) {
@@ -54,19 +54,23 @@ const PopularFood: React.FC<PopularFoodProps> = ({ selectedFoodType }) => {
             <View className="bg-white/90">
               <View className="aspect-square">
                 {!imageErrors[food.id] ? (
-                   <View className="overflow-hidden rounded-xl">
-                   <ImageWrapper
-                     source={
-                       food.image
-                         ? { uri: `data:image/jpeg;base64,${food.image}` }
-                         : CANTEEN_IMAGE
-                     }
-                     style={{ height: 120, width: '100%' }}
-                   />
-                 </View>
+                  <View className="overflow-hidden rounded-xl">
+                    <ImageWrapper
+                      source={
+                        food.image
+                          ? { uri: `data:image/jpeg;base64,${food.image}` }
+                          : CANTEEN_IMAGE
+                      }
+                      style={{ height: 120, width: '100%' }}
+                    />
+                  </View>
                 ) : (
                   <View className="w-full h-full bg-gray-200 items-center justify-center">
-                    <MaterialIcons name="restaurant" size={32} color="#9CA3AF" />
+                    <MaterialIcons
+                      name="restaurant"
+                      size={32}
+                      color="#9CA3AF"
+                    />
                   </View>
                 )}
               </View>

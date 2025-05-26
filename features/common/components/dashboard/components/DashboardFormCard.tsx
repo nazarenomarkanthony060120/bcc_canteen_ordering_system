@@ -16,7 +16,9 @@ interface DashboardFormCardProps {
   selectedFoodType: FoodType | null
 }
 
-const DashboardFormCard: React.FC<DashboardFormCardProps> = ({ selectedFoodType }) => {
+const DashboardFormCard: React.FC<DashboardFormCardProps> = ({
+  selectedFoodType,
+}) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
