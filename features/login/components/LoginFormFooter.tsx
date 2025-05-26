@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form'
 import { View } from 'lucide-react-native'
 import { SafeAreaView } from 'react-native'
+import { useRouter } from 'expo-router'
 
 interface LoginFormFooterProps {
   handleSubmit: UseFormHandleSubmit<FieldValues, FieldValues>
@@ -20,6 +21,11 @@ const LoginFormFooter = ({
   onSubmit,
   isPending,
 }: LoginFormFooterProps) => {
+  const router = useRouter()
+  const navigateToForgotPassword = () => {
+    router.push('/(auth)/forgot-password')
+  }
+
   return (
     <SafeAreaView className="gap-3">
       <Button
@@ -30,7 +36,10 @@ const LoginFormFooter = ({
         <Typo className="text-white">Sign In</Typo>
       </Button>
       <SafeAreaView className="items-end ">
-        <Button className="items-end bg-emerald-500 p-1 px-4 rounded-3xl">
+        <Button
+          onPress={navigateToForgotPassword}
+          className="items-end bg-emerald-500 p-1 px-4 rounded-3xl"
+        >
           <Typo className="text-white text-right">Forgot Password</Typo>
         </Button>
       </SafeAreaView>
