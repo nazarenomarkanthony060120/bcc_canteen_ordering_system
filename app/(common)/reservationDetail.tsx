@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ScreenLayout from '@/features/common/components/screenLayout/ScreenLayout'
 import ReservationDetail from '@/features/common/components/reservationList/components/ReservationDetail'
-import { useFetchReservations } from '@/hooks/useFetchReservations'
+import { useFetchReservations } from '@/hooks/useQuery/seller/useFetchReservations'
 
 export default function ReservationDetailScreen() {
   const { id } = useLocalSearchParams()

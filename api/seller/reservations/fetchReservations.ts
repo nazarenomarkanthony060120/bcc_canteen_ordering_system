@@ -6,7 +6,6 @@ import {
   orderBy,
   doc,
   getDoc,
-  DocumentData,
 } from 'firebase/firestore'
 import { db } from '@/lib/firestore'
 import { Reservation } from '@/utils/types'
@@ -24,6 +23,7 @@ interface StoreData {
   id: string
   store: string
   address: string
+  userId: string
 }
 
 export const fetchReservations = async (userId: string | undefined) => {
@@ -32,7 +32,6 @@ export const fetchReservations = async (userId: string | undefined) => {
   try {
     const reservedOrderQuery = query(
       collection(db, 'reserved_orders'),
-      where('userId', '==', userId),
       orderBy('createdAt', 'desc'),
     )
 
@@ -76,7 +75,7 @@ export const fetchReservations = async (userId: string | undefined) => {
               // Get food details
               const foodDocRef = doc(db, 'foods', item.foodId)
               const foodDoc = await getDoc(foodDocRef)
-              
+
               if (!foodDoc.exists()) {
                 console.warn(`Food document not found for ID: ${item.foodId}`)
                 return {
@@ -115,9 +114,11 @@ export const fetchReservations = async (userId: string | undefined) => {
               // Get store details using the store ID from food data
               const storeDocRef = doc(db, 'stores', foodData.storeId)
               const storeDoc = await getDoc(storeDocRef)
-              
+
               if (!storeDoc.exists()) {
-                console.warn(`Store document not found for ID: ${foodData.storeId}`)
+                console.warn(
+                  `Store document not found for ID: ${foodData.storeId}`,
+                )
                 return {
                   ...item,
                   food: {
@@ -140,6 +141,7 @@ export const fetchReservations = async (userId: string | undefined) => {
                     id: storeData.id,
                     name: storeData.store,
                     address: storeData.address,
+                    userId: storeData.userId,
                   },
                 },
               }
