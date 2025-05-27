@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { View, ScrollView, RefreshControl, Animated } from 'react-native'
+import { View, ScrollView, RefreshControl, Animated, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ScreenLayout from '../screenLayout/ScreenLayout'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
@@ -8,9 +8,21 @@ import EmptyReservation from './components/EmptyReservation'
 import ReservationCard from './components/ReservationCard'
 import { useFetchReservations } from '@/hooks/useFetchReservations'
 
+const ErrorState = ({ message }: { message: string }) => (
+  <View className="p-4 bg-red-50 rounded-lg">
+    <Text className="text-red-600 text-center">{message}</Text>
+  </View>
+)
+
 const ReservationList = () => {
-  const { reservations, isLoading, refreshing, onRefresh } =
-    useFetchReservations()
+  const { 
+    reservations = [], 
+    isLoading, 
+    refreshing, 
+    onRefresh,
+    error 
+  } = useFetchReservations()
+
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
   const scaleAnim = useRef(new Animated.Value(0.95)).current
@@ -56,13 +68,19 @@ const ReservationList = () => {
                 refreshing={refreshing}
                 onRefresh={onRefresh}
                 tintColor="#10B981"
+                title="Pull to refresh"
+                titleColor="#10B981"
               />
             }
           >
             <View className="p-4">
               <ReservationHeader />
 
-              {reservations.length === 0 ? (
+              {error ? (
+                <ErrorState message={error.message || 'Failed to load reservations'} />
+              ) : !Array.isArray(reservations) ? (
+                <ErrorState message="Invalid reservations data" />
+              ) : reservations.length === 0 ? (
                 <EmptyReservation />
               ) : (
                 reservations.map((reservation) => (

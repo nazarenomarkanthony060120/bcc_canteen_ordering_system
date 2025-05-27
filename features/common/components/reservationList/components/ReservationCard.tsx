@@ -1,14 +1,11 @@
 import React from 'react'
-import { View, Animated, TouchableOpacity } from 'react-native'
+import { View, Text, Animated } from 'react-native'
 import { BlurView } from 'expo-blur'
-import { MaterialIcons } from '@expo/vector-icons'
-import Typo from '@/components/common/typo'
-import { format } from 'date-fns'
-import { useRouter } from 'expo-router'
+import { useGetFoodByFoodId } from '@/hooks/useQuery/common/get/useGetFoodByFoodId'
+import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
 import { Reservation } from '@/utils/types'
-import { getReservationStatusColor } from '@/features/common/parts/getReservationStatusColor'
-import { getReservationStatusIcon } from '@/features/common/parts/getReservationStatusIcon'
-import { getReservationStatus } from '@/features/common/parts/getReservationStatus'
+import LoadingIndicator from '../../loadingIndicator/LoadingIndicator'
+import { getFoodReservationStatus } from '@/features/common/parts/getFoodReservationStatus'
 
 interface ReservationCardProps {
   reservation: Reservation
@@ -17,109 +14,136 @@ interface ReservationCardProps {
   scaleAnim: Animated.Value
 }
 
-const ReservationCard = ({
+const getStatusStyle = (status: number) => {
+  switch (status) {
+    case 0: // Reserved
+      return {
+        container: 'bg-amber-50 border border-amber-200',
+        text: 'text-amber-700',
+        dot: 'bg-amber-500',
+      }
+    case 1: // Pending
+      return {
+        container: 'bg-indigo-50 border border-indigo-200',
+        text: 'text-indigo-700',
+        dot: 'bg-indigo-500',
+      }
+    case 2: // Completed
+      return {
+        container: 'bg-teal-50 border border-teal-200',
+        text: 'text-teal-700',
+        dot: 'bg-teal-500',
+      }
+    case 3: // Cancelled
+      return {
+        container: 'bg-rose-50 border border-rose-200',
+        text: 'text-rose-700',
+        dot: 'bg-rose-500',
+      }
+    default:
+      return {
+        container: 'bg-slate-50 border border-slate-200',
+        text: 'text-slate-700',
+        dot: 'bg-slate-500',
+      }
+  }
+}
+
+const StatusBadge = ({ status }: { status: number }) => {
+  const styles = getStatusStyle(status)
+  const statusText = getFoodReservationStatus(status)
+
+  return (
+    <View className={`flex-row items-center px-2.5 py-1 rounded-lg ${styles.container}`}>
+      <View className={`w-2 h-2 rounded-full mr-2 ${styles.dot}`} />
+      <Text className={`text-sm font-medium ${styles.text}`}>{statusText}</Text>
+    </View>
+  )
+}
+
+const ReservationItem = ({ item }: { item: any }) => {
+  const { data: food, isLoading: isLoadingFood } = useGetFoodByFoodId({ id: item.foodId })
+  const { data: store, isLoading: isLoadingStore } = useGetStoreByStoreId({ id: food?.storeId })
+
+  if (isLoadingFood || isLoadingStore) {
+    return (
+      <View className="py-2">
+        <LoadingIndicator />
+      </View>
+    )
+  }
+
+  if (!food || !store) {
+    return (
+      <View className="p-2 bg-red-50 rounded-lg">
+        <Text className="text-red-600">Error loading item details</Text>
+      </View>
+    )
+  }
+
+  return (
+    <View className="flex-row justify-between items-center py-2 border-b border-gray-100">
+      <View className="flex-1">
+        <Text className="text-gray-800 font-medium">{food.name}</Text>
+        <Text className="text-gray-500 text-sm">{store.store}</Text>
+      </View>
+      <View className="items-end">
+        <Text className="text-gray-800">x{item.quantity}</Text>
+        <Text className="text-emerald-600 font-medium">₱{item.totalPrice.toFixed(2)}</Text>
+        <StatusBadge status={item.status} />
+      </View>
+    </View>
+  )
+}
+
+const ReservationCard: React.FC<ReservationCardProps> = ({
   reservation,
   fadeAnim,
   slideAnim,
   scaleAnim,
-}: ReservationCardProps) => {
-  const router = useRouter()
-
-  const handlePress = () => {
-    router.push({
-      pathname: '/screens/common/reservationList',
-      params: { id: reservation.id },
-    })
-  }
-
+}) => {
   return (
     <Animated.View
       style={{
         opacity: fadeAnim,
         transform: [{ translateY: slideAnim }, { scale: scaleAnim }],
       }}
+      className="mb-4"
     >
-      <TouchableOpacity onPress={handlePress}>
-        <BlurView intensity={20} className="rounded-3xl overflow-hidden mb-4">
-          <View className="bg-white/90 p-4">
-            <View className="flex-row items-center justify-between mb-4">
-              <View className="flex-row items-center">
-                <View
-                  className="p-3 rounded-full mr-3"
-                  style={{
-                    backgroundColor: `${getReservationStatusColor(reservation.status)}20`,
-                  }}
-                >
-                  <MaterialIcons
-                    name={getReservationStatusIcon(reservation.status)}
-                    size={24}
-                    color={getReservationStatusColor(reservation.status)}
-                  />
-                </View>
-                <View>
-                  <Typo className="text-gray-800 font-semibold text-lg">
-                    Order #{reservation.id.slice(-6)}
-                  </Typo>
-                  <Typo className="text-gray-500">
-                    {format(
-                      reservation.createdAt?.toDate() || new Date(),
-                      'MMM d, yyyy h:mm a',
-                    )}
-                  </Typo>
-                </View>
-              </View>
-              <View
-                className="px-4 py-2 rounded-full"
-                style={{
-                  backgroundColor: `${getReservationStatusColor(reservation.status)}20`,
-                }}
-              >
-                <Typo
-                  className="text-sm font-semibold"
-                  style={{
-                    color: getReservationStatusColor(reservation.status),
-                  }}
-                >
-                  {getReservationStatus(reservation.status)}
-                </Typo>
-              </View>
+      <BlurView intensity={10} className="rounded-3xl overflow-hidden">
+        <View className="bg-white/90 p-4">
+          <View className="flex-row justify-between items-center mb-4">
+            <View>
+              <Text className="text-gray-500 text-sm">Order ID</Text>
+              <Text className="text-gray-800 font-medium">{reservation.id}</Text>
             </View>
+            <StatusBadge status={reservation.status} />
+          </View>
 
-            <View className="border-t border-gray-100 pt-4">
-              <View className="flex-row justify-between mb-3">
-                <Typo className="text-gray-600">Items</Typo>
-                <Typo className="text-gray-800 font-semibold">
-                  {reservation.items.length} items
-                </Typo>
-              </View>
-              <View className="flex-row justify-between mb-3">
-                <Typo className="text-gray-600">Total Amount</Typo>
-                <Typo className="text-emerald-600 font-bold text-lg">
-                  ₱{reservation.totalAmount.toFixed(2)}
-                </Typo>
-              </View>
-              <View className="flex-row justify-between">
-                <Typo className="text-gray-600">Payment Method</Typo>
-                <View className="flex-row items-center">
-                  <MaterialIcons
-                    name={
-                      reservation.paymentMethod === 'Pay at Counter'
-                        ? 'payments'
-                        : 'credit-card'
-                    }
-                    size={16}
-                    color="#6B7280"
-                    style={{ marginRight: 4 }}
-                  />
-                  <Typo className="text-gray-800 font-medium">
-                    {reservation.paymentMethod}
-                  </Typo>
-                </View>
-              </View>
+          <View className="space-y-2">
+            {reservation.items.map((item) => (
+              <ReservationItem key={item.id} item={item} />
+            ))}
+          </View>
+
+          <View className="mt-4 pt-4 border-t border-gray-100">
+            <View className="flex-row justify-between items-center">
+              <Text className="text-gray-500">Payment Method</Text>
+              <Text className="text-gray-800 font-medium">{reservation.paymentMethod}</Text>
+            </View>
+            <View className="flex-row justify-between items-center mt-2">
+              <Text className="text-gray-500">Total Amount</Text>
+              <Text className="text-emerald-600 font-bold text-lg">
+                ₱{reservation.totalAmount.toFixed(2)}
+              </Text>
             </View>
           </View>
-        </BlurView>
-      </TouchableOpacity>
+
+          <Text className="text-gray-400 text-xs mt-4">
+            {new Date(reservation.createdAt.toDate()).toLocaleString()}
+          </Text>
+        </View>
+      </BlurView>
     </Animated.View>
   )
 }
