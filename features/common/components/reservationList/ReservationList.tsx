@@ -6,7 +6,7 @@ import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import ReservationHeader from './components/ReservationHeader'
 import EmptyReservation from './components/EmptyReservation'
 import ReservationCard from './components/ReservationCard'
-import { useFetchReservations } from '@/hooks/useFetchReservations'
+import { useFetchReservations } from '@/hooks/useQuery/seller/useFetchReservations'
 
 const ErrorState = ({ message }: { message: string }) => (
   <View className="p-4 bg-red-50 rounded-lg">
@@ -15,12 +15,12 @@ const ErrorState = ({ message }: { message: string }) => (
 )
 
 const ReservationList = () => {
-  const { 
-    reservations = [], 
-    isLoading, 
-    refreshing, 
+  const {
+    reservations = [],
+    isLoading,
+    refreshing,
     onRefresh,
-    error 
+    error,
   } = useFetchReservations()
 
   const fadeAnim = useRef(new Animated.Value(0)).current
@@ -77,7 +77,9 @@ const ReservationList = () => {
               <ReservationHeader />
 
               {error ? (
-                <ErrorState message={error.message || 'Failed to load reservations'} />
+                <ErrorState
+                  message={error.message || 'Failed to load reservations'}
+                />
               ) : !Array.isArray(reservations) ? (
                 <ErrorState message="Invalid reservations data" />
               ) : reservations.length === 0 ? (

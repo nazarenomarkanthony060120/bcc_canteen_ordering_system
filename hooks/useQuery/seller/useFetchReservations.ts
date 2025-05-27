@@ -1,5 +1,5 @@
 import { useAuth } from '@/context/auth'
-import { fetchReservations } from '@/api/reservations/fetchReservations'
+import { fetchReservations } from '@/api/seller/reservations/fetchReservations'
 import { Reservation } from '@/utils/types'
 import { useQuery } from '@tanstack/react-query'
 

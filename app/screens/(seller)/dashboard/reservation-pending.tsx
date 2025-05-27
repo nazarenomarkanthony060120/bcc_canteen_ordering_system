@@ -1,5 +1,5 @@
+import ReservationPending from '@/features/seller/reservation-pending/ReservationPending'
 import React from 'react'
-import ReservationPending from '@/features/seller/dashboard/reservation-pending/ReservationPending'
 
 const ReservationPendingScreen = () => {
   return <ReservationPending />
