@@ -111,7 +111,7 @@ const MyStoreHeader = ({ storeId, status }: MyStoreHeaderProps) => {
             <TouchableOpacity
               onPress={handlePendingStore}
               disabled={!isApplied}
-              className={`flex-row items-center gap-3 ${isApplied ? 'bg-white/90' : `${applyStatus.bgColor} ${applyStatus.borderColor} ${applyStatus.color}`} py-4 rounded-full`}
+              className={`flex-row items-center gap-3 ${isApplied ? '' : `${applyStatus.bgColor} ${applyStatus.borderColor} ${applyStatus.color}`} rounded-full`}
               style={{
                 shadowColor: '#000',
                 shadowOffset: {

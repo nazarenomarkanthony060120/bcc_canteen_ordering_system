@@ -22,7 +22,7 @@ const DashboardHeader = () => {
 
   return (
     <BlurView intensity={10} className="rounded-3xl overflow-hidden mb-6">
-      <View className="bg-white/90 p-4">
+      <View className="bg-white/90 px-2 py-4">
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center">
             <TouchableOpacity
@@ -41,9 +41,9 @@ const DashboardHeader = () => {
                 />
               </View>
             </TouchableOpacity>
-            <View>
+            <View className="mr-2" style={{ maxWidth: 120 }}>
               <Typo className="text-gray-500">Welcome back,</Typo>
-              <View style={{ maxWidth: 150 }}>
+              <View style={{ maxWidth: 120 }}>
                 <Typo
                   className="text-gray-800 text-xl font-semibold"
                   style={{ width: '100%' }}

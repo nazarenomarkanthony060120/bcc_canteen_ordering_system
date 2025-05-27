@@ -29,21 +29,32 @@ const DashboardHeaderIcons = () => {
     router.push('/screens/(seller)/dashboard/store')
   }
 
+  const handleReservationPendingPress = () => {
+    router.push('/screens/(seller)/dashboard/reservation-pending')
+  }
+
   return (
-    <View className="flex-row gap-2">
+    <View className="flex-row gap-1">
       <TouchableOpacity
         className="bg-emerald-50 p-3 rounded-full"
         onPress={handleCartPress}
       >
-        <MaterialIcons name="shopping-cart" size={24} color="#10B981" />
+        <MaterialIcons name="shopping-cart" size={22} color="#10B981" />
       </TouchableOpacity>
       {user?.type === UserType.SELLER && (
         <>
           <TouchableOpacity
             className="bg-emerald-50 p-3 rounded-full"
+            onPress={handleReservationPendingPress}
+          >
+            <MaterialIcons name="pending-actions" size={22} color="#10B981" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="bg-emerald-50 p-3 rounded-full"
             onPress={handleStorePress}
           >
-            <MaterialIcons name="store" size={24} color="#10B981" />
+            <MaterialIcons name="store" size={22} color="#10B981" />
           </TouchableOpacity>
         </>
       )}
@@ -54,13 +65,13 @@ const DashboardHeaderIcons = () => {
             className="bg-emerald-50 p-3 rounded-full"
             onPress={handleMembersPress}
           >
-            <MaterialIcons name="people" size={24} color="#10B981" />
+            <MaterialIcons name="people" size={22} color="#10B981" />
           </TouchableOpacity>
           <TouchableOpacity
             className="bg-emerald-50 p-3 rounded-full"
             onPress={handleStoresPress}
           >
-            <MaterialIcons name="store" size={24} color="#10B981" />
+            <MaterialIcons name="store" size={22} color="#10B981" />
           </TouchableOpacity>
         </>
       )}

@@ -3,7 +3,7 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 import { Store } from '@/utils/types'
 
 export const fetchAllStores = async () => {
-  const q = query(collection(db, 'stores'), orderBy('createdAt', 'desc'))
+  const q = query(collection(db, 'stores'), orderBy('updatedAt', 'desc'))
   const querySnapshot = await getDocs(q)
 
   if (!querySnapshot.empty) {

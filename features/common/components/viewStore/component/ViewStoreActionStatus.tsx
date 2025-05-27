@@ -6,6 +6,7 @@ import ApproveRejectStore from './ApproveRejectStore'
 import ApproveStore from './ApproveStore'
 import { MaterialIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
+import ApplyStore from './ApplyStore'
 
 interface ViewStoreActionStatusProps {
   storeId: string | undefined
@@ -42,8 +43,7 @@ const ViewStoreActionStatus = ({
     if (status === StoreStatus.PENDING)
       return <ApproveRejectStore storeId={storeId} status={status} />
     if (status === StoreStatus.REJECTED || status === StoreStatus.DISABLED)
-      return <ApproveStore storeId={storeId} status={status} />
-    return null
+      return <ApplyStore storeId={storeId} status={status} />
   }
 
   return (

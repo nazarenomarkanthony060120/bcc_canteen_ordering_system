@@ -63,7 +63,7 @@ const AddStoreFormFooter = ({
         >
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
-            disabled={isLoading}
+            disabled={isCreate}
             activeOpacity={0.9}
             className="overflow-hidden rounded-2xl shadow-lg border border-white/30"
           >

@@ -4,8 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export const useFetchAllMembers = ({ id }: UserIdRequest) => {
   return useQuery<User[]>({
-    queryKey: ['members', id],
+    queryKey: ['members'],
     queryFn: () => fetchAllMembers({ id }),
-    enabled: !!id,
   })
 }

@@ -33,21 +33,12 @@ const DashboardSearch = ({ onSearch, onFilter }: DashboardSearchProps) => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [showResults, setShowResults] = useState(false)
   const scaleAnim = useRef(new Animated.Value(1)).current
-  const fadeAnim = useRef(new Animated.Value(0)).current
-  const slideAnim = useRef(new Animated.Value(20)).current
 
   const { data: stores, isLoading: isLoadingStores } = useFetchAllStores()
   const { data: popularFoods, isLoading: isLoadingPopularFoods } =
     useFetchAllPopularFoods()
   const { data: newlyAddedFoods, isLoading: isLoadingNewlyAddedFoods } =
     useFetchNewlyAddedFoods()
-
-  // Debug logs for data fetching
-  useEffect(() => {
-    console.log('Stores:', stores?.length)
-    console.log('Popular Foods:', popularFoods?.length)
-    console.log('Newly Added Foods:', newlyAddedFoods?.length)
-  }, [stores, popularFoods, newlyAddedFoods])
 
   // Handle search text changes
   useEffect(() => {

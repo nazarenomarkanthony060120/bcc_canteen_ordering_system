@@ -53,6 +53,19 @@ export const getStoreStatusColor = (
         textColor: '#10B981',
         borderColor: 'rgba(16, 185, 129, 0.3)',
       }
+    case StoreStatus.DISABLED:
+      return {
+        text: StoreStatusText.DISABLED,
+        color: '#F87171',
+        bgColor: '#FEF2F2',
+        icon: 'block' as const,
+        gradient: [
+          'rgba(248, 113, 113, 0.1)',
+          'rgba(239, 68, 68, 0.1)',
+        ] as const,
+        textColor: '#F87171',
+        borderColor: 'rgba(248, 113, 113, 0.3)',
+      }
     case StoreStatus.REJECTED:
       return {
         text: StoreStatusText.REJECTED,

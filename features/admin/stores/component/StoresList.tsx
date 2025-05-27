@@ -117,6 +117,15 @@ const StoresList = ({ store }: StoresListProps) => {
                   <MaterialIcons name="access-time" size={14} color="#4B5563" />
                 </View>
                 <Text className="text-gray-500 text-xs">
+                  Updated:{' '}
+                  {createdAtFormatted(store.updatedAt as unknown as Timestamp)}
+                </Text>
+              </View>
+              <View className="flex-row items-center gap-2 mt-2">
+                <View className="bg-gray-100 p-1.5 rounded-full">
+                  <MaterialIcons name="access-time" size={14} color="#4B5563" />
+                </View>
+                <Text className="text-gray-500 text-xs">
                   Created:{' '}
                   {createdAtFormatted(store.createdAt as unknown as Timestamp)}
                 </Text>
