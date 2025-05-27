@@ -5,7 +5,11 @@ type GetUserRoutesType = {
 }
 
 export const getUserRoutes = ({ type }: GetUserRoutesType) => {
-  switch (type) {
+  console.log('getUserRoutes', type)
+  // Convert type to enum value if it's a string
+  const userType = typeof type === 'string' ? (type as UserType) : type
+
+  switch (userType) {
     case UserType.SELLER:
       return '/screens/(seller)/dashboard/dashboard'
     case UserType.STUDENT:
@@ -13,12 +17,11 @@ export const getUserRoutes = ({ type }: GetUserRoutesType) => {
     case UserType.TEACHER:
       return '/screens/(teacher)/dashboard/dashboard'
     case UserType.OUTSIDER:
-      return '/screens/(student)/dashboard/dashboard'
+      return '/screens/(other)/dashboard/dashboard'
     case UserType.ADMIN:
       return '/screens/(admin)/dashboard/dashboard'
-    case UserType.OUTSIDER:
-      return '/screens/(other)/dashboard/dashboard'
     default:
+      console.log('No matching route for type:', userType)
       return '/not-found'
   }
 }

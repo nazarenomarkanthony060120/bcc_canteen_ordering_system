@@ -1,6 +1,6 @@
 import { View, Animated, Pressable } from 'react-native'
 import React, { useState, useRef } from 'react'
-import { Food, Store } from '@/utils/types'
+import { Food, Store, UserType } from '@/utils/types'
 import Typo from '@/components/common/typo'
 import {
   AntDesign,
@@ -124,35 +124,37 @@ const ViewFoodFormFooter = ({ food, store }: ViewFoodFormFooterProps) => {
         </View>
       </View>
 
-      <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center gap-4">
+      {userData?.type !== UserType.ADMIN && (
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center gap-4">
+            <Pressable
+              className="bg-white p-3 rounded-xl shadow-sm"
+              onPress={decrement}
+            >
+              <Entypo name="minus" size={22} color="#10B981" />
+            </Pressable>
+            <Typo className="text-gray-800 text-2xl font-bold w-8 text-center">
+              {foodQuantity}
+            </Typo>
+            <Pressable
+              className="bg-white p-3 rounded-xl shadow-sm"
+              onPress={increment}
+            >
+              <Entypo name="plus" size={22} color="#10B981" />
+            </Pressable>
+          </View>
           <Pressable
-            className="bg-white p-3 rounded-xl shadow-sm"
-            onPress={decrement}
+            onPress={handleAddToCart}
+            disabled={isPending}
+            className="bg-emerald-500 rounded-xl flex-row items-center gap-2 px-6 py-3 shadow-sm"
           >
-            <Entypo name="minus" size={22} color="#10B981" />
-          </Pressable>
-          <Typo className="text-gray-800 text-2xl font-bold w-8 text-center">
-            {foodQuantity}
-          </Typo>
-          <Pressable
-            className="bg-white p-3 rounded-xl shadow-sm"
-            onPress={increment}
-          >
-            <Entypo name="plus" size={22} color="#10B981" />
+            <AntDesign name="shoppingcart" size={20} color="white" />
+            <Typo className="text-white font-semibold">
+              {isPending ? 'Adding...' : 'Add to Cart'}
+            </Typo>
           </Pressable>
         </View>
-        <Pressable
-          onPress={handleAddToCart}
-          disabled={isPending}
-          className="bg-emerald-500 rounded-xl flex-row items-center gap-2 px-6 py-3 shadow-sm"
-        >
-          <AntDesign name="shoppingcart" size={20} color="white" />
-          <Typo className="text-white font-semibold">
-            {isPending ? 'Adding...' : 'Add to Cart'}
-          </Typo>
-        </Pressable>
-      </View>
+      )}
 
       {(foodIncrementLimit || foodDecrementLimit) && (
         <View className="mt-4 bg-red-50 p-4 rounded-xl">

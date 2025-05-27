@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { MaterialIcons, AntDesign, Ionicons } from '@expo/vector-icons'
+import { MaterialIcons, AntDesign, Ionicons, Entypo } from '@expo/vector-icons'
 import { User } from '@/utils/types'
 import { getUserStatus } from '@/features/common/parts/getUserStatus'
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
@@ -21,6 +21,15 @@ const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {
       value: user.email,
       icon: <MaterialIcons name="alternate-email" size={22} color="#fff" />,
     },
+    ...(user.address
+      ? [
+          {
+            label: 'Address',
+            value: user.address,
+            icon: <Entypo name="location" size={22} color="#fff" />,
+          },
+        ]
+      : []),
     {
       label: 'Account Status',
       value: (

@@ -6,7 +6,7 @@ import {
   setDoc,
   serverTimestamp,
 } from '@/lib/firestore'
-import { RegisterRequest } from '@/utils/types'
+import { RegisterRequest, UserKYCStatus, UserType } from '@/utils/types'
 
 export const registerUser = async (data: RegisterRequest) => {
   const userCredential = await createUserWithEmailAndPassword(
@@ -22,7 +22,10 @@ export const registerUser = async (data: RegisterRequest) => {
     type: data.type,
     email: data.email,
     password: data.password,
-    status: 0,
+    status:
+      data.type !== UserType.SELLER
+        ? UserKYCStatus.APPROVED
+        : UserKYCStatus.APPLIED,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   })

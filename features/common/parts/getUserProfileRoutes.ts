@@ -5,6 +5,7 @@ type GetUserRoutesType = {
 }
 
 export const getUserProfileRoutes = ({ type }: GetUserRoutesType) => {
+  console.log('getUserProfileRoutes', type)
   switch (type) {
     case UserType.SELLER:
       return '/screens/(seller)/dashboard/profile'
@@ -13,11 +14,9 @@ export const getUserProfileRoutes = ({ type }: GetUserRoutesType) => {
     case UserType.TEACHER:
       return '/screens/(teacher)/dashboard/profile'
     case UserType.OUTSIDER:
-      return '/screens/(student)/dashboard/profile'
+      return '/screens/(other)/dashboard/profile'
     case UserType.ADMIN:
       return '/screens/(admin)/dashboard/profile'
-    case UserType.OUTSIDER:
-      return '/screens/(other)/dashboard/profile'
     default:
       return '/not-found'
   }

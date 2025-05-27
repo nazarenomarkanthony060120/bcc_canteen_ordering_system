@@ -35,12 +35,15 @@ const DashboardHeaderIcons = () => {
 
   return (
     <View className="flex-row gap-1">
-      <TouchableOpacity
-        className="bg-emerald-50 p-3 rounded-full"
-        onPress={handleCartPress}
-      >
-        <MaterialIcons name="shopping-cart" size={22} color="#10B981" />
-      </TouchableOpacity>
+      {user?.type !== UserType.ADMIN && (
+        <TouchableOpacity
+          className="bg-emerald-50 p-3 rounded-full"
+          onPress={handleCartPress}
+        >
+          <MaterialIcons name="shopping-cart" size={22} color="#10B981" />
+        </TouchableOpacity>
+      )}
+
       {user?.type === UserType.SELLER && (
         <>
           <TouchableOpacity
