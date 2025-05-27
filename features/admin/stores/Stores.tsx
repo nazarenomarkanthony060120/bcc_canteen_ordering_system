@@ -17,12 +17,11 @@ const Stores = () => {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    try {
-      await refetch()
-    } finally {
+    setTimeout(() => {
       setRefreshing(false)
-    }
-  }, [refetch])
+      refetch()
+    }, 2000)
+  }, [])
 
   React.useEffect(() => {
     Animated.parallel([

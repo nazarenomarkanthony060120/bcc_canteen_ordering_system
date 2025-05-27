@@ -6,7 +6,6 @@ import { PERSON_ICON } from '@/constants/image'
 import { getUserStatus } from '@/features/common/parts/getUserStatus'
 import { getUserStatusColor } from '@/features/common/parts/getUserStatusColor'
 import { useRouter } from 'expo-router'
-import { MaterialIcons } from '@expo/vector-icons'
 
 interface MemberFormContentsProps {
   user: User
@@ -19,16 +18,6 @@ const MemberFormContents = ({ user }: MemberFormContentsProps) => {
   const navigateToUserDetails = () => {
     router.push(`/screens/(admin)/members/userDetails?userId=${user.id}`)
   }
-
-  // Choose icon based on status
-  let statusIcon: 'verified-user' | 'hourglass-empty' | 'block' =
-    'hourglass-empty'
-  if (user.status === UserKYCStatus.APPROVED) statusIcon = 'verified-user'
-  else if (
-    user.status === UserKYCStatus.REJECTED ||
-    user.status === UserKYCStatus.DISABLED
-  )
-    statusIcon = 'block'
 
   const statusColor = getUserStatusColor(user.status)
   const isApplied = user.status === UserKYCStatus.PENDING
