@@ -4,17 +4,19 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import ScreenLayout from '@/features/common/components/screenLayout/ScreenLayout'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
-import { useFetchReservations } from '@/hooks/useQuery/seller/useFetchReservations'
 import { useRouter } from 'expo-router'
 import Header from './components/Header'
 import StatsCard from './components/StatsCard'
 import EmptyState from './components/EmptyState'
 import ReservationCard from './components/ReservationCard'
+import { useFetchReservationPending } from '@/hooks/useQuery/seller/useFetchReservationPending'
+import { ReservationOrders } from '@/utils/types'
 
 const ReservationPending = () => {
   const router = useRouter()
   const { reservations, isLoading, refreshing, onRefresh } =
-    useFetchReservations()
+    useFetchReservationPending()
+  console.log('reservations screen ', reservations)
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
   const scaleAnim = useRef(new Animated.Value(0.95)).current

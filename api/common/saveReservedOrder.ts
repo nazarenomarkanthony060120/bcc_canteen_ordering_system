@@ -1,6 +1,10 @@
 import { db } from '@/lib/firestore'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-import { FoodReservationStatus, ReservationStatus, SaveReservedOrderType } from '@/utils/types'
+import {
+  FoodReservationStatus,
+  ReservationStatus,
+  SaveReservedOrderType,
+} from '@/utils/types'
 
 export const saveReservedOrder = async ({
   userId,
@@ -19,10 +23,12 @@ export const saveReservedOrder = async ({
       id: item.id || '',
       foodId: item.foodId || '',
       userId: item.userId || '',
+      storeId: item.storeId || '',
+      storeOwnerId: item.storeOwnerId || '',
       quantity: item.quantity || 0,
       totalPrice: item.totalPrice || 0,
       image: item.image || '',
-      status: FoodReservationStatus.PENDING
+      status: FoodReservationStatus.PENDING,
     }))
 
     const reservedOrder = {

@@ -17,7 +17,7 @@ import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByS
 import { useUpdateCartQuantity } from '@/hooks/useMutation/common/useUpdateCartQuantity'
 import { useDeleteCart } from '@/hooks/useMutation/common/useDeleteCart'
 import { useSaveReservedOrder } from '@/hooks/useMutation/common/useSaveReservedOrder'
-import { Cart as CartType } from '@/utils/types'
+import { CartAdditionItem, Cart as CartType } from '@/utils/types'
 
 const Cart = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current
@@ -106,7 +106,7 @@ const Cart = () => {
       saveReservedOrder(
         {
           userId: auth.user?.uid || '',
-          cartItems: cartItems || [],
+          cartItems: cartItems as CartAdditionItem[],
           totalAmount: total,
           paymentMethod: method,
         },

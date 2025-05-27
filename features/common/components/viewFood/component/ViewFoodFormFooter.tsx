@@ -79,6 +79,7 @@ const ViewFoodFormFooter = ({ food, store }: ViewFoodFormFooterProps) => {
     addToCart(
       {
         foodId: food.id,
+        storeOwnerId: store.userId ?? '',
         userId: user?.uid ?? '',
         storeId: store.id,
         quantity: foodQuantity,

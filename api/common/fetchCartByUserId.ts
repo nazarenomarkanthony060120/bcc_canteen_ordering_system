@@ -27,6 +27,8 @@ export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
           id: docSnap.id,
           foodId: cartData.foodId,
           userId: cartData.userId,
+          storeId: cartData.storeId,
+          storeOwnerId: cartData.storeOwnerId,
           quantity: cartData.quantity,
           totalPrice: cartData.totalPrice,
           createdAt: cartData.createdAt,

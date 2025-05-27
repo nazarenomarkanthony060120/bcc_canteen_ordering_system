@@ -29,6 +29,7 @@ export type FoodIdRequest = {
 
 export type AddCartRequest = {
   foodId: string
+  storeOwnerId: string
   userId: string
   storeId: string
   quantity: number
@@ -119,6 +120,11 @@ export type Cart = {
   image?: string | null
 }
 
+export type CartAdditionItem = Cart & {
+  storeOwnerId: string
+  storeId: string
+}
+
 export type Reservation = {
   id: string
   items: any[]
@@ -130,9 +136,32 @@ export type Reservation = {
 
 export type SaveReservedOrderType = {
   userId: string
-  cartItems: Cart[]
+  cartItems: CartAdditionItem[]
   totalAmount: number
   paymentMethod: 'Cash' | 'GCash'
+}
+
+export type ReservedItem = {
+  id: string
+  foodId: string
+  quantity: number
+  status: number
+  totalPrice: number
+  userId: string
+  image: string
+  storeId: string
+  storeOwnerId: string
+}
+
+export type ReservationOrders = {
+  id: string
+  userId: string
+  items: ReservedItem[]
+  paymentMethod: string
+  status: number
+  totalAmount: number
+  createdAt: FieldValue
+  updatedAt: FieldValue
 }
 
 // Enum Decleared

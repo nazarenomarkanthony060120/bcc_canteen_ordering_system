@@ -4,17 +4,20 @@ import { BlurView } from 'expo-blur'
 import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { format } from 'date-fns'
-import { Reservation } from '@/utils/types'
+import { ReservationOrders } from '@/utils/types'
 import { getReservationStatusColor } from '@/features/common/parts/getReservationStatusColor'
 import { getReservationStatusIcon } from '@/features/common/parts/getReservationStatusIcon'
 import { getReservationStatus } from '@/features/common/parts/getReservationStatus'
+import { Timestamp } from 'firebase/firestore'
 
 interface ReservationCardProps {
-  reservation: Reservation
+  reservation: ReservationOrders
   onPress: (id: string) => void
 }
 
 const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
+  const createdAt = reservation.createdAt as Timestamp
+
   return (
     <TouchableOpacity onPress={() => onPress(reservation.id)}>
       <BlurView intensity={20} className="rounded-3xl overflow-hidden mb-4">
@@ -39,7 +42,7 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
                 </Typo>
                 <Typo className="text-gray-500">
                   {format(
-                    reservation.createdAt?.toDate() || new Date(),
+                    createdAt?.toDate() || new Date(),
                     'MMM d, yyyy h:mm a',
                   )}
                 </Typo>
@@ -79,11 +82,7 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
               <Typo className="text-gray-600">Payment Method</Typo>
               <View className="flex-row items-center">
                 <MaterialIcons
-                  name={
-                    reservation.paymentMethod === 'Pay at Counter'
-                      ? 'payments'
-                      : 'credit-card'
-                  }
+                  name={reservation.paymentMethod === 'Cash' ? 'payments' : 'credit-card'}
                   size={16}
                   color="#6B7280"
                   style={{ marginRight: 4 }}
