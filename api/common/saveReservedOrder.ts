@@ -20,14 +20,12 @@ export const saveReservedOrder = async ({
 
     // Map cart items and ensure all required fields are present
     const mappedItems = cartItems.map((item) => ({
-      id: item.id || '',
       foodId: item.foodId || '',
       userId: item.userId || '',
       storeId: item.storeId || '',
       storeOwnerId: item.storeOwnerId || '',
       quantity: item.quantity || 0,
       totalPrice: item.totalPrice || 0,
-      image: item.image || '',
       status: FoodReservationStatus.PENDING,
     }))
 

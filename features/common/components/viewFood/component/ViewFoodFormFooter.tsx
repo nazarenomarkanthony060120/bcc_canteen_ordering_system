@@ -125,7 +125,7 @@ const ViewFoodFormFooter = ({ food, store }: ViewFoodFormFooterProps) => {
         </View>
       </View>
 
-      {userData?.type !== UserType.ADMIN && (
+      {userData?.type !== UserType.ADMIN && userData?.id !== store?.userId && (
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-4">
             <Pressable

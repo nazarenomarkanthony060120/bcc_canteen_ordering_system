@@ -4,24 +4,35 @@ import { BlurView } from 'expo-blur'
 import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { format } from 'date-fns'
-import { ReservationOrders } from '@/utils/types'
+import { ReservationOrders, ReservedItem } from '@/utils/types'
 import { getReservationStatusColor } from '@/features/common/parts/getReservationStatusColor'
 import { getReservationStatusIcon } from '@/features/common/parts/getReservationStatusIcon'
 import { getReservationStatus } from '@/features/common/parts/getReservationStatus'
 import { Timestamp } from 'firebase/firestore'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { useAuth } from '@/context/auth'
 
 interface ReservationCardProps {
   reservation: ReservationOrders
-  onPress: (id: string) => void
+  onPress: (item: ReservationOrders, createdAt: Timestamp) => void
 }
 
 const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
   const { data: user } = useGetUserByUserId({ id: reservation.userId })
   const createdAt = reservation.createdAt as Timestamp
+  const auth = useAuth()
+  const totalAmount = reservation.items.reduce(
+    (total, item) => 
+      auth.user?.uid === item.storeOwnerId ? total + item.totalPrice : total,
+    0
+  )
+
+  const items = reservation.items.filter(
+    item => auth.user?.uid === item.storeOwnerId
+  ).length
 
   return (
-    <TouchableOpacity onPress={() => onPress(reservation.id)}>
+    <TouchableOpacity onPress={() => onPress(reservation, createdAt)}>
       <BlurView intensity={20} className="rounded-3xl overflow-hidden mb-4">
         <View className="bg-white/90 p-4">
           <View className="flex-row items-center justify-between mb-4">
@@ -79,13 +90,13 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
             <View className="flex-row justify-between mb-3">
               <Typo className="text-gray-600">Items</Typo>
               <Typo className="text-gray-800 font-semibold">
-                {reservation.items.length} items
+                {items} items
               </Typo>
             </View>
             <View className="flex-row justify-between mb-3">
               <Typo className="text-gray-600">Total Amount</Typo>
               <Typo className="text-emerald-600 font-bold text-lg">
-                ₱{reservation.totalAmount.toFixed(2)}
+                ₱{totalAmount.toFixed(2)}
               </Typo>
             </View>
             <View className="flex-row justify-between">

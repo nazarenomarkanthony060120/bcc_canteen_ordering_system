@@ -10,7 +10,8 @@ import StatsCard from './components/StatsCard'
 import EmptyState from './components/EmptyState'
 import ReservationCard from './components/ReservationCard'
 import { useFetchReservationPending } from '@/hooks/useQuery/seller/useFetchReservationPending'
-import { ReservationOrders } from '@/utils/types'
+import { ReservedItem, ReservationOrders } from '@/utils/types'
+import { Timestamp } from 'firebase/firestore'
 
 const ReservationPending = () => {
   const router = useRouter()
@@ -42,10 +43,13 @@ const ReservationPending = () => {
     ]).start()
   }, [])
 
-  const handleReservationPress = (id: string) => {
+  const handleReservationPress = (item: ReservationOrders, createdAt: Timestamp) => {
     router.push({
-      pathname: '/screens/(seller)/view-reservation-pending',
-      params: { id },
+      pathname: '/screens/(seller)/view-reservation-pending/viewReservationPending',
+      params: { 
+        item: JSON.stringify(item),
+        createdAt: createdAt.toDate().toISOString()
+      },
     })
   }
 

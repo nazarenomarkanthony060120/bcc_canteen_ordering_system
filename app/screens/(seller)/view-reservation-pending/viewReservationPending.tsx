@@ -1,12 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import ViewReservationPending from '@/features/seller/view-reservation-pending/ViewReservationPending'
 
-const viewReservationPending = () => {
-  return (
-    <View>
-      <Text>viewReservationPending</Text>
-    </View>
-  )
+const ViewReservationPendingScreen = () => {
+  return <ViewReservationPending />
 }
 
-export default viewReservationPending
+export default ViewReservationPendingScreen
