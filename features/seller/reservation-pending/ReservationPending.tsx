@@ -44,7 +44,7 @@ const ReservationPending = () => {
 
   const handleReservationPress = (id: string) => {
     router.push({
-      pathname: '/screens/common/reservationList',
+      pathname: '/screens/(seller)/view-reservation-pending',
       params: { id },
     })
   }

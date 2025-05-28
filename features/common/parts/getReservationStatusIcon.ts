@@ -2,7 +2,7 @@ import { ReservationStatus } from '@/utils/types'
 
 export const getReservationStatusIcon = (status: number) => {
   switch (status) {
-    case ReservationStatus.RESERVED:
+    case ReservationStatus.PENDING:
       return 'hourglass-top'
     case ReservationStatus.COMPLETED:
       return 'check-circle'

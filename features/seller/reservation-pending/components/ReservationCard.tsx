@@ -9,6 +9,7 @@ import { getReservationStatusColor } from '@/features/common/parts/getReservatio
 import { getReservationStatusIcon } from '@/features/common/parts/getReservationStatusIcon'
 import { getReservationStatus } from '@/features/common/parts/getReservationStatus'
 import { Timestamp } from 'firebase/firestore'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 
 interface ReservationCardProps {
   reservation: ReservationOrders
@@ -16,6 +17,7 @@ interface ReservationCardProps {
 }
 
 const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
+  const { data: user } = useGetUserByUserId({ id: reservation.userId })
   const createdAt = reservation.createdAt as Timestamp
 
   return (
@@ -67,6 +69,14 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
 
           <View className="border-t border-gray-100 pt-4">
             <View className="flex-row justify-between mb-3">
+              <Typo className="text-gray-600">Buyer</Typo>
+              <Typo className="text-gray-800 font-semibold">{user?.name}</Typo>
+            </View>
+            <View className="flex-row justify-between mb-3">
+              <Typo className="text-gray-600">Type</Typo>
+              <Typo className="text-gray-800 font-semibold">{user?.type}</Typo>
+            </View>
+            <View className="flex-row justify-between mb-3">
               <Typo className="text-gray-600">Items</Typo>
               <Typo className="text-gray-800 font-semibold">
                 {reservation.items.length} items
@@ -82,7 +92,11 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
               <Typo className="text-gray-600">Payment Method</Typo>
               <View className="flex-row items-center">
                 <MaterialIcons
-                  name={reservation.paymentMethod === 'Cash' ? 'payments' : 'credit-card'}
+                  name={
+                    reservation.paymentMethod === 'Cash'
+                      ? 'payments'
+                      : 'credit-card'
+                  }
                   size={16}
                   color="#6B7280"
                   style={{ marginRight: 4 }}

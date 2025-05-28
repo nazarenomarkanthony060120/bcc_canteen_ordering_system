@@ -2,7 +2,7 @@ import { ReservationStatus } from '@/utils/types'
 
 export const getReservationStatusColor = (status: number) => {
   switch (status) {
-    case ReservationStatus.RESERVED:
+    case ReservationStatus.PENDING:
       return '#10B981'
     case ReservationStatus.COMPLETED:
       return '#3B82F6'
