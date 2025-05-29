@@ -85,9 +85,9 @@ const ReservationList = () => {
               ) : reservations.length === 0 ? (
                 <EmptyReservation />
               ) : (
-                reservations.map((reservation) => (
+                reservations.map((reservation, index) => (
                   <ReservationCard
-                    key={reservation.id}
+                    key={index}
                     reservation={reservation}
                     fadeAnim={fadeAnim}
                     slideAnim={slideAnim}

@@ -27,6 +27,11 @@ export type FoodIdRequest = {
   id: string | null | undefined
 }
 
+export type ReservationIdRequest = {
+  id: string | null | undefined
+  foodId: string | null | undefined
+}
+
 export type AddCartRequest = {
   foodId: string
   storeOwnerId: string

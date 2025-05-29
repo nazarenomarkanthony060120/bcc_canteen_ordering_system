@@ -10,14 +10,22 @@ import StatsCard from './components/StatsCard'
 import EmptyState from './components/EmptyState'
 import ReservationCard from './components/ReservationCard'
 import { useFetchReservationPending } from '@/hooks/useQuery/seller/useFetchReservationPending'
-import { ReservedItem, ReservationOrders } from '@/utils/types'
+import { ReservationOrders, ReservationStatus } from '@/utils/types'
 import { Timestamp } from 'firebase/firestore'
+import { useAuth } from '@/context/auth'
 
 const ReservationPending = () => {
+  const auth = useAuth()
   const router = useRouter()
   const { reservations, isLoading, refreshing, onRefresh } =
     useFetchReservationPending()
-  console.log('reservations screen ', reservations)
+
+  console.log(
+    'reservations: ',
+    reservations.map((data) =>
+      data.items.filter((item) => item.storeOwnerId === auth.user?.uid),
+    ),
+  )
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
   const scaleAnim = useRef(new Animated.Value(0.95)).current
@@ -43,20 +51,45 @@ const ReservationPending = () => {
     ]).start()
   }, [])
 
-  const handleReservationPress = (item: ReservationOrders, createdAt: Timestamp) => {
+  const handleReservationPress = (
+    item: ReservationOrders,
+    createdAt: Timestamp,
+  ) => {
     router.push({
-      pathname: '/screens/(seller)/view-reservation-pending/viewReservationPending',
-      params: { 
+      pathname:
+        '/screens/(seller)/view-reservation-pending/viewReservationPending',
+      params: {
         item: JSON.stringify(item),
-        createdAt: createdAt.toDate().toISOString()
+        createdAt: createdAt.toDate().toISOString(),
       },
     })
   }
 
   if (isLoading) return <LoadingIndicator />
 
-  const pendingCount = reservations.filter((r) => r.status === 1).length
-  const completedCount = reservations.filter((r) => r.status === 2).length
+  const completedCount = reservations.reduce((total, reservation) => {
+    const storeOwnerItems = reservation.items.filter(
+      (item) => item.storeOwnerId === auth.user?.uid,
+    )
+    const completedItems = storeOwnerItems.filter(
+      (item) =>
+        item.status !== ReservationStatus.PENDING &&
+        item.status !== ReservationStatus.CANCELLED,
+    ).length
+    return total + (completedItems % 2)
+  }, 0)
+
+  const pendingCount = reservations.reduce((total, reservation) => {
+    const storeOwnerItems = reservation.items.filter(
+      (item) => item.storeOwnerId === auth.user?.uid,
+    )
+    const pendingItems = storeOwnerItems.filter(
+      (item) =>
+        item.status !== ReservationStatus.COMPLETED &&
+        item.status !== ReservationStatus.CANCELLED,
+    ).length
+    return total + (pendingItems % 2)
+  }, 0)
 
   return (
     <ScreenLayout>

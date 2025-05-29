@@ -4,13 +4,17 @@ import { BlurView } from 'expo-blur'
 import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { format } from 'date-fns'
-import { ReservationOrders, ReservedItem } from '@/utils/types'
+import { ReservationOrders } from '@/utils/types'
 import { getReservationStatusColor } from '@/features/common/parts/getReservationStatusColor'
 import { getReservationStatusIcon } from '@/features/common/parts/getReservationStatusIcon'
 import { getReservationStatus } from '@/features/common/parts/getReservationStatus'
 import { Timestamp } from 'firebase/firestore'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { getItemCount } from '@/features/common/parts/getItemsCount'
+import { getTotalAmount } from '@/features/common/parts/getTotalAmount'
 import { useAuth } from '@/context/auth'
+import { ReservationStatus } from '@/utils/types'
+import { getReservationStatusResult } from '@/features/common/parts/getReservationStatusResult'
 
 interface ReservationCardProps {
   reservation: ReservationOrders
@@ -18,18 +22,10 @@ interface ReservationCardProps {
 }
 
 const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
-  const { data: user } = useGetUserByUserId({ id: reservation.userId })
-  const createdAt = reservation.createdAt as Timestamp
   const auth = useAuth()
-  const totalAmount = reservation.items.reduce(
-    (total, item) => 
-      auth.user?.uid === item.storeOwnerId ? total + item.totalPrice : total,
-    0
-  )
+  const { data: user } = useGetUserByUserId({ id: reservation.userId })
 
-  const items = reservation.items.filter(
-    item => auth.user?.uid === item.storeOwnerId
-  ).length
+  const createdAt = reservation.createdAt as Timestamp
 
   return (
     <TouchableOpacity onPress={() => onPress(reservation, createdAt)}>
@@ -40,13 +36,31 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
               <View
                 className="p-3 rounded-full mr-3"
                 style={{
-                  backgroundColor: `${getReservationStatusColor(reservation.status)}20`,
+                  backgroundColor: `${getReservationStatusColor(
+                    reservation.items.some(
+                      (item) =>
+                        item.storeOwnerId === auth.user?.uid &&
+                        item.status !== ReservationStatus.PENDING,
+                    )
+                      ? ReservationStatus.COMPLETED
+                      : ReservationStatus.PENDING,
+                  )}20`,
                 }}
               >
                 <MaterialIcons
-                  name={getReservationStatusIcon(reservation.status)}
+                  name={getReservationStatusIcon(
+                    getReservationStatusResult({
+                      item: reservation.items,
+                      userId: auth.user?.uid,
+                    }),
+                  )}
                   size={24}
-                  color={getReservationStatusColor(reservation.status)}
+                  color={getReservationStatusColor(
+                    getReservationStatusResult({
+                      item: reservation.items,
+                      userId: auth.user?.uid,
+                    }),
+                  )}
                 />
               </View>
               <View>
@@ -64,16 +78,31 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
             <View
               className="px-4 py-2 rounded-full"
               style={{
-                backgroundColor: `${getReservationStatusColor(reservation.status)}20`,
+                backgroundColor: `${getReservationStatusColor(
+                  getReservationStatusResult({
+                    item: reservation.items,
+                    userId: auth.user?.uid,
+                  }),
+                )}20`,
               }}
             >
               <Typo
                 className="text-sm font-semibold"
                 style={{
-                  color: getReservationStatusColor(reservation.status),
+                  color: getReservationStatusColor(
+                    getReservationStatusResult({
+                      item: reservation.items,
+                      userId: auth.user?.uid,
+                    }),
+                  ),
                 }}
               >
-                {getReservationStatus(reservation.status)}
+                {getReservationStatus(
+                  getReservationStatusResult({
+                    item: reservation.items,
+                    userId: auth.user?.uid,
+                  }),
+                )}
               </Typo>
             </View>
           </View>
@@ -90,13 +119,22 @@ const ReservationCard = ({ reservation, onPress }: ReservationCardProps) => {
             <View className="flex-row justify-between mb-3">
               <Typo className="text-gray-600">Items</Typo>
               <Typo className="text-gray-800 font-semibold">
-                {items} items
+                {getItemCount({
+                  items: reservation.items.filter(
+                    (item) => item.storeOwnerId === auth.user?.uid,
+                  ).length,
+                })}
               </Typo>
             </View>
             <View className="flex-row justify-between mb-3">
               <Typo className="text-gray-600">Total Amount</Typo>
               <Typo className="text-emerald-600 font-bold text-lg">
-                ₱{totalAmount.toFixed(2)}
+                ₱
+                {getTotalAmount({
+                  reservedItems: reservation.items.filter((item) =>
+                    item.storeOwnerId === auth.user?.uid ? item.totalPrice : 0,
+                  ),
+                }).toFixed(2)}
               </Typo>
             </View>
             <View className="flex-row justify-between">

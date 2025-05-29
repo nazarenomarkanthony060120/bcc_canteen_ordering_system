@@ -1,7 +1,7 @@
 import { View, ScrollView, Animated } from 'react-native'
 import React, { useRef, useEffect } from 'react'
 import { useLocalSearchParams } from 'expo-router'
-import { ReservationOrders } from '@/utils/types'
+import { ReservationOrders, ReservationStatus } from '@/utils/types'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
 import { useGetFoodByFoodId } from '@/hooks/useQuery/common/get/useGetFoodByFoodId'
@@ -16,6 +16,9 @@ import OrderDetails from './components/OrderDetails'
 import OrderSummary from './components/OrderSummary'
 import ActionButtons from './components/ActionButtons'
 import { useAuth } from '@/context/auth'
+import { useConfirmPendingOrder } from '@/hooks/useMutation/seller/pending-order/useConfirmPendingOrder'
+import { useRouter } from 'expo-router'
+import { getReservationStatusResult } from '@/features/common/parts/getReservationStatusResult'
 
 const ViewReservationPending = () => {
   const auth = useAuth()
@@ -28,15 +31,19 @@ const ViewReservationPending = () => {
   const scaleAnim = useRef(new Animated.Value(0.95)).current
 
   const { data: user } = useGetUserByUserId({ id: reservation.userId })
-  const { data: store } = useGetStoreByStoreId({ id: reservation.items[0].storeId })
+  const { data: store } = useGetStoreByStoreId({
+    id: reservation.items[0].storeId,
+  })
   const { data: food } = useGetFoodByFoodId({ id: reservation.items[0].foodId })
+  const { mutate: confirmPendingOrder } = useConfirmPendingOrder()
+  const router = useRouter()
 
   const totalAmount = reservation.items.reduce(
-    (total, item) => 
+    (total, item) =>
       auth.user?.uid === item.storeOwnerId ? total + item.totalPrice : total,
-    0
+    0,
   )
- 
+
   useEffect(() => {
     Animated.parallel([
       Animated.timing(fadeAnim, {
@@ -59,12 +66,23 @@ const ViewReservationPending = () => {
   }, [])
 
   const handleConfirm = (reservationId: string) => {
-    // TODO: Implement confirm functionality
-    console.log('Confirm reservation:', reservation.id)
+    confirmPendingOrder(
+      {
+        id: reservationId,
+        foodId: reservation.items[0].foodId,
+      },
+      {
+        onSuccess: () => {
+          router.back()
+        },
+        onError: (error: Error) => {
+          console.error('Error confirming order:', error)
+        },
+      },
+    )
   }
 
   const handleCancel = (reservationId: string) => {
-    // TODO: Implement cancel functionality
     console.log('Cancel reservation:', reservation.id)
   }
 
@@ -85,22 +103,38 @@ const ViewReservationPending = () => {
             transform: [{ translateY: slideAnim }, { scale: scaleAnim }],
           }}
           className="p-4"
+          key={reservation.id}
         >
-          <Header 
-            orderId={reservation.id} 
-            createdAt={createdAtDate} 
+          <Header orderId={reservation.id} createdAt={createdAtDate} />
+          <OrderStatus
+            status={getReservationStatusResult({
+              item: reservation.items,
+              userId: auth.user?.uid,
+            })}
           />
-          <OrderStatus status={reservation.status} />
           <CustomerInfo user={user} />
           <StoreInfo store={store} />
-          <OrderDetails items={reservation.items} food={food} />
+          <OrderDetails
+            key={reservation.id}
+            items={reservation.items}
+            food={food}
+          />
           <OrderSummary
             paymentMethod={reservation.paymentMethod}
             totalAmount={totalAmount}
           />
         </Animated.View>
       </ScrollView>
-      <ActionButtons reservationId={reservation.id} onConfirm={handleConfirm} onCancel={handleCancel} />
+      {getReservationStatusResult({
+        item: reservation.items,
+        userId: auth.user?.uid,
+      }) === ReservationStatus.PENDING && (
+        <ActionButtons
+          reservationId={reservation.id}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
+      )}
     </View>
   )
 }
