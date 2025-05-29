@@ -1,4 +1,4 @@
-import { FieldValue } from 'firebase/firestore'
+import { FieldValue, Timestamp } from 'firebase/firestore'
 import { Field } from 'react-hook-form'
 
 export type LoginRequest = {
@@ -13,6 +13,10 @@ export type RegisterRequest = {
   email: string
   password: string
   confirmPassword: string
+}
+
+export type GetHistoriesRequest = {
+  storeId: string | null
 }
 
 export type UserIdRequest = {
@@ -168,6 +172,18 @@ export type ReservationOrders = {
   totalAmount: number
   createdAt: FieldValue
   updatedAt: FieldValue
+}
+
+export interface History {
+  id: string
+  foodId: string
+  quantity: number
+  reservationId: string
+  storeOwnerId: string
+  totalPrice: number
+  userId: string
+  createdAt: Timestamp
+  updatedAt: Timestamp
 }
 
 // Enum Decleared

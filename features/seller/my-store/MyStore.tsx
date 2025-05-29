@@ -8,6 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { useState } from 'react'
 import MyStoreHeader from './component/MyStoreHeader'
+import ViewAnalyticsCard from './component/ViewAnalyticsCard'
 
 interface MyStoreProps {
   params: URLSearchParams
@@ -93,12 +94,13 @@ const MyStore = ({ params }: MyStoreProps) => {
             <BlurView
               intensity={20}
               tint="light"
-              className="rounded-3xl overflow-hidden mb-4"
+              className="rounded-3xl overflow-hidden mb-4 gap-2"
             >
               <MyStoreHeader
                 storeId={storeData?.id}
                 status={storeData?.status}
               />
+              <ViewAnalyticsCard storeId={storeData?.id} />
               <View className="bg-white/90 backdrop-blur-md rounded-3xl shadow-sm overflow-hidden border border-white/30">
                 <MyStoreFormCard store={storeData} />
               </View>

@@ -15,7 +15,7 @@ const ViewStoreHeader = () => {
   }
 
   return (
-    <SafeAreaView className="px-4 pt-2 pb-4">
+    <SafeAreaView className="px-4 pt-2">
       <View className="flex-row items-center justify-between">
         <Button
           className="flex-row items-center gap-2.5"

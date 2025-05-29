@@ -8,6 +8,11 @@ import { useFetchFoodByStoreId } from '@/hooks/useQuery/common/get/useFetchFoodB
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import { LinearGradient } from 'expo-linear-gradient'
 import { ScrollView, RefreshControl } from 'react-native'
+import ViewAnalyticsCard from '@/features/seller/my-store/component/ViewAnalyticsCard'
+import { useAuth } from '@/context/auth'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { UserType } from '@/utils/types'
+import { View } from 'react-native'
 
 interface ViewStoreProps {
   params: URLSearchParams
@@ -16,6 +21,8 @@ interface ViewStoreProps {
 const ViewStore = ({ params }: ViewStoreProps) => {
   const [refreshing, setRefreshing] = useState(false)
   const storeId = params.get('storeId')
+  const auth = useAuth()
+  const { data: user} = useGetUserByUserId({ id: auth.user?.uid })
   const { data: store, refetch: refetchStore } = useGetStoreByStoreId({
     id: storeId,
   })
@@ -51,6 +58,9 @@ const ViewStore = ({ params }: ViewStoreProps) => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           >
+            <View className='p-4'>
+            { user?.type === UserType.ADMIN && <ViewAnalyticsCard storeId={store?.id} />}
+            </View>
             <ViewStoreFormCard foods={foods} store={store} />
           </ScrollView>
         </SafeAreaView>

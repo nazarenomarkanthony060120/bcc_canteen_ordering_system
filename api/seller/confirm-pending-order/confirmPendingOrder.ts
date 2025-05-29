@@ -68,6 +68,7 @@ export const confirmPendingOrder = async ({
 
         // Save to histories collection
         await addDoc(collection(db, 'histories'), {
+          storeId: item.storeId,
           storeOwnerId: item.storeOwnerId,
           reservationId: id,
           totalPrice: item.totalPrice,
