@@ -19,6 +19,7 @@ import { useAuth } from '@/context/auth'
 import { useConfirmPendingOrder } from '@/hooks/useMutation/seller/pending-order/useConfirmPendingOrder'
 import { useRouter } from 'expo-router'
 import { getReservationStatusResult } from '@/features/common/parts/getReservationStatusResult'
+import { useCancelPendingOrder } from '@/hooks/useMutation/seller/pending-order/useCancelPendingOrder'
 
 const ViewReservationPending = () => {
   const auth = useAuth()
@@ -35,7 +36,10 @@ const ViewReservationPending = () => {
     id: reservation.items[0].storeId,
   })
   const { data: food } = useGetFoodByFoodId({ id: reservation.items[0].foodId })
-  const { mutate: confirmPendingOrder } = useConfirmPendingOrder()
+  const { mutate: confirmPendingOrder, isPending: isPendingConfirm } =
+    useConfirmPendingOrder()
+  const { mutate: cancelPendingOrder, isPending: isPendingCancel } =
+    useCancelPendingOrder()
   const router = useRouter()
 
   const totalAmount = reservation.items.reduce(
@@ -83,7 +87,20 @@ const ViewReservationPending = () => {
   }
 
   const handleCancel = (reservationId: string) => {
-    console.log('Cancel reservation:', reservation.id)
+    cancelPendingOrder(
+      {
+        id: reservationId,
+        foodId: reservation.items[0].foodId,
+      },
+      {
+        onSuccess: () => {
+          router.back()
+        },
+        onError: (error: Error) => {
+          console.error('Error cancelling order:', error)
+        },
+      },
+    )
   }
 
   if (!user || !store || !food) {
@@ -133,6 +150,8 @@ const ViewReservationPending = () => {
           reservationId={reservation.id}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
+          isPendingCancel={isPendingCancel}
+          isPendingConfirm={isPendingConfirm}
         />
       )}
     </View>

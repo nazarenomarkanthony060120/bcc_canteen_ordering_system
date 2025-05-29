@@ -32,11 +32,8 @@ const OrderDetails = ({ items, food }: OrderDetailsProps) => {
           </Typo>
         </View>
         <View className="bg-gray-50 rounded-2xl p-4">
-          {filteredItems.map((item) => (
-            <View
-              key={item.id}
-              className="flex-row items-center mb-4 last:mb-0"
-            >
+          {filteredItems.map((item, index) => (
+            <View key={index} className="flex-row items-center mb-4 last:mb-0">
               <View className="overflow-hidden rounded-xl">
                 <ImageWrapper
                   source={

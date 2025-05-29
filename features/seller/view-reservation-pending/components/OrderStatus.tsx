@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import Typo from '@/components/common/typo'
 import { getReservationStatus } from '@/features/common/parts/getReservationStatus'
 import { getReservationStatusColor } from '@/features/common/parts/getReservationStatusColor'
+import { getReservationStatusIcon } from '@/features/common/parts/getReservationStatusIcon'
 
 interface OrderStatusProps {
   status: number
@@ -23,7 +24,7 @@ const OrderStatus = ({ status }: OrderStatusProps) => {
               }}
             >
               <MaterialIcons
-                name={status === 1 ? 'hourglass-top' : 'check-circle'}
+                name={getReservationStatusIcon(status)}
                 size={24}
                 color={getReservationStatusColor(status)}
               />
@@ -46,4 +47,4 @@ const OrderStatus = ({ status }: OrderStatusProps) => {
   )
 }
 
-export default OrderStatus 
+export default OrderStatus

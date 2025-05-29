@@ -141,9 +141,9 @@ const ReservationPending = () => {
               {reservations.length === 0 ? (
                 <EmptyState />
               ) : (
-                reservations.map((reservation) => (
+                reservations.map((reservation, index) => (
                   <ReservationCard
-                    key={reservation.id}
+                    key={index}
                     reservation={reservation}
                     onPress={handleReservationPress}
                   />
