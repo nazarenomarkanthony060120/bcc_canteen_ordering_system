@@ -86,7 +86,8 @@ const ViewReservationPending = () => {
     confirmPendingOrder(
       {
         id: reservationId,
-        foodId: reservation.items[0].foodId,
+        foods: foods,
+        userId: auth.user?.uid,
       },
       {
         onSuccess: () => {
@@ -103,7 +104,8 @@ const ViewReservationPending = () => {
     cancelPendingOrder(
       {
         id: reservationId,
-        foodId: reservation.items[0].foodId,
+        foods: foods,
+        userId: auth.user?.uid,
       },
       {
         onSuccess: () => {

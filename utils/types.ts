@@ -29,7 +29,8 @@ export type FoodIdRequest = {
 
 export type ReservationIdRequest = {
   id: string | null | undefined
-  foodId: string | null | undefined
+  foods: (Food | null | undefined)[]
+  userId: string | undefined
 }
 
 export type AddCartRequest = {

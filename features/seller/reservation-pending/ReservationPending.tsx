@@ -67,29 +67,21 @@ const ReservationPending = () => {
 
   if (isLoading) return <LoadingIndicator />
 
-  const completedCount = reservations.reduce((total, reservation) => {
-    const storeOwnerItems = reservation.items.filter(
-      (item) => item.storeOwnerId === auth.user?.uid,
-    )
-    const completedItems = storeOwnerItems.filter(
+  const completedCount = reservations.filter((reservation) =>
+    reservation.items.some(
       (item) =>
-        item.status !== ReservationStatus.PENDING &&
-        item.status !== ReservationStatus.CANCELLED,
-    ).length
-    return total + (completedItems % 2)
-  }, 0)
+        item.storeOwnerId === auth.user?.uid &&
+        item.status === ReservationStatus.COMPLETED,
+    ),
+  ).length
 
-  const pendingCount = reservations.reduce((total, reservation) => {
-    const storeOwnerItems = reservation.items.filter(
-      (item) => item.storeOwnerId === auth.user?.uid,
-    )
-    const pendingItems = storeOwnerItems.filter(
+  const pendingCount = reservations.filter((reservation) =>
+    reservation.items.some(
       (item) =>
-        item.status !== ReservationStatus.COMPLETED &&
-        item.status !== ReservationStatus.CANCELLED,
-    ).length
-    return total + (pendingItems % 2)
-  }, 0)
+        item.storeOwnerId === auth.user?.uid &&
+        item.status === ReservationStatus.PENDING,
+    ),
+  ).length
 
   return (
     <ScreenLayout>

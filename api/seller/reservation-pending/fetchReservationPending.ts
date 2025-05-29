@@ -54,16 +54,6 @@ export const fetchReservationPending = async (userId: string | undefined) => {
       }),
     )
 
-    // Filter reservations to only include those for the specified user's stores
-    // const filteredReservations = reservations.filter((reservation) =>
-    //   reservation.items.some((item) => item.storeOwnerId === userId),
-    // )
-
-    // const filteredReservations = reservations.map((reservation) => ({
-    //   ...reservation,
-    //   items: reservation.items.filter((item) => item.storeOwnerId === userId),
-    // }))
-
     // Only return reservations that have items after filtering
     const filteredReservations = reservations.filter((reservation) =>
       reservation.items.some((item) => item.storeOwnerId === userId),
