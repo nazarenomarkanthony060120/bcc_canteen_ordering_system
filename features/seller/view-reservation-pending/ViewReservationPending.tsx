@@ -20,6 +20,8 @@ import { useConfirmPendingOrder } from '@/hooks/useMutation/seller/pending-order
 import { useRouter } from 'expo-router'
 import { getReservationStatusResult } from '@/features/common/parts/getReservationStatusResult'
 import { useCancelPendingOrder } from '@/hooks/useMutation/seller/pending-order/useCancelPendingOrder'
+import { useQueries } from '@tanstack/react-query'
+import { getFoodByFoodId } from '@/api/common/getFoodByFoodId'
 
 const ViewReservationPending = () => {
   const auth = useAuth()
@@ -35,7 +37,18 @@ const ViewReservationPending = () => {
   const { data: store } = useGetStoreByStoreId({
     id: reservation.items[0].storeId,
   })
-  const { data: food } = useGetFoodByFoodId({ id: reservation.items[0].foodId })
+
+  // Fetch all food items in parallel
+  const foodQueries = useQueries({
+    queries: reservation.items.map((item) => ({
+      queryKey: ['getFoodByFoodId', item.foodId],
+      queryFn: () => getFoodByFoodId({ id: item.foodId }),
+    })),
+  })
+
+  const foods = foodQueries.map((query) => query.data)
+  const isLoadingFoods = foodQueries.some((query) => query.isLoading)
+
   const { mutate: confirmPendingOrder, isPending: isPendingConfirm } =
     useConfirmPendingOrder()
   const { mutate: cancelPendingOrder, isPending: isPendingCancel } =
@@ -103,7 +116,7 @@ const ViewReservationPending = () => {
     )
   }
 
-  if (!user || !store || !food) {
+  if (!user || !store || isLoadingFoods) {
     return <LoadingIndicator />
   }
 
@@ -134,7 +147,7 @@ const ViewReservationPending = () => {
           <OrderDetails
             key={reservation.id}
             items={reservation.items}
-            food={food}
+            foods={foods}
           />
           <OrderSummary
             paymentMethod={reservation.paymentMethod}

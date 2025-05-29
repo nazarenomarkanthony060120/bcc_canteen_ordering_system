@@ -11,10 +11,47 @@ import { getItemCount } from '@/features/common/parts/getItemsCount'
 
 interface OrderDetailsProps {
   items: ReservedItem[]
+  foods: (Food | null | undefined)[]
+}
+
+interface OrderItemProps {
+  item: ReservedItem
   food: Food
 }
 
-const OrderDetails = ({ items, food }: OrderDetailsProps) => {
+const OrderItem = ({ item, food }: OrderItemProps) => {
+  return (
+    <View className="flex-row items-center">
+      <View className="overflow-hidden rounded-xl">
+        <ImageWrapper
+          source={
+            food.image
+              ? { uri: `data:image/jpeg;base64,${food.image}` }
+              : CANTEEN_IMAGE
+          }
+          style={{ height: 120, width: 120 }}
+        />
+      </View>
+      <View className="flex-1 ml-4">
+        <Typo className="text-gray-800 font-semibold text-lg mb-1">
+          {food.name}
+        </Typo>
+        <View className="flex-row justify-center items-center mb-2">
+          <View className="bg-emerald-50 px-2 py-1 rounded-full mr-2">
+            <Typo className="text-emerald-600 text-sm">
+              {getItemCount({ items: item.quantity })}
+            </Typo>
+          </View>
+        </View>
+        <Typo className="text-emerald-600 font-bold text-lg">
+          ₱{item.totalPrice.toFixed(2)}
+        </Typo>
+      </View>
+    </View>
+  )
+}
+
+const OrderDetails = ({ items, foods }: OrderDetailsProps) => {
   const auth = useAuth()
   const filteredItems = items.filter(
     (item) => auth.user?.uid === item.storeOwnerId,
@@ -31,36 +68,19 @@ const OrderDetails = ({ items, food }: OrderDetailsProps) => {
             Order Details
           </Typo>
         </View>
-        <View className="bg-gray-50 rounded-2xl p-4">
-          {filteredItems.map((item, index) => (
-            <View key={index} className="flex-row items-center mb-4 last:mb-0">
-              <View className="overflow-hidden rounded-xl">
-                <ImageWrapper
-                  source={
-                    food.image
-                      ? { uri: `data:image/jpeg;base64,${food.image}` }
-                      : CANTEEN_IMAGE
-                  }
-                  style={{ height: 120, width: 120 }}
-                />
-              </View>
-              <View className="flex-1">
-                <Typo className="text-gray-800 font-semibold text-lg mb-1">
-                  {food.name}
-                </Typo>
-                <View className="flex-row justify-center items-center mb-2">
-                  <View className="bg-emerald-50 px-2 py-1 rounded-full mr-2">
-                    <Typo className="text-emerald-600 text-sm">
-                      {getItemCount({ items: item.quantity })}
-                    </Typo>
-                  </View>
-                </View>
-                <Typo className="text-emerald-600 font-bold text-lg">
-                  ₱{item.totalPrice.toFixed(2)}
-                </Typo>
-              </View>
-            </View>
-          ))}
+        <View className="bg-gray-50 rounded-2xl gap-3 p-4">
+          {filteredItems.map((item) => {
+            const food = foods.find((f) => f?.id === item.foodId)
+            if (!food) return null
+
+            return (
+              <OrderItem
+                key={`${item.foodId}-${item.quantity}`}
+                item={item}
+                food={food}
+              />
+            )
+          })}
         </View>
       </View>
     </BlurView>

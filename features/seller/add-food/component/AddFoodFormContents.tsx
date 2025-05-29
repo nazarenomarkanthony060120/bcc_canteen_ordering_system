@@ -83,21 +83,21 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
       </View>
 
       <View>
-        <Typo className="text-gray-700 font-medium mb-2">Food Name</Typo>
+        <Typo className="text-gray-700 font-medium mb-2">Name</Typo>
         <Controller
           control={control}
           name="name"
           rules={{
-            required: 'Food Name is required',
+            required: 'Name is required',
             minLength: {
               value: 3,
-              message: 'Food Name must be at least 3 characters',
+              message: 'Name must be at least 3 characters',
             },
           }}
           render={({ field: { onChange, value } }) => (
             <Input
               className="w-full py-3 px-4 placeholder:text-gray-400"
-              placeholder="Enter food name"
+              placeholder="Enter name"
               value={value}
               onChangeText={onChange}
               secureTextEntry={false}
