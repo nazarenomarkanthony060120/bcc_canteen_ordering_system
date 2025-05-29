@@ -83,13 +83,19 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
       if (timeFilter === 'month') {
         // Show only 1st, 8th, 15th, 22nd, and last day
         const daysInMonth = arr.length
-        if (index === 0 || index === 7 || index === 14 || index === 21 || index === daysInMonth - 1) {
+        if (
+          index === 0 ||
+          index === 7 ||
+          index === 14 ||
+          index === 21 ||
+          index === daysInMonth - 1
+        ) {
           return label
         }
         return ''
       }
       return label
-    })
+    }),
   }
 
   return (
@@ -133,7 +139,9 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
                   justifyContent: 'center',
                 }}
               >
-                <Text style={{ color: '#059669', fontSize: 9, fontWeight: '500' }}>
+                <Text
+                  style={{ color: '#059669', fontSize: 9, fontWeight: '500' }}
+                >
                   ₱{indexData.toFixed(0)}
                 </Text>
               </View>
@@ -145,4 +153,4 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
   )
 }
 
-export default SalesChart 
+export default SalesChart

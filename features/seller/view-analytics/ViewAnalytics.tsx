@@ -1,11 +1,28 @@
-import { View, Text, ScrollView, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native'
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native'
 import React, { useMemo, useState } from 'react'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { BarChart } from 'react-native-chart-kit'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { useGetHistories } from '@/hooks/useQuery/seller/get/useGetHistories'
-import { format, subDays, subMonths, startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from 'date-fns'
+import {
+  format,
+  subDays,
+  subMonths,
+  startOfDay,
+  endOfDay,
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+} from 'date-fns'
 import { useAuth } from '@/context/auth'
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated'
 import SummaryCard from './components/SummaryCard'
@@ -17,9 +34,9 @@ const { width } = Dimensions.get('window')
 type TimeFilter = 'day' | 'week' | 'month'
 
 interface ViewAnalyticsProps {
-    storeId: string  | null
+  storeId: string | null
 }
-const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
+const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
   const { user } = useAuth()
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('day')
   const {
@@ -33,7 +50,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
 
   const filteredHistories = useMemo(() => {
     if (!histories) return []
-    
+
     const now = new Date()
     const startDate = (() => {
       switch (timeFilter) {
@@ -45,7 +62,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
           return startOfMonth(now)
       }
     })()
-    
+
     const endDate = (() => {
       switch (timeFilter) {
         case 'day':
@@ -57,7 +74,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
       }
     })()
 
-    return histories.filter(history => {
+    return histories.filter((history) => {
       const historyDate = history.createdAt.toDate()
       return historyDate >= startDate && historyDate <= endDate
     })
@@ -104,7 +121,10 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
     // Calculate current period sales
     const currentPeriodSales = histories.reduce((sum, history) => {
       const historyDate = history.createdAt.toDate()
-      if (historyDate >= currentPeriodStart && historyDate <= currentPeriodEnd) {
+      if (
+        historyDate >= currentPeriodStart &&
+        historyDate <= currentPeriodEnd
+      ) {
         return sum + history.totalPrice
       }
       return sum
@@ -113,7 +133,10 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
     // Calculate previous period sales
     const previousPeriodSales = histories.reduce((sum, history) => {
       const historyDate = history.createdAt.toDate()
-      if (historyDate >= previousPeriodStart && historyDate <= previousPeriodEnd) {
+      if (
+        historyDate >= previousPeriodStart &&
+        historyDate <= previousPeriodEnd
+      ) {
         return sum + history.totalPrice
       }
       return sum
@@ -133,17 +156,21 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
       },
     })
 
-    const totalOrders = histories.filter(history => {
+    const totalOrders = histories.filter((history) => {
       const historyDate = history.createdAt.toDate()
-      return historyDate >= currentPeriodStart && historyDate <= currentPeriodEnd
+      return (
+        historyDate >= currentPeriodStart && historyDate <= currentPeriodEnd
+      )
     }).length
 
-    const averageOrderValue = totalOrders > 0 ? currentPeriodSales / totalOrders : 0
+    const averageOrderValue =
+      totalOrders > 0 ? currentPeriodSales / totalOrders : 0
 
     // Calculate growth percentage
     let growth = 0
     if (previousPeriodSales > 0) {
-      growth = ((currentPeriodSales - previousPeriodSales) / previousPeriodSales) * 100
+      growth =
+        ((currentPeriodSales - previousPeriodSales) / previousPeriodSales) * 100
     } else if (currentPeriodSales > 0) {
       growth = 100 // If there were no sales in previous period but there are sales now, that's 100% growth
     }
@@ -186,7 +213,9 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
       console.log('No data for line chart')
       return {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{ data: [0, 0, 0, 0, 0, 0], color: () => '', strokeWidth: 2 }],
+        datasets: [
+          { data: [0, 0, 0, 0, 0, 0], color: () => '', strokeWidth: 2 },
+        ],
       }
     }
 
@@ -197,7 +226,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
       case 'day':
         // Show hourly data for the day
         labels = Array.from({ length: 24 }, (_, i) => `${i}:00`)
-        data = labels.map(hour => {
+        data = labels.map((hour) => {
           const [hourNum] = hour.split(':').map(Number)
           const hourStart = new Date()
           hourStart.setHours(hourNum, 0, 0, 0)
@@ -240,9 +269,9 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
         const daysInMonth = new Date(
           monthStart.getFullYear(),
           monthStart.getMonth() + 1,
-          0
+          0,
         ).getDate()
-        
+
         labels = Array.from({ length: daysInMonth }, (_, i) => `${i + 1}`)
         data = labels.map((_, index) => {
           const dayStart = new Date(monthStart)
@@ -265,11 +294,13 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
 
     return {
       labels,
-      datasets: [{
-        data,
-        color: (opacity = 1) => `rgba(5, 150, 105, ${opacity})`,
-        strokeWidth: 2,
-      }],
+      datasets: [
+        {
+          data,
+          color: (opacity = 1) => `rgba(5, 150, 105, ${opacity})`,
+          strokeWidth: 2,
+        },
+      ],
     }
   }, [histories, timeFilter])
 
@@ -375,7 +406,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
     <ScrollView className="flex-1 bg-gray-50">
       <View className="p-4">
         {/* Header */}
-        <Animated.View 
+        <Animated.View
           entering={FadeInDown.delay(200).springify()}
           className="mb-6"
         >
@@ -400,8 +431,8 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
                 key={filter}
                 onPress={() => setTimeFilter(filter)}
                 className={`px-4 py-2 rounded-full flex-row items-center space-x-1 ${
-                  timeFilter === filter 
-                    ? 'bg-emerald-500 shadow-sm' 
+                  timeFilter === filter
+                    ? 'bg-emerald-500 shadow-sm'
                     : 'bg-white shadow-sm'
                 }`}
               >
@@ -410,8 +441,8 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
                     filter === 'day'
                       ? 'today'
                       : filter === 'week'
-                      ? 'date-range'
-                      : 'calendar-month'
+                        ? 'date-range'
+                        : 'calendar-month'
                   }
                   size={16}
                   color={timeFilter === filter ? '#ffffff' : '#6B7280'}
@@ -424,8 +455,8 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
                   {filter === 'day'
                     ? 'Today'
                     : filter === 'week'
-                    ? 'This Week'
-                    : 'This Month'}
+                      ? 'This Week'
+                      : 'This Month'}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -433,7 +464,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
         </Animated.View>
 
         {/* Sales Overview */}
-        <Animated.View 
+        <Animated.View
           entering={FadeInDown.delay(400).springify()}
           className="mb-6"
         >
@@ -446,13 +477,17 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
                 {timeFilter === 'day'
                   ? "Today's hourly sales"
                   : timeFilter === 'week'
-                  ? "This week's daily sales"
-                  : "This month's daily sales"}
+                    ? "This week's daily sales"
+                    : "This month's daily sales"}
               </Text>
             </View>
           </View>
 
-          <BlurView intensity={20} tint="light" className="rounded-2xl overflow-hidden">
+          <BlurView
+            intensity={20}
+            tint="light"
+            className="rounded-2xl overflow-hidden"
+          >
             <LinearGradient
               colors={['rgba(255, 255, 255, 0.9)', 'rgba(255, 255, 255, 0.7)']}
               className="p-4 rounded-2xl"
@@ -490,20 +525,29 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
         </Animated.View>
 
         {/* Stats Grid */}
-        <Animated.View 
+        <Animated.View
           entering={FadeInDown.delay(600).springify()}
           className="flex-row flex-wrap justify-between mb-6"
         >
           {statsData.map((stat, index) => (
             <View key={index} className="w-[48%] mb-4">
-              <BlurView intensity={20} tint="light" className="rounded-2xl overflow-hidden">
+              <BlurView
+                intensity={20}
+                tint="light"
+                className="rounded-2xl overflow-hidden"
+              >
                 <LinearGradient
-                  colors={['rgba(255, 255, 255, 0.9)', 'rgba(255, 255, 255, 0.7)']}
+                  colors={[
+                    'rgba(255, 255, 255, 0.9)',
+                    'rgba(255, 255, 255, 0.7)',
+                  ]}
                   className="p-4 rounded-2xl"
                 >
                   <View className="flex-row items-center justify-between">
                     <View>
-                      <Text className="text-gray-500 text-sm">{stat.title}</Text>
+                      <Text className="text-gray-500 text-sm">
+                        {stat.title}
+                      </Text>
                       <Text className="text-xl font-bold text-gray-800 mt-1">
                         {stat.value}
                       </Text>
@@ -531,7 +575,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
         </Animated.View>
 
         {/* Weekly Orders */}
-        <Animated.View 
+        <Animated.View
           entering={FadeInDown.delay(800).springify()}
           className="mb-6"
         >
@@ -546,7 +590,11 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
               <MaterialIcons name="more-horiz" size={20} color="#6B7280" />
             </TouchableOpacity>
           </View>
-          <BlurView intensity={20} tint="light" className="rounded-2xl overflow-hidden">
+          <BlurView
+            intensity={20}
+            tint="light"
+            className="rounded-2xl overflow-hidden"
+          >
             <LinearGradient
               colors={['rgba(255, 255, 255, 0.9)', 'rgba(255, 255, 255, 0.7)']}
               className="p-4 rounded-2xl"
@@ -571,9 +619,7 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
         </Animated.View>
 
         {/* Recent Activity */}
-        <Animated.View 
-          entering={FadeInDown.delay(1000).springify()}
-        >
+        <Animated.View entering={FadeInDown.delay(1000).springify()}>
           <View className="flex-row items-center justify-between mb-4">
             <View>
               <Text className="text-lg font-semibold text-gray-800">
@@ -585,7 +631,11 @@ const ViewAnalytics = ({storeId}: ViewAnalyticsProps) => {
               <MaterialIcons name="more-horiz" size={20} color="#6B7280" />
             </TouchableOpacity>
           </View>
-          <BlurView intensity={20} tint="light" className="rounded-2xl overflow-hidden">
+          <BlurView
+            intensity={20}
+            tint="light"
+            className="rounded-2xl overflow-hidden"
+          >
             <LinearGradient
               colors={['rgba(255, 255, 255, 0.9)', 'rgba(255, 255, 255, 0.7)']}
               className="p-4 rounded-2xl"

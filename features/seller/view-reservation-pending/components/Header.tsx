@@ -43,13 +43,11 @@ const Header = ({ orderId, createdAt }: HeaderProps) => {
           <View className="bg-white/20 p-2 rounded-full mr-2">
             <MaterialIcons name="schedule" size={20} color="#FFFFFF" />
           </View>
-          <Typo className="text-white/80">
-            {createdAtFormatted(createdAt)}
-          </Typo>
+          <Typo className="text-white/80">{createdAtFormatted(createdAt)}</Typo>
         </View>
       </LinearGradient>
     </BlurView>
   )
 }
 
-export default Header 
+export default Header

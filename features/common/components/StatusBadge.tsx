@@ -8,7 +8,10 @@ interface StatusBadgeProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'md' }) => {
+export const StatusBadge: React.FC<StatusBadgeProps> = ({
+  status,
+  size = 'md',
+}) => {
   const config = getReservationStatusConfig(status)
   const { label, color } = config
 
@@ -33,17 +36,13 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'md' })
   const currentSize = sizeConfig[size]
 
   return (
-    <View 
+    <View
       className={`flex-row items-center rounded-lg ${color.container} ${currentSize.container}`}
     >
-      <View 
-        className={`rounded-full mr-2 ${color.dot} ${currentSize.dot}`} 
-      />
-      <Text 
-        className={`font-medium ${color.text} ${currentSize.text}`}
-      >
+      <View className={`rounded-full mr-2 ${color.dot} ${currentSize.dot}`} />
+      <Text className={`font-medium ${color.text} ${currentSize.text}`}>
         {label}
       </Text>
     </View>
   )
-} 
+}

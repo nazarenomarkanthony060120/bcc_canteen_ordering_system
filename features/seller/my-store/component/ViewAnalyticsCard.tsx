@@ -32,7 +32,7 @@ const ViewAnalyticsCard = ({ storeId }: ViewAnalyticsCardProps) => {
           easing: Easing.linear,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     ).start()
   }, [])
 
@@ -78,7 +78,7 @@ const ViewAnalyticsCard = ({ storeId }: ViewAnalyticsCardProps) => {
     ]).start(() => {
       router.push({
         pathname: '/screens/(seller)/view-analytics/viewAnalytics',
-        params: { storeId: storeId }
+        params: { storeId: storeId },
       })
     })
   }
@@ -123,9 +123,7 @@ const ViewAnalyticsCard = ({ storeId }: ViewAnalyticsCardProps) => {
             <View className="flex-row items-center gap-4 px-7 py-5">
               <Animated.View
                 style={{
-                  transform: [
-                    { scale: iconScaleAnim }
-                  ],
+                  transform: [{ scale: iconScaleAnim }],
                 }}
                 className="p-3 rounded-full"
               >
@@ -152,4 +150,3 @@ const ViewAnalyticsCard = ({ storeId }: ViewAnalyticsCardProps) => {
 }
 
 export default ViewAnalyticsCard
-

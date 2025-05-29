@@ -17,7 +17,9 @@ const CustomerInfo = ({ user }: CustomerInfoProps) => {
           <View className="bg-emerald-50 p-3 rounded-full mr-3">
             <MaterialIcons name="person" size={24} color="#10B981" />
           </View>
-          <Typo className="text-gray-800 font-semibold text-lg">Customer Information</Typo>
+          <Typo className="text-gray-800 font-semibold text-lg">
+            Customer Information
+          </Typo>
         </View>
         <View className="bg-gray-50 rounded-2xl p-4">
           <View className="flex-row justify-between mb-3">
@@ -34,4 +36,4 @@ const CustomerInfo = ({ user }: CustomerInfoProps) => {
   )
 }
 
-export default CustomerInfo 
+export default CustomerInfo

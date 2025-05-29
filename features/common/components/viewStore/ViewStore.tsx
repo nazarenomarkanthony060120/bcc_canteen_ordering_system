@@ -22,7 +22,7 @@ const ViewStore = ({ params }: ViewStoreProps) => {
   const [refreshing, setRefreshing] = useState(false)
   const storeId = params.get('storeId')
   const auth = useAuth()
-  const { data: user} = useGetUserByUserId({ id: auth.user?.uid })
+  const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
   const { data: store, refetch: refetchStore } = useGetStoreByStoreId({
     id: storeId,
   })
@@ -58,8 +58,10 @@ const ViewStore = ({ params }: ViewStoreProps) => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           >
-            <View className='p-4'>
-            { user?.type === UserType.ADMIN && <ViewAnalyticsCard storeId={store?.id} />}
+            <View className="p-4">
+              {user?.type === UserType.ADMIN && (
+                <ViewAnalyticsCard storeId={store?.id} />
+              )}
             </View>
             <ViewStoreFormCard foods={foods} store={store} />
           </ScrollView>

@@ -7,4 +7,4 @@ export const useGetHistories = ({ storeId }: GetHistoriesRequest) => {
     queryKey: ['getHistories', storeId],
     queryFn: () => getHistories({ storeId }),
   })
-} 
+}

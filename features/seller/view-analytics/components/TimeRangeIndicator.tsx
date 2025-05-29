@@ -13,12 +13,11 @@ const TimeRangeIndicator = ({ timeFilter }: TimeRangeIndicatorProps) => (
     <View className="flex-row items-center space-x-2">
       <View className="w-2 h-2 rounded-full bg-emerald-500" />
       <Text className="text-gray-500 text-xs font-medium">
-        {timeFilter === 'day' 
+        {timeFilter === 'day'
           ? 'Hourly breakdown'
           : timeFilter === 'week'
-          ? 'Daily breakdown'
-          : 'Monthly breakdown'
-        }
+            ? 'Daily breakdown'
+            : 'Monthly breakdown'}
       </Text>
     </View>
     <LinearGradient
@@ -32,4 +31,4 @@ const TimeRangeIndicator = ({ timeFilter }: TimeRangeIndicatorProps) => (
   </View>
 )
 
-export default TimeRangeIndicator 
+export default TimeRangeIndicator

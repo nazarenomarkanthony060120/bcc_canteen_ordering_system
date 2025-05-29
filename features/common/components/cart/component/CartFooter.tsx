@@ -8,12 +8,18 @@ interface CartFooterProps {
   disabled?: boolean
 }
 
-const CartFooter: React.FC<CartFooterProps> = ({ total, onCheckout, disabled }) => {
+const CartFooter: React.FC<CartFooterProps> = ({
+  total,
+  onCheckout,
+  disabled,
+}) => {
   return (
     <View className="flex-row items-center justify-between">
       <View>
         <Typo className="text-gray-800 font-semibold">Total Amount</Typo>
-        <Typo className="text-emerald-600 font-bold text-xl">₱{total.toFixed(2)}</Typo>
+        <Typo className="text-emerald-600 font-bold text-xl">
+          ₱{total.toFixed(2)}
+        </Typo>
       </View>
       <TouchableOpacity
         onPress={onCheckout}

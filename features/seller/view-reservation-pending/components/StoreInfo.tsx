@@ -17,7 +17,9 @@ const StoreInfo = ({ store }: StoreInfoProps) => {
           <View className="bg-blue-50 p-3 rounded-full mr-3">
             <MaterialIcons name="store" size={24} color="#3B82F6" />
           </View>
-          <Typo className="text-gray-800 font-semibold text-lg">Store Information</Typo>
+          <Typo className="text-gray-800 font-semibold text-lg">
+            Store Information
+          </Typo>
         </View>
         <View className="bg-gray-50 rounded-2xl p-4">
           <View className="flex-row justify-between mb-3">
@@ -34,4 +36,4 @@ const StoreInfo = ({ store }: StoreInfoProps) => {
   )
 }
 
-export default StoreInfo 
+export default StoreInfo

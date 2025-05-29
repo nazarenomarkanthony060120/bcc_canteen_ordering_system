@@ -54,7 +54,9 @@ const StatusBadge = ({ status }: { status: number }) => {
   const statusText = getFoodReservationStatus(status)
 
   return (
-    <View className={`flex-row items-center px-2.5 py-1 rounded-lg ${styles.container}`}>
+    <View
+      className={`flex-row items-center px-2.5 py-1 rounded-lg ${styles.container}`}
+    >
       <View className={`w-2 h-2 rounded-full mr-2 ${styles.dot}`} />
       <Text className={`text-sm font-medium ${styles.text}`}>{statusText}</Text>
     </View>
@@ -62,8 +64,12 @@ const StatusBadge = ({ status }: { status: number }) => {
 }
 
 const ReservationItem = ({ item }: { item: any }) => {
-  const { data: food, isLoading: isLoadingFood } = useGetFoodByFoodId({ id: item.foodId })
-  const { data: store, isLoading: isLoadingStore } = useGetStoreByStoreId({ id: food?.storeId })
+  const { data: food, isLoading: isLoadingFood } = useGetFoodByFoodId({
+    id: item.foodId,
+  })
+  const { data: store, isLoading: isLoadingStore } = useGetStoreByStoreId({
+    id: food?.storeId,
+  })
 
   if (isLoadingFood || isLoadingStore) {
     return (
@@ -89,7 +95,9 @@ const ReservationItem = ({ item }: { item: any }) => {
       </View>
       <View className="items-end">
         <Text className="text-gray-800">x{item.quantity}</Text>
-        <Text className="text-emerald-600 font-medium">₱{item.totalPrice.toFixed(2)}</Text>
+        <Text className="text-emerald-600 font-medium">
+          ₱{item.totalPrice.toFixed(2)}
+        </Text>
         <StatusBadge status={item.status} />
       </View>
     </View>
@@ -115,7 +123,9 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
           <View className="flex-row justify-between items-center mb-4">
             <View>
               <Text className="text-gray-500 text-sm">Order ID</Text>
-              <Text className="text-gray-800 font-medium">{reservation.id}</Text>
+              <Text className="text-gray-800 font-medium">
+                {reservation.id}
+              </Text>
             </View>
             <StatusBadge status={reservation.status} />
           </View>
@@ -129,7 +139,9 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
           <View className="mt-4 pt-4 border-t border-gray-100">
             <View className="flex-row justify-between items-center">
               <Text className="text-gray-500">Payment Method</Text>
-              <Text className="text-gray-800 font-medium">{reservation.paymentMethod}</Text>
+              <Text className="text-gray-800 font-medium">
+                {reservation.paymentMethod}
+              </Text>
             </View>
             <View className="flex-row justify-between items-center mt-2">
               <Text className="text-gray-500">Total Amount</Text>

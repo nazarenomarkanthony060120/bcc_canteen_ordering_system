@@ -17,7 +17,9 @@ const OrderSummary = ({ paymentMethod, totalAmount }: OrderSummaryProps) => {
           <View className="bg-purple-50 p-3 rounded-full mr-3">
             <MaterialIcons name="summarize" size={24} color="#8B5CF6" />
           </View>
-          <Typo className="text-gray-800 font-semibold text-lg">Order Summary</Typo>
+          <Typo className="text-gray-800 font-semibold text-lg">
+            Order Summary
+          </Typo>
         </View>
         <View className="bg-gray-50 rounded-2xl p-4">
           <View className="flex-row justify-between mb-3">
@@ -46,4 +48,4 @@ const OrderSummary = ({ paymentMethod, totalAmount }: OrderSummaryProps) => {
   )
 }
 
-export default OrderSummary 
+export default OrderSummary

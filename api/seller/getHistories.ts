@@ -1,10 +1,17 @@
 import { db } from '@/lib/firestore'
-import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore'
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  orderBy,
+  limit,
+} from 'firebase/firestore'
 import { GetHistoriesRequest, History } from '@/utils/types'
 
-
-
-export const getHistories = async ({ storeId }: GetHistoriesRequest): Promise<History[]> => {
+export const getHistories = async ({
+  storeId,
+}: GetHistoriesRequest): Promise<History[]> => {
   if (!storeId) throw new Error('Store Owner ID is required')
 
   const historiesRef = collection(db, 'histories')
@@ -12,12 +19,12 @@ export const getHistories = async ({ storeId }: GetHistoriesRequest): Promise<Hi
     historiesRef,
     where('storeId', '==', storeId),
     orderBy('createdAt', 'desc'),
-    limit(50)
+    limit(50),
   )
 
   const querySnapshot = await getDocs(q)
   console.log('querySnapshot', querySnapshot)
-  return querySnapshot.docs.map(doc => ({
+  return querySnapshot.docs.map((doc) => ({
     id: doc.id,
     foodId: doc.data().foodId,
     quantity: doc.data().quantity,
@@ -28,4 +35,4 @@ export const getHistories = async ({ storeId }: GetHistoriesRequest): Promise<Hi
     createdAt: doc.data().createdAt,
     updatedAt: doc.data().updatedAt,
   }))
-} 
+}
