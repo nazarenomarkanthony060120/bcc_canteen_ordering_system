@@ -1,5 +1,9 @@
 import { db } from '@/lib/firestore'
-import { ReservationIdRequest, ReservationStatus } from '@/utils/types'
+import {
+  ReservationIdRequest,
+  ReservationStatus,
+  ReservedItem,
+} from '@/utils/types'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 
 export const confirmPendingOrder = async ({
@@ -18,7 +22,7 @@ export const confirmPendingOrder = async ({
   }
 
   const reservationData = reservationDoc.data()
-  const updatedItems = reservationData?.items.map((item: any) => {
+  const updatedItems = reservationData?.items.map((item: ReservedItem) => {
     if (item.foodId === foodId) {
       return {
         ...item,
