@@ -105,6 +105,7 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
         className="p-4 rounded-2xl"
       >
         <LineChart
+          key={adjustedData.id}
           data={adjustedData}
           width={width - 64}
           height={220}
@@ -124,6 +125,7 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
             // Place the label directly on the dot, always inside the chart
             return (
               <View
+                key={index}
                 style={{
                   position: 'absolute',
                   top: y - 12, // Center vertically on the dot
