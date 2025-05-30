@@ -12,6 +12,7 @@ export const fetchAllMembers = async ({ id }: UserIdRequest) => {
     .map((docSnap) => ({
       id: docSnap.id,
       name: docSnap.data().name,
+      image: docSnap.data().image,
       type: docSnap.data().type,
       status: docSnap.data().status,
       email: docSnap.data().email,

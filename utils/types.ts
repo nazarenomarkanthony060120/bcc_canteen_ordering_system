@@ -100,7 +100,7 @@ export type User = {
   email: string
   address?: string
   status: UserKYCStatus
-  image?: string
+  image: string
   createdAt: FieldValue
   updatedAt: FieldValue
 }

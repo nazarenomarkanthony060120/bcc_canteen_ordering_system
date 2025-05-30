@@ -8,19 +8,22 @@ import { View } from 'react-native'
 interface UserDetailsFormProfileProps {
   name: string | undefined
   managedId: string | undefined
+  image: string | undefined
 }
 
 const UserDetailsFormProfile = ({
   name,
   managedId,
+  image,
 }: UserDetailsFormProfileProps) => {
   return (
     <SafeAreaView className="items-center justify-center relative my-6 gap-4">
-      <View className="bg-white/10 backdrop-blur-sm p-4 rounded-full">
+      <View className="overflow-hidden rounded-xl w-full">
         <ImageWrapper
-          className="rounded-full"
-          source={PERSON_ICON}
-          style={{ height: 80, width: 80 }}
+          source={
+            image ? { uri: `data:image/jpeg;base64,${image}` } : PERSON_ICON
+          }
+          style={{ height: 250, width: '100%' }}
         />
       </View>
       <View className="items-center">

@@ -8,6 +8,7 @@ import Typo from '@/components/common/typo'
 import MembersFormHeader from './MembersFormHeader'
 import MemberFormContents from './MemberFormContents'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
+import { User } from '@/utils/types'
 
 const MembersFormCard = () => {
   const auth = useAuth()
@@ -47,7 +48,9 @@ const MembersFormCard = () => {
           <View className="h-[calc(100vh-200px)] mt-2">
             <FlashList
               data={members}
-              renderItem={({ item }) => <MemberFormContents user={item} />}
+              renderItem={({ item }: { item: User }) => (
+                <MemberFormContents user={item} />
+              )}
               keyExtractor={(item) => item.id}
               estimatedItemSize={100}
               ItemSeparatorComponent={() => <View className="h-2" />}

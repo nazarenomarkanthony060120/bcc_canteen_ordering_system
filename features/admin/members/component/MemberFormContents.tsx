@@ -26,18 +26,20 @@ const MemberFormContents = ({ user }: MemberFormContentsProps) => {
 
   return (
     <Pressable
-      className={`rounded-2xl px-4 py-3 flex-row items-center border border-white/20 shadow-lg mb-1 ${pressed ? 'bg-[#232946]/60' : 'bg-[#232946]/30'}`}
+      className={`rounded-2xl px-4 py-3 flex-row items-center border border-white/20 shadow-lg mb-1 gap-3 ${pressed ? 'bg-[#232946]/60' : 'bg-[#232946]/30'}`}
       onPress={navigateToUserDetails}
       style={{ minHeight: 80 }}
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
     >
-      <View className="bg-white/20 rounded-full mr-4 p-4">
+      <View className="overflow-hidden rounded-xl">
         <ImageWrapper
-          source={PERSON_ICON}
-          className="rounded-full"
-          resizeMode="contain"
-          style={{ height: 48, width: 48 }}
+          source={
+            user.image
+              ? { uri: `data:image/jpeg;base64,${user.image}` }
+              : PERSON_ICON
+          }
+          style={{ height: 100, width: 100 }}
         />
       </View>
       <View className="flex-1">
