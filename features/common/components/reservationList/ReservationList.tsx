@@ -7,6 +7,8 @@ import ReservationHeader from './components/ReservationHeader'
 import EmptyReservation from './components/EmptyReservation'
 import ReservationCard from './components/ReservationCard'
 import { useFetchReservations } from '@/hooks/useQuery/seller/useFetchReservations'
+import { ReservedItem } from '@/utils/types'
+import { useAuth } from '@/context/auth'
 
 const ErrorState = ({ message }: { message: string }) => (
   <View className="p-4 bg-red-50 rounded-lg">
@@ -15,6 +17,7 @@ const ErrorState = ({ message }: { message: string }) => (
 )
 
 const ReservationList = () => {
+  const auth = useAuth()
   const {
     reservations = [],
     isLoading,
@@ -85,15 +88,21 @@ const ReservationList = () => {
               ) : reservations.length === 0 ? (
                 <EmptyReservation />
               ) : (
-                reservations.map((reservation, index) => (
-                  <ReservationCard
-                    key={index}
-                    reservation={reservation}
-                    fadeAnim={fadeAnim}
-                    slideAnim={slideAnim}
-                    scaleAnim={scaleAnim}
-                  />
-                ))
+                reservations
+                  .filter((reservation) =>
+                    reservation.items.map(
+                      (item: ReservedItem) => item.userId === auth.user?.uid,
+                    ),
+                  )
+                  .map((reservation, index) => (
+                    <ReservationCard
+                      key={index}
+                      reservation={reservation}
+                      fadeAnim={fadeAnim}
+                      slideAnim={slideAnim}
+                      scaleAnim={scaleAnim}
+                    />
+                  ))
               )}
             </View>
           </ScrollView>

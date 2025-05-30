@@ -135,7 +135,7 @@ const ReservationPending = () => {
               ) : (
                 reservations.map((reservation, index) => (
                   <ReservationCard
-                    key={index}
+                    key={index + '' + reservation.id}
                     reservation={reservation}
                     onPress={handleReservationPress}
                   />

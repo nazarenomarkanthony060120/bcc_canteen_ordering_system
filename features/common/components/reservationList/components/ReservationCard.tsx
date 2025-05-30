@@ -3,9 +3,15 @@ import { View, Text, Animated } from 'react-native'
 import { BlurView } from 'expo-blur'
 import { useGetFoodByFoodId } from '@/hooks/useQuery/common/get/useGetFoodByFoodId'
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
-import { Reservation } from '@/utils/types'
+import {
+  Reservation,
+  ReservationStatus,
+  FoodReservationStatus,
+  ReservedItem,
+} from '@/utils/types'
 import LoadingIndicator from '../../loadingIndicator/LoadingIndicator'
 import { getFoodReservationStatus } from '@/features/common/parts/getFoodReservationStatus'
+import { getOverallStatus } from '@/features/common/parts/getOverAllStatus'
 
 interface ReservationCardProps {
   reservation: Reservation
@@ -16,25 +22,25 @@ interface ReservationCardProps {
 
 const getStatusStyle = (status: number) => {
   switch (status) {
-    case 0: // Reserved
+    case ReservationStatus.RESERVED: // Reserved
       return {
         container: 'bg-amber-50 border border-amber-200',
         text: 'text-amber-700',
         dot: 'bg-amber-500',
       }
-    case 1: // Pending
+    case ReservationStatus.PENDING: // Pending
       return {
         container: 'bg-indigo-50 border border-indigo-200',
         text: 'text-indigo-700',
         dot: 'bg-indigo-500',
       }
-    case 2: // Completed
+    case ReservationStatus.COMPLETED: // Completed
       return {
         container: 'bg-teal-50 border border-teal-200',
         text: 'text-teal-700',
         dot: 'bg-teal-500',
       }
-    case 3: // Cancelled
+    case ReservationStatus.CANCELLED: // Cancelled
       return {
         container: 'bg-rose-50 border border-rose-200',
         text: 'text-rose-700',
@@ -110,6 +116,8 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
   slideAnim,
   scaleAnim,
 }) => {
+  const overallStatus = getOverallStatus(reservation.items)
+
   return (
     <Animated.View
       style={{
@@ -127,7 +135,7 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
                 {reservation.id}
               </Text>
             </View>
-            <StatusBadge status={reservation.status} />
+            <StatusBadge status={overallStatus} />
           </View>
 
           <View className="space-y-2">
