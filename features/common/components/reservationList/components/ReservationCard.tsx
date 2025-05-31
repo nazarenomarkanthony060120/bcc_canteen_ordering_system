@@ -6,12 +6,13 @@ import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByS
 import {
   Reservation,
   ReservationStatus,
-  FoodReservationStatus,
   ReservedItem,
 } from '@/utils/types'
 import LoadingIndicator from '../../loadingIndicator/LoadingIndicator'
 import { getFoodReservationStatus } from '@/features/common/parts/getFoodReservationStatus'
 import { getOverallStatus } from '@/features/common/parts/getOverAllStatus'
+import { Pressable } from 'react-native-gesture-handler'
+import { useRouter } from 'expo-router'
 
 interface ReservationCardProps {
   reservation: Reservation
@@ -69,7 +70,8 @@ const StatusBadge = ({ status }: { status: number }) => {
   )
 }
 
-const ReservationItem = ({ item }: { item: any }) => {
+const ReservationItem = ({ item, id }: { item: ReservedItem, id: string }) => {
+  const router = useRouter()
   const { data: food, isLoading: isLoadingFood } = useGetFoodByFoodId({
     id: item.foodId,
   })
@@ -93,20 +95,36 @@ const ReservationItem = ({ item }: { item: any }) => {
     )
   }
 
+  const navigateToFoodDetail = () => {
+    router.push({
+      pathname: '/screens/common/foodReservation',
+      params: {
+        foodId: item.foodId,
+        storeId: food.storeId,
+        storeOwnerId: store.userId,
+        quantity: item.quantity,
+        totalPrice: item.totalPrice,
+        reservationId: id,
+      },
+    })
+  }
+
   return (
-    <View className="flex-row justify-between items-center py-2 border-b border-gray-100">
-      <View className="flex-1">
-        <Text className="text-gray-800 font-medium">{food.name}</Text>
-        <Text className="text-gray-500 text-sm">{store.store}</Text>
+    <Pressable>
+      <View className="flex-row justify-between items-center py-2 border-b border-gray-100">
+        <View className="flex-1">
+          <Text className="text-gray-800 font-medium">{food.name}</Text>
+          <Text className="text-gray-500 text-sm">{store.store}</Text>
+        </View>
+        <View className="items-end">
+          <Text className="text-gray-800">x{item.quantity}</Text>
+          <Text className="text-emerald-600 font-medium">
+            ₱{item.totalPrice.toFixed(2)}
+          </Text>
+          <StatusBadge status={item.status} />
+        </View>
       </View>
-      <View className="items-end">
-        <Text className="text-gray-800">x{item.quantity}</Text>
-        <Text className="text-emerald-600 font-medium">
-          ₱{item.totalPrice.toFixed(2)}
-        </Text>
-        <StatusBadge status={item.status} />
-      </View>
-    </View>
+    </Pressable>
   )
 }
 
@@ -140,7 +158,7 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
 
           <View className="space-y-2">
             {reservation.items.map((item) => (
-              <ReservationItem key={item.id} item={item} />
+              <ReservationItem key={item.id} item={item} id={reservation.id} />
             ))}
           </View>
 

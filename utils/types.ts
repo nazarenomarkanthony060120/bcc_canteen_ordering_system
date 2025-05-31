@@ -137,7 +137,7 @@ export type CartAdditionItem = Cart & {
 
 export type Reservation = {
   id: string
-  items: any[]
+  items: ReservedItem[]
   totalAmount: number
   status: number
   createdAt: any

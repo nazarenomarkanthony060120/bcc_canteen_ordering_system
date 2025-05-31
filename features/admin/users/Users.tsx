@@ -1,11 +1,11 @@
 import React from 'react'
-import MembersHeader from './component/MembersHeader'
-import MembersFormCard from './component/MembersFormCard'
-import { LinearGradient } from 'expo-linear-gradient'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Admin from '../Admin'
+import { LinearGradient } from 'expo-linear-gradient'
+import UsersHeader from './component/UsersHeader'
+import UsersFormCard from './component/UsersFormCard'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Members = () => {
+const Users = () => {
   return (
     <Admin className="flex-1">
       <LinearGradient
@@ -14,13 +14,13 @@ const Members = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <SafeAreaView className="px-2">
-          <MembersHeader />
-          <MembersFormCard />
+        <SafeAreaView className="p-2 mb-5 gap-1">
+          <UsersHeader />
+          <UsersFormCard />
         </SafeAreaView>
       </LinearGradient>
     </Admin>
   )
 }
 
-export default Members
+export default Users
