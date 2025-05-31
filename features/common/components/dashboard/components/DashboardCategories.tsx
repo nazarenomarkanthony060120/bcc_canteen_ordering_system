@@ -135,9 +135,6 @@ const DashboardCategories = ({
               <Typo className="text-gray-800 font-semibold">Categories</Typo>
               <Typo className="text-gray-500 text-sm">Browse by category</Typo>
             </View>
-            <TouchableOpacity className="bg-emerald-50 px-3 py-1 rounded-full">
-              <Typo className="text-emerald-600">See All</Typo>
-            </TouchableOpacity>
           </View>
           <ScrollView
             ref={scrollViewRef}

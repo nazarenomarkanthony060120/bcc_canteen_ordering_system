@@ -142,9 +142,6 @@ const Dashboard = () => {
                       <Typo className="text-gray-800 font-semibold">
                         Popular Items
                       </Typo>
-                      <TouchableOpacity>
-                        <Typo className="text-emerald-600">See All</Typo>
-                      </TouchableOpacity>
                     </View>
                     <DashboardFormCard
                       selectedFoodType={getSelectedFoodType(selectedCategory)}
