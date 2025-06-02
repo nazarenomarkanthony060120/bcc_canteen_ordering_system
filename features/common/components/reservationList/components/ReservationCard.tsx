@@ -1,18 +1,15 @@
 import React from 'react'
-import { View, Text, Animated } from 'react-native'
+import { View, Text, Animated, Alert, ActivityIndicator } from 'react-native'
 import { BlurView } from 'expo-blur'
 import { useGetFoodByFoodId } from '@/hooks/useQuery/common/get/useGetFoodByFoodId'
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
-import {
-  Reservation,
-  ReservationStatus,
-  ReservedItem,
-} from '@/utils/types'
+import { Reservation, ReservationStatus, ReservedItem } from '@/utils/types'
 import LoadingIndicator from '../../loadingIndicator/LoadingIndicator'
 import { getFoodReservationStatus } from '@/features/common/parts/getFoodReservationStatus'
 import { getOverallStatus } from '@/features/common/parts/getOverAllStatus'
 import { Pressable } from 'react-native-gesture-handler'
 import { useRouter } from 'expo-router'
+import { useCancelReservation } from '@/hooks/useMutation/seller/reservation-list/useCancelReservation'
 
 interface ReservationCardProps {
   reservation: Reservation
@@ -70,7 +67,7 @@ const StatusBadge = ({ status }: { status: number }) => {
   )
 }
 
-const ReservationItem = ({ item, id }: { item: ReservedItem, id: string }) => {
+const ReservationItem = ({ item, id }: { item: ReservedItem; id: string }) => {
   const router = useRouter()
   const { data: food, isLoading: isLoadingFood } = useGetFoodByFoodId({
     id: item.foodId,
@@ -134,7 +131,38 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
   slideAnim,
   scaleAnim,
 }) => {
+  const { mutate: cancelReservation, isPending } = useCancelReservation()
   const overallStatus = getOverallStatus(reservation.items)
+
+  const handleCancelReservation = () => {
+    Alert.alert(
+      'Cancel Reservation',
+      'Are you sure you want to cancel this reservation?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes, Cancel',
+          style: 'destructive',
+          onPress: () => {
+            cancelReservation(
+              { id: reservation.id },
+              {
+                onSuccess: () => {
+                  Alert.alert('Success', 'Reservation cancelled successfully')
+                },
+                onError: (error) => {
+                  Alert.alert('Error', 'Failed to cancel reservation: ' + error.message)
+                },
+              }
+            )
+          },
+        },
+      ]
+    )
+  }
 
   return (
     <Animated.View
@@ -158,7 +186,11 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
 
           <View className="space-y-2">
             {reservation.items.map((item) => (
-              <ReservationItem key={item.id} item={item} id={reservation.id} />
+              <ReservationItem
+                key={item.id + '' + item.foodId}
+                item={item}
+                id={reservation.id}
+              />
             ))}
           </View>
 
@@ -177,9 +209,37 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
             </View>
           </View>
 
-          <Text className="text-gray-400 text-xs mt-4">
+          <Text className="text-gray-400 text-xs mt-4 mb-10">
             {new Date(reservation.createdAt.toDate()).toLocaleString()}
           </Text>
+
+          {overallStatus !== ReservationStatus.CANCELLED &&
+            overallStatus !== ReservationStatus.COMPLETED && (
+              <Pressable
+                onPress={handleCancelReservation}
+                disabled={isPending}
+                className={`mt-4 p-5 bg-white border rounded-xl py-3 px-4 ${
+                  isPending 
+                    ? 'border-gray-200 opacity-50' 
+                    : 'border-rose-200 active:bg-rose-50'
+                }`}
+              >
+                <View className="flex-row items-center justify-center space-x-2 gap-2">
+                  {isPending ? (
+                    <ActivityIndicator size="small" color="#E11D48" />
+                  ) : (
+                    <View className="w-5 h-5 rounded-full border-2 border-rose-400 items-center justify-center">
+                      <View className="w-2 h-2 rounded-full bg-rose-400" />
+                    </View>
+                  )}
+                  <Text className={`text-rose-600 font-semibold text-base ${
+                    isPending ? 'opacity-50' : ''
+                  }`}>
+                    {isPending ? 'Cancelling...' : 'Cancel Reservation'}
+                  </Text>
+                </View>
+              </Pressable>
+            )}
         </View>
       </BlurView>
     </Animated.View>

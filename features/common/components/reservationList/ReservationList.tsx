@@ -96,7 +96,7 @@ const ReservationList = () => {
                   )
                   .map((reservation, index) => (
                     <ReservationCard
-                      key={index}
+                      key={index + '' + reservation.id}
                       reservation={reservation}
                       fadeAnim={fadeAnim}
                       slideAnim={slideAnim}

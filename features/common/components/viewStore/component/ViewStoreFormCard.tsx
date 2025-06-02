@@ -13,6 +13,7 @@ import { Timestamp } from 'firebase/firestore'
 import ViewStoreActionStatus from './ViewStoreActionStatus'
 import { useAuth } from '@/context/auth'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { getStoreHealthColor } from '@/features/common/parts/getStoreHealth'
 
 interface ViewStoreFormCardProps {
   foods: Food[] | null | undefined
@@ -24,7 +25,7 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
   const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
 
   const fadeAnim = useRef(new Animated.Value(0)).current
-  const status = getStoreStatusColor(store?.status || 0)
+  const status = getStoreHealthColor(store?.storeHealth || 0)
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -156,7 +157,10 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
 
       {user?.type === UserType.ADMIN && (
         <Animated.View style={{ opacity: fadeAnim }}>
-          <ViewStoreActionStatus storeId={store?.id} status={store?.status} />
+          <ViewStoreActionStatus
+            storeId={store?.id}
+            status={store?.storeHealth}
+          />
         </Animated.View>
       )}
 

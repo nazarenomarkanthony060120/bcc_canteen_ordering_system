@@ -37,6 +37,10 @@ export type ReservationIdRequest = {
   userId: string | undefined
 }
 
+export type CancelReservationIdRequest = {
+  id: string | null | undefined
+}
+
 export type AddCartRequest = {
   foodId: string
   storeOwnerId: string
@@ -78,6 +82,7 @@ export type Store = {
   store: string
   address: string
   status: StoreStatus
+  storeHealth: StoreHealth
   createdAt: FieldValue
   updatedAt: FieldValue
 }
@@ -243,12 +248,22 @@ export enum UserKYCStatus {
   REJECTED = 9,
 }
 
+export enum StoreHealth {
+  ACTIVE = 1,
+  DISABLED = 0,
+}
+
 export enum StoreStatus {
   APPLIED = 0,
   PENDING = 1,
   APPROVED = 2,
   DISABLED = 3,
   REJECTED = 9,
+}
+
+export enum StoreHealthText {
+  ACTIVE = 'Active',
+  DISABLED = 'Disabled',
 }
 
 export enum StoreStatusText {

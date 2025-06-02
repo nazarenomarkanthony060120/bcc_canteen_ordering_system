@@ -1,13 +1,13 @@
 import { Alert, TouchableOpacity, Animated } from 'react-native'
 import React, { useRef } from 'react'
 import { useDisableStore } from '@/hooks/useMutation/admin/useDisableStore'
-import { StoreStatus } from '@/utils/types'
+import { StoreHealth, StoreStatus } from '@/utils/types'
 import Typo from '@/components/common/typo'
 import { MaterialIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 
 interface DisableStoreProps {
-  status: StoreStatus
+  status: StoreHealth
   storeId: string | undefined
 }
 

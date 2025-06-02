@@ -20,6 +20,7 @@ export const getStoreByStoreId = async ({
       image: data.image,
       address: data.address,
       status: data.status,
+      storeHealth: data.storeHealth,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     }

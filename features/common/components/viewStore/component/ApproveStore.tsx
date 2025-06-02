@@ -3,11 +3,11 @@ import React, { useRef } from 'react'
 import { useApproveStore } from '@/hooks/useMutation/admin/useApproveStore'
 import { getStoreStatus } from '@/features/common/parts/getStoreStatus'
 import Typo from '@/components/common/typo'
-import { StoreStatus } from '@/utils/types'
+import { StoreHealth, StoreStatus } from '@/utils/types'
 import { MaterialIcons } from '@expo/vector-icons'
 
 interface ApproveStoreProps {
-  status: StoreStatus
+  status: StoreHealth
   storeId: string | undefined
 }
 

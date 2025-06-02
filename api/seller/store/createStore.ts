@@ -1,5 +1,5 @@
 import { db, serverTimestamp } from '@/lib/firestore'
-import { CreateStore } from '@/utils/types'
+import { CreateStore, StoreHealth, StoreStatus } from '@/utils/types'
 import { addDoc, collection } from 'firebase/firestore'
 
 export const createStore = async (data: CreateStore) => {
@@ -8,7 +8,8 @@ export const createStore = async (data: CreateStore) => {
     image: data.image,
     store: data.store,
     address: data.address,
-    status: 0,
+    storeStatus: StoreHealth.ACTIVE,
+    status: StoreStatus.APPLIED,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   })
