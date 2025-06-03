@@ -7,7 +7,7 @@ export const useCancelReservation = () => {
   return useMutation({
     mutationFn: (data: CancelReservationIdRequest) => cancelReservation(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['reservations-pending'] })
+      queryClient.invalidateQueries({ queryKey: ['reservations'] })
     },
   })
 }
