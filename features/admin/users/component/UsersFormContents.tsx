@@ -46,13 +46,15 @@ const UsersFormContents = ({ user }: UsersFormContentsProps) => {
       <View className="flex-1 gap-2">
         <Text className="font-bold text-white text-lg ">{user.name}</Text>
         <View className="flex-row items-center ">
-            <Ionicons name="person" size={16} color="rgba(255,255,255,0.8)" />
-            <Text className="text-white/80 text-sm font-medium ml-1">{user.type}</Text>
-          </View>
-          <View className="flex-row items-center">
-            <Ionicons name="mail" size={16} color="rgba(255,255,255,0.7)" />
-            <Text className="text-white/70 text-sm ml-1">{user.email}</Text>
-          </View>
+          <Ionicons name="person" size={16} color="rgba(255,255,255,0.8)" />
+          <Text className="text-white/80 text-sm font-medium ml-1">
+            {user.type}
+          </Text>
+        </View>
+        <View className="flex-row items-center">
+          <Ionicons name="mail" size={16} color="rgba(255,255,255,0.7)" />
+          <Text className="text-white/70 text-sm ml-1">{user.email}</Text>
+        </View>
         <View className="flex-row items-center ">
           <View
             className="px-3.5 py-2 rounded-full"

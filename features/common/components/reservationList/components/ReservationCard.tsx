@@ -154,13 +154,16 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
                   Alert.alert('Success', 'Reservation cancelled successfully')
                 },
                 onError: (error) => {
-                  Alert.alert('Error', 'Failed to cancel reservation: ' + error.message)
+                  Alert.alert(
+                    'Error',
+                    'Failed to cancel reservation: ' + error.message,
+                  )
                 },
-              }
+              },
             )
           },
         },
-      ]
+      ],
     )
   }
 
@@ -219,8 +222,8 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
                 onPress={handleCancelReservation}
                 disabled={isPending}
                 className={`mt-4 p-5 bg-white border rounded-xl py-3 px-4 ${
-                  isPending 
-                    ? 'border-gray-200 opacity-50' 
+                  isPending
+                    ? 'border-gray-200 opacity-50'
                     : 'border-rose-200 active:bg-rose-50'
                 }`}
               >
@@ -232,9 +235,11 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
                       <View className="w-2 h-2 rounded-full bg-rose-400" />
                     </View>
                   )}
-                  <Text className={`text-rose-600 font-semibold text-base ${
-                    isPending ? 'opacity-50' : ''
-                  }`}>
+                  <Text
+                    className={`text-rose-600 font-semibold text-base ${
+                      isPending ? 'opacity-50' : ''
+                    }`}
+                  >
                     {isPending ? 'Cancelling...' : 'Cancel Reservation'}
                   </Text>
                 </View>

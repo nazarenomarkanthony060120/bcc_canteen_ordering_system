@@ -1,20 +1,24 @@
 import { Pressable, View, Text } from 'react-native'
 import React from 'react'
-import { Food } from '@/utils/types'
+import { Food, UserType } from '@/utils/types'
 import ImageWrapper from '@/components/parts/Image'
 import { CANTEEN_IMAGE, HUMBA_IMAGE } from '@/constants/image'
 import { useRouter } from 'expo-router'
 import { AntDesign } from '@expo/vector-icons'
 import Button from '@/components/common/button'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useAuth } from '@/context/auth'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 
 interface ViewStoreFoodListsProps {
   food: Food
 }
 
 const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
+  const auth = useAuth()
   const router = useRouter()
 
+  const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
   const navigateToViewFood = () => {
     router.push(`/screens/common/viewFood?foodId=${food.id}`)
   }
@@ -89,13 +93,17 @@ const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
             </View>
           </View>
 
-          <Button
-            className="bg-sky-500 rounded-xl py-3.5 flex-row items-center justify-center gap-3"
-            onPress={navigateToViewFood}
-            icon={<AntDesign name="shoppingcart" size={24} color="white" />}
-          >
-            <Text className="text-white text-lg font-semibold">Order Now</Text>
-          </Button>
+          {user?.type !== UserType.ADMIN && (
+            <Button
+              className="bg-sky-500 rounded-xl py-3.5 flex-row items-center justify-center gap-3"
+              onPress={navigateToViewFood}
+              icon={<AntDesign name="shoppingcart" size={24} color="white" />}
+            >
+              <Text className="text-white text-lg font-semibold">
+                Order Now
+              </Text>
+            </Button>
+          )}
         </View>
       </LinearGradient>
     </Pressable>
