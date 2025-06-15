@@ -212,6 +212,98 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
             </View>
           </View>
 
+          {reservation.pickupTime && (
+            <View className="mt-4 pt-4 border-t border-gray-100">
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row items-center">
+                  <Text className="text-gray-500">🕒 Pickup Time</Text>
+                </View>
+                <View className="items-end">
+                  <Text className="text-gray-800 font-medium">
+                    {(() => {
+                      try {
+                        console.log('Raw pickup time:', reservation.pickupTime)
+                        console.log('Type of pickup time:', typeof reservation.pickupTime)
+                        
+                        let pickupDate
+                        
+                        // Handle different date formats
+                        if (reservation.pickupTime instanceof Date) {
+                          pickupDate = reservation.pickupTime
+                        } else if (typeof reservation.pickupTime === 'string') {
+                          pickupDate = new Date(reservation.pickupTime)
+                        } else if (reservation.pickupTime && typeof reservation.pickupTime === 'object' && 'toDate' in reservation.pickupTime) {
+                          // Handle Firestore Timestamp
+                          pickupDate = (reservation.pickupTime as any).toDate()
+                        } else {
+                          console.log('Unknown pickup time format')
+                          return 'No pickup time set'
+                        }
+                        
+                        console.log('Parsed pickup date:', pickupDate)
+                        
+                        if (isNaN(pickupDate.getTime())) {
+                          console.log('Invalid date after parsing')
+                          return 'Invalid date format'
+                        }
+                        
+                        const today = new Date()
+                        const tomorrow = new Date(today)
+                        tomorrow.setDate(tomorrow.getDate() + 1)
+                        
+                        if (pickupDate.toDateString() === today.toDateString()) {
+                          return 'Today'
+                        } else if (pickupDate.toDateString() === tomorrow.toDateString()) {
+                          return 'Tomorrow'
+                        } else {
+                          return pickupDate.toLocaleDateString('en-US', {
+                            weekday: 'short',
+                            month: 'short',
+                            day: 'numeric'
+                          })
+                        }
+                      } catch (error) {
+                        console.error('Error parsing pickup date:', error)
+                        return `Debug: ${JSON.stringify(reservation.pickupTime)}`
+                      }
+                    })()}
+                  </Text>
+                  <Text className="text-blue-600 font-semibold">
+                    {(() => {
+                      try {
+                        let pickupDate
+                        
+                        // Handle different date formats
+                        if (reservation.pickupTime instanceof Date) {
+                          pickupDate = reservation.pickupTime
+                        } else if (typeof reservation.pickupTime === 'string') {
+                          pickupDate = new Date(reservation.pickupTime)
+                        } else if (reservation.pickupTime && typeof reservation.pickupTime === 'object' && 'toDate' in reservation.pickupTime) {
+                          // Handle Firestore Timestamp
+                          pickupDate = (reservation.pickupTime as any).toDate()
+                        } else {
+                          return '--:--'
+                        }
+                        
+                        if (isNaN(pickupDate.getTime())) {
+                          return '--:--'
+                        }
+                        
+                        return pickupDate.toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })
+                      } catch (error) {
+                        console.error('Error parsing pickup time:', error)
+                        return '--:--'
+                      }
+                    })()}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          )}
+
           <Text className="text-gray-400 text-xs mt-4 mb-10">
             {new Date(reservation.createdAt.toDate()).toLocaleString()}
           </Text>

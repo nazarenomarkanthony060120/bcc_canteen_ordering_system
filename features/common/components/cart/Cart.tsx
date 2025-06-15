@@ -9,6 +9,7 @@ import CartItem from './component/CartItem'
 import CartSummary from './component/CartSummary'
 import CartFooter from './component/CartFooter'
 import PaymentMethodModal from './component/PaymentMethodModal'
+import OrderNotification from '../notification/OrderNotification'
 import { useAuth } from '@/context/auth'
 import { useFetchCartByUserId } from '@/hooks/useQuery/common/fetch/useFetchCartByUserId'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
@@ -25,6 +26,15 @@ const Cart = () => {
   const [refreshing, setRefreshing] = useState(false)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [isReserving, setIsReserving] = useState(false)
+  const [selectedPickupTime, setSelectedPickupTime] = useState<Date | null>(null)
+  const [showOrderNotification, setShowOrderNotification] = useState(false)
+  const [orderDetails, setOrderDetails] = useState<{
+    items: CartAdditionItem[]
+    totalAmount: number
+    paymentMethod: string
+    pickupTime?: Date
+    orderId?: string
+  } | null>(null)
   const auth = useAuth()
 
   const {
@@ -78,7 +88,7 @@ const Cart = () => {
     updateQuantity({ id, quantity: newQuantity, totalPrice })
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = (pickupTime: Date) => {
     if (!auth.user) {
       Alert.alert('Login Required', 'Please login to proceed with checkout')
       return
@@ -89,6 +99,7 @@ const Cart = () => {
       return
     }
 
+    setSelectedPickupTime(pickupTime)
     setShowPaymentModal(true)
   }
 
@@ -109,24 +120,33 @@ const Cart = () => {
           cartItems: cartItems as CartAdditionItem[],
           totalAmount: total,
           paymentMethod: method,
+          pickupTime: selectedPickupTime || undefined,
         },
         {
-          onSuccess: () => {
+          onSuccess: (orderId) => {
+            // Prepare order details for notification
+            setOrderDetails({
+              items: cartItems as CartAdditionItem[],
+              totalAmount: total,
+              paymentMethod: method,
+              pickupTime: selectedPickupTime || undefined,
+              orderId: orderId,
+            })
+
             // Delete all cart items after successful reservation
             const deletePromises =
               cartItems?.map((item) => deleteCartItem(item.id)) || []
             Promise.all(deletePromises)
               .then(() => {
                 setIsReserving(false)
-                Alert.alert(
-                  'Order Reserved Successfully!',
-                  'Your order has been reserved and is being prepared. Please proceed to the counter to pay in cash and collect your order. Thank you for your order!',
-                  [{ text: 'OK' }],
-                )
+                setSelectedPickupTime(null)
+                // Show the order notification instead of alert
+                setShowOrderNotification(true)
               })
               .catch((error) => {
                 console.error('Error clearing cart:', error)
                 setIsReserving(false)
+                setSelectedPickupTime(null)
                 Alert.alert(
                   'Warning',
                   'Your order was reserved but there was an error clearing your cart. Please try clearing it manually.',
@@ -136,6 +156,7 @@ const Cart = () => {
           },
           onError: (error) => {
             setIsReserving(false)
+            setSelectedPickupTime(null)
             Alert.alert(
               'Error',
               'There was an error reserving your order. Please try again.',
@@ -146,6 +167,11 @@ const Cart = () => {
         },
       )
     }
+  }
+
+  const handleCloseNotification = () => {
+    setShowOrderNotification(false)
+    setOrderDetails(null)
   }
 
   if (isLoading && !refreshing) return <LoadingIndicator />
@@ -222,6 +248,12 @@ const Cart = () => {
         onClose={() => setShowPaymentModal(false)}
         onSelectPayment={handlePaymentSelection}
         total={total}
+      />
+
+      <OrderNotification
+        visible={showOrderNotification}
+        onClose={handleCloseNotification}
+        orderDetails={orderDetails}
       />
     </ScreenLayout>
   )

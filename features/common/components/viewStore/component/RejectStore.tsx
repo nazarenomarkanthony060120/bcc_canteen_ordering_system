@@ -1,11 +1,9 @@
 import { TouchableOpacity, Animated } from 'react-native'
 import React, { useRef } from 'react'
 import { StoreStatus } from '@/utils/types'
-import { useApproveStore } from '@/hooks/useMutation/admin/useApproveStore'
 import Typo from '@/components/common/typo'
 import { MaterialIcons } from '@expo/vector-icons'
-import { LinearGradient } from 'expo-linear-gradient'
-import { getStoreStatus } from '@/features/common/parts/getStoreStatus'
+import { useRejectStore } from '@/hooks/useMutation/admin/useRejectStore'
 
 interface RejectStoreProps {
   status: StoreStatus
@@ -13,7 +11,7 @@ interface RejectStoreProps {
 }
 
 const RejectStore = ({ status, storeId }: RejectStoreProps) => {
-  const { mutate: approveStore, isPending } = useApproveStore()
+  const { mutate: rejectStore, isPending } = useRejectStore()
   const scaleAnim = useRef(new Animated.Value(1)).current
   const opacityAnim = useRef(new Animated.Value(1)).current
 
@@ -45,7 +43,7 @@ const RejectStore = ({ status, storeId }: RejectStoreProps) => {
       ]),
     ]).start()
 
-    approveStore({ id: storeId })
+    rejectStore({ id: storeId })
   }
 
   return (

@@ -1,7 +1,7 @@
 import { db, doc, getDoc, updateDoc, serverTimestamp } from '@/lib/firestore'
-import { StoreIdRequest, StoreStatus } from '@/utils/types'
+import { StoreHealth, StoreIdRequest, StoreStatus } from '@/utils/types'
 
-export const approveStore = async ({ id }: StoreIdRequest) => {
+export const rejectStore = async ({ id }: StoreIdRequest) => {
   if (!id) throw new Error('User ID is required')
 
   const docRef = doc(db, 'stores', id)
@@ -13,7 +13,7 @@ export const approveStore = async ({ id }: StoreIdRequest) => {
 
   // Update the user's status to APPROVED
   await updateDoc(docRef, {
-    status: StoreStatus.APPROVED,
+    status: StoreStatus.REJECTED,
     updatedAt: serverTimestamp(),
   })
 

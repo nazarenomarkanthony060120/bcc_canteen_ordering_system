@@ -7,7 +7,7 @@ import { StoreHealth, StoreStatus } from '@/utils/types'
 import { MaterialIcons } from '@expo/vector-icons'
 
 interface ApproveStoreProps {
-  status: StoreHealth
+  status: StoreStatus
   storeId: string | undefined
 }
 

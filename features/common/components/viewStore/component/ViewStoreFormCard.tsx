@@ -6,14 +6,12 @@ import { CANTEEN_IMAGE } from '@/constants/image'
 import ViewStoreFood from './ViewStoreFood'
 import { MaterialIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
-import { getStoreStatus } from '@/features/common/parts/getStoreStatus'
 import { getStoreStatusColor } from '@/features/common/parts/getStoreStatusColor'
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
 import { Timestamp } from 'firebase/firestore'
 import ViewStoreActionStatus from './ViewStoreActionStatus'
 import { useAuth } from '@/context/auth'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
-import { getStoreHealthColor } from '@/features/common/parts/getStoreHealth'
 
 interface ViewStoreFormCardProps {
   foods: Food[] | null | undefined
@@ -25,7 +23,7 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
   const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
 
   const fadeAnim = useRef(new Animated.Value(0)).current
-  const status = getStoreHealthColor(store?.storeHealth || 0)
+  const status = getStoreStatusColor(store?.status || 0)
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -157,10 +155,7 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
 
       {user?.type === UserType.ADMIN && (
         <Animated.View style={{ opacity: fadeAnim }}>
-          <ViewStoreActionStatus
-            storeId={store?.id}
-            status={store?.storeHealth}
-          />
+          <ViewStoreActionStatus storeId={store?.id} status={store?.status} />
         </Animated.View>
       )}
 

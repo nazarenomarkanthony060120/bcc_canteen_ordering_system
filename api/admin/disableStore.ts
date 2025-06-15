@@ -1,5 +1,5 @@
 import { db, doc, getDoc, updateDoc, serverTimestamp } from '@/lib/firestore'
-import { StoreHealth, StoreIdRequest, StoreStatus } from '@/utils/types'
+import { StoreIdRequest, StoreStatus } from '@/utils/types'
 
 export const disableStore = async ({ id }: StoreIdRequest) => {
   if (!id) throw new Error('Store ID is required')
@@ -13,7 +13,7 @@ export const disableStore = async ({ id }: StoreIdRequest) => {
 
   // Update the user's status to DISABLED
   await updateDoc(docRef, {
-    storeHealth: StoreHealth.DISABLED,
+    status: StoreStatus.DISABLED,
     updatedAt: serverTimestamp(),
   })
 

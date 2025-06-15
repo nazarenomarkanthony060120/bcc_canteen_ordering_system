@@ -1,4 +1,4 @@
-import { StoreHealth, StoreHealthText, StoreStatusText } from '@/utils/types'
+import { StoreStatus, StoreStatusText } from '@/utils/types'
 
 type GetStoreStatusColorTypes = {
   text: string
@@ -10,13 +10,13 @@ type GetStoreStatusColorTypes = {
   borderColor: string
 }
 
-export const getStoreHealthColor = (
+export const getStoreStatusColor = (
   status: number,
 ): GetStoreStatusColorTypes => {
   switch (status) {
-    case StoreHealth.ACTIVE:
+    case StoreStatus.APPLIED:
       return {
-        text: StoreHealthText.ACTIVE,
+        text: StoreStatusText.APPLIED,
         color: '#10B981',
         bgColor: '#ECFDF5',
         icon: 'check-circle' as const,
@@ -27,9 +27,9 @@ export const getStoreHealthColor = (
         textColor: '#10B981',
         borderColor: 'rgba(16, 185, 129, 0.3)',
       }
-    case StoreHealth.DISABLED:
+    case StoreStatus.DISABLED:
       return {
-        text: StoreHealthText.DISABLED,
+        text: StoreStatusText.DISABLED,
         color: '#F87171',
         bgColor: '#FEF2F2',
         icon: 'block' as const,

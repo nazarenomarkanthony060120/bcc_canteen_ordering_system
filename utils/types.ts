@@ -147,6 +147,7 @@ export type Reservation = {
   status: number
   createdAt: any
   paymentMethod: string
+  pickupTime?: Date | string | null
 }
 
 export type SaveReservedOrderType = {
@@ -154,6 +155,7 @@ export type SaveReservedOrderType = {
   cartItems: CartAdditionItem[]
   totalAmount: number
   paymentMethod: 'Cash' | 'GCash'
+  pickupTime?: Date
 }
 
 export type ReservedItem = {
@@ -175,6 +177,7 @@ export type ReservationOrders = {
   paymentMethod: string
   status: number
   totalAmount: number
+  pickupTime?: Date | string | null
   createdAt: FieldValue
   updatedAt: FieldValue
 }

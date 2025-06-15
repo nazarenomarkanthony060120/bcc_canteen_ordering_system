@@ -12,6 +12,7 @@ import Header from './components/Header'
 import OrderStatus from './components/OrderStatus'
 import CustomerInfo from './components/CustomerInfo'
 import StoreInfo from './components/StoreInfo'
+import PickupInfo from './components/PickupInfo'
 import OrderDetails from './components/OrderDetails'
 import OrderSummary from './components/OrderSummary'
 import ActionButtons from './components/ActionButtons'
@@ -122,6 +123,11 @@ const ViewReservationPending = () => {
     return <LoadingIndicator />
   }
 
+  // Debug pickup time
+  console.log('ViewReservationPending - reservation.pickupTime:', reservation.pickupTime)
+  console.log('ViewReservationPending - reservation object keys:', Object.keys(reservation))
+  console.log('ViewReservationPending - full reservation:', JSON.stringify(reservation, null, 2))
+
   return (
     <View className="flex-1 bg-gray-50">
       <LinearGradient
@@ -146,6 +152,7 @@ const ViewReservationPending = () => {
           />
           <CustomerInfo user={user} />
           <StoreInfo store={store} />
+          <PickupInfo pickupTime={reservation.pickupTime} />
           <OrderDetails
             key={reservation.id}
             items={reservation.items}

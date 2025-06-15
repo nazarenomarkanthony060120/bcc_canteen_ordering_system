@@ -1,16 +1,16 @@
 import { View, Text, Animated } from 'react-native'
 import React, { useEffect, useRef } from 'react'
-import { StoreHealth, StoreStatus } from '@/utils/types'
+import { StoreStatus } from '@/utils/types'
 import DisableStore from './DisableStore'
 import ApproveRejectStore from './ApproveRejectStore'
+import ApproveStore from './ApproveStore'
 import { MaterialIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import ApplyStore from './ApplyStore'
-import ApproveStore from './ApproveStore'
 
 interface ViewStoreActionStatusProps {
   storeId: string | undefined
-  status: StoreHealth | undefined
+  status: StoreStatus | undefined
 }
 
 const ViewStoreActionStatus = ({
@@ -36,10 +36,14 @@ const ViewStoreActionStatus = ({
   }, [])
 
   const renderActionButtons = () => {
-    if (status === StoreHealth.ACTIVE)
+    if (status === StoreStatus.APPROVED)
       return <DisableStore storeId={storeId} status={status} />
-    if (status === StoreHealth.DISABLED)
-      return <ApproveStore storeId={storeId} status={status} />
+    if (status === StoreStatus.APPLIED)
+      return <DisableStore storeId={storeId} status={status} />
+    if (status === StoreStatus.PENDING)
+      return <ApproveRejectStore storeId={storeId} status={status} />
+    if (status === StoreStatus.REJECTED || status === StoreStatus.DISABLED)
+      return <ApplyStore storeId={storeId} status={status} />
   }
 
   return (

@@ -11,6 +11,7 @@ export const saveReservedOrder = async ({
   cartItems,
   totalAmount,
   paymentMethod,
+  pickupTime,
 }: SaveReservedOrderType) => {
   try {
     // Validate required fields
@@ -34,6 +35,7 @@ export const saveReservedOrder = async ({
       items: mappedItems,
       totalAmount,
       paymentMethod,
+      pickupTime: pickupTime || null,
       status: ReservationStatus.PENDING,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
