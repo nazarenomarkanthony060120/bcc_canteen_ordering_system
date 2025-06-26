@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { MaterialIcons, AntDesign, Ionicons } from '@expo/vector-icons'
-import { User } from '@/utils/types'
+import { User, UserType } from '@/utils/types'
 import { getUserStatus } from '@/features/common/parts/getUserStatus'
 import { createdAtFormatted } from '@/features/common/parts/getCreatedAtFormatted'
 import { Timestamp } from 'firebase/firestore'
@@ -30,16 +30,17 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
     },
     {
       label: 'Stores',
-      value: isFetching ? (
-        <View className="flex-row items-center gap-2">
-          <ActivityIndicator size="small" color="#4B5563" />
-          <Text className="text-gray-500 text-sm">Loading stores...</Text>
-        </View>
-      ) : (
-        <Text className="text-gray-800 font-semibold text-base">
-          {stores?.length || 0}
-        </Text>
-      ),
+      value:
+        isFetching && user.type === UserType.SELLER ? (
+          <View className="flex-row items-center gap-2">
+            <ActivityIndicator size="small" color="#4B5563" />
+            <Text className="text-gray-500 text-sm">Loading stores...</Text>
+          </View>
+        ) : (
+          <Text className="text-gray-800 font-semibold text-base">
+            {stores?.length || 0}
+          </Text>
+        ),
       icon: <MaterialIcons name="store" size={22} color="#4B5563" />,
       description: 'Number of stores managed',
     },
