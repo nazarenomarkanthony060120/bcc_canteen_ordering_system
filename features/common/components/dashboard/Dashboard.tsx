@@ -125,10 +125,10 @@ const Dashboard = () => {
             >
               <View className="p-4">
                 <DashboardHeader />
-                <DashboardSearch
+                {/* <DashboardSearch
                   onSearch={handleSearch}
                   onFilter={handleFilter}
-                />
+                /> */}
                 <DashboardCategories
                   selectedCategory={selectedCategory}
                   onSelectCategory={handleCategorySelect}
