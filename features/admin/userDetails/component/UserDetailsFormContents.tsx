@@ -17,7 +17,7 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
   const { data: stores, isFetching } = useFetchStoreByUserId({ id: user?.id })
   if (!user) return null
 
-  const infoList = [
+  const baseInfoList = [
     {
       label: 'Email',
       value: (
@@ -27,22 +27,6 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
       ),
       icon: <MaterialIcons name="alternate-email" size={22} color="#4B5563" />,
       description: 'User contact email address',
-    },
-    {
-      label: 'Stores',
-      value:
-        isFetching && user.type === UserType.SELLER ? (
-          <View className="flex-row items-center gap-2">
-            <ActivityIndicator size="small" color="#4B5563" />
-            <Text className="text-gray-500 text-sm">Loading stores...</Text>
-          </View>
-        ) : (
-          <Text className="text-gray-800 font-semibold text-base">
-            {stores?.length || 0}
-          </Text>
-        ),
-      icon: <MaterialIcons name="store" size={22} color="#4B5563" />,
-      description: 'Number of stores managed',
     },
     {
       label: 'Status',
@@ -83,6 +67,33 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
       icon: <Ionicons name="create-outline" size={22} color="#4B5563" />,
       description: 'Account creation date',
     },
+  ]
+
+  // Add stores info only for sellers
+  const storesInfo =
+    user.type === UserType.SELLER
+      ? {
+          label: 'Stores',
+          value: isFetching ? (
+            <View className="flex-row items-center gap-2">
+              <ActivityIndicator size="small" color="#4B5563" />
+              <Text className="text-gray-500 text-sm">Loading stores...</Text>
+            </View>
+          ) : (
+            <Text className="text-gray-800 font-semibold text-base">
+              {stores?.length || 0}
+            </Text>
+          ),
+          icon: <MaterialIcons name="store" size={22} color="#4B5563" />,
+          description: 'Number of stores managed',
+        }
+      : null
+
+  // Create final info list with stores info inserted after email
+  const infoList = [
+    baseInfoList[0], // Email
+    ...(storesInfo ? [storesInfo] : []), // Stores (only for sellers)
+    ...baseInfoList.slice(1), // Rest of the items
   ]
 
   return (
