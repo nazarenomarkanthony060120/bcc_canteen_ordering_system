@@ -32,6 +32,7 @@ export const fetchReservations = async (userId: string | undefined) => {
   try {
     const reservedOrderQuery = query(
       collection(db, 'reserved_orders'),
+      where('userId', '==', userId),
       orderBy('createdAt', 'desc'),
     )
 
