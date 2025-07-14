@@ -112,7 +112,7 @@ const Store = () => {
           </BlurView>
         </Animated.View>
       </ScrollView>
-      {storeData && storeData.length > 0 && !isLoading && <StoreFooter />}
+      {storeData.length === 0 && <StoreFooter />}
     </Seller>
   )
 }

@@ -9,12 +9,7 @@ interface PickupInfoProps {
 
 const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
   const formatPickupTime = () => {
-    console.log('PickupInfo - Raw pickupTime:', pickupTime)
-    console.log('PickupInfo - Type of pickupTime:', typeof pickupTime)
-    console.log('PickupInfo - pickupTime instanceof Date:', pickupTime instanceof Date)
-    
     if (!pickupTime) {
-      console.log('PickupInfo - No pickup time provided')
       return {
         date: 'No pickup time set',
         time: '--:--',
@@ -27,21 +22,24 @@ const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
 
       // Handle different date formats
       if (pickupTime instanceof Date) {
-        console.log('PickupInfo - Processing as Date object')
         pickupDate = pickupTime
       } else if (typeof pickupTime === 'string') {
-        console.log('PickupInfo - Processing as string:', pickupTime)
         pickupDate = new Date(pickupTime)
-      } else if (pickupTime && typeof pickupTime === 'object' && 'toDate' in pickupTime) {
-        console.log('PickupInfo - Processing as Firestore Timestamp')
+      } else if (
+        pickupTime &&
+        typeof pickupTime === 'object' &&
+        'toDate' in pickupTime
+      ) {
         // Handle Firestore Timestamp
         pickupDate = (pickupTime as any).toDate()
-      } else if (pickupTime && typeof pickupTime === 'object' && 'seconds' in pickupTime) {
-        console.log('PickupInfo - Processing as Firestore Timestamp with seconds')
+      } else if (
+        pickupTime &&
+        typeof pickupTime === 'object' &&
+        'seconds' in pickupTime
+      ) {
         // Handle Firestore Timestamp format { seconds: number, nanoseconds: number }
         pickupDate = new Date((pickupTime as any).seconds * 1000)
       } else {
-        console.log('PickupInfo - Unknown format, raw value:', JSON.stringify(pickupTime))
         return {
           date: `Debug: ${JSON.stringify(pickupTime)}`,
           time: '--:--',
@@ -49,11 +47,7 @@ const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
         }
       }
 
-      console.log('PickupInfo - Parsed pickupDate:', pickupDate)
-      console.log('PickupInfo - pickupDate.getTime():', pickupDate.getTime())
-      
       if (isNaN(pickupDate.getTime())) {
-        console.log('PickupInfo - Date is invalid after parsing')
         return {
           date: 'Invalid date after parsing',
           time: '--:--',
@@ -73,27 +67,27 @@ const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
         dateString = pickupDate.toLocaleDateString('en-US', {
           month: 'long',
           day: 'numeric',
-          year: 'numeric'
+          year: 'numeric',
         })
       } else if (pickupDate.toDateString() === tomorrow.toDateString()) {
         dayLabel = 'Tomorrow'
         dateString = pickupDate.toLocaleDateString('en-US', {
           month: 'long',
           day: 'numeric',
-          year: 'numeric'
+          year: 'numeric',
         })
       } else {
         dateString = pickupDate.toLocaleDateString('en-US', {
           weekday: 'long',
           month: 'long',
           day: 'numeric',
-          year: 'numeric'
+          year: 'numeric',
         })
       }
 
       const timeString = pickupDate.toLocaleTimeString([], {
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
       })
 
       return {
@@ -125,8 +119,12 @@ const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
             <Text className="text-blue-600 text-lg">🕒</Text>
           </View>
           <View>
-            <Typo className="text-lg font-bold text-gray-800">Pickup Information</Typo>
-            <Typo className="text-sm text-gray-500">Customer pickup schedule</Typo>
+            <Typo className="text-lg font-bold text-gray-800">
+              Pickup Information
+            </Typo>
+            <Typo className="text-sm text-gray-500">
+              Customer pickup schedule
+            </Typo>
           </View>
         </View>
 
@@ -134,18 +132,26 @@ const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
           <View className="flex-row justify-between items-center">
             <View className="flex-1">
               <View className="flex-row items-center mb-2">
-                <Typo className="text-sm text-blue-600 font-medium">📅 Pickup Date</Typo>
+                <Typo className="text-sm text-blue-600 font-medium">
+                  📅 Pickup Date
+                </Typo>
                 {dayLabel && (
                   <View className="ml-2 px-2 py-1 bg-blue-500 rounded-full">
-                    <Typo className="text-xs text-white font-semibold">{dayLabel}</Typo>
+                    <Typo className="text-xs text-white font-semibold">
+                      {dayLabel}
+                    </Typo>
                   </View>
                 )}
               </View>
-              <Typo className="text-gray-800 font-semibold text-base">{date}</Typo>
+              <Typo className="text-gray-800 font-semibold text-base">
+                {date}
+              </Typo>
             </View>
-            
+
             <View className="items-end">
-              <Typo className="text-sm text-blue-600 font-medium mb-2">⏰ Time</Typo>
+              <Typo className="text-sm text-blue-600 font-medium mb-2">
+                ⏰ Time
+              </Typo>
               <View className="bg-white rounded-lg px-3 py-2 border border-blue-200">
                 <Typo className="text-blue-700 font-bold text-lg">{time}</Typo>
               </View>
@@ -157,12 +163,11 @@ const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
               <View className="flex-row items-center">
                 <Text className="text-blue-600 mr-2">💡</Text>
                 <Typo className="text-sm text-blue-700 flex-1">
-                  {dayLabel === 'Today' 
+                  {dayLabel === 'Today'
                     ? 'Customer will pick up their order today. Please prepare accordingly.'
                     : dayLabel === 'Tomorrow'
-                    ? 'Customer will pick up their order tomorrow. You have time to prepare.'
-                    : 'Please prepare the order for the scheduled pickup time.'
-                  }
+                      ? 'Customer will pick up their order tomorrow. You have time to prepare.'
+                      : 'Please prepare the order for the scheduled pickup time.'}
                 </Typo>
               </View>
             </View>
@@ -173,4 +178,4 @@ const PickupInfo: React.FC<PickupInfoProps> = ({ pickupTime }) => {
   )
 }
 
-export default PickupInfo 
+export default PickupInfo

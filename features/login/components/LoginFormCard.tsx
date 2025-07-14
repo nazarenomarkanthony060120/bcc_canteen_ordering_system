@@ -47,7 +47,7 @@ const LoginController = () => {
           isPending={isPending}
         />
         {authError && (
-          <View className="items-start">
+          <View className="items-start p-4 bg-red-100 rounded-lg mt-4">
             <Typo className="text-red-500">{authError}</Typo>
           </View>
         )}

@@ -214,9 +214,42 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
   if (isFetching) return <LoadingIndicator />
 
   const filteredFoodsByType = selectedFoodType
-    ? filteredFoods.filter((food) => food.type === selectedFoodType)
+    ? filteredFoods?.filter((food) => food.type === selectedFoodType)
     : filteredFoods
 
+  if (!filteredFoodsByType?.length) {
+    return (
+      <View className="flex-1 items-center justify-center p-8">
+        <Animated.View
+          style={{
+            opacity: fadeAnim,
+            transform: [
+              {
+                scale: fadeAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.9, 1],
+                }),
+              },
+            ],
+          }}
+          className="bg-white/80 p-6 rounded-2xl items-center"
+        >
+          <MaterialIcons
+            name="restaurant"
+            size={48}
+            color="#10B981"
+            className="mb-4"
+          />
+          <Typo className="text-gray-600 text-lg text-center">
+            No new foods have been added yet.
+          </Typo>
+          <Typo className="text-gray-500 text-sm text-center mt-2">
+            Check back later for new menu items!
+          </Typo>
+        </Animated.View>
+      </View>
+    )
+  }
   return (
     <ScreenLayout>
       <SafeAreaView className="flex-1">
@@ -278,105 +311,73 @@ const NewlyAddFood: React.FC<NewlyAddFoodProps> = ({ selectedFoodType }) => {
                 />
               }
             >
-              {filteredFoodsByType?.length === 0 ? (
-                <View className="flex-1 items-center justify-center p-8">
-                  <Animated.View
-                    style={{
-                      opacity: fadeAnim,
-                      transform: [
-                        {
-                          scale: fadeAnim.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [0.9, 1],
-                          }),
-                        },
-                      ],
-                    }}
-                    className="bg-white/80 p-6 rounded-2xl items-center"
-                  >
-                    <MaterialIcons
-                      name="restaurant"
-                      size={48}
-                      color="#10B981"
-                      className="mb-4"
-                    />
-                    <Typo className="text-gray-600 text-lg text-center">
-                      No new foods have been added yet.
-                    </Typo>
-                    <Typo className="text-gray-500 text-sm text-center mt-2">
-                      Check back later for new menu items!
-                    </Typo>
-                  </Animated.View>
-                </View>
-              ) : (
-                <View className="px-4 pb-8">
-                  <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    className="flex-row"
-                  >
-                    {filteredFoodsByType.map((food) => (
-                      <TouchableOpacity
-                        key={food.id}
-                        className="mr-4 w-52"
-                        onPress={() => handleFoodPress(food.id)}
+              <View className="px-4 pb-8">
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="flex-row"
+                >
+                  {filteredFoodsByType.map((food) => (
+                    <TouchableOpacity
+                      key={food.id}
+                      className="mr-4 w-52"
+                      onPress={() => handleFoodPress(food.id)}
+                    >
+                      <BlurView
+                        intensity={10}
+                        className="rounded-2xl overflow-hidden"
                       >
-                        <BlurView
-                          intensity={10}
-                          className="rounded-2xl overflow-hidden"
-                        >
-                          <View className="bg-white/90">
-                            <View className="mb-2">
-                              {!imageErrors[food.id] ? (
-                                <View className="overflow-hidden rounded-xl">
-                                  <ImageWrapper
-                                    source={
-                                      food.image
-                                        ? {
-                                            uri: `data:image/jpeg;base64,${food.image}`,
-                                          }
-                                        : CANTEEN_IMAGE
-                                    }
-                                    style={{ height: 150, width: '100%' }}
-                                  />
-                                </View>
-                              ) : (
-                                <View className="w-full h-full bg-gray-200 items-center justify-center">
-                                  <MaterialIcons
-                                    name="restaurant"
-                                    size={32}
-                                    color="#9CA3AF"
-                                  />
-                                </View>
-                              )}
-                            </View>
-                            <View className="p-4">
-                              <Typo className="text-gray-800 font-medium mb-1">
-                                {food.name}
+                        <View className="bg-white/90">
+                          <View className="mb-2">
+                            {!imageErrors[food.id] ? (
+                              <View className="overflow-hidden rounded-xl">
+                                <ImageWrapper
+                                  source={
+                                    food.image
+                                      ? {
+                                          uri: `data:image/jpeg;base64,${food.image}`,
+                                        }
+                                      : CANTEEN_IMAGE
+                                  }
+                                  style={{ height: 150, width: '100%' }}
+                                />
+                              </View>
+                            ) : (
+                              <View className="w-full h-full bg-gray-200 items-center justify-center">
+                                <MaterialIcons
+                                  name="restaurant"
+                                  size={32}
+                                  color="#9CA3AF"
+                                />
+                              </View>
+                            )}
+                          </View>
+                          <View className="p-4">
+                            <Typo className="text-gray-800 font-medium mb-1">
+                              {food.name}
+                            </Typo>
+                            <View className="flex-row items-center justify-between">
+                              <Typo className="text-emerald-600 font-semibold">
+                                ₱{food.price.toFixed(2)}
                               </Typo>
-                              <View className="flex-row items-center justify-between">
-                                <Typo className="text-emerald-600 font-semibold">
-                                  ₱{food.price.toFixed(2)}
+                              <View className="flex-row items-center">
+                                <MaterialIcons
+                                  name="new-releases"
+                                  size={16}
+                                  color="#10B981"
+                                />
+                                <Typo className="text-gray-600 text-sm ml-1">
+                                  New
                                 </Typo>
-                                <View className="flex-row items-center">
-                                  <MaterialIcons
-                                    name="new-releases"
-                                    size={16}
-                                    color="#10B981"
-                                  />
-                                  <Typo className="text-gray-600 text-sm ml-1">
-                                    New
-                                  </Typo>
-                                </View>
                               </View>
                             </View>
                           </View>
-                        </BlurView>
-                      </TouchableOpacity>
-                    ))}
-                  </ScrollView>
-                </View>
-              )}
+                        </View>
+                      </BlurView>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              </View>
             </ScrollView>
           </BlurView>
         </Animated.View>

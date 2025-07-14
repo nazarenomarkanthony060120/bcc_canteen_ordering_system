@@ -10,6 +10,8 @@ export const getReservationStatus = (status: number) => {
       return ReservationStatusText.CANCELLED
     case ReservationStatus.COMPLETED:
       return ReservationStatusText.COMPLETED
+    case ReservationStatus.CONFIRMED:
+      return ReservationStatusText.CONFIRMED
     default:
       return ReservationStatusText.UNKNOWN
   }

@@ -18,6 +18,11 @@ export const getReservationStatusResult = ({
   )
   if (hasCancelledItems) return ReservationStatus.CANCELLED
 
+  const hasConfirmedItems = storeOwnerItems.some(
+    (item) => item.status === ReservationStatus.CONFIRMED,
+  )
+  if (hasConfirmedItems) return ReservationStatus.CONFIRMED
+
   const hasCompletedItems = storeOwnerItems.some(
     (item) => item.status !== ReservationStatus.PENDING,
   )

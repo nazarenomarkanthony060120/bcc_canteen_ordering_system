@@ -9,7 +9,7 @@ export const createFood = async (data: AddFood) => {
     image: data.image,
     price: Number(data.price),
     quantity: Number(data.quantity),
-    type: data.type,
+    type: data.type.trim(),
     popularity: Number(0),
     description: data.description,
     createdAt: serverTimestamp(),

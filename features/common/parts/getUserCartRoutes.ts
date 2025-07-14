@@ -8,16 +8,10 @@ export const getUserCartRoutes = ({ type }: GetUserCartRoutesType) => {
   switch (type) {
     case UserType.SELLER:
       return '/screens/(seller)/dashboard/cart'
-    case UserType.STUDENT:
-      return '/screens/(student)/dashboard/cart'
-    case UserType.TEACHER:
-      return '/screens/(teacher)/dashboard/cart'
-    case UserType.OUTSIDER:
-      return '/screens/(student)/dashboard/cart'
     case UserType.ADMIN:
       return '/screens/(admin)/dashboard/cart'
-    case UserType.OUTSIDER:
-      return '/screens/(other)/dashboard/cart'
+    case UserType.CUSTORMER:
+      return '/screens/(customer)/dashboard/cart'
     default:
       return '/not-found'
   }

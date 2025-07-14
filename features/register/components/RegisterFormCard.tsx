@@ -25,6 +25,9 @@ const RegisterFormCard = () => {
       onSuccess: () => {
         setShowCountdown(true)
       },
+      onError: (error) => {
+        console.error('Registration error:', error)
+      },
     })
   }
 
@@ -35,8 +38,8 @@ const RegisterFormCard = () => {
         {showCountdown && (
           <CountDown
             time={5}
-            route={'/(auth)/login'}
-            message="You will be redirected to Login in"
+            route={'/screens/(customer)/dashboard/dashboard'}
+            message="You will be redirected to Dashboard"
           />
         )}
         <RegisterFormContents control={control} getValues={getValues} />
@@ -46,6 +49,7 @@ const RegisterFormCard = () => {
           isPending={isPending}
         />
       </SafeAreaView>
+
       {Object.keys(errors).length > 0 && <Error errors={errors} />}
     </ScrollView>
   )

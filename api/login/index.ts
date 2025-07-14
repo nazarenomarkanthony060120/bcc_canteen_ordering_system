@@ -8,7 +8,7 @@ export const loginUser = async (data: LoginRequest) => {
     data.email,
     data.password,
   )
-
+  console.log('User logged in:', userCredential.user.uid)
   const type = await fetchUserById({ id: userCredential.user.uid })
   return type
 }

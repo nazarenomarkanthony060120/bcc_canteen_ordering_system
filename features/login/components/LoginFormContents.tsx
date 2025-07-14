@@ -22,7 +22,7 @@ const LoginFormContents = ({ control }: LoginFormContentsProps) => {
         }}
         render={({ field: { onChange, value } }) => (
           <Input
-            className={'w-full py-3  placeholder:text-slate-400 '}
+            className={'w-full py-3 placeholder:text-slate-400 '}
             placeholder={'Email'}
             value={value}
             onChangeText={onChange}

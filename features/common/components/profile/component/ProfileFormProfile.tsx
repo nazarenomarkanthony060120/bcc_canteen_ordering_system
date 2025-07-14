@@ -11,15 +11,10 @@ import { Ionicons } from '@expo/vector-icons'
 
 interface ProfileFormProfileProps {
   name: string | undefined
-  managedId: string | undefined
   image?: string
 }
 
-const ProfileFormProfile = ({
-  name,
-  managedId,
-  image,
-}: ProfileFormProfileProps) => {
+const ProfileFormProfile = ({ name, image }: ProfileFormProfileProps) => {
   const { user } = useAuth()
   const [profileImage, setProfileImage] = useState<string | null>(image || null)
   const { mutate: updateProfileImage, isPending } = useUpdateProfileImage()
@@ -72,7 +67,6 @@ const ProfileFormProfile = ({
         </View>
       </TouchableOpacity>
       <Typo className="text-white text-2xl font-bold mb-1">{name}</Typo>
-      <Typo className="text-white text-base opacity-80 mb-2">{managedId}</Typo>
     </SafeAreaView>
   )
 }
