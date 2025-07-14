@@ -7,7 +7,6 @@ export type LoginRequest = {
 }
 
 export type RegisterRequest = {
-  id: string
   name: string
   type: UserType
   email: string
@@ -209,9 +208,7 @@ export enum FoodType {
 export enum UserType {
   ADMIN = 'Admin',
   SELLER = 'Seller',
-  TEACHER = 'Teacher',
-  STUDENT = 'Student',
-  OUTSIDER = 'Outsider',
+  CUSTORMER = 'Customer',
 }
 
 export enum ReservationStatusText {
@@ -219,6 +216,7 @@ export enum ReservationStatusText {
   PENDING = 'Pending',
   COMPLETED = 'Completed',
   CANCELLED = 'Cancelled',
+  CONFIRMED = 'Confirmed',
   UNKNOWN = 'Unknown',
 }
 
@@ -226,6 +224,7 @@ export enum FoodReservationStatusText {
   PENDING = 'Pending',
   COMPLETED = 'Completed',
   CANCELLED = 'Cancelled',
+  CONFIRMED = 'Confirmed',
   UNKNOWN = 'Unknown',
 }
 
@@ -234,6 +233,7 @@ export enum FoodReservationStatus {
   PENDING = 1,
   COMPLETED = 2,
   CANCELLED = 3,
+  CONFIRMED = 4,
 }
 
 export enum ReservationStatus {
@@ -241,6 +241,7 @@ export enum ReservationStatus {
   PENDING = 1,
   COMPLETED = 2,
   CANCELLED = 3,
+  CONFIRMED = 4,
 }
 
 export enum UserKYCStatus {

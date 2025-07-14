@@ -619,7 +619,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
         </Animated.View>
 
         {/* Recent Activity */}
-        <Animated.View entering={FadeInDown.delay(1000).springify()}>
+        {/* <Animated.View entering={FadeInDown.delay(1000).springify()}>
           <View className="flex-row items-center justify-between mb-4">
             <View>
               <Text className="text-lg font-semibold text-gray-800">
@@ -673,7 +673,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
               ))}
             </LinearGradient>
           </BlurView>
-        </Animated.View>
+        </Animated.View> */}
       </View>
     </ScrollView>
   )

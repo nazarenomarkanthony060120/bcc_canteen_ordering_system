@@ -8,7 +8,7 @@ interface ErrorProps {
 
 const Error = ({ errors }: ErrorProps) => {
   return (
-    <View>
+    <View className="p-4 bg-red-100 rounded-lg mt-4">
       {Object.keys(errors).length > 0 && (
         <View>
           {Object.entries(errors).map(([key, value]) => (

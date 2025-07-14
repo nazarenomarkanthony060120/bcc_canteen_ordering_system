@@ -23,6 +23,7 @@ import { getReservationStatusResult } from '@/features/common/parts/getReservati
 import { useCancelPendingOrder } from '@/hooks/useMutation/seller/pending-order/useCancelPendingOrder'
 import { useQueries } from '@tanstack/react-query'
 import { getFoodByFoodId } from '@/api/common/getFoodByFoodId'
+import { useCompletePendingOrder } from '@/hooks/useMutation/seller/pending-order/useCompletePendingOrder'
 
 const ViewReservationPending = () => {
   const auth = useAuth()
@@ -52,6 +53,8 @@ const ViewReservationPending = () => {
 
   const { mutate: confirmPendingOrder, isPending: isPendingConfirm } =
     useConfirmPendingOrder()
+  const { mutate: completePendingOrder, isPending: isPendingComplete } =
+    useCompletePendingOrder()
   const { mutate: cancelPendingOrder, isPending: isPendingCancel } =
     useCancelPendingOrder()
   const router = useRouter()
@@ -84,6 +87,7 @@ const ViewReservationPending = () => {
   }, [])
 
   const handleConfirm = (reservationId: string) => {
+    console.log('Confirming order for reservation ID:', reservationId)
     confirmPendingOrder(
       {
         id: reservationId,
@@ -96,6 +100,25 @@ const ViewReservationPending = () => {
         },
         onError: (error: Error) => {
           console.error('Error confirming order:', error)
+        },
+      },
+    )
+  }
+
+  const handleComplete = (reservationId: string) => {
+    console.log('Confirming111 order for reservation ID:', reservationId)
+    completePendingOrder(
+      {
+        id: reservationId,
+        foods: foods,
+        userId: auth.user?.uid,
+      },
+      {
+        onSuccess: () => {
+          router.back()
+        },
+        onError: (error: Error) => {
+          console.error('Error completing order:', error)
         },
       },
     )
@@ -122,11 +145,6 @@ const ViewReservationPending = () => {
   if (!user || !store || isLoadingFoods) {
     return <LoadingIndicator />
   }
-
-  // Debug pickup time
-  console.log('ViewReservationPending - reservation.pickupTime:', reservation.pickupTime)
-  console.log('ViewReservationPending - reservation object keys:', Object.keys(reservation))
-  console.log('ViewReservationPending - full reservation:', JSON.stringify(reservation, null, 2))
 
   return (
     <View className="flex-1 bg-gray-50">
@@ -174,6 +192,21 @@ const ViewReservationPending = () => {
           onCancel={handleCancel}
           isPendingCancel={isPendingCancel}
           isPendingConfirm={isPendingConfirm}
+          text="Confirm"
+        />
+      )}
+
+      {getReservationStatusResult({
+        item: reservation.items,
+        userId: auth.user?.uid,
+      }) === ReservationStatus.CONFIRMED && (
+        <ActionButtons
+          reservationId={reservation.id}
+          onConfirm={handleComplete}
+          onCancel={handleCancel}
+          isPendingCancel={isPendingCancel}
+          isPendingConfirm={isPendingComplete}
+          text={'Complete'}
         />
       )}
     </View>

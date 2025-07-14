@@ -5,13 +5,12 @@ export const fetchUserById = async ({ id }: UserIdRequest) => {
   if (!id) throw new Error('User ID is required')
   const docRef = doc(db, 'users', id)
   const docSnap = await getDoc(docRef)
-
   if (docSnap.exists()) {
     const data = docSnap.data()
     // Ensure type is properly mapped to UserType enum
     const userType =
       Object.values(UserType).find((type) => type === data.type) ||
-      UserType.OUTSIDER
+      UserType.CUSTORMER
 
     return {
       id: docSnap.id,

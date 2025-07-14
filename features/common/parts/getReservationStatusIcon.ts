@@ -8,6 +8,8 @@ export const getReservationStatusIcon = (status: number) => {
       return 'check-circle'
     case ReservationStatus.CANCELLED:
       return 'cancel'
+    case ReservationStatus.CONFIRMED:
+      return 'incomplete-circle'
     default:
       return 'help'
   }

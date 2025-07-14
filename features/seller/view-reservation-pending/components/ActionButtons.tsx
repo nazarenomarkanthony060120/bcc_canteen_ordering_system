@@ -10,6 +10,7 @@ interface ActionButtonsProps {
   onCancel: (reservationId: string) => void
   isPendingConfirm: boolean
   isPendingCancel: boolean
+  text: string
 }
 
 const ActionButtons = ({
@@ -18,6 +19,7 @@ const ActionButtons = ({
   onCancel,
   isPendingCancel,
   isPendingConfirm,
+  text,
 }: ActionButtonsProps) => {
   return (
     <BlurView intensity={20} className="border-t border-gray-100">
@@ -39,7 +41,7 @@ const ActionButtons = ({
             disabled={isPendingConfirm}
           >
             <MaterialIcons name="check-circle" size={24} color="#10B981" />
-            <Typo className="text-emerald-600 font-semibold ml-2">Confirm</Typo>
+            <Typo className="text-emerald-600 font-semibold ml-2">{text}</Typo>
           </TouchableOpacity>
         </View>
       </View>

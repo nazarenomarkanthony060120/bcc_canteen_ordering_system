@@ -104,7 +104,7 @@ const AddStoreFormContents = ({ control }: AddStoreFormContentsProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="w-full py-3 px-4 placeholder:text-gray-400"
+              className="w-full uppercase py-3 px-4 placeholder:text-gray-400"
               placeholder="Enter your store name"
               value={value}
               onChangeText={onChange}
@@ -130,7 +130,7 @@ const AddStoreFormContents = ({ control }: AddStoreFormContentsProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="w-full py-3 px-4 placeholder:text-gray-400"
+              className="w-full uppercase py-3 px-4 placeholder:text-gray-400"
               placeholder="Enter your store's complete address"
               value={value}
               onChangeText={onChange}

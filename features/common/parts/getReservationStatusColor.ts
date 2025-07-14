@@ -8,6 +8,8 @@ export const getReservationStatusColor = (status: number) => {
       return '#3B82F6'
     case ReservationStatus.CANCELLED:
       return '#EF4444'
+    case ReservationStatus.CONFIRMED:
+      return '#F59E0B'
     default:
       return '#6B7280'
   }

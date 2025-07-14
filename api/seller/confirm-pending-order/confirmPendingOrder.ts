@@ -4,14 +4,7 @@ import {
   ReservationStatus,
   ReservedItem,
 } from '@/utils/types'
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 
 export const confirmPendingOrder = async ({
   id,
@@ -30,56 +23,23 @@ export const confirmPendingOrder = async ({
   }
 
   const reservationData = reservationDoc.data()
-  const updatedItems = reservationData?.items.map((item: ReservedItem) => {
+  
+  // Update the items array with confirmed status for matching items
+  const updatedItems = reservationData.items.map((item: ReservedItem) => {
     const matchingFood = foods.find((food) => food?.id === item.foodId)
     if (matchingFood && item.storeOwnerId === userId) {
       return {
         ...item,
-        status: ReservationStatus.COMPLETED,
+        status: ReservationStatus.CONFIRMED,
       }
     }
     return item
   })
 
-  // Update reservation status
+  // Update the document in Firestore with the new items
   await updateDoc(reservationRef, {
     items: updatedItems,
-    updatedAt: new Date().toISOString(),
   })
 
-  // Update food quantities and save to histories
-  const updatePromises = (reservationData?.items || [])
-    .filter((item: ReservedItem) => {
-      const matchingFood = foods.find((food) => food?.id === item.foodId)
-      return matchingFood && item.storeOwnerId === userId
-    })
-    .map(async (item: ReservedItem) => {
-      const foodRef = doc(db, 'foods', item.foodId)
-      const foodDoc = await getDoc(foodRef)
-
-      if (foodDoc.exists()) {
-        const foodData = foodDoc.data()
-        const newQuantity = foodData.quantity - item.quantity
-
-        await updateDoc(foodRef, {
-          quantity: newQuantity,
-          updatedAt: new Date().toISOString(),
-        })
-
-        // Save to histories collection
-        await addDoc(collection(db, 'histories'), {
-          storeId: item.storeId,
-          storeOwnerId: item.storeOwnerId,
-          reservationId: id,
-          totalPrice: item.totalPrice,
-          quantity: item.quantity,
-          foodId: item.foodId,
-          userId: item.userId,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-        })
-      }
-    })
-
-  await Promise.all(updatePromises)
+  return true
 }
