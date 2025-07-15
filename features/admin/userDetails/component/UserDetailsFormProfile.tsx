@@ -7,13 +7,11 @@ import { View } from 'react-native'
 
 interface UserDetailsFormProfileProps {
   name: string | undefined
-  managedId: string | undefined
   image: string | undefined
 }
 
 const UserDetailsFormProfile = ({
   name,
-  managedId,
   image,
 }: UserDetailsFormProfileProps) => {
   return (
@@ -23,14 +21,11 @@ const UserDetailsFormProfile = ({
           source={
             image ? { uri: `data:image/jpeg;base64,${image}` } : PERSON_ICON
           }
-          style={{ height: 250, width: '100%' }}
+          style={{ height: 250, width: '100%', objectFit: 'fill' }}
         />
       </View>
       <View className="items-center">
         <Typo className="text-white text-3xl font-bold mb-1">{name}</Typo>
-        <View className="bg-white/20 px-4 py-1 rounded-full">
-          <Typo className="text-white/90 text-sm">{managedId}</Typo>
-        </View>
       </View>
     </SafeAreaView>
   )

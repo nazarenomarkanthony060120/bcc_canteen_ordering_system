@@ -15,11 +15,7 @@ const UserDetailsFormCard = ({ user }: UserDetailsFormCardProps) => {
     <SafeAreaView className="flex-1">
       <View className="p-5">
         <UserDetailsFormHeader />
-        <UserDetailsFormProfile
-          image={user?.image}
-          name={user?.name}
-          managedId={user?.managedId}
-        />
+        <UserDetailsFormProfile image={user?.image} name={user?.name} />
       </View>
       <View className="px-4 pb-6">
         <View className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/30">
