@@ -30,7 +30,7 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="w-full py-3 uppercase placeholder:text-gray-400"
+              className="w-full py-3 placeholder:text-gray-400"
               placeholder="Enter your full name"
               value={value}
               onChangeText={onChange}
@@ -83,7 +83,7 @@ const KYCFormContents = ({ control }: KYCFormContentsProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="w-full py-3 uppercase placeholder:text-gray-400"
+              className="w-full py-3 placeholder:text-gray-400"
               placeholder="Enter your complete address"
               value={value}
               onChangeText={onChange}

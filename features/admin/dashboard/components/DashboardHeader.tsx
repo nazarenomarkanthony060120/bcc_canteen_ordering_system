@@ -5,14 +5,14 @@ import { MaterialIcons } from '@expo/vector-icons'
 interface DashboardHeaderProps {
   totalSellers: number
   activeSellers: number
-  pendingSellers: number
+  appliedSellers: number
   disabledSellers: number
 }
 
 const FromDashboardHeader: React.FC<DashboardHeaderProps> = ({
   totalSellers,
   activeSellers,
-  pendingSellers,
+  appliedSellers,
   disabledSellers,
 }) => {
   return (
@@ -42,7 +42,9 @@ const FromDashboardHeader: React.FC<DashboardHeaderProps> = ({
           <View className="flex-1 bg-white/10 rounded-2xl p-4">
             <View className="flex-row items-center gap-2 mb-2">
               <MaterialIcons name="check-circle" size={20} color="#10B981" />
-              <Text className="text-white/80 text-sm font-medium">Active</Text>
+              <Text className="text-white/80 text-sm font-medium">
+                Approved
+              </Text>
             </View>
             <Text className="text-emerald-400 text-2xl font-bold">
               {activeSellers}
@@ -52,11 +54,11 @@ const FromDashboardHeader: React.FC<DashboardHeaderProps> = ({
         <View className="flex-row gap-3">
           <View className="flex-1 bg-white/10 rounded-2xl p-4">
             <View className="flex-row items-center gap-2 mb-2">
-              <MaterialIcons name="schedule" size={20} color="#F59E0B" />
-              <Text className="text-white/80 text-sm font-medium">Pending</Text>
+              <MaterialIcons name="schedule" size={20} color="#60a5fa" />
+              <Text className="text-white/80 text-sm font-medium">Applied</Text>
             </View>
-            <Text className="text-amber-400 text-2xl font-bold">
-              {pendingSellers}
+            <Text className="text-blue-400 text-2xl font-bold">
+              {appliedSellers}
             </Text>
           </View>
 

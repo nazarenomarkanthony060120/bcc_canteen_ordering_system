@@ -14,6 +14,15 @@ export type RegisterRequest = {
   confirmPassword: string
 }
 
+export type CreateSellerAccountRequest = {
+  name: string
+  email: string
+  address: string
+  phoneNumber: string
+  password: string
+  confirmPassword: string
+}
+
 export type GetHistoriesRequest = {
   storeId: string | null
 }

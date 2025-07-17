@@ -65,16 +65,14 @@ const Dashboard: React.FC = () => {
 
   // Calculate statistics
   const statistics = React.useMemo(() => {
-    if (!sellers) return { total: 0, active: 0, pending: 0, disabled: 0 }
+    if (!sellers) return { total: 0, active: 0, applied: 0, disabled: 0 }
 
     const total = sellers.length
     const active = sellers.filter(
       (seller) => seller.status === UserKYCStatus.APPROVED,
     ).length
-    const pending = sellers.filter(
-      (seller) =>
-        seller.status === UserKYCStatus.PENDING ||
-        seller.status === UserKYCStatus.APPLIED,
+    const applied = sellers.filter(
+      (seller) => seller.status === UserKYCStatus.APPLIED,
     ).length
     const disabled = sellers.filter(
       (seller) =>
@@ -82,7 +80,7 @@ const Dashboard: React.FC = () => {
         seller.status === UserKYCStatus.REJECTED,
     ).length
 
-    return { total, active, pending, disabled }
+    return { total, active, applied, disabled }
   }, [sellers])
 
   if (isLoading && !refreshing) {
@@ -150,7 +148,7 @@ const Dashboard: React.FC = () => {
               <FromDashboardHeader
                 totalSellers={statistics.total}
                 activeSellers={statistics.active}
-                pendingSellers={statistics.pending}
+                appliedSellers={statistics.applied}
                 disabledSellers={statistics.disabled}
               />
               <TouchableOpacity

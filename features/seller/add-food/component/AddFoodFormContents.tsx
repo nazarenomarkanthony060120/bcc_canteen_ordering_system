@@ -96,7 +96,7 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="w-full uppercase py-3 px-4 placeholder:text-gray-400"
+              className="w-full py-3 px-4 placeholder:text-gray-400"
               placeholder="Enter name"
               value={value}
               onChangeText={onChange}
@@ -180,7 +180,7 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="w-full py-3 px-4 uppercase placeholder:text-gray-400"
+              className="w-full py-3 px-4 placeholder:text-gray-400"
               placeholder="ex: [ Drinks, Fruits, Meat, Snacks, Vegetables, Others ]"
               value={value}
               onChangeText={onChange}
@@ -202,7 +202,7 @@ const AddFoodFormContents = ({ control }: AddFoodFormContentsProps) => {
           rules={{ required: 'Description is required' }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="w-full uppercase py-3 px-4 placeholder:text-gray-400"
+              className="w-full py-3 px-4 placeholder:text-gray-400"
               placeholder="Enter food description"
               value={value}
               onChangeText={onChange}

@@ -1,12 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import CreateSellerAccount from '@/features/admin/createSellerAccount/CreateSellerAccount'
 
 const CreateSellerAccountScreen = () => {
-  return (
-    <View>
-      <Text>CreateSellerAccountScreen</Text>
-    </View>
-  )
+  return <CreateSellerAccount />
 }
 
 export default CreateSellerAccountScreen
