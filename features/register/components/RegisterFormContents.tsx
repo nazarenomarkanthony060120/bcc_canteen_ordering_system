@@ -32,7 +32,7 @@ const RegisterFormContents = ({
         }}
         render={({ field: { onChange, value } }) => (
           <Input
-            className={'w-full py-3 uppercase placeholder:text-slate-400 '}
+            className={'w-full py-3 placeholder:text-slate-400 '}
             placeholder={'Name'}
             value={value}
             onChangeText={onChange}

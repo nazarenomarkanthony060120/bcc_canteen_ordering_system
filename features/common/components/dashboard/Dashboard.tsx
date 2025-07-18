@@ -1,18 +1,11 @@
 import React, { useState, useRef } from 'react'
-import {
-  View,
-  Animated,
-  ScrollView,
-  RefreshControl,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Animated, ScrollView, RefreshControl } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import ScreenLayout from '../screenLayout/ScreenLayout'
 import Typo from '@/components/common/typo'
 import DashboardHeader from './components/DashboardHeader'
-import DashboardSearch from './components/DashboardSearch'
 import DashboardCategories from './components/DashboardCategories'
 import DashboardFormCard from './components/DashboardFormCard'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
@@ -23,7 +16,9 @@ import { FoodType } from '@/utils/types'
 
 const Dashboard = () => {
   const auth = useAuth()
-  const { refetch: refetchUser } = useGetUserByUserId({ id: auth.user?.uid })
+  const { refetch: refetchUser } = useGetUserByUserId({
+    id: auth.user?.uid,
+  })
   const { refetch: refetchPopularFood } = useFetchAllPopularFoods()
   const { refetch: refetchNewlyAddedFood } = useFetchNewlyAddedFoods()
 

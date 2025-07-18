@@ -13,6 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
 import MyStoreFooter from './MyStoreFooter'
+import MenuOfTheDay from './MenuOfTheDay'
 
 interface MyStoreFormCardProps {
   store: Store | null | undefined
@@ -115,7 +116,11 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2">
         <MyStoreFormHeader store={store} />
-        <Text>{error?.stack}</Text>
+        <MenuOfTheDay />
+        <View className="flex-row justify-center items-center gap-2 py-2">
+          <MaterialIcons name="restaurant-menu" size={24} color="#667eea" />
+          <Typo className="text-gray-800 text-lg font-semibold">All Foods</Typo>
+        </View>
         <MasonryFlashList
           data={foods}
           estimatedItemSize={500}

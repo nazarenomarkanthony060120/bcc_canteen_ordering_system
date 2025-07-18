@@ -16,6 +16,7 @@ import {
   orderBy,
   limit,
   updateDoc,
+  Timestamp,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -30,7 +31,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
+const secondaryApp = initializeApp(firebaseConfig, 'secondary')
 const auth = getAuth(app)
+const secondaryAuth = getAuth(secondaryApp)
 const db = getFirestore(app)
 
 export {
@@ -48,4 +51,6 @@ export {
   orderBy,
   limit,
   updateDoc,
+  Timestamp,
+  secondaryAuth,
 }

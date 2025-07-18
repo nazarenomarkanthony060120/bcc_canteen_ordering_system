@@ -32,7 +32,7 @@ export const EmailInput = ({
             <Typo className="text-gray-300 text-sm">Email Address</Typo>
           </View>
           <Input
-            className="w-full uppercase py-4 bg-white/10 rounded-xl border border-white/20"
+            className="w-full py-4 bg-white/10 rounded-xl border border-white/20"
             placeholder="Enter your email address"
             value={value}
             onChangeText={onChange}
