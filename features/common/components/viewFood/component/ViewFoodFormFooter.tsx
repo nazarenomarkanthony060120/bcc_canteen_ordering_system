@@ -82,6 +82,7 @@ const ViewFoodFormFooter = ({ food, store }: ViewFoodFormFooterProps) => {
         storeOwnerId: store.userId ?? '',
         userId: user?.uid ?? '',
         storeId: store.id,
+        gcashImage: store.gcashImage ?? '',
         quantity: foodQuantity,
         totalPrice: foodPrice,
         createdAt: serverTimestamp(),

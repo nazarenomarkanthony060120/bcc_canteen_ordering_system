@@ -7,7 +7,7 @@ import {
   doc,
   getDoc,
 } from 'firebase/firestore'
-import { Cart, UserIdRequest } from '@/utils/types'
+import { UserIdRequest } from '@/utils/types'
 
 export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
   if (!id) throw new Error('User ID is required')

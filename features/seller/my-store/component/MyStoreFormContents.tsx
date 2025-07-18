@@ -83,10 +83,10 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
                   </View>
                   <View>
                     <Typo className="text-gray-500 text-sm font-medium">
-                      Quantity
+                      Available
                     </Typo>
                     <Typo className="text-gray-800 font-semibold">
-                      {food.quantity} items
+                      {food.quantity} Available items
                     </Typo>
                   </View>
                 </View>

@@ -18,9 +18,10 @@ interface AddStoreFormContentsProps {
 }
 
 const AddStoreFormContents = ({ control }: AddStoreFormContentsProps) => {
-  const [image, setImage] = useState<string | null>(null)
+  const [storeImage, setStoreImage] = useState<string | null>(null)
+  const [gcashImage, setGcashImage] = useState<string | null>(null)
 
-  const pickImage = async () => {
+  const pickStoreImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -32,8 +33,28 @@ const AddStoreFormContents = ({ control }: AddStoreFormContentsProps) => {
 
       if (!result.canceled && result.assets[0].base64) {
         const base64Image = result.assets[0].base64
-        setImage(base64Image)
-        control._formValues.image = base64Image
+        setStoreImage(base64Image)
+        control._formValues.storeImage = base64Image
+      }
+    } catch (error) {
+      console.error('Error picking image:', error)
+    }
+  }
+
+  const pickGcashImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.5,
+        base64: true,
+      })
+
+      if (!result.canceled && result.assets[0].base64) {
+        const base64Image = result.assets[0].base64
+        setGcashImage(base64Image)
+        control._formValues.gcashImage = base64Image
       }
     } catch (error) {
       console.error('Error picking image:', error)
@@ -46,18 +67,61 @@ const AddStoreFormContents = ({ control }: AddStoreFormContentsProps) => {
         <Typo className="text-gray-700 font-medium mb-2">Store Image</Typo>
         <Controller
           control={control}
-          name="image"
+          name="storeImage"
           rules={{
             required: 'Store image is required',
           }}
           render={({ field: { onChange, value } }) => (
             <TouchableOpacity
-              onPress={pickImage}
+              onPress={pickStoreImage}
               className="w-full aspect-video rounded-xl overflow-hidden bg-gray-100"
             >
-              {image ? (
+              {storeImage ? (
                 <Image
-                  source={{ uri: `data:image/jpeg;base64,${image}` }}
+                  source={{ uri: `data:image/jpeg;base64,${storeImage}` }}
+                  className="w-full h-full"
+                  resizeMode="cover"
+                />
+              ) : (
+                <BlurView
+                  intensity={20}
+                  tint="light"
+                  className="w-full h-full items-center justify-center"
+                >
+                  <View className="items-center gap-2">
+                    <View className="bg-emerald-100 p-3 rounded-full">
+                      <Ionicons name="image" size={24} color="#059669" />
+                    </View>
+                    <Typo className="text-gray-600">
+                      Tap to add store image
+                    </Typo>
+                    <Typo className="text-gray-400 text-xs">
+                      Recommended: 16:9 ratio
+                    </Typo>
+                  </View>
+                </BlurView>
+              )}
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+
+      <View>
+        <Typo className="text-gray-700 font-medium mb-2">Gcash Image</Typo>
+        <Controller
+          control={control}
+          name="gcashImage"
+          rules={{
+            required: 'Gcash image is required',
+          }}
+          render={({ field: { onChange, value } }) => (
+            <TouchableOpacity
+              onPress={pickGcashImage}
+              className="w-full aspect-video rounded-xl overflow-hidden bg-gray-100"
+            >
+              {gcashImage ? (
+                <Image
+                  source={{ uri: `data:image/jpeg;base64,${gcashImage}` }}
                   className="w-full h-full"
                   resizeMode="cover"
                 />

@@ -16,6 +16,7 @@ import {
   orderBy,
   limit,
   updateDoc,
+  Timestamp,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -50,5 +51,6 @@ export {
   orderBy,
   limit,
   updateDoc,
+  Timestamp,
   secondaryAuth,
 }

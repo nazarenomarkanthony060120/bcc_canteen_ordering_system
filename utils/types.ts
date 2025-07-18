@@ -54,6 +54,7 @@ export type AddCartRequest = {
   storeOwnerId: string
   userId: string
   storeId: string
+  gcashImage: string
   quantity: number
   totalPrice: number
   createdAt: FieldValue
@@ -78,7 +79,8 @@ export type UpdateProfile = {
 
 export type CreateStore = {
   userId: string
-  image: string
+  storeImage: string
+  gcashImage: string
   store: string
   address: string
 }
@@ -88,6 +90,7 @@ export type Store = {
   userId: string
   image: string
   store: string
+  gcashImage: string
   address: string
   status: StoreStatus
   storeHealth: StoreHealth

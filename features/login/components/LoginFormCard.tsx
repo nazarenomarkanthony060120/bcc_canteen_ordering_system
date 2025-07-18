@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
-import { AuthErrorType, LoginRequest } from '@/utils/types'
+import {
+  AuthErrorType,
+  LoginRequest,
+  UserKYCStatus,
+  UserType,
+} from '@/utils/types'
 import { useRouter } from 'expo-router'
 import LoginFormHeader from './LoginFormHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -26,8 +31,18 @@ const LoginController = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     login(data as LoginRequest, {
       onSuccess: (data) => {
-        const route = getUserRoutes({ type: data?.type })
-        router.push(route)
+        if (
+          data?.type === UserType.SELLER &&
+          data.status === UserKYCStatus.APPLIED
+        ) {
+          router.push({
+            pathname: '/screens/(seller)/dashboard/kyc',
+            params: { fromPath: 'login' },
+          })
+        } else {
+          const route = getUserRoutes({ type: data?.type })
+          router.push(route)
+        }
       },
       onError: (error: Error) => {
         const errorMessage = getErrorMessage(error.message)

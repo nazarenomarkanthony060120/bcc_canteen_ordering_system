@@ -10,10 +10,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { BlurView } from 'expo-blur'
 
 interface NoKYCProps {
-  onRefresh: () => Promise<void>
+  onRefresh: () => Promise<void> | void
+  fromPath?: string | string[]
 }
 
-const NoKYC = ({ onRefresh }: NoKYCProps) => {
+const NoKYC = ({ onRefresh, fromPath }: NoKYCProps) => {
   const router = useRouter()
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(20)).current
@@ -43,6 +44,10 @@ const NoKYC = ({ onRefresh }: NoKYCProps) => {
 
   const handleSetupKYC = () => {
     router.push('/screens/(seller)/kyc/kyc')
+  }
+
+  const handleToDashboard = () => {
+    router.push('/screens/(seller)/dashboard/dashboard')
   }
 
   const handleRefresh = async () => {
@@ -89,7 +94,7 @@ const NoKYC = ({ onRefresh }: NoKYCProps) => {
               tint="light"
               className="rounded-3xl overflow-hidden w-full max-w-sm"
             >
-              <View className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-sm border border-white/30">
+              <View className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-sm border border-white/30 gap-2">
                 <View className="items-center mb-6">
                   <Animated.View className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-full mb-4 shadow-sm">
                     <MaterialIcons
@@ -150,6 +155,22 @@ const NoKYC = ({ onRefresh }: NoKYCProps) => {
                     </Typo>
                   </Button>
                 </LinearGradient>
+
+                {fromPath === 'login' && (
+                  <LinearGradient
+                    colors={['#8090ff', '#2c43db']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    className="rounded-xl overflow-hidden shadow-lg"
+                  >
+                    <Button
+                      className="flex-row items-center justify-center gap-2 py-4"
+                      onPress={handleToDashboard}
+                    >
+                      <Typo className="text-white text-center">Skip</Typo>
+                    </Button>
+                  </LinearGradient>
+                )}
               </View>
             </BlurView>
           </Animated.View>
