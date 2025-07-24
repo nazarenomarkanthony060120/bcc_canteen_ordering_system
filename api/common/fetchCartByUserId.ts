@@ -28,6 +28,7 @@ export const fetchCartByUserId = async ({ id }: UserIdRequest) => {
           foodId: cartData.foodId,
           userId: cartData.userId,
           storeId: cartData.storeId,
+          gcashImage: cartData.gcashImage,
           storeOwnerId: cartData.storeOwnerId,
           quantity: cartData.quantity,
           totalPrice: cartData.totalPrice,

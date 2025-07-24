@@ -9,6 +9,7 @@ import CartItem from './component/CartItem'
 import CartSummary from './component/CartSummary'
 import CartFooter from './component/CartFooter'
 import PaymentMethodModal from './component/PaymentMethodModal'
+import GCashPaymentModal from './component/GCashPaymentModal'
 import OrderNotification from '../notification/OrderNotification'
 import { useAuth } from '@/context/auth'
 import { useFetchCartByUserId } from '@/hooks/useQuery/common/fetch/useFetchCartByUserId'
@@ -26,8 +27,11 @@ const Cart = () => {
   const [refreshing, setRefreshing] = useState(false)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [isReserving, setIsReserving] = useState(false)
-  const [selectedPickupTime, setSelectedPickupTime] = useState<Date | null>(null)
+  const [selectedPickupTime, setSelectedPickupTime] = useState<Date | null>(
+    null,
+  )
   const [showOrderNotification, setShowOrderNotification] = useState(false)
+  const [showGCashModal, setShowGCashModal] = useState(false)
   const [orderDetails, setOrderDetails] = useState<{
     items: CartAdditionItem[]
     totalAmount: number
@@ -106,10 +110,59 @@ const Cart = () => {
   const handlePaymentSelection = (method: 'GCash' | 'Cash') => {
     setShowPaymentModal(false)
     if (method === 'GCash') {
-      Alert.alert(
-        'GCash Payment Coming Soon',
-        'We are currently working on integrating GCash payments. For now, please use cash payment at the counter.',
-        [{ text: 'OK' }],
+      setShowGCashModal(true)
+      saveReservedOrder(
+        {
+          userId: auth.user?.uid || '',
+          cartItems: cartItems as CartAdditionItem[],
+          totalAmount: total,
+          paymentMethod: method,
+          paid: 'paid',
+          pickupTime: selectedPickupTime || undefined,
+        },
+        {
+          onSuccess: (orderId) => {
+            // Prepare order details for notification
+            setOrderDetails({
+              items: cartItems as CartAdditionItem[],
+              totalAmount: total,
+              paymentMethod: method,
+              pickupTime: selectedPickupTime || undefined,
+              orderId: orderId,
+            })
+
+            // Delete all cart items after successful reservation
+            const deletePromises =
+              cartItems?.map((item) => deleteCartItem(item.id)) || []
+            Promise.all(deletePromises)
+              .then(() => {
+                setIsReserving(false)
+                setSelectedPickupTime(null)
+                // Show the order notification instead of alert
+                setShowOrderNotification(true)
+              })
+              .catch((error) => {
+                console.error('Error clearing cart:', error)
+                setIsReserving(false)
+                setSelectedPickupTime(null)
+                Alert.alert(
+                  'Warning',
+                  'Your order was reserved but there was an error clearing your cart. Please try clearing it manually.',
+                  [{ text: 'OK' }],
+                )
+              })
+          },
+          onError: (error) => {
+            setIsReserving(false)
+            setSelectedPickupTime(null)
+            Alert.alert(
+              'Error',
+              'There was an error reserving your order. Please try again.',
+              [{ text: 'OK' }],
+            )
+            console.error('Error saving reserved order:', error)
+          },
+        },
       )
     } else {
       setIsReserving(true)
@@ -248,6 +301,14 @@ const Cart = () => {
         onClose={() => setShowPaymentModal(false)}
         onSelectPayment={handlePaymentSelection}
         total={total}
+      />
+
+      <GCashPaymentModal
+        visible={showGCashModal}
+        onClose={() => setShowGCashModal(false)}
+        cartItems={cartItems || []}
+        total={total}
+        totalItems={totalItems}
       />
 
       <OrderNotification

@@ -14,9 +14,9 @@ interface SalesChartProps {
 
 const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
   const chartConfig = {
-    backgroundColor: 'transparent',
-    backgroundGradientFrom: 'transparent',
-    backgroundGradientTo: 'transparent',
+    backgroundColor: 'white',
+    backgroundGradientFrom: 'white',
+    backgroundGradientTo: 'white',
     decimalPlaces: 0,
     color: (opacity = 1) => `rgba(5, 150, 105, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(107, 114, 128, ${opacity})`,

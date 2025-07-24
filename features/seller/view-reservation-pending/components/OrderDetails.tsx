@@ -69,16 +69,12 @@ const OrderDetails = ({ items, foods }: OrderDetailsProps) => {
           </Typo>
         </View>
         <View className="bg-gray-50 rounded-2xl gap-3 p-4">
-          {filteredItems.map((item) => {
+          {filteredItems.map((item, index) => {
             const food = foods.find((f) => f?.id === item.foodId)
             if (!food) return null
 
             return (
-              <OrderItem
-                key={`${item.foodId}-${item.quantity}`}
-                item={item}
-                food={food}
-              />
+              <OrderItem key={index + '' + item.id} item={item} food={food} />
             )
           })}
         </View>

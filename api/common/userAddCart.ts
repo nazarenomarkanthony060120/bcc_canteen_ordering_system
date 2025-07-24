@@ -8,6 +8,7 @@ export const userAddCart = async (data: AddCartRequest) => {
     userId: data.userId,
     storeOwnerId: data.storeOwnerId,
     storeId: data.storeId,
+    gcashImage: data.gcashImage,
     totalPrice: Number(data.totalPrice),
     quantity: Number(data.quantity),
     createdAt: serverTimestamp(),

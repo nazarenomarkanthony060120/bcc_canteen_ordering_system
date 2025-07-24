@@ -7,9 +7,14 @@ import Typo from '@/components/common/typo'
 interface OrderSummaryProps {
   paymentMethod: string
   totalAmount: number
+  paid: string
 }
 
-const OrderSummary = ({ paymentMethod, totalAmount }: OrderSummaryProps) => {
+const OrderSummary = ({
+  paymentMethod,
+  totalAmount,
+  paid,
+}: OrderSummaryProps) => {
   return (
     <BlurView intensity={20} className="rounded-3xl overflow-hidden mb-4">
       <View className="bg-white/90 p-4">
@@ -32,7 +37,7 @@ const OrderSummary = ({ paymentMethod, totalAmount }: OrderSummaryProps) => {
                 style={{ marginRight: 4 }}
               />
               <Typo className="text-gray-800 font-semibold">
-                {paymentMethod}
+                {paymentMethod} - {paid ? 'Paid' : 'Unpaid'}
               </Typo>
             </View>
           </View>

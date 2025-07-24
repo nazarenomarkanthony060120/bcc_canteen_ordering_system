@@ -140,6 +140,7 @@ export type Cart = {
   foodId: string
   userId: string
   quantity: number
+  gcashImage?: string | null
   totalPrice: number
   createdAt: FieldValue
   updatedAt: FieldValue
@@ -156,6 +157,7 @@ export type Reservation = {
   items: ReservedItem[]
   totalAmount: number
   status: number
+  paid: string
   createdAt: any
   paymentMethod: string
   pickupTime?: Date | string | null
@@ -163,6 +165,7 @@ export type Reservation = {
 
 export type SaveReservedOrderType = {
   userId: string
+  paid?: string
   cartItems: CartAdditionItem[]
   totalAmount: number
   paymentMethod: 'Cash' | 'GCash'
@@ -186,6 +189,7 @@ export type ReservationOrders = {
   userId: string
   items: ReservedItem[]
   paymentMethod: string
+  paid: string
   status: number
   totalAmount: number
   pickupTime?: Date | string | null

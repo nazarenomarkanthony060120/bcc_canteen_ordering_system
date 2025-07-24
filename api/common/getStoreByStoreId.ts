@@ -18,6 +18,7 @@ export const getStoreByStoreId = async ({
       userId: data.userId,
       store: data.store,
       image: data.image,
+      gcashImage: data.gcashImage,
       address: data.address,
       status: data.status,
       storeHealth: data.storeHealth,

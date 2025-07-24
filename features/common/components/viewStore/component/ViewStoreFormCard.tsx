@@ -12,6 +12,7 @@ import { Timestamp } from 'firebase/firestore'
 import ViewStoreActionStatus from './ViewStoreActionStatus'
 import { useAuth } from '@/context/auth'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import MenuOfTheDay from '@/features/seller/my-store/component/MenuOfTheDay'
 
 interface ViewStoreFormCardProps {
   foods: Food[] | null | undefined
@@ -152,7 +153,7 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
           </View>
         </View>
       </Animated.View>
-
+      <MenuOfTheDay storeId={store?.id} />
       {user?.type === UserType.ADMIN && (
         <Animated.View style={{ opacity: fadeAnim }}>
           <ViewStoreActionStatus storeId={store?.id} status={store?.status} />

@@ -116,7 +116,7 @@ const MyStoreFormCard = ({ store }: MyStoreFormCardProps) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView className="gap-2">
         <MyStoreFormHeader store={store} />
-        <MenuOfTheDay />
+        <MenuOfTheDay storeId={store?.id} />
         <View className="flex-row justify-center items-center gap-2 py-2">
           <MaterialIcons name="restaurant-menu" size={24} color="#667eea" />
           <Typo className="text-gray-800 text-lg font-semibold">All Foods</Typo>

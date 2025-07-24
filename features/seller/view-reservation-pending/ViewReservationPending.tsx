@@ -179,6 +179,7 @@ const ViewReservationPending = () => {
           <OrderSummary
             paymentMethod={reservation.paymentMethod}
             totalAmount={totalAmount}
+            paid={reservation.paid}
           />
         </Animated.View>
       </ScrollView>

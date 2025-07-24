@@ -66,7 +66,7 @@ const ApplyForApproval = ({
             style={{
               borderWidth: 1,
               borderColor: applyStatus.borderColor,
-              borderRadius: 16,
+              borderRadius: 100,
               backgroundColor: applyStatus.bgColor,
               paddingHorizontal: 14,
               paddingVertical: 8,

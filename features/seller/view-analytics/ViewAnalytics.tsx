@@ -501,7 +501,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
                   icon="trending-up"
                   iconColor="#059669"
                   bgColor="bg-emerald-500"
-                  textColor="text-white"
+                  textColor="text-black"
                   timeFilter={timeFilter}
                 />
                 <SummaryCard
@@ -510,7 +510,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
                   icon="shopping-cart-checkout"
                   iconColor="#2563eb"
                   bgColor="bg-blue-500"
-                  textColor="text-white"
+                  textColor="text-black"
                   subtitle={`${stats.averageOrderValue.toFixed(2)} avg. order`}
                 />
               </View>

@@ -10,6 +10,7 @@ export const saveReservedOrder = async ({
   userId,
   cartItems,
   totalAmount,
+  paid,
   paymentMethod,
   pickupTime,
 }: SaveReservedOrderType) => {
@@ -33,6 +34,7 @@ export const saveReservedOrder = async ({
     const reservedOrder = {
       userId,
       items: mappedItems,
+      paid: paid || '',
       totalAmount,
       paymentMethod,
       pickupTime: pickupTime || null,

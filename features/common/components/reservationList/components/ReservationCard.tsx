@@ -194,9 +194,9 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
           </View>
 
           <View className="space-y-2">
-            {reservation.items.map((item) => (
+            {reservation.items.map((item, index) => (
               <ReservationItem
-                key={item.id + '' + item.foodId}
+                key={index + '' + item.id}
                 item={item}
                 id={reservation.id}
               />
@@ -207,7 +207,8 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
             <View className="flex-row justify-between items-center">
               <Text className="text-gray-500">Payment Method</Text>
               <Text className="text-gray-800 font-medium">
-                {reservation.paymentMethod}
+                {reservation.paymentMethod} -{' '}
+                {reservation.paid ? 'Paid' : 'Unpaid'}
               </Text>
             </View>
             <View className="flex-row justify-between items-center mt-2">

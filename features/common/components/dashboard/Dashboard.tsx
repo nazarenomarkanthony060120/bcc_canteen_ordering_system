@@ -13,6 +13,7 @@ import { useAuth } from '@/context/auth'
 import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
 import { useFetchNewlyAddedFoods } from '@/hooks/useQuery/common/fetch/useFetchNewlyAddedFoods'
 import { FoodType } from '@/utils/types'
+import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStores'
 
 const Dashboard = () => {
   const auth = useAuth()
@@ -21,6 +22,7 @@ const Dashboard = () => {
   })
   const { refetch: refetchPopularFood } = useFetchAllPopularFoods()
   const { refetch: refetchNewlyAddedFood } = useFetchNewlyAddedFoods()
+  const { refetch: refetchStores } = useFetchAllStores()
 
   const [refreshing, setRefreshing] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('1')
@@ -36,6 +38,7 @@ const Dashboard = () => {
       refetchUser()
       refetchPopularFood()
       refetchNewlyAddedFood()
+      refetchStores()
     }, 2000)
   }, [])
 

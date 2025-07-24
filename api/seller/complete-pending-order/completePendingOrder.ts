@@ -44,6 +44,7 @@ export const completePendingOrder = async ({
   // Update reservation status
   await updateDoc(reservationRef, {
     items: updatedItems,
+    paid: 'Paid',
     updatedAt: new Date().toISOString(),
   })
 

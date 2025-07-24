@@ -11,22 +11,21 @@ import PagerView from 'react-native-pager-view'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'
 import { useAuth } from '@/context/auth'
-import { useFetchStoreByUserId } from '@/hooks/useQuery/common/fetch/useFetchStoreByUserId'
 import { useFetchTodaysFoods } from '@/hooks/useQuery/seller/useFetchTodaysFoods'
 import Typo from '@/components/common/typo'
 
+interface MenuOfTheDayProps {
+  storeId: string | undefined
+}
+
 const { width: screenWidth } = Dimensions.get('window')
 
-const MenuOfTheDay = () => {
+const MenuOfTheDay = ({ storeId }: MenuOfTheDayProps) => {
   const auth = useAuth()
   const [currentPage, setCurrentPage] = useState(0)
   const pagerRef = useRef<PagerView>(null)
   const fadeAnim = useRef(new Animated.Value(0)).current
   const scaleAnim = useRef(new Animated.Value(0.9)).current
-
-  // Fetch user's store
-  const { data: stores } = useFetchStoreByUserId({ id: auth.user?.uid })
-  const storeId = stores?.[0]?.id
 
   // Fetch today's foods
   const { data: todaysFoods, isLoading } = useFetchTodaysFoods({ id: storeId })

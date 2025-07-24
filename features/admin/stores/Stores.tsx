@@ -68,7 +68,7 @@ const Stores = () => {
             }}
           >
             <StoresHeader />
-            <View className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl overflow-hidden border border-white/30 ">
+            <View className="overflow-hidden">
               <MasonryFlashList
                 data={stores}
                 estimatedItemSize={200}

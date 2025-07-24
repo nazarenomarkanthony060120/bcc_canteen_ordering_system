@@ -30,7 +30,7 @@ const SummaryCard = ({
 }: SummaryCardProps) => (
   <View className={`${trend ? 'mr-2' : 'ml-2'} flex-1`}>
     <LinearGradient
-      colors={[bgColor, `${bgColor}99`]}
+      colors={['#fff', `#fff`]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       className="p-4 rounded-2xl"
