@@ -41,59 +41,52 @@ const Stores = () => {
   if (isLoading && !refreshing) return <LoadingIndicator />
 
   return (
-    <LinearGradient
-      colors={['#6a11cb', '#2575fc']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      className="flex-1"
-    >
-      <Admin className="flex-1">
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          className="p-5"
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              tintColor="#ffffff"
-              colors={['#ffffff']}
-              progressBackgroundColor="#ffffff"
-            />
-          }
+    <Admin className="flex-1 bg-white/50">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="p-5"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#ffffff"
+            colors={['#ffffff']}
+            progressBackgroundColor="#ffffff"
+          />
+        }
+      >
+        <Animated.View
+          style={{
+            opacity: fadeAnim,
+            transform: [{ translateY: slideAnim }],
+          }}
         >
-          <Animated.View
-            style={{
-              opacity: fadeAnim,
-              transform: [{ translateY: slideAnim }],
-            }}
-          >
-            <StoresHeader />
-            <View className="overflow-hidden">
-              <MasonryFlashList
-                data={stores}
-                estimatedItemSize={200}
-                renderItem={({ item }) => <StoresList store={item} />}
-                keyExtractor={(item) => item.id}
-                showsVerticalScrollIndicator={false}
-                ListEmptyComponent={
-                  <View className="p-8 items-center">
-                    <MaterialIcons name="store" size={48} color="#9CA3AF" />
-                    <Text className="text-gray-500 text-lg mt-2">
-                      No stores found
-                    </Text>
-                    <Text className="text-gray-400 text-sm mt-1">
-                      Pull down to refresh
-                    </Text>
-                  </View>
-                }
-                refreshing={refreshing}
-                contentContainerStyle={{ padding: 16 }}
-              />
-            </View>
-          </Animated.View>
-        </ScrollView>
-      </Admin>
-    </LinearGradient>
+          <StoresHeader />
+          <View className="overflow-hidden">
+            <MasonryFlashList
+              data={stores}
+              estimatedItemSize={200}
+              renderItem={({ item }) => <StoresList store={item} />}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={
+                <View className="p-8 items-center">
+                  <MaterialIcons name="store" size={48} color="#9CA3AF" />
+                  <Text className="text-gray-500 text-lg mt-2">
+                    No stores found
+                  </Text>
+                  <Text className="text-gray-400 text-sm mt-1">
+                    Pull down to refresh
+                  </Text>
+                </View>
+              }
+              refreshing={refreshing}
+              contentContainerStyle={{ padding: 16 }}
+            />
+          </View>
+        </Animated.View>
+      </ScrollView>
+    </Admin>
   )
 }
 
