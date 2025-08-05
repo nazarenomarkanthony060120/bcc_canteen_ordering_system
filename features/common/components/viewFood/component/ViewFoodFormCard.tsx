@@ -5,6 +5,7 @@ import ViewFoodFormHeader from './ViewFoodFormHeader'
 import ViewFoodFormContents from './ViewFoodFormContents'
 import ViewFoodFormFooter from './ViewFoodFormFooter'
 import { BlurView } from 'expo-blur'
+import ViewFoodFeedback from './ViewFoodFeedback'
 
 interface ViewFoodFormCardProps {
   food: Food | null | undefined
@@ -49,6 +50,7 @@ const ViewFoodFormCard = ({ food, store }: ViewFoodFormCardProps) => {
         >
           <View className="bg-white/95">
             <ViewFoodFormContents food={food} />
+            <ViewFoodFeedback foodId={food?.id} />
             <ViewFoodFormFooter food={food} store={store} />
           </View>
         </BlurView>

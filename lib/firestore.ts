@@ -17,6 +17,11 @@ import {
   limit,
   updateDoc,
   Timestamp,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -52,5 +57,10 @@ export {
   limit,
   updateDoc,
   Timestamp,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
   secondaryAuth,
 }

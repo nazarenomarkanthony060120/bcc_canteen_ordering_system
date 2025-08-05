@@ -112,8 +112,17 @@ const ReservationItem = ({ item, id }: { item: ReservedItem; id: string }) => {
     })
   }
 
+  const navigateToFoodFeedback = () => {
+    router.push({
+      pathname: '/screens/(customer)/feed-back/feedBack',
+      params: {
+        foodId: item.foodId,
+      },
+    })
+  }
+
   return (
-    <Pressable>
+    <Pressable onPress={navigateToFoodFeedback}>
       <View className="flex-row justify-between items-center py-2 border-b border-gray-100">
         <View className="flex-1">
           <Text className="text-gray-800 font-medium">{food.name}</Text>

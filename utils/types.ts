@@ -304,6 +304,32 @@ export enum UserKYCStatusText {
   UNKWON = 'Unknown',
 }
 
+// Feedback Types
+export type SubmitFeedbackRequest = {
+  foodId: string
+  userId: string
+  rating: number
+  feedback: string
+}
+
+export type FeedBack = {
+  id: string
+  foodId: string
+  userId: string
+  rating: number
+  feedback: string
+  createdAt: FieldValue
+  updatedAt: FieldValue
+}
+
+export type FeedbackIdRequest = {
+  id: string
+}
+
+// export type FoodIdRequest = {
+//   foodId: string
+// }
+
 // String declared
 export type AuthErrorType =
   | String
