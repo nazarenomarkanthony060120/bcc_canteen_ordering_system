@@ -1,4 +1,4 @@
-import Dashboard from '@/features/common/components/dashboard/Dashboard'
+import Dashboard from '@/features/seller/dashboard/Dashboard'
 import React from 'react'
 
 const DashboardScreen = () => {
