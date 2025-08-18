@@ -13,6 +13,7 @@ import GCashPaymentModal from './component/GCashPaymentModal'
 import OrderNotification from '../notification/OrderNotification'
 import { useAuth } from '@/context/auth'
 import { useFetchCartByUserId } from '@/hooks/useQuery/common/fetch/useFetchCartByUserId'
+import { useCheckDailyCartLimit } from '@/hooks/useQuery/common/useCheckDailyCartLimit'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 import { useGetFoodByFoodId } from '@/hooks/useQuery/common/get/useGetFoodByFoodId'
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
@@ -48,6 +49,10 @@ const Cart = () => {
   } = useFetchCartByUserId({
     id: auth.user?.uid,
   })
+  const { data: dailyLimitData, refetch: refetchDailyLimit } =
+    useCheckDailyCartLimit({
+      id: auth.user?.uid,
+    })
   const { mutate: updateQuantity } = useUpdateCartQuantity()
   const { mutate: deleteCartItem } = useDeleteCart()
   const { mutate: saveReservedOrder } = useSaveReservedOrder()
@@ -70,7 +75,7 @@ const Cart = () => {
   const onRefresh = async () => {
     setRefreshing(true)
     try {
-      await refetch()
+      await Promise.all([refetch(), refetchDailyLimit()])
     } finally {
       setRefreshing(false)
     }
@@ -84,7 +89,16 @@ const Cart = () => {
     if (newQuantity < 0) return
 
     if (newQuantity === 0) {
-      deleteCartItem(id)
+      deleteCartItem(id, {
+        onSuccess: () => {
+          // Refetch daily limit data when item is deleted
+          refetchDailyLimit()
+        },
+        onError: (error) => {
+          console.error('Error deleting cart item:', error)
+          Alert.alert('Error', 'Failed to remove item from cart')
+        },
+      })
       return
     }
 
