@@ -100,7 +100,7 @@ const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
               icon={<AntDesign name="shoppingcart" size={24} color="white" />}
             >
               <Text className="text-white text-lg font-semibold">
-                Order Now
+                Add to cart
               </Text>
             </Button>
           )}

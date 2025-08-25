@@ -125,59 +125,6 @@ const Cart = () => {
     setShowPaymentModal(false)
     if (method === 'GCash') {
       setShowGCashModal(true)
-      saveReservedOrder(
-        {
-          userId: auth.user?.uid || '',
-          cartItems: cartItems as CartAdditionItem[],
-          totalAmount: total,
-          paymentMethod: method,
-          paid: 'paid',
-          pickupTime: selectedPickupTime || undefined,
-        },
-        {
-          onSuccess: (orderId) => {
-            // Prepare order details for notification
-            setOrderDetails({
-              items: cartItems as CartAdditionItem[],
-              totalAmount: total,
-              paymentMethod: method,
-              pickupTime: selectedPickupTime || undefined,
-              orderId: orderId,
-            })
-
-            // Delete all cart items after successful reservation
-            const deletePromises =
-              cartItems?.map((item) => deleteCartItem(item.id)) || []
-            Promise.all(deletePromises)
-              .then(() => {
-                setIsReserving(false)
-                setSelectedPickupTime(null)
-                // Show the order notification instead of alert
-                setShowOrderNotification(true)
-              })
-              .catch((error) => {
-                console.error('Error clearing cart:', error)
-                setIsReserving(false)
-                setSelectedPickupTime(null)
-                Alert.alert(
-                  'Warning',
-                  'Your order was reserved but there was an error clearing your cart. Please try clearing it manually.',
-                  [{ text: 'OK' }],
-                )
-              })
-          },
-          onError: (error) => {
-            setIsReserving(false)
-            setSelectedPickupTime(null)
-            Alert.alert(
-              'Error',
-              'There was an error reserving your order. Please try again.',
-              [{ text: 'OK' }],
-            )
-            console.error('Error saving reserved order:', error)
-          },
-        },
-      )
     } else {
       setIsReserving(true)
       // Save the order to reserved collection
@@ -234,6 +181,65 @@ const Cart = () => {
         },
       )
     }
+  }
+
+  const handleGCashConfirmation = () => {
+    setIsReserving(true)
+    setShowGCashModal(false)
+
+    saveReservedOrder(
+      {
+        userId: auth.user?.uid || '',
+        cartItems: cartItems as CartAdditionItem[],
+        totalAmount: total,
+        paymentMethod: 'GCash',
+        paid: 'paid',
+        pickupTime: selectedPickupTime || undefined,
+      },
+      {
+        onSuccess: (orderId) => {
+          // Prepare order details for notification
+          setOrderDetails({
+            items: cartItems as CartAdditionItem[],
+            totalAmount: total,
+            paymentMethod: 'GCash',
+            pickupTime: selectedPickupTime || undefined,
+            orderId: orderId,
+          })
+
+          // Delete all cart items after successful reservation
+          const deletePromises =
+            cartItems?.map((item) => deleteCartItem(item.id)) || []
+          Promise.all(deletePromises)
+            .then(() => {
+              setIsReserving(false)
+              setSelectedPickupTime(null)
+              // Show the order notification instead of alert
+              setShowOrderNotification(true)
+            })
+            .catch((error) => {
+              console.error('Error clearing cart:', error)
+              setIsReserving(false)
+              setSelectedPickupTime(null)
+              Alert.alert(
+                'Warning',
+                'Your order was reserved but there was an error clearing your cart. Please try clearing it manually.',
+                [{ text: 'OK' }],
+              )
+            })
+        },
+        onError: (error) => {
+          setIsReserving(false)
+          setSelectedPickupTime(null)
+          Alert.alert(
+            'Error',
+            'There was an error reserving your order. Please try again.',
+            [{ text: 'OK' }],
+          )
+          console.error('Error saving reserved order:', error)
+        },
+      },
+    )
   }
 
   const handleCloseNotification = () => {
@@ -320,6 +326,7 @@ const Cart = () => {
       <GCashPaymentModal
         visible={showGCashModal}
         onClose={() => setShowGCashModal(false)}
+        onConfirm={handleGCashConfirmation}
         cartItems={cartItems || []}
         total={total}
         totalItems={totalItems}

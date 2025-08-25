@@ -41,7 +41,7 @@ const CartFooter: React.FC<CartFooterProps> = ({
           }`}
         >
           <Typo className="text-white font-semibold">
-            {disabled ? 'Processing...' : 'Checkout'}
+            {disabled ? 'Processing...' : 'Order Now'}
           </Typo>
         </TouchableOpacity>
       </View>

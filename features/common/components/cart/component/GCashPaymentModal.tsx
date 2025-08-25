@@ -11,6 +11,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 interface GCashPaymentModalProps {
   visible: boolean
   onClose: () => void
+  onConfirm: () => void
   cartItems: CartType[]
   total: number
   totalItems: number
@@ -19,6 +20,7 @@ interface GCashPaymentModalProps {
 const GCashPaymentModal: React.FC<GCashPaymentModalProps> = ({
   visible,
   onClose,
+  onConfirm,
   cartItems,
   total,
   totalItems,
@@ -105,15 +107,25 @@ const GCashPaymentModal: React.FC<GCashPaymentModalProps> = ({
               </View>
             </View>
 
-            {/* Action Button */}
-            <TouchableOpacity
-              onPress={onClose}
-              className="bg-green-500 py-4 rounded-full"
-            >
-              <Typo className="text-white font-semibold text-center text-lg">
-                Got it!
-              </Typo>
-            </TouchableOpacity>
+            {/* Action Buttons */}
+            <View className="flex-row gap-3">
+              <TouchableOpacity
+                onPress={onClose}
+                className="flex-1 bg-gray-500 py-4 rounded-full"
+              >
+                <Typo className="text-white font-semibold text-center text-lg">
+                  Cancel
+                </Typo>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={onConfirm}
+                className="flex-1 bg-green-500 py-4 rounded-full"
+              >
+                <Typo className="text-white font-semibold text-center text-lg">
+                  Confirm Payment
+                </Typo>
+              </TouchableOpacity>
+            </View>
           </View>
         </BlurView>
       </View>

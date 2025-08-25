@@ -260,10 +260,10 @@ const ViewFoodFormFooter = ({ food, store }: ViewFoodFormFooterProps) => {
             <AntDesign name="shoppingcart" size={20} color="white" />
             <Typo className="text-white font-semibold">
               {isPending
-                ? 'Adding...'
+                ? 'Checking out...'
                 : dailyLimitData && !dailyLimitData.canAddToCart
                   ? 'Limit Reached'
-                  : 'Add to Cart'}
+                  : 'Check Out'}
             </Typo>
           </Pressable>
         </View>

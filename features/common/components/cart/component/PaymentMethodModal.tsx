@@ -40,7 +40,7 @@ const PaymentMethodModal: React.FC<PaymentMethodModalProps> = ({
               </Text>
             </View>
             <Text className="text-white/80 text-center text-sm mt-1">
-              Coming Soon
+              Pay with your Gcash Account
             </Text>
           </TouchableOpacity>
 
