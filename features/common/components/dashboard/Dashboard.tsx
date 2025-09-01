@@ -8,6 +8,7 @@ import Typo from '@/components/common/typo'
 import DashboardHeader from './components/DashboardHeader'
 import DashboardCategories from './components/DashboardCategories'
 import DashboardFormCard from './components/DashboardFormCard'
+import DashboardSkeleton from './components/skeletons/DashboardSkeleton'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 import { useAuth } from '@/context/auth'
 import { useFetchAllPopularFoods } from '@/hooks/useQuery/common/fetch/useFetchAllPopularFoods'
@@ -17,12 +18,17 @@ import { useFetchAllStores } from '@/hooks/useQuery/common/fetch/useFetchAllStor
 
 const Dashboard = () => {
   const auth = useAuth()
-  const { refetch: refetchUser } = useGetUserByUserId({
-    id: auth.user?.uid,
-  })
-  const { refetch: refetchPopularFood } = useFetchAllPopularFoods()
-  const { refetch: refetchNewlyAddedFood } = useFetchNewlyAddedFoods()
-  const { refetch: refetchStores } = useFetchAllStores()
+  const { refetch: refetchUser, isLoading: isLoadingUser } = useGetUserByUserId(
+    {
+      id: auth.user?.uid,
+    },
+  )
+  const { refetch: refetchPopularFood, isLoading: isLoadingPopularFood } =
+    useFetchAllPopularFoods()
+  const { refetch: refetchNewlyAddedFood, isLoading: isLoadingNewlyAddedFood } =
+    useFetchNewlyAddedFoods()
+  const { refetch: refetchStores, isLoading: isLoadingStores } =
+    useFetchAllStores()
 
   const [refreshing, setRefreshing] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('1')
@@ -92,6 +98,19 @@ const Dashboard = () => {
 
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId)
+  }
+
+  // Check if we're in initial loading state (not refreshing)
+  const isInitialLoading =
+    !refreshing &&
+    (isLoadingUser ||
+      isLoadingPopularFood ||
+      isLoadingNewlyAddedFood ||
+      isLoadingStores)
+
+  // Show skeleton during initial loading
+  if (isInitialLoading) {
+    return <DashboardSkeleton />
   }
 
   return (

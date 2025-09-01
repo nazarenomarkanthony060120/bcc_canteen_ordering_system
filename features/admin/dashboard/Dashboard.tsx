@@ -16,6 +16,7 @@ import { useAuth } from '@/context/auth'
 import { useFetchAllMembers } from '@/hooks/useQuery/admin/members/useFetchAllMembers'
 import { UserKYCStatus } from '@/utils/types'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
+import AdminDashboardSkeleton from './components/skeletons/AdminDashboardSkeleton'
 import SellerCard from './components/SellerCard'
 import EmptyState from './components/EmptyState'
 import FromDashboardHeader from './components/DashboardHeader'
@@ -83,8 +84,12 @@ const Dashboard: React.FC = () => {
     return { total, active, applied, disabled }
   }, [sellers])
 
-  if (isLoading && !refreshing) {
-    return <LoadingIndicator />
+  // Check if we're in initial loading state (not refreshing)
+  const isInitialLoading = !refreshing && isLoading
+
+  // Show skeleton during initial loading
+  if (isInitialLoading) {
+    return <AdminDashboardSkeleton />
   }
 
   if (error) {

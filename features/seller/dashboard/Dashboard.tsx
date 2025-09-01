@@ -18,6 +18,7 @@ import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUser
 import Seller from '../Seller'
 import Typo from '@/components/common/typo'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
+import SellerDashboardSkeleton from './components/skeletons/SellerDashboardSkeleton'
 import { StoreStatus } from '@/utils/types'
 import DashboardHeader from '@/features/common/components/dashboard/components/DashboardHeader'
 
@@ -30,20 +31,24 @@ const Dashboard = () => {
   const slideAnim = useRef(new Animated.Value(50)).current
   const scaleAnim = useRef(new Animated.Value(0.95)).current
 
-  const { data: user, refetch: refetchUser } = useGetUserByUserId({
+  const {
+    data: user,
+    refetch: refetchUser,
+    isLoading: isLoadingUser,
+  } = useGetUserByUserId({
     id: auth.user?.uid,
   })
 
   const {
     data: stores,
-    isLoading,
+    isLoading: isLoadingStores,
     refetch: refetchStores,
   } = useFetchStoreByUserId({
     id: auth.user?.uid,
   })
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoadingStores && !isLoadingUser) {
       Animated.parallel([
         Animated.timing(fadeAnim, {
           toValue: 1,
@@ -64,7 +69,7 @@ const Dashboard = () => {
         }),
       ]).start()
     }
-  }, [isLoading])
+  }, [isLoadingStores, isLoadingUser])
 
   const onRefresh = async () => {
     setRefreshing(true)
@@ -113,7 +118,13 @@ const Dashboard = () => {
     }
   }
 
-  if (isLoading && !refreshing) return <LoadingIndicator />
+  // Check if we're in initial loading state (not refreshing)
+  const isInitialLoading = !refreshing && (isLoadingStores || isLoadingUser)
+
+  // Show skeleton during initial loading
+  if (isInitialLoading) {
+    return <SellerDashboardSkeleton />
+  }
 
   return (
     <Seller className="flex-1">
