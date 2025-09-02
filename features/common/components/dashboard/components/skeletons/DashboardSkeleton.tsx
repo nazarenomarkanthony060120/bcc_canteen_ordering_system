@@ -8,6 +8,7 @@ import DashboardHeaderSkeleton from './DashboardHeaderSkeleton'
 import DashboardCategoriesSkeleton from './DashboardCategoriesSkeleton'
 import DashboardFormCardSkeleton from './DashboardFormCardSkeleton'
 import ScreenLayout from '../../../screenLayout/ScreenLayout'
+import SkeletonPlaceholder from './SkeletonPlaceholder'
 
 const DashboardSkeleton = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current
@@ -60,9 +61,12 @@ const DashboardSkeleton = () => {
                 >
                   <View className="bg-white/90 p-4">
                     <View className="flex-row items-center justify-between mb-4">
-                      <Typo className="text-gray-800 font-semibold">
-                        Popular Items
-                      </Typo>
+                      <SkeletonPlaceholder
+                        width={80}
+                        height={12}
+                        borderRadius={6}
+                        style={{ marginBottom: 4 }}
+                      />
                     </View>
                     <DashboardFormCardSkeleton />
                   </View>
