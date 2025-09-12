@@ -2,7 +2,7 @@ import React from 'react'
 import { Food } from '@/utils/types'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ImageWrapper from '@/components/parts/Image'
-import { Text, View } from 'react-native'
+import { Text, View, TouchableOpacity, Alert } from 'react-native'
 import { CANTEEN_IMAGE } from '@/constants/image'
 import Typo from '@/components/common/typo'
 import {
@@ -12,12 +12,46 @@ import {
 } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
+import { useDeleteFood } from '@/hooks/useMutation/seller/delete-food/useDeleteFood'
 
 interface MyStoreFormContentsProps {
   food: Food
 }
 
 const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
+  const deleteFood = useDeleteFood()
+
+  const handleDeleteFood = () => {
+    Alert.alert(
+      'Delete Food Item',
+      `Are you sure you want to delete "${food.name}"? This action cannot be undone.`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            deleteFood.mutate(food.id, {
+              onSuccess: () => {
+                Alert.alert('Success', 'Food item deleted successfully!')
+              },
+              onError: (error) => {
+                Alert.alert(
+                  'Error',
+                  'Failed to delete food item. Please try again.',
+                )
+                console.error('Delete error:', error)
+              },
+            })
+          },
+        },
+      ],
+    )
+  }
+
   return (
     <SafeAreaView key={food.id} className="w-full mb-4">
       <BlurView
@@ -45,18 +79,31 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
                 colors={['transparent', 'rgba(0,0,0,0.7)']}
                 className="absolute bottom-0 left-0 right-0 p-4"
               >
-                <Typo className="text-white text-xl font-bold">
-                  {food.name}
-                </Typo>
-                <View className="flex-row items-center mt-1">
-                  <MaterialCommunityIcons
-                    name="currency-php"
-                    size={16}
-                    color="#10B981"
-                  />
-                  <Typo className="text-white/90 ml-1 font-semibold">
-                    {food.price} Php
-                  </Typo>
+                <View className="flex-row items-start justify-between">
+                  <View className="flex-1">
+                    <Typo className="text-white text-xl font-bold">
+                      {food.name}
+                    </Typo>
+                    <View className="flex-row items-center mt-1">
+                      <MaterialCommunityIcons
+                        name="currency-php"
+                        size={16}
+                        color="#10B981"
+                      />
+                      <Typo className="text-white/90 ml-1 font-semibold">
+                        {food.price} Php
+                      </Typo>
+                    </View>
+                  </View>
+
+                  <TouchableOpacity
+                    onPress={handleDeleteFood}
+                    className="bg-red-500/80 p-2 rounded-full ml-2"
+                    activeOpacity={0.7}
+                    disabled={deleteFood.isPending}
+                  >
+                    <MaterialIcons name="delete" size={20} color="white" />
+                  </TouchableOpacity>
                 </View>
               </LinearGradient>
             </View>

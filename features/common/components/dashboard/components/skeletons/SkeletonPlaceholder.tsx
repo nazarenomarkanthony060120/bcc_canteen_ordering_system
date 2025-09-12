@@ -66,3 +66,4 @@ const SkeletonPlaceholder: React.FC<SkeletonPlaceholderProps> = ({
 }
 
 export default SkeletonPlaceholder
+

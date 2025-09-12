@@ -64,3 +64,4 @@ const AdminStatsSkeleton = () => {
 }
 
 export default AdminStatsSkeleton
+

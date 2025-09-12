@@ -44,3 +44,4 @@ const DashboardCategoriesSkeleton = () => {
 }
 
 export default DashboardCategoriesSkeleton
+

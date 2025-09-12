@@ -203,3 +203,4 @@ const SellerCardSkeleton = () => {
 }
 
 export default SellerCardSkeleton
+

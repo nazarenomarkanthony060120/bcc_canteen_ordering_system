@@ -84,3 +84,4 @@ const StoreListSkeleton = () => {
 }
 
 export default StoreListSkeleton
+
