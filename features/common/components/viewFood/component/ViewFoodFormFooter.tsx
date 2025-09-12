@@ -249,10 +249,14 @@ const ViewFoodFormFooter = ({ food, store }: ViewFoodFormFooterProps) => {
           <Pressable
             onPress={handleAddToCart}
             disabled={
-              isPending || (dailyLimitData && !dailyLimitData.canAddToCart)
+              isPending ||
+              (dailyLimitData && !dailyLimitData.canAddToCart) ||
+              (food?.quantity ?? 0) === 0
             }
             className={`rounded-xl flex-row items-center gap-2 px-6 py-3 shadow-sm ${
-              isPending || (dailyLimitData && !dailyLimitData.canAddToCart)
+              isPending ||
+              (dailyLimitData && !dailyLimitData.canAddToCart) ||
+              (food?.quantity ?? 0) === 0
                 ? 'bg-gray-400'
                 : 'bg-emerald-500'
             }`}
@@ -261,9 +265,11 @@ const ViewFoodFormFooter = ({ food, store }: ViewFoodFormFooterProps) => {
             <Typo className="text-white font-semibold">
               {isPending
                 ? 'Checking out...'
-                : dailyLimitData && !dailyLimitData.canAddToCart
-                  ? 'Limit Reached'
-                  : 'Check Out'}
+                : (food?.quantity ?? 0) === 0
+                  ? 'Out of Stock'
+                  : dailyLimitData && !dailyLimitData.canAddToCart
+                    ? 'Limit Reached'
+                    : 'Check Out'}
             </Typo>
           </Pressable>
         </View>

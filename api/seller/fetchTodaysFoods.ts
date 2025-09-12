@@ -39,11 +39,6 @@ export const fetchTodaysFoods = async ({ id: storeId }: StoreIdRequest) => {
       if (!food.createdAt) return false
       const foodDate = (food.createdAt as any).toDate()
       const isToday = foodDate >= startOfDay && foodDate < endOfDay
-      console.log('Food date check:', {
-        foodName: food.name,
-        foodDate: foodDate.toISOString(),
-        isToday,
-      })
       return isToday
     })
 
