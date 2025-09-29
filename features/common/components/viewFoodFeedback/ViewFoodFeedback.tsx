@@ -50,17 +50,14 @@ const FeedbackItem = ({ feedback, index }: FeedbackItemProps) => {
   }, [index])
 
   const renderStars = (rating: number) => {
+    const stars = []
+    for (let i = 1; i <= 5; i++) {
+      stars.push(i <= rating ? '⭐' : '☆')
+    }
     return (
-      <View className="flex-row">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Ionicons
-            key={star}
-            name={star <= rating ? 'star' : 'star-outline'}
-            size={16}
-            color={star <= rating ? '#F59E0B' : '#D1D5DB'}
-          />
-        ))}
-      </View>
+      <Typo className="text-lg">
+        {stars.join('')} ({rating}/5)
+      </Typo>
     )
   }
 
@@ -106,11 +103,13 @@ const FeedbackItem = ({ feedback, index }: FeedbackItemProps) => {
             </View>
 
             <View className="flex-1">
-              <View className="flex-row items-center justify-between mb-2">
-                <View className="flex-row items-center gap-2">
-                  {renderStars(feedback.rating)}
-                  <Typo className="text-amber-600 text-sm font-medium">
-                    {feedback.rating}/5
+              <View className="mb-2">
+                <Typo className="text-gray-800 text-start w-full text-base mb-1">
+                  Order ID: {feedback.id.slice(-4)} → Status: Completed
+                </Typo>
+                <View className="flex-row items-center justify-between">
+                  <Typo className="text-gray-700 text-base">
+                    → Rating: {renderStars(feedback.rating)}
                   </Typo>
                 </View>
                 <Typo className="text-gray-500 text-xs">
@@ -118,9 +117,11 @@ const FeedbackItem = ({ feedback, index }: FeedbackItemProps) => {
                 </Typo>
               </View>
 
-              <Typo className="text-gray-800 text-base leading-6">
-                {feedback.feedback}
-              </Typo>
+              {feedback.feedback && (
+                <Typo className="text-gray-600 text-sm leading-5 mt-2">
+                  "{feedback.feedback}"
+                </Typo>
+              )}
             </View>
           </View>
         </View>
@@ -199,7 +200,7 @@ const ViewFoodFeedback = ({ foodId }: ViewFoodFeedbackProps) => {
         : 0,
   }))
 
-  const renderStars = (rating: number, size: number = 20) => {
+  const renderStarsOverview = (rating: number, size: number = 20) => {
     return (
       <View className="flex-row">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -231,7 +232,7 @@ const ViewFoodFeedback = ({ foodId }: ViewFoodFeedbackProps) => {
           </TouchableOpacity>
 
           <Typo className="text-gray-800 text-xl font-bold">
-            Customer Reviews
+            Completed Orders
           </Typo>
 
           <View className="w-12" />
@@ -305,7 +306,7 @@ const ViewFoodFeedback = ({ foodId }: ViewFoodFeedbackProps) => {
                       <Typo className="text-4xl font-bold text-amber-600">
                         {averageRating.toFixed(1)}
                       </Typo>
-                      {renderStars(Math.round(averageRating), 16)}
+                      {renderStarsOverview(Math.round(averageRating), 16)}
                       <Typo className="text-gray-600 text-sm mt-1">
                         {feedbacks.length} review
                         {feedbacks.length !== 1 ? 's' : ''}
@@ -353,7 +354,7 @@ const ViewFoodFeedback = ({ foodId }: ViewFoodFeedbackProps) => {
                     />
                   </View>
                   <Typo className="text-gray-800 text-lg font-bold">
-                    All Reviews ({feedbacks.length})
+                    Completed Orders ({feedbacks.length})
                   </Typo>
                 </View>
 
