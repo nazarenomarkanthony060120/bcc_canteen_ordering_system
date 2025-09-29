@@ -25,6 +25,28 @@ const GCashPaymentModal: React.FC<GCashPaymentModalProps> = ({
   total,
   totalItems,
 }) => {
+  const mergeCartItems = (items: CartType[]) => {
+    const merged: { [key: string]: CartType } = {}
+
+    items.forEach((item) => {
+      const key = item.foodId
+
+      if (merged[key]) {
+        merged[key] = {
+          ...merged[key],
+          quantity: merged[key].quantity + item.quantity,
+          totalPrice: merged[key].totalPrice + item.totalPrice,
+        }
+      } else {
+        merged[key] = { ...item }
+      }
+    })
+
+    return Object.values(merged)
+  }
+
+  const mergedCartItems = mergeCartItems(cartItems || [])
+
   return (
     <Modal
       visible={visible}
@@ -51,7 +73,7 @@ const GCashPaymentModal: React.FC<GCashPaymentModalProps> = ({
             {/* Cart Items */}
             <View className="mb-6">
               <Typo className="text-lg font-semibold mb-3">
-                Your cart contains {totalItems} item(s):
+                Your cart contains {mergedCartItems.length} item(s):
               </Typo>
 
               <ScrollView
@@ -59,7 +81,7 @@ const GCashPaymentModal: React.FC<GCashPaymentModalProps> = ({
                 showsVerticalScrollIndicator={false}
               >
                 <View className="gap-3">
-                  {cartItems?.map((item, index) => (
+                  {mergedCartItems?.map((item, index) => (
                     <View key={index} className="bg-gray-300/50 p-3 rounded-xl">
                       {/* Image container */}
                       <View className="items-center mb-3">
@@ -80,7 +102,7 @@ const GCashPaymentModal: React.FC<GCashPaymentModalProps> = ({
                       {/* Content container */}
                       <View className="items-center">
                         <Typo className="font-medium text-gray-800 mb-1">
-                          {`${item.quantity}x Item`}
+                          Food Item
                         </Typo>
                         <Typo className="text-green-600 font-semibold text-lg">
                           ₱{item.totalPrice.toFixed(2)}
