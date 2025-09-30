@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ScrollView, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { CreateSellerAccountRequest } from '@/utils/types'
 import CreateSellerAccountHeader from './CreateSellerAccountHeader'
 import CreateSellerAccountFormContents from './CreateSellerAccountFormContents'
@@ -12,6 +12,7 @@ import { useCreateSellerAccount } from '@/hooks/useMutation/admin/useCreateSelle
 
 const CreateSellerAccountFormCard = () => {
   const [showCountdown, setShowCountdown] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const {
     control,
     handleSubmit,
@@ -22,13 +23,17 @@ const CreateSellerAccountFormCard = () => {
   const { mutate: createSellerAccount, isPending } = useCreateSellerAccount()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setErrorMessage(null)
     createSellerAccount(data as CreateSellerAccountRequest, {
       onSuccess: () => {
         setShowCountdown(true)
         reset()
       },
-      onError: (error) => {
-        console.error('Seller account creation failed:', error)
+      onError: (error: any) => {
+        console.error('Registration error:', error)
+        const message =
+          error?.message || 'Registration failed. Please try again.'
+        setErrorMessage(message)
       },
     })
   }
@@ -61,6 +66,13 @@ const CreateSellerAccountFormCard = () => {
           {Object.keys(errors).length > 0 && (
             <View className="mt-4">
               <Error errors={errors} />
+            </View>
+          )}
+          {errorMessage && (
+            <View className="bg-red-100 border border-red-400 rounded-lg p-4 mx-4">
+              <Text className="text-red-700 text-center font-medium">
+                {errorMessage}
+              </Text>
             </View>
           )}
         </View>
