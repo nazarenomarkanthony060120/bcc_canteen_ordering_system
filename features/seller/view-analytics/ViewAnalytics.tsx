@@ -12,6 +12,7 @@ import { BarChart } from 'react-native-chart-kit'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { useGetHistories } from '@/hooks/useQuery/seller/get/useGetHistories'
+import { useFetchFoodByStoreId } from '@/hooks/useQuery/common/get/useFetchFoodByStoreId'
 import {
   format,
   subDays,
@@ -45,7 +46,12 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
     error,
   } = useGetHistories({ storeId: storeId })
 
+  const { data: foods, isLoading: isLoadingFoods } = useFetchFoodByStoreId({
+    id: storeId,
+  })
+
   console.log('Histories:', histories) // Debug log
+  console.log('Foods:', foods) // Debug log
   console.log('error, ', error)
 
   const filteredHistories = useMemo(() => {
@@ -209,100 +215,54 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
   }
 
   const lineData = useMemo(() => {
-    if (!histories || histories.length === 0) {
-      console.log('No data for line chart')
+    if (
+      !filteredHistories ||
+      filteredHistories.length === 0 ||
+      !foods ||
+      foods.length === 0
+    ) {
+      console.log('No data for food orders chart')
       return {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-          { data: [0, 0, 0, 0, 0, 0], color: () => '', strokeWidth: 2 },
-        ],
+        labels: ['No Data'],
+        datasets: [{ data: [0] }],
       }
     }
 
-    let labels: string[]
-    let data: number[]
+    // Create a map of foodId to food name
+    const foodMap = new Map(foods.map((food) => [food.id, food.name]))
 
-    switch (timeFilter) {
-      case 'day':
-        // Show hourly data for the day
-        labels = Array.from({ length: 24 }, (_, i) => `${i}:00`)
-        data = labels.map((hour) => {
-          const [hourNum] = hour.split(':').map(Number)
-          const hourStart = new Date()
-          hourStart.setHours(hourNum, 0, 0, 0)
-          const hourEnd = new Date(hourStart)
-          hourEnd.setHours(hourNum + 1, 0, 0, 0)
+    // Sum quantities per food item
+    const foodOrderCounts = new Map<string, number>()
 
-          return histories.reduce((sum, history) => {
-            const historyDate = history.createdAt.toDate()
-            if (historyDate >= hourStart && historyDate < hourEnd) {
-              return sum + history.totalPrice
-            }
-            return sum
-          }, 0)
-        })
-        break
+    filteredHistories.forEach((history) => {
+      const foodName = foodMap.get(history.foodId) || 'Unknown'
+      const currentCount = foodOrderCounts.get(foodName) || 0
+      foodOrderCounts.set(foodName, currentCount + history.quantity)
+    })
 
-      case 'week':
-        // Show daily data for the week
-        labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        const weekStart = startOfWeek(new Date())
-        data = labels.map((_, index) => {
-          const dayStart = new Date(weekStart)
-          dayStart.setDate(weekStart.getDate() + index)
-          const dayEnd = new Date(dayStart)
-          dayEnd.setDate(dayStart.getDate() + 1)
+    // Sort by order count (descending) and take top items
+    const sortedFoodOrders = Array.from(foodOrderCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8) // Show top 8 food items
 
-          return histories.reduce((sum, history) => {
-            const historyDate = history.createdAt.toDate()
-            if (historyDate >= dayStart && historyDate < dayEnd) {
-              return sum + history.totalPrice
-            }
-            return sum
-          }, 0)
-        })
-        break
+    const labels = sortedFoodOrders.map(([foodName]) => {
+      // Truncate long names for better display
+      return foodName.length > 10 ? foodName.substring(0, 8) + '..' : foodName
+    })
 
-      case 'month':
-        // Show daily data for the month
-        const monthStart = startOfMonth(new Date())
-        const daysInMonth = new Date(
-          monthStart.getFullYear(),
-          monthStart.getMonth() + 1,
-          0,
-        ).getDate()
+    const data = sortedFoodOrders.map(([, count]) => count)
 
-        labels = Array.from({ length: daysInMonth }, (_, i) => `${i + 1}`)
-        data = labels.map((_, index) => {
-          const dayStart = new Date(monthStart)
-          dayStart.setDate(monthStart.getDate() + index)
-          const dayEnd = new Date(dayStart)
-          dayEnd.setDate(dayStart.getDate() + 1)
-
-          return histories.reduce((sum, history) => {
-            const historyDate = history.createdAt.toDate()
-            if (historyDate >= dayStart && historyDate < dayEnd) {
-              return sum + history.totalPrice
-            }
-            return sum
-          }, 0)
-        })
-        break
-    }
-
-    console.log('Line chart data:', { labels, data })
+    console.log('Food orders chart data:', { labels, data })
 
     return {
       labels,
       datasets: [
         {
           data,
-          color: (opacity = 1) => `rgba(5, 150, 105, ${opacity})`,
-          strokeWidth: 2,
         },
       ],
     }
-  }, [histories, timeFilter])
+  }, [filteredHistories, foods])
 
   const barData = useMemo(() => {
     if (!filteredHistories || filteredHistories.length === 0) {
@@ -371,7 +331,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
     },
   ]
 
-  if (isLoading) {
+  if (isLoading || isLoadingFoods) {
     return (
       <View className="flex-1 items-center justify-center bg-gray-50">
         <ActivityIndicator size="large" color="#059669" />
@@ -471,14 +431,14 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
           <View className="flex-row items-center justify-between mb-4">
             <View>
               <Text className="text-lg font-semibold text-gray-800">
-                Sales Overview
+                Food Orders Statistics
               </Text>
               <Text className="text-gray-500 text-sm">
                 {timeFilter === 'day'
-                  ? "Today's hourly sales"
+                  ? "Today's food orders"
                   : timeFilter === 'week'
-                    ? "This week's daily sales"
-                    : "This month's daily sales"}
+                    ? "This week's food orders"
+                    : "This month's food orders"}
               </Text>
             </View>
           </View>
@@ -575,7 +535,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
         </Animated.View>
 
         {/* Weekly Orders */}
-        <Animated.View
+        {/* <Animated.View
           entering={FadeInDown.delay(800).springify()}
           className="mb-6"
         >
@@ -616,7 +576,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
               />
             </LinearGradient>
           </BlurView>
-        </Animated.View>
+        </Animated.View> */}
 
         {/* Recent Activity */}
         {/* <Animated.View entering={FadeInDown.delay(1000).springify()}>
