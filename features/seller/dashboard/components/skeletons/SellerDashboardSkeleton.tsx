@@ -85,7 +85,7 @@ const SellerDashboardSkeleton = () => {
                 <StoreListSkeleton />
 
                 {/* Browse All Stores Button Skeleton */}
-                <View className="mb-6">
+                {/* <View className="mb-6">
                   <BlurView
                     intensity={20}
                     tint="light"
@@ -113,7 +113,7 @@ const SellerDashboardSkeleton = () => {
                       </View>
                     </View>
                   </BlurView>
-                </View>
+                </View> */}
               </View>
             </ScrollView>
           </Animated.View>
@@ -124,4 +124,3 @@ const SellerDashboardSkeleton = () => {
 }
 
 export default SellerDashboardSkeleton
-

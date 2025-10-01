@@ -323,7 +323,7 @@ const Dashboard = () => {
                 </View>
 
                 {/* View All Stores Button */}
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={handleViewAllStores}
                   className="mb-6"
                   style={{
@@ -362,7 +362,7 @@ const Dashboard = () => {
                       </View>
                     </LinearGradient>
                   </BlurView>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             </ScrollView>
           </Animated.View>

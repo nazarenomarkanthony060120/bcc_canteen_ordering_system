@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
 import {
   Control,
@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form'
 import Input from '@/components/common/input'
 import { Entypo, MaterialIcons } from '@expo/vector-icons'
+import { Picker } from '@react-native-picker/picker'
 
 interface RegisterFormContentsProps {
   control: Control<FieldValues>
@@ -40,6 +41,37 @@ const RegisterFormContents = ({
             isIconLeft
             icon={<Entypo name={'user'} size={20} color="#02bf15" />}
           />
+        )}
+      />
+      <Controller
+        control={control}
+        name="userType"
+        rules={{
+          required: 'User Type is required',
+        }}
+        render={({ field: { onChange, value } }) => (
+          <View className="w-full">
+            <View className="flex-row items-center bg-white rounded-lg border border-gray-300 px-3">
+              <Entypo name={'user'} size={20} color="#02bf15" />
+              <Picker
+                selectedValue={value}
+                onValueChange={onChange}
+                style={{
+                  flex: 1,
+                  height: 50,
+                }}
+              >
+                <Picker.Item
+                  label="Select User Type"
+                  value=""
+                  enabled={false}
+                />
+                <Picker.Item label="Visitor" value="visitor" />
+                <Picker.Item label="Student" value="student" />
+                <Picker.Item label="Faculty" value="faculty" />
+              </Picker>
+            </View>
+          </View>
         )}
       />
       <Controller
