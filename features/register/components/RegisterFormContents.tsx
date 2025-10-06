@@ -50,27 +50,27 @@ const RegisterFormContents = ({
           required: 'User Type is required',
         }}
         render={({ field: { onChange, value } }) => (
-          <View className="w-full">
-            <View className="flex-row items-center bg-white rounded-lg border border-gray-300 px-3">
-              <Entypo name={'user'} size={20} color="#02bf15" />
-              <Picker
-                selectedValue={value}
-                onValueChange={onChange}
-                style={{
-                  flex: 1,
-                  height: 50,
-                }}
-              >
-                <Picker.Item
-                  label="Select User Type"
-                  value=""
-                  enabled={false}
-                />
-                <Picker.Item label="Visitor" value="visitor" />
-                <Picker.Item label="Student" value="student" />
-                <Picker.Item label="Faculty" value="faculty" />
-              </Picker>
-            </View>
+          <View className="flex-row px-4 py-1 items-center gap-2 bg-emerald-100 w-full rounded-2xl border-2 border-emerald-600">
+            <Entypo name={'user'} size={20} color="#02bf15" />
+            <Picker
+              selectedValue={value}
+              onValueChange={onChange}
+              style={{
+                flex: 1,
+                height: 50,
+                backgroundColor: 'transparent',
+              }}
+            >
+              <Picker.Item
+                label="Select User Type"
+                value=""
+                color="#000"
+                enabled={false}
+              />
+              <Picker.Item label="Visitor" value="visitor" />
+              <Picker.Item label="Student" value="student" />
+              <Picker.Item label="Faculty" value="faculty" />
+            </Picker>
           </View>
         )}
       />

@@ -225,6 +225,9 @@ export enum UserType {
   ADMIN = 'Admin',
   SELLER = 'Seller',
   CUSTORMER = 'Customer',
+  VISITOR = 'Visitor',
+  STUDENT = 'Student',
+  FACULTY = 'Faculty',
 }
 
 export enum ReservationStatusText {

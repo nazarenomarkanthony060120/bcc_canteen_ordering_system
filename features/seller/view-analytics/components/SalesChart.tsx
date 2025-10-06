@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Dimensions } from 'react-native'
+import { View, Dimensions } from 'react-native'
 import { BarChart } from 'react-native-chart-kit'
 import { LinearGradient } from 'expo-linear-gradient'
 
@@ -18,7 +18,7 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
 
   // Default max is 10, but adjust if data exceeds it
   // Always round up to nearest even number to maintain interval of 2
-  const yAxisMax = maxDataValue <= 10 ? 10 : Math.ceil(maxDataValue / 2) * 2
+  const yAxisMax = maxDataValue <= 10 ? 12 : Math.ceil(maxDataValue / 2) * 2
 
   const chartConfig = {
     backgroundColor: 'white',
@@ -35,6 +35,13 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
       return Math.round(num).toString()
     },
     formatXLabel: (value: string) => value, // Show food names as-is
+    formatTopBarValue: (value: number) => {
+      // Hide value if it's the yAxisMax (invisible bar)
+      if (value === yAxisMax) {
+        return ''
+      }
+      return value.toString()
+    },
     yAxisSuffix: '',
     yAxisLabel: '',
     propsForBackgroundLines: {
@@ -50,11 +57,20 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
   }
 
   // Force the y-axis scale by ensuring data includes the max value
+  const actualData = data.datasets[0]?.data || []
+
+  // Create custom colors array to make the last bar transparent
+  const barColors = actualData.map(
+    () => (opacity: number) => `rgba(217, 158, 44, ${opacity})`,
+  ) // Gold for actual bars
+  barColors.push(() => 'rgba(255, 255, 255, 1)') // White to match background - invisible bar
+
   const adjustedData = {
     labels: [...data.labels, ''], // Add empty label for the invisible max value
     datasets: [
       {
-        data: [...data.datasets[0].data, yAxisMax], // Add max value to force scale
+        data: [...actualData, yAxisMax], // Add max value to force scale
+        colors: barColors, // Custom colors for each bar
       },
     ],
   }
@@ -79,6 +95,8 @@ const SalesChart = ({ data, timeFilter }: SalesChartProps) => {
           yAxisSuffix=""
           fromZero
           segments={5}
+          withCustomBarColorFromData
+          flatColor
         />
       </LinearGradient>
     </View>

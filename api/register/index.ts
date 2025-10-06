@@ -19,7 +19,7 @@ export const registerUser = async (data: RegisterRequest) => {
 
     await setDoc(doc(db, 'users', user.uid), {
       name: data.name,
-      type: UserType.CUSTORMER,
+      type: data.type,
       email: data.email,
       password: data.password,
       status: UserKYCStatus.APPROVED,
