@@ -188,9 +188,6 @@ const Dashboard = () => {
                             color="#10B981"
                           />
                         </View>
-                        <Typo className="text-2xl font-bold text-gray-800">
-                          {stores?.length || 0}
-                        </Typo>
                         <Typo className="text-gray-600 text-sm">My Stores</Typo>
                       </View>
                     </BlurView>
@@ -215,11 +212,6 @@ const Dashboard = () => {
                             color="#3B82F6"
                           />
                         </View>
-                        <Typo className="text-2xl font-bold text-gray-800">
-                          {stores?.filter(
-                            (store) => store.status === StoreStatus.APPROVED,
-                          ).length || 0}
-                        </Typo>
                         <Typo className="text-gray-600 text-sm">Active</Typo>
                       </View>
                     </BlurView>
