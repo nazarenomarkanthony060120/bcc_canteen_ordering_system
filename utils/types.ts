@@ -94,6 +94,7 @@ export type Store = {
   address: string
   status: StoreStatus
   storeHealth: StoreHealth
+  stall?: number
   createdAt: FieldValue
   updatedAt: FieldValue
 }

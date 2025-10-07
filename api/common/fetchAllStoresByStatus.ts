@@ -17,6 +17,7 @@ export const fetchAllStoresByStatus = async () => {
       store: docSnap.data().store,
       address: docSnap.data().address,
       status: docSnap.data().status,
+      stall: docSnap.data().stall,
       createdAt: docSnap.data().createdAt,
       updatedAt: docSnap.data().updatedAt,
     })) as Store[]

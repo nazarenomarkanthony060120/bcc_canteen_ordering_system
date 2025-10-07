@@ -105,6 +105,31 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
               elevation: 3,
             }}
           >
+            {store?.stall && (
+              <View className="flex-row items-center gap-3 mb-4">
+                <View
+                  className="bg-gray-50 p-2.5 rounded-full"
+                  style={{
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.05,
+                    shadowRadius: 2,
+                    elevation: 1,
+                  }}
+                >
+                  <MaterialIcons name="store" size={22} color="#4B5563" />
+                </View>
+                <View className="flex-1">
+                  <Text className="text-gray-500 text-sm mb-1 font-medium">
+                    Stall #:
+                  </Text>
+                  <Text className="text-gray-800 font-semibold text-base">
+                    {store?.stall}
+                  </Text>
+                </View>
+              </View>
+            )}
+
             <View className="flex-row items-center gap-3 mb-4">
               <View
                 className="bg-gray-50 p-2.5 rounded-full"

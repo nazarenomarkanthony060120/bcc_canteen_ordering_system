@@ -45,7 +45,7 @@ const RegisterFormContents = ({
       />
       <Controller
         control={control}
-        name="userType"
+        name="type"
         rules={{
           required: 'User Type is required',
         }}
@@ -59,17 +59,23 @@ const RegisterFormContents = ({
                 flex: 1,
                 height: 50,
                 backgroundColor: 'transparent',
+                color: '#111827', // text color similar to inputs (gray-900)
               }}
+              mode="dropdown"
+              dropdownIconColor="#059669" // emerald-600 icon
+              dropdownIconRippleColor="transparent"
+              selectionColor="#059669"
+              itemStyle={{ color: '#111827' }}
             >
               <Picker.Item
                 label="Select User Type"
                 value=""
-                color="#000"
+                color="#6B7280" // placeholder gray-500
                 enabled={false}
               />
-              <Picker.Item label="Visitor" value="visitor" />
-              <Picker.Item label="Student" value="student" />
-              <Picker.Item label="Faculty" value="faculty" />
+              <Picker.Item label="Visitor" value="visitor" color="#111827" />
+              <Picker.Item label="Student" value="student" color="#111827" />
+              <Picker.Item label="Faculty" value="faculty" color="#111827" />
             </Picker>
           </View>
         )}

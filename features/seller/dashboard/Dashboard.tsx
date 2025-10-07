@@ -283,6 +283,11 @@ const Dashboard = () => {
                               <Typo className="text-lg font-semibold text-gray-800 mb-1">
                                 {store.store}
                               </Typo>
+                              {store.stall && (
+                                <Typo className="text-lg font-semibold text-gray-800 mb-1">
+                                  Stall #:{store.stall}
+                                </Typo>
+                              )}
                               <Typo className="text-gray-600 text-sm mb-2">
                                 {store.address}
                               </Typo>

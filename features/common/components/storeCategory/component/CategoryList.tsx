@@ -77,6 +77,14 @@ const CategoryList = ({ store }: CategoryListProps) => {
                   <Typo className="text-gray-800 font-semibold text-lg mb-1">
                     {store.store}
                   </Typo>
+                  {store.stall && (
+                    <View className="flex-row items-center">
+                      <MaterialIcons name="store" size={14} color="#6B7280" />
+                      <Typo className="text-gray-500 text-sm ml-1 flex-1">
+                        Stall #:{store.stall}
+                      </Typo>
+                    </View>
+                  )}
                   {store.address && (
                     <View className="flex-row items-center">
                       <MaterialIcons

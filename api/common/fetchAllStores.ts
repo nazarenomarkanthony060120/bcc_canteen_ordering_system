@@ -16,6 +16,7 @@ export const fetchAllStores = async () => {
       createdAt: docSnap.data().createdAt,
       updatedAt: docSnap.data().updatedAt,
       image: docSnap.data().image,
+      stall: docSnap.data().stall,
     })) as Store[]
   }
 

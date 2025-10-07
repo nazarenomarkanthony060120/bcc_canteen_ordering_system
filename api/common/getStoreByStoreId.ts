@@ -22,6 +22,7 @@ export const getStoreByStoreId = async ({
       address: data.address,
       status: data.status,
       storeHealth: data.storeHealth,
+      stall: data.stall,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     }

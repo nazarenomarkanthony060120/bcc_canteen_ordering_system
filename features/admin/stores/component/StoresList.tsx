@@ -92,6 +92,17 @@ const StoresList = ({ store }: StoresListProps) => {
                   </View>
                 </View>
               </View>
+              {store.stall && (
+                <View className="flex-row items-center gap-1.5 mb-2">
+                  <MaterialIcons name="store" size={16} color="#4B5563" />
+                  <Text
+                    className="text-gray-600 text-sm flex-1"
+                    numberOfLines={1}
+                  >
+                    Stall #: {store.stall}
+                  </Text>
+                </View>
+              )}
               <View className="flex-row items-center gap-1.5 mb-2">
                 <MaterialIcons name="location-on" size={16} color="#4B5563" />
                 <Text

@@ -96,6 +96,15 @@ const ViewAllStores = () => {
               <Typo className="text-xl font-bold text-gray-800 mb-1">
                 {store.store}
               </Typo>
+              {store.stall && (
+                <View className="flex-row items-center">
+                  <MaterialIcons name="store" size={16} color="#6B7280" />
+                  <Typo className="text-gray-600 ml-1 flex-1">
+                    Stall #:{store.stall}
+                  </Typo>
+                </View>
+              )}
+
               <View className="flex-row items-center">
                 <MaterialIcons name="location-on" size={16} color="#6B7280" />
                 <Typo className="text-gray-600 ml-1 flex-1">
