@@ -30,26 +30,26 @@ const ProfileFormContents = ({ user }: ProfileFormContentsProps) => {
           },
         ]
       : []),
-    {
-      label: 'Account Status',
-      value: (
-        <View className="flex-row items-center">
-          <View
-            className="w-2 h-2 rounded-full mr-2"
-            style={{ backgroundColor: getUserStatusColor(user.status).color }}
-          />
-          <Text
-            style={{
-              color: getUserStatusColor(user.status).color,
-              fontWeight: 'bold',
-            }}
-          >
-            {getUserStatus(user.status)}
-          </Text>
-        </View>
-      ),
-      icon: <AntDesign name={'infocirlceo'} size={22} color="#fff" />,
-    },
+    // {
+    //   label: 'Account Status',
+    //   value: (
+    //     <View className="flex-row items-center">
+    //       <View
+    //         className="w-2 h-2 rounded-full mr-2"
+    //         style={{ backgroundColor: getUserStatusColor(user.status).color }}
+    //       />
+    //       <Text
+    //         style={{
+    //           color: getUserStatusColor(user.status).color,
+    //           fontWeight: 'bold',
+    //         }}
+    //       >
+    //         {getUserStatus(user.status)}
+    //       </Text>
+    //     </View>
+    //   ),
+    //   icon: <AntDesign name={'infocirlceo'} size={22} color="#fff" />,
+    // },
     {
       label: 'Account Created',
       value: createdAtFormatted(user.createdAt as unknown as Timestamp),

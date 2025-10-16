@@ -28,25 +28,25 @@ const UserDetailsFormContents = ({ user }: UserDetailsFormContentsProps) => {
       icon: <MaterialIcons name="alternate-email" size={22} color="#4B5563" />,
       description: 'User contact email address',
     },
-    {
-      label: 'Status',
-      value: (
-        <View className="flex-row items-center gap-2">
-          <View
-            className="w-2.5 h-2.5 rounded-full"
-            style={{ backgroundColor: getUserStatusColor(user.status).color }}
-          />
-          <Text
-            style={{ color: getUserStatusColor(user.status).color }}
-            className="font-medium"
-          >
-            {getUserStatus(user.status)}
-          </Text>
-        </View>
-      ),
-      icon: <AntDesign name="infocirlceo" size={22} color="#4B5563" />,
-      description: 'Current account status',
-    },
+    // {
+    //   label: 'Status',
+    //   value: (
+    //     <View className="flex-row items-center gap-2">
+    //       <View
+    //         className="w-2.5 h-2.5 rounded-full"
+    //         style={{ backgroundColor: getUserStatusColor(user.status).color }}
+    //       />
+    //       <Text
+    //         style={{ color: getUserStatusColor(user.status).color }}
+    //         className="font-medium"
+    //       >
+    //         {getUserStatus(user.status)}
+    //       </Text>
+    //     </View>
+    //   ),
+    //   icon: <AntDesign name="infocirlceo" size={22} color="#4B5563" />,
+    //   description: 'Current account status',
+    // },
     {
       label: 'Type',
       value: (

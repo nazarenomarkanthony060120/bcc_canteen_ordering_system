@@ -44,7 +44,7 @@ const MemberFormContents = ({ user }: MemberFormContentsProps) => {
       </View>
       <View className="flex-1">
         <Text className="font-bold text-white text-lg mb-1">{user.name}</Text>
-        <View className="flex-row items-center mb-1">
+        {/* <View className="flex-row items-center mb-1">
           <View
             className="px-3.5 py-2 rounded-full"
             style={{
@@ -69,7 +69,7 @@ const MemberFormContents = ({ user }: MemberFormContentsProps) => {
               </Text>
             </View>
           </View>
-        </View>
+        </View> */}
         <Text className="text-white text-sm font-medium">{user.email}</Text>
       </View>
     </Pressable>

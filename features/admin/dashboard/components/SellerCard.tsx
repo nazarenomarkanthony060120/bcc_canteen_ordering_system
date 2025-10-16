@@ -127,7 +127,7 @@ const SellerCard: React.FC<SellerCardProps> = ({
                 {seller.name}
               </Text>
               <Text className="text-gray-600 text-sm mb-2">{seller.email}</Text>
-              {getStatusBadge()}
+              {/* {getStatusBadge()} */}
             </View>
           </View>
 

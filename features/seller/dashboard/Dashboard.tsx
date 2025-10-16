@@ -318,48 +318,6 @@ const Dashboard = () => {
                     </View>
                   </BlurView>
                 </View>
-
-                {/* View All Stores Button */}
-                {/* <TouchableOpacity
-                  onPress={handleViewAllStores}
-                  className="mb-6"
-                  style={{
-                    shadowColor: '#10B981',
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.3,
-                    shadowRadius: 12,
-                    elevation: 8,
-                  }}
-                >
-                  <BlurView
-                    intensity={20}
-                    tint="light"
-                    className="rounded-2xl overflow-hidden"
-                  >
-                    <LinearGradient
-                      colors={['#10B981', '#059669']}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 1 }}
-                      className="p-4"
-                    >
-                      <View className="flex-row items-center justify-center">
-                        <MaterialIcons
-                          name="storefront"
-                          size={24}
-                          color="#FFFFFF"
-                        />
-                        <Typo className="text-white text-lg font-semibold ml-3">
-                          Browse All Stores
-                        </Typo>
-                        <Ionicons
-                          name="arrow-forward"
-                          size={24}
-                          color="#FFFFFF"
-                        />
-                      </View>
-                    </LinearGradient>
-                  </BlurView>
-                </TouchableOpacity> */}
               </View>
             </ScrollView>
           </Animated.View>

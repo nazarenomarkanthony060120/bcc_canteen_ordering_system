@@ -55,7 +55,7 @@ const UsersFormContents = ({ user }: UsersFormContentsProps) => {
           <Ionicons name="mail" size={16} color="rgba(255,255,255,0.7)" />
           <Text className="text-white/70 text-sm ml-1">{user.email}</Text>
         </View>
-        <View className="flex-row items-center ">
+        {/* <View className="flex-row items-center ">
           <View
             className="px-3.5 py-2 rounded-full"
             style={{
@@ -80,7 +80,7 @@ const UsersFormContents = ({ user }: UsersFormContentsProps) => {
               </Text>
             </View>
           </View>
-        </View>
+        </View> */}
       </View>
     </Pressable>
   )
