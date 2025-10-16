@@ -66,10 +66,10 @@ const Store = () => {
   }
 
   if (isLoading) return <LoadingIndicator />
-  if (user?.status === UserKYCStatus.APPLIED)
-    return <NoKYC onRefresh={onRefresh} />
-  if (user?.status === UserKYCStatus.PENDING)
-    return <PendingKYC onRefresh={onRefresh} />
+  // if (user?.status === UserKYCStatus.APPLIED)
+  //   return <NoKYC onRefresh={onRefresh} />
+  // if (user?.status === UserKYCStatus.PENDING)
+  //   return <PendingKYC onRefresh={onRefresh} />
   if (!storeData || storeData.length === 0)
     return <NoStore onRefresh={onRefresh} />
 
