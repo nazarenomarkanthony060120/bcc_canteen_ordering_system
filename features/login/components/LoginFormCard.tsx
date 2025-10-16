@@ -31,18 +31,18 @@ const LoginController = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     login(data as LoginRequest, {
       onSuccess: (data) => {
-        if (
-          data?.type === UserType.SELLER &&
-          data.status === UserKYCStatus.APPLIED
-        ) {
-          router.push({
-            pathname: '/screens/(seller)/dashboard/kyc',
-            params: { fromPath: 'login' },
-          })
-        } else {
-          const route = getUserRoutes({ type: data?.type })
-          router.push(route)
-        }
+        // if (
+        //   data?.type === UserType.SELLER &&
+        //   data.status === UserKYCStatus.APPLIED
+        // ) {
+        //   router.push({
+        //     pathname: '/screens/(seller)/dashboard/kyc',
+        //     params: { fromPath: 'login' },
+        //   })
+        // } else {
+        const route = getUserRoutes({ type: data?.type })
+        router.push(route)
+        // }
       },
       onError: (error: Error) => {
         const errorMessage = getErrorMessage(error.message)
