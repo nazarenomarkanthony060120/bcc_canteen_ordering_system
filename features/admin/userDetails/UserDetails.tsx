@@ -48,7 +48,7 @@ const UserDetails = ({ params }: UserDetailsProps) => {
             }
           >
             <UserDetailsFormCard user={user} />
-            <UserDetailsFooter userId={userId} />
+            {/* <UserDetailsFooter userId={userId} /> */}
           </ScrollView>
         </SafeAreaView>
       </ScreenLayout>
