@@ -83,6 +83,14 @@ const ReservationPending = () => {
     ),
   ).length
 
+  const confirmCount = reservations.filter((reservation) =>
+    reservation.items.some(
+      (item) =>
+        item.storeOwnerId === auth.user?.uid &&
+        item.status === ReservationStatus.CONFIRMED,
+    ),
+  ).length
+
   return (
     <ScreenLayout>
       <LinearGradient
@@ -125,6 +133,14 @@ const ReservationPending = () => {
                   count={completedCount}
                   label="Completed"
                   iconColor="#3B82F6"
+                  countColor="text-blue-600"
+                  bgColor="bg-blue-50"
+                />
+                <StatsCard
+                  icon="incomplete-circle"
+                  count={confirmCount}
+                  label="Confirmed"
+                  iconColor="#F59E0B"
                   countColor="text-blue-600"
                   bgColor="bg-blue-50"
                 />

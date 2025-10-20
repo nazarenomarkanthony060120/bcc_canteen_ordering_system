@@ -20,7 +20,7 @@ const PickupTimeModal: React.FC<PickupTimeModalProps> = ({
   // Generate next 7 days
   const generateDates = () => {
     const dates = []
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 1; i++) {
       const date = new Date()
       date.setDate(date.getDate() + i)
       dates.push(date)
@@ -31,7 +31,7 @@ const PickupTimeModal: React.FC<PickupTimeModalProps> = ({
   // Generate hours (8 AM to 8 PM)
   const generateHours = () => {
     const hours = []
-    for (let i = 8; i <= 20; i++) {
+    for (let i = 8; i <= 17; i++) {
       hours.push(i)
     }
     return hours
@@ -49,20 +49,10 @@ const PickupTimeModal: React.FC<PickupTimeModalProps> = ({
 
   const formatDate = (date: Date) => {
     const today = new Date()
-    const tomorrow = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
 
     if (date.toDateString() === today.toDateString()) {
       return 'Today'
-    } else if (date.toDateString() === tomorrow.toDateString()) {
-      return 'Tomorrow'
-    } else {
-      return date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        month: 'short', 
-        day: 'numeric' 
-      })
-    }
+    } 
   }
 
   const formatTime = (hour: number, minute: number) => {
@@ -88,29 +78,27 @@ const PickupTimeModal: React.FC<PickupTimeModalProps> = ({
           {/* Date Selection */}
           <View className="mb-6">
             <Typo className="text-lg font-semibold mb-3">Select Date</Typo>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View className="flex-row gap-2">
-                {generateDates().map((date, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => setSelectedDate(date)}
-                    className={`px-4 py-3 rounded-xl min-w-[80px] ${
-                      selectedDate.toDateString() === date.toDateString()
-                        ? 'bg-emerald-500'
-                        : 'bg-gray-100'
-                    }`}
-                  >
-                    <Typo className={`text-center text-sm ${
-                      selectedDate.toDateString() === date.toDateString()
-                        ? 'text-white font-semibold'
-                        : 'text-gray-700'
-                    }`}>
-                      {formatDate(date)}
-                    </Typo>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
+            <View className="items-center justify-center">
+              {generateDates().map((date, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => setSelectedDate(date)}
+                  className={`px-4 py-3 rounded-xl min-w-[80px] ${
+                    selectedDate.toDateString() === date.toDateString()
+                      ? 'bg-emerald-500'
+                      : 'bg-gray-100'
+                  }`}
+                >
+                  <Typo className={`text-center text-sm ${
+                    selectedDate.toDateString() === date.toDateString()
+                      ? 'text-white font-semibold'
+                      : 'text-gray-700'
+                  }`}>
+                    Today
+                  </Typo>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
 
           {/* Time Selection */}
@@ -176,7 +164,7 @@ const PickupTimeModal: React.FC<PickupTimeModalProps> = ({
           {/* Selected Time Display */}
           <View className="bg-emerald-50 p-4 rounded-xl mb-6">
             <Typo className="text-center text-emerald-800 font-semibold">
-              Pickup: {formatDate(selectedDate)} at {formatTime(selectedHour, selectedMinute)}
+              Pickup: Today at {formatTime(selectedHour, selectedMinute)}
             </Typo>
           </View>
 
