@@ -51,29 +51,6 @@ const FromDashboardHeader: React.FC<DashboardHeaderProps> = ({
             </Text>
           </View>
         </View>
-        <View className="flex-row gap-3">
-          <View className="flex-1 bg-white/10 rounded-2xl p-4">
-            <View className="flex-row items-center gap-2 mb-2">
-              <MaterialIcons name="schedule" size={20} color="#60a5fa" />
-              <Text className="text-white/80 text-sm font-medium">Applied</Text>
-            </View>
-            <Text className="text-blue-400 text-2xl font-bold">
-              {appliedSellers}
-            </Text>
-          </View>
-
-          <View className="flex-1 bg-white/10 rounded-2xl p-4">
-            <View className="flex-row items-center gap-2 mb-2">
-              <MaterialIcons name="block" size={20} color="#EF4444" />
-              <Text className="text-white/80 text-sm font-medium">
-                Disabled
-              </Text>
-            </View>
-            <Text className="text-red-400 text-2xl font-bold">
-              {disabledSellers}
-            </Text>
-          </View>
-        </View>
       </View>
     </View>
   )

@@ -2,7 +2,7 @@ import { db } from '@/lib/firestore'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 import { UserIdRequest } from '@/utils/types'
 
-const DAILY_CART_LIMIT = 5
+const DAILY_CART_LIMIT = 10
 
 export const checkDailyCartLimit = async ({ id }: UserIdRequest) => {
   if (!id) throw new Error('User ID is required')
