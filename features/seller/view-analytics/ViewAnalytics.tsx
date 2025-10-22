@@ -5,6 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
@@ -29,10 +30,14 @@ import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated'
 import SummaryCard from './components/SummaryCard'
 import SalesChart from './components/SalesChart'
 import TimeRangeIndicator from './components/TimeRangeIndicator'
+import { FoodType } from '@/utils/types'
+import { documentDirectory, writeAsStringAsync, EncodingType } from 'expo-file-system'
+import * as Sharing from 'expo-sharing'
 
 const { width } = Dimensions.get('window')
 
 type TimeFilter = 'day' | 'week' | 'month'
+type CategoryFilter = FoodType | 'All'
 
 interface ViewAnalyticsProps {
   storeId: string | null
@@ -40,6 +45,7 @@ interface ViewAnalyticsProps {
 const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
   const { user } = useAuth()
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('day')
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('All')
   const {
     data: histories,
     isLoading,
@@ -87,7 +93,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
   }, [histories, timeFilter])
 
   const stats = useMemo(() => {
-    if (!histories || histories.length === 0) {
+    if (!histories || histories.length === 0 || !foods) {
       console.log('No histories data available')
       return {
         totalSales: 0,
@@ -96,6 +102,14 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
         growth: 0,
       }
     }
+
+    // Filter histories by category
+    const categoryFilteredHistories = categoryFilter === 'All' 
+      ? histories 
+      : histories.filter((history) => {
+          const food = foods.find((f) => f.id === history.foodId)
+          return food?.type === categoryFilter
+        })
 
     const now = new Date()
     let currentPeriodStart: Date
@@ -125,7 +139,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
     }
 
     // Calculate current period sales
-    const currentPeriodSales = histories.reduce((sum, history) => {
+    const currentPeriodSales = categoryFilteredHistories.reduce((sum, history) => {
       const historyDate = history.createdAt.toDate()
       if (
         historyDate >= currentPeriodStart &&
@@ -137,7 +151,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
     }, 0)
 
     // Calculate previous period sales
-    const previousPeriodSales = histories.reduce((sum, history) => {
+    const previousPeriodSales = categoryFilteredHistories.reduce((sum, history) => {
       const historyDate = history.createdAt.toDate()
       if (
         historyDate >= previousPeriodStart &&
@@ -150,6 +164,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
 
     console.log('Growth calculation:', {
       timeFilter,
+      categoryFilter,
       currentPeriod: {
         start: currentPeriodStart.toISOString(),
         end: currentPeriodEnd.toISOString(),
@@ -162,7 +177,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
       },
     })
 
-    const totalOrders = histories.filter((history) => {
+    const totalOrders = categoryFilteredHistories.filter((history) => {
       const historyDate = history.createdAt.toDate()
       return (
         historyDate >= currentPeriodStart && historyDate <= currentPeriodEnd
@@ -187,7 +202,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
       averageOrderValue,
       growth,
     }
-  }, [histories, timeFilter])
+  }, [histories, timeFilter, categoryFilter, foods])
 
   const chartConfig = {
     backgroundColor: '#ffffff',
@@ -228,13 +243,21 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
       }
     }
 
+    // Filter histories by category
+    const categoryFilteredHistories = categoryFilter === 'All' 
+      ? filteredHistories 
+      : filteredHistories.filter((history) => {
+          const food = foods.find((f) => f.id === history.foodId)
+          return food?.type === categoryFilter
+        })
+
     // Create a map of foodId to food name
     const foodMap = new Map(foods.map((food) => [food.id, food.name]))
 
     // Sum quantities per food item
     const foodOrderCounts = new Map<string, number>()
 
-    filteredHistories.forEach((history) => {
+    categoryFilteredHistories.forEach((history) => {
       const foodName = foodMap.get(history.foodId) || 'Unknown'
       const currentCount = foodOrderCounts.get(foodName) || 0
       foodOrderCounts.set(foodName, currentCount + history.quantity)
@@ -252,7 +275,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
 
     const data = sortedFoodOrders.map(([, count]) => count)
 
-    console.log('Food orders chart data:', { labels, data })
+    console.log('Food orders chart data:', { labels, data, category: categoryFilter })
 
     return {
       labels,
@@ -262,16 +285,24 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
         },
       ],
     }
-  }, [filteredHistories, foods])
+  }, [filteredHistories, foods, categoryFilter])
 
   const barData = useMemo(() => {
-    if (!filteredHistories || filteredHistories.length === 0) {
+    if (!filteredHistories || filteredHistories.length === 0 || !foods) {
       console.log('No data for bar chart') // Debug log
       return {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [{ data: [0, 0, 0, 0, 0, 0, 0] }],
       }
     }
+
+    // Filter histories by category
+    const categoryFilteredHistories = categoryFilter === 'All' 
+      ? filteredHistories 
+      : filteredHistories.filter((history) => {
+          const food = foods.find((f) => f.id === history.foodId)
+          return food?.type === categoryFilter
+        })
 
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     const today = new Date()
@@ -284,7 +315,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
       const dayEnd = new Date(dayStart)
       dayEnd.setDate(dayStart.getDate() + 1)
 
-      const dayOrders = filteredHistories.filter((history) => {
+      const dayOrders = categoryFilteredHistories.filter((history) => {
         const orderDate = history.createdAt.toDate()
         return orderDate >= dayStart && orderDate < dayEnd
       })
@@ -292,7 +323,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
       return dayOrders.length
     })
 
-    console.log('Bar chart data:', { labels: days, data: weeklyData }) // Debug log
+    console.log('Bar chart data:', { labels: days, data: weeklyData, category: categoryFilter }) // Debug log
 
     return {
       labels: days,
@@ -302,7 +333,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
         },
       ],
     }
-  }, [filteredHistories])
+  }, [filteredHistories, foods, categoryFilter])
 
   const statsData = [
     {
@@ -330,6 +361,80 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
       color: stats.growth >= 0 ? '#db2777' : '#ef4444',
     },
   ]
+
+  const downloadCSV = async () => {
+    try {
+      if (!filteredHistories || filteredHistories.length === 0 || !foods) {
+        Alert.alert('No Data', 'There is no data to export for the selected filters.')
+        return
+      }
+
+      // Filter histories by category
+      const categoryFilteredHistories = categoryFilter === 'All' 
+        ? filteredHistories 
+        : filteredHistories.filter((history) => {
+            const food = foods.find((f) => f.id === history.foodId)
+            return food?.type === categoryFilter
+          })
+
+      if (categoryFilteredHistories.length === 0) {
+        Alert.alert('No Data', 'There is no data to export for the selected category.')
+        return
+      }
+
+      // Create food map for easy lookup
+      const foodMap = new Map(foods.map((food) => [food.id, { name: food.name, type: food.type }]))
+
+      // CSV Header
+      let csvContent = 'Order ID,Food Name,Category,Quantity,Total Price,Date,Time\n'
+
+      // CSV Data
+      categoryFilteredHistories.forEach((history) => {
+        const foodInfo = foodMap.get(history.foodId)
+        const foodName = foodInfo?.name || 'Unknown'
+        const foodType = foodInfo?.type || 'Unknown'
+        const orderDate = history.createdAt.toDate()
+        const dateStr = format(orderDate, 'MM/dd/yyyy')
+        const timeStr = format(orderDate, 'hh:mm a')
+        
+        csvContent += `${history.id},${foodName},${foodType},${history.quantity},₱${history.totalPrice.toFixed(2)},${dateStr},${timeStr}\n`
+      })
+
+      // Add summary section
+      csvContent += '\n\nSUMMARY\n'
+      csvContent += `Period,${timeFilter === 'day' ? 'Today' : timeFilter === 'week' ? 'This Week' : 'This Month'}\n`
+      csvContent += `Category,${categoryFilter}\n`
+      csvContent += `Total Sales,₱${stats.totalSales.toFixed(2)}\n`
+      csvContent += `Total Orders,${stats.totalOrders}\n`
+      csvContent += `Average Order Value,₱${stats.averageOrderValue.toFixed(2)}\n`
+      csvContent += `Growth,${stats.growth.toFixed(1)}%\n`
+
+      // Generate filename
+      const timestamp = format(new Date(), 'yyyy-MM-dd_HHmmss')
+      const fileName = `analytics_${timeFilter}_${categoryFilter}_${timestamp}.csv`
+      const fileUri = `${documentDirectory}${fileName}`
+      
+      // Write file
+      await writeAsStringAsync(fileUri, csvContent, {
+        encoding: EncodingType.UTF8,
+      })
+
+      // Check if sharing is available
+      const isAvailable = await Sharing.isAvailableAsync()
+      if (isAvailable) {
+        await Sharing.shareAsync(fileUri, {
+          mimeType: 'text/csv',
+          dialogTitle: 'Export Analytics Data',
+          UTI: 'public.comma-separated-values-text',
+        })
+      } else {
+        Alert.alert('Success', `CSV file saved to: ${fileUri}`)
+      }
+    } catch (error) {
+      console.error('Error downloading CSV:', error)
+      Alert.alert('Error', 'Failed to export CSV file. Please try again.')
+    }
+  }
 
   if (isLoading || isLoadingFoods) {
     return (
@@ -371,7 +476,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
           className="mb-6"
         >
           <View className="flex-row items-center justify-between">
-            <View>
+            <View className="flex-1">
               <Text className="text-2xl font-bold text-gray-800">
                 Analytics Dashboard
               </Text>
@@ -379,8 +484,16 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
                 Track your store performance
               </Text>
             </View>
-            <View className="bg-emerald-100 p-3 rounded-full">
-              <MaterialIcons name="insights" size={24} color="#059669" />
+            <View className="flex-row items-center space-x-2">
+              <TouchableOpacity
+                onPress={downloadCSV}
+                className="bg-blue-100 p-3 rounded-full"
+              >
+                <MaterialIcons name="file-download" size={24} color="#2563eb" />
+              </TouchableOpacity>
+              <View className="bg-emerald-100 p-3 rounded-full">
+                <MaterialIcons name="insights" size={24} color="#059669" />
+              </View>
             </View>
           </View>
 
@@ -441,6 +554,40 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
                     : "This month's food orders"}
               </Text>
             </View>
+          </View>
+
+          {/* Category Filter */}
+          <View className="mb-4">
+            <Text className="text-sm font-medium text-gray-700 mb-2">
+              Filter by Category
+            </Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              className="flex-row space-x-2"
+            >
+              {['All', FoodType.VEGETABLE, FoodType.FRUITS, FoodType.MEAT, FoodType.SNACKS, FoodType.DRINKS, FoodType.RICE, FoodType.OTHER].map((category) => (
+                <TouchableOpacity
+                  key={category}
+                  onPress={() => setCategoryFilter(category as CategoryFilter)}
+                  className={`px-4 py-2 rounded-full ${
+                    categoryFilter === category
+                      ? 'bg-blue-500 shadow-sm'
+                      : 'bg-white shadow-sm border border-gray-200'
+                  }`}
+                >
+                  <Text
+                    className={`${
+                      categoryFilter === category
+                        ? 'text-white font-semibold'
+                        : 'text-gray-700'
+                    }`}
+                  >
+                    {category}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
 
           <BlurView

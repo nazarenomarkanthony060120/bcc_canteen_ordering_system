@@ -27,6 +27,7 @@ export const createSellerAccount = async (data: CreateSellerAccountRequest) => {
       name: data.name,
       email: data.email,
       address: data.address,
+      password: data.password,
       phoneNumber: data.phoneNumber,
       type: UserType.SELLER,
       status: UserKYCStatus.APPROVED,
