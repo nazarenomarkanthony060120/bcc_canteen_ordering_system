@@ -22,7 +22,7 @@ interface ViewStoreFormCardProps {
 const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
   const auth = useAuth()
   const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
-
+  const { data: userData } = useGetUserByUserId({id: store?.userId})
   const fadeAnim = useRef(new Animated.Value(0)).current
   const status = getStoreStatusColor(store?.status || 0)
 
@@ -141,14 +141,14 @@ const ViewStoreFormCard = ({ foods, store }: ViewStoreFormCardProps) => {
                   elevation: 1,
                 }}
               >
-                <MaterialIcons name="location-on" size={22} color="#4B5563" />
+                <MaterialIcons name="contact-phone" size={22} color="#4B5563" />
               </View>
               <View className="flex-1">
                 <Text className="text-gray-500 text-sm mb-1 font-medium">
-                  Address
+                  Contact Number
                 </Text>
                 <Text className="text-gray-800 font-semibold text-base">
-                  {store?.address}
+                  {userData?.phoneNumber}
                 </Text>
               </View>
             </View>

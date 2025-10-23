@@ -73,14 +73,6 @@ const DashboardFormCard: React.FC<DashboardFormCardProps> = ({
             }
           >
             <View className="">
-              <View className="flex-row items-center gap-2 mb-4">
-                <View className="bg-emerald-50 rounded-full">
-                  <MaterialIcons name="store" size={20} color="#10B981" />
-                </View>
-                <Typo className="text-gray-800 font-semibold">
-                  Featured Stores
-                </Typo>
-              </View>
               <StoreCategory />
 
               <View className="flex-row items-center gap-2 mt-6 mb-4">

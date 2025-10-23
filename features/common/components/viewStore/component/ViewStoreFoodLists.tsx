@@ -9,6 +9,7 @@ import Button from '@/components/common/button'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useAuth } from '@/context/auth'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
+import { useFetchFeedbacksByFoodId } from '@/hooks/useQuery/common/useFetchFeedbacksByFoodId'
 
 interface ViewStoreFoodListsProps {
   food: Food
@@ -19,6 +20,10 @@ const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
   const router = useRouter()
 
   const { data: user } = useGetUserByUserId({ id: auth.user?.uid })
+  const { data: feedbacks = [], isLoading: feedbacksLoading } = useFetchFeedbacksByFoodId({
+    foodId: food.id,
+  })
+  
   const navigateToViewFood = () => {
     router.push(`/screens/common/viewFood?foodId=${food.id}`)
   }
@@ -91,6 +96,49 @@ const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
                 {food.quantity} available
               </Text>
             </View>
+          </View>
+
+          <View className="bg-gray-50 p-4 rounded-xl">
+            <View className="flex-row items-center gap-2 mb-3">
+              <AntDesign name="star" size={20} color="#10B981" />
+              <Text className="text-gray-700 font-semibold text-base">
+                Recent Reviews ({feedbacks.length})
+              </Text>
+            </View>
+
+            {feedbacksLoading ? (
+              <Text className="text-gray-400 text-sm">Loading reviews...</Text>
+            ) : feedbacks.length === 0 ? (
+              <Text className="text-gray-400 text-sm">
+                No reviews yet
+              </Text>
+            ) : (
+              <View className="gap-3">
+                {feedbacks.slice(0, 2).map((feedback) => (
+                  <View
+                    key={feedback.id}
+                    className="bg-white p-3 rounded-lg border border-gray-200"
+                  >
+                    <View className="flex-row items-center gap-1 mb-2">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <AntDesign
+                          key={star}
+                          name={star <= feedback.rating ? 'star' : 'staro'}
+                          size={14}
+                          color={star <= feedback.rating ? '#FBBF24' : '#D1D5DB'}
+                        />
+                      ))}
+                      <Text className="text-gray-600 text-xs ml-1">
+                        ({feedback.rating}/5)
+                      </Text>
+                    </View>
+                    <Text className="text-gray-700 text-sm leading-5" numberOfLines={2}>
+                      {feedback.feedback}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
 
           {user?.type !== UserType.ADMIN && (

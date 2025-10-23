@@ -12,6 +12,8 @@ export const getReservationStatus = (status: number) => {
       return ReservationStatusText.COMPLETED
     case ReservationStatus.CONFIRMED:
       return ReservationStatusText.CONFIRMED
+    case ReservationStatus.READY_FOR_PICKUP:
+      return ReservationStatusText.READY_FOR_PICKUP
     default:
       return ReservationStatusText.UNKNOWN
   }

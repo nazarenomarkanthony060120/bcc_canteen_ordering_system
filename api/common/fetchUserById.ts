@@ -18,6 +18,7 @@ export const fetchUserById = async ({ id }: UserIdRequest) => {
       type: userType,
       address: data.address || null,
       name: data.name,
+      phoneNumber: data.phoneNumber,
       status: data.status,
       email: data.email,
       image: data.image,

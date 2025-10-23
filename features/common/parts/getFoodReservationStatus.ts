@@ -10,6 +10,8 @@ export const getFoodReservationStatus = (status: number) => {
       return FoodReservationStatusText.CANCELLED
     case FoodReservationStatus.CONFIRMED:
       return FoodReservationStatusText.CONFIRMED
+    case FoodReservationStatus.READY_FOR_PICKUP:
+      return FoodReservationStatusText.READY_FOR_PICKUP
     default:
       return FoodReservationStatusText.UNKNOWN
   }

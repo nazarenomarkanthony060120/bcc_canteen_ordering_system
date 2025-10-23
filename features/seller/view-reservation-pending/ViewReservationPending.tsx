@@ -4,7 +4,6 @@ import { useLocalSearchParams } from 'expo-router'
 import { ReservationOrders, ReservationStatus } from '@/utils/types'
 import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 import { useGetStoreByStoreId } from '@/hooks/useQuery/common/get/useGetStoreByStoreId'
-import { useGetFoodByFoodId } from '@/hooks/useQuery/common/get/useGetFoodByFoodId'
 import LoadingIndicator from '@/features/common/components/loadingIndicator/LoadingIndicator'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Timestamp } from 'firebase/firestore'
@@ -24,6 +23,7 @@ import { useCancelPendingOrder } from '@/hooks/useMutation/seller/pending-order/
 import { useQueries } from '@tanstack/react-query'
 import { getFoodByFoodId } from '@/api/common/getFoodByFoodId'
 import { useCompletePendingOrder } from '@/hooks/useMutation/seller/pending-order/useCompletePendingOrder'
+import { useReadyForPickupOrder } from '@/hooks/useMutation/seller/pending-order/useReadyForPickupOrder'
 
 const ViewReservationPending = () => {
   const auth = useAuth()
@@ -53,6 +53,8 @@ const ViewReservationPending = () => {
 
   const { mutate: confirmPendingOrder, isPending: isPendingConfirm } =
     useConfirmPendingOrder()
+  const { mutate: readyForPickupOrder, isPending: isPendingReadyForPickup } =
+    useReadyForPickupOrder()
   const { mutate: completePendingOrder, isPending: isPendingComplete } =
     useCompletePendingOrder()
   const { mutate: cancelPendingOrder, isPending: isPendingCancel } =
@@ -105,8 +107,27 @@ const ViewReservationPending = () => {
     )
   }
 
+  const handleReadyForPickup = (reservationId: string) => {
+    console.log('Setting order ready for pickup, reservation ID:', reservationId)
+    readyForPickupOrder(
+      {
+        id: reservationId,
+        foods: foods,
+        userId: auth.user?.uid,
+      },
+      {
+        onSuccess: () => {
+          router.back()
+        },
+        onError: (error: Error) => {
+          console.error('Error setting order ready for pickup:', error)
+        },
+      },
+    )
+  }
+
   const handleComplete = (reservationId: string) => {
-    console.log('Confirming111 order for reservation ID:', reservationId)
+    console.log('Completing order for reservation ID:', reservationId)
     completePendingOrder(
       {
         id: reservationId,
@@ -201,6 +222,20 @@ const ViewReservationPending = () => {
         item: reservation.items,
         userId: auth.user?.uid,
       }) === ReservationStatus.CONFIRMED && (
+        <ActionButtons
+          reservationId={reservation.id}
+          onConfirm={handleReadyForPickup}
+          onCancel={handleCancel}
+          isPendingCancel={isPendingCancel}
+          isPendingConfirm={isPendingReadyForPickup}
+          text={'Ready for Pickup'}
+        />
+      )}
+
+      {getReservationStatusResult({
+        item: reservation.items,
+        userId: auth.user?.uid,
+      }) === ReservationStatus.READY_FOR_PICKUP && (
         <ActionButtons
           reservationId={reservation.id}
           onConfirm={handleComplete}

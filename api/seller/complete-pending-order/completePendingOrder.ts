@@ -12,6 +12,7 @@ import {
   addDoc,
   serverTimestamp,
 } from 'firebase/firestore'
+import { sendOrderCompletedNotification } from '@/utils/notifications/sendNotification'
 
 export const completePendingOrder = async ({
   id,
@@ -83,4 +84,11 @@ export const completePendingOrder = async ({
     })
 
   await Promise.all(updatePromises)
+
+  // Send notification to customer
+  try {
+    await sendOrderCompletedNotification(reservationData.userId, id)
+  } catch (error) {
+    console.error('Error sending completion notification:', error)
+  }
 }

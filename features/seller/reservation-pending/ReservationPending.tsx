@@ -91,6 +91,14 @@ const ReservationPending = () => {
     ),
   ).length
 
+  const readyForPickupCount = reservations.filter((reservation) =>
+    reservation.items.some(
+      (item) =>
+        item.storeOwnerId === auth.user?.uid &&
+        item.status === ReservationStatus.READY_FOR_PICKUP,
+    ),
+  ).length
+
   return (
     <ScreenLayout>
       <LinearGradient
@@ -119,31 +127,52 @@ const ReservationPending = () => {
             <View className="p-4">
               <Header />
 
-              <View className="flex-row gap-3 mb-6">
-                <StatsCard
-                  icon="schedule"
-                  count={pendingCount}
-                  label="Pending"
-                  iconColor="#10B981"
-                  countColor="text-emerald-600"
-                  bgColor="bg-emerald-50"
-                />
-                <StatsCard
-                  icon="check-circle"
-                  count={completedCount}
-                  label="Completed"
-                  iconColor="#3B82F6"
-                  countColor="text-blue-600"
-                  bgColor="bg-blue-50"
-                />
-                <StatsCard
-                  icon="incomplete-circle"
-                  count={confirmCount}
-                  label="Confirmed"
-                  iconColor="#F59E0B"
-                  countColor="text-blue-600"
-                  bgColor="bg-blue-50"
-                />
+              <View className="mb-6">
+                <View className="flex-row gap-3 mb-3">
+                  <View className="flex-1">
+                    <StatsCard
+                      icon="schedule"
+                      count={pendingCount}
+                      label="Pending"
+                      iconColor="#F59E0B"
+                      countColor="text-amber-600"
+                      bgColor="bg-amber-50"
+                    />
+                  </View>
+                  <View className="flex-1">
+                    <StatsCard
+                      icon="check-circle"
+                      count={confirmCount}
+                      label="Confirmed"
+                      iconColor="#10B981"
+                      countColor="text-emerald-600"
+                      bgColor="bg-emerald-50"
+                    />
+                  </View>
+                </View>
+                
+                <View className="flex-row gap-3">
+                  <View className="flex-1">
+                    <StatsCard
+                      icon="check-circle"
+                      count={completedCount}
+                      label="Completed"
+                      iconColor="#3B82F6"
+                      countColor="text-blue-600"
+                      bgColor="bg-blue-50"
+                    />
+                  </View>
+                  <View className="flex-1">
+                    <StatsCard
+                      icon="shopping-bag"
+                      count={readyForPickupCount}
+                      label="Ready for Pickup"
+                      iconColor="#8B5CF6"
+                      countColor="text-purple-600"
+                      bgColor="bg-purple-50"
+                    />
+                  </View>
+                </View>
               </View>
 
               {reservations.length === 0 ? (

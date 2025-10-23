@@ -1,53 +1,44 @@
-import { db } from '@/lib/firestore'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-import {
-  FoodReservationStatus,
-  ReservationStatus,
-  SaveReservedOrderType,
-} from '@/utils/types'
+import { db, serverTimestamp } from '@/lib/firestore'
+import { SaveReservedOrderType } from '@/utils/types'
+import { addDoc, collection } from 'firebase/firestore'
+import { sendNewOrderNotification } from '@/utils/notifications/sendNotification'
 
-export const saveReservedOrder = async ({
-  userId,
-  cartItems,
-  totalAmount,
-  paid,
-  paymentMethod,
-  pickupTime,
-}: SaveReservedOrderType) => {
+export const saveReservedOrder = async (data: SaveReservedOrderType) => {
   try {
-    // Validate required fields
-    if (!userId || !cartItems || !totalAmount || !paymentMethod) {
-      throw new Error('Missing required fields for order reservation')
-    }
-
-    // Map cart items and ensure all required fields are present
-    const mappedItems = cartItems.map((item) => ({
-      foodId: item.foodId || '',
-      userId: item.userId || '',
-      storeId: item.storeId || '',
-      storeOwnerId: item.storeOwnerId || '',
-      quantity: item.quantity || 0,
-      totalPrice: item.totalPrice || 0,
-      status: FoodReservationStatus.PENDING,
-    }))
-
-    const reservedOrder = {
-      userId,
-      items: mappedItems,
-      paid: paid || '',
-      totalAmount,
-      paymentMethod,
-      pickupTime: pickupTime || null,
-      status: ReservationStatus.PENDING,
+    const reservedOrderRef = await addDoc(collection(db, 'reserved_orders'), {
+      userId: data.userId,
+      items: data.cartItems.map((item) => ({
+        id: item.id,
+        foodId: item.foodId,
+        quantity: item.quantity,
+        totalPrice: item.totalPrice,
+        userId: item.userId,
+        image: item.image,
+        storeId: item.storeId,
+        storeOwnerId: item.storeOwnerId,
+        status: 1, // PENDING
+      })),
+      totalAmount: data.totalAmount,
+      paymentMethod: data.paymentMethod,
+      paid: data.paid || 'Unpaid',
+      pickupTime: data.pickupTime || null,
+      status: 1, // PENDING
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
+    })
+
+    // Send notification to each unique seller
+    const uniqueSellers = [...new Set(data.cartItems.map((item) => item.storeOwnerId))]
+    
+    for (const sellerId of uniqueSellers) {
+      try {
+        await sendNewOrderNotification(sellerId, reservedOrderRef.id)
+      } catch (error) {
+        console.error(`Error sending notification to seller ${sellerId}:`, error)
+      }
     }
 
-    const docRef = await addDoc(
-      collection(db, 'reserved_orders'),
-      reservedOrder,
-    )
-    return docRef.id
+    return reservedOrderRef.id
   } catch (error) {
     console.error('Error saving reserved order:', error)
     throw error

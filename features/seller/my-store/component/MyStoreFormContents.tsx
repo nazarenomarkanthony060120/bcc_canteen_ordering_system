@@ -13,6 +13,8 @@ import {
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { useDeleteFood } from '@/hooks/useMutation/seller/delete-food/useDeleteFood'
+import { useRouter } from 'expo-router'
+import { useFetchFeedbacksByFoodId } from '@/hooks/useQuery/common/useFetchFeedbacksByFoodId'
 
 interface MyStoreFormContentsProps {
   food: Food
@@ -20,7 +22,10 @@ interface MyStoreFormContentsProps {
 
 const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
   const deleteFood = useDeleteFood()
-
+  const router = useRouter()
+  const { data: feedbacks = [], isLoading: feedbacksLoading } = useFetchFeedbacksByFoodId({
+    foodId: food.id,
+  })
   const handleDeleteFood = () => {
     Alert.alert(
       'Delete Food Item',
@@ -52,6 +57,12 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
     )
   }
 
+  const handleEditFood = () => {
+    router.push(
+      `/screens/(seller)/edit-food/editFood?storeId=${food.storeId}&foodId=${food.id}`
+    )
+  }
+
   return (
     <SafeAreaView key={food.id} className="w-full mb-4">
       <BlurView
@@ -67,14 +78,21 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
         >
           <View className="bg-white rounded-xl overflow-hidden shadow-sm">
             <View className="relative">
-              <ImageWrapper
-                source={
-                  food.image
-                    ? { uri: `data:image/jpeg;base64,${food.image}` }
-                    : CANTEEN_IMAGE
-                }
-                style={{ height: 200, width: '100%' }}
-              />
+              {food.quantity > 0 ? (
+                <ImageWrapper
+                  source={
+                    food.image
+                      ? { uri: `data:image/jpeg;base64,${food.image}` }
+                      : CANTEEN_IMAGE
+                  }
+                  style={{ height: 200, width: '100%' }}
+                />
+              ) : (
+                <ImageWrapper
+                  source={require('@/assets/images/out-of-stock.png')}
+                  style={{ height: 200, width: '100%' }}
+                />
+              )}
               <LinearGradient
                 colors={['transparent', 'rgba(0,0,0,0.7)']}
                 className="absolute bottom-0 left-0 right-0 p-4"
@@ -82,7 +100,7 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
                 <View className="flex-row items-start justify-between">
                   <View className="flex-1">
                     <Typo className="text-white text-xl font-bold">
-                      {food.name}
+                      {food.name} test
                     </Typo>
                     <View className="flex-row items-center mt-1">
                       <MaterialCommunityIcons
@@ -96,14 +114,23 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
                     </View>
                   </View>
 
-                  <TouchableOpacity
-                    onPress={handleDeleteFood}
-                    className="bg-red-500/80 p-2 rounded-full ml-2"
-                    activeOpacity={0.7}
-                    disabled={deleteFood.isPending}
-                  >
-                    <MaterialIcons name="delete" size={20} color="white" />
-                  </TouchableOpacity>
+                  <View className="flex-row gap-2">
+                    <TouchableOpacity
+                      onPress={handleEditFood}
+                      className="bg-blue-500/80 p-2 rounded-full"
+                      activeOpacity={0.7}
+                    >
+                      <MaterialIcons name="edit" size={20} color="white" />
+                    </TouchableOpacity>
+                    {/* <TouchableOpacity
+                      onPress={handleDeleteFood}
+                      className="bg-red-500/80 p-2 rounded-full"
+                      activeOpacity={0.7}
+                      disabled={deleteFood.isPending}
+                    >
+                      <MaterialIcons name="delete" size={20} color="white" />
+                    </TouchableOpacity> */}
+                  </View>
                 </View>
               </LinearGradient>
             </View>
@@ -151,6 +178,51 @@ const MyStoreFormContents = ({ food }: MyStoreFormContentsProps) => {
                     </Typo>
                   </View>
                 </View>
+              </View>
+
+              <View className="mt-4">
+                <View className="flex-row items-center gap-2 mb-3">
+                  <View className="bg-emerald-50 p-2 rounded-lg">
+                    <AntDesign name="star" size={20} color="#10B981" />
+                  </View>
+                  <Typo className="text-gray-700 font-semibold text-base">
+                    Recent Reviews ({feedbacks.length})
+                  </Typo>
+                </View>
+
+                {feedbacksLoading ? (
+                  <Typo className="text-gray-400 text-sm">Loading reviews...</Typo>
+                ) : feedbacks.length === 0 ? (
+                  <Typo className="text-gray-400 text-sm">
+                    No reviews yet
+                  </Typo>
+                ) : (
+                  <View className="gap-3">
+                    {feedbacks.slice(0, 2).map((feedback) => (
+                      <View
+                        key={feedback.id}
+                        className="bg-gray-50 p-3 rounded-lg border border-gray-100"
+                      >
+                        <View className="flex-row items-center gap-1 mb-2">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <AntDesign
+                              key={star}
+                              name={star <= feedback.rating ? 'star' : 'staro'}
+                              size={14}
+                              color={star <= feedback.rating ? '#FBBF24' : '#D1D5DB'}
+                            />
+                          ))}
+                          <Typo className="text-gray-600 text-xs ml-1">
+                            ({feedback.rating}/5)
+                          </Typo>
+                        </View>
+                        <Text className="text-gray-700 text-sm leading-5" numberOfLines={2}>
+                          {feedback.feedback}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
               </View>
             </View>
           </View>

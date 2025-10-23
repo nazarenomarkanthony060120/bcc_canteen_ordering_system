@@ -5,9 +5,9 @@ import {
   ReservedItem,
 } from '@/utils/types'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
-import { sendOrderCancelledNotification } from '@/utils/notifications/sendNotification'
+import { sendOrderReadyNotification } from '@/utils/notifications/sendNotification'
 
-export const cancelPendingOrder = async ({
+export const readyForPickupOrder = async ({
   id,
   foods,
   userId,
@@ -24,26 +24,31 @@ export const cancelPendingOrder = async ({
   }
 
   const reservationData = reservationDoc.data()
-  const updatedItems = reservationData?.items.map((item: ReservedItem) => {
+  
+  // Update the items array with ready for pickup status for matching items
+  const updatedItems = reservationData.items.map((item: ReservedItem) => {
     const matchingFood = foods.find((food) => food?.id === item.foodId)
     if (matchingFood && item.storeOwnerId === userId) {
       return {
         ...item,
-        status: ReservationStatus.CANCELLED,
+        status: ReservationStatus.READY_FOR_PICKUP,
       }
     }
     return item
   })
 
+  // Update the document in Firestore with the new items
   await updateDoc(reservationRef, {
     items: updatedItems,
-    updatedAt: new Date().toISOString(),
   })
 
   // Send notification to customer
   try {
-    await sendOrderCancelledNotification(reservationData.userId, id)
+    await sendOrderReadyNotification(reservationData.userId, id)
   } catch (error) {
-    console.error('Error sending cancellation notification:', error)
+    console.error('Error sending ready notification:', error)
   }
+
+  return true
 }
+

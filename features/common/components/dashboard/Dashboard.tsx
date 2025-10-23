@@ -155,11 +155,6 @@ const Dashboard = () => {
                   className="rounded-3xl overflow-hidden"
                 >
                   <View className="bg-white/90 p-4">
-                    <View className="flex-row items-center justify-between mb-4">
-                      <Typo className="text-gray-800 font-semibold">
-                        Popular Items
-                      </Typo>
-                    </View>
                     <DashboardFormCard
                       selectedFoodType={getSelectedFoodType(selectedCategory)}
                     />

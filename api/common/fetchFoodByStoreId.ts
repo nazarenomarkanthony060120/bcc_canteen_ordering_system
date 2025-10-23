@@ -12,6 +12,7 @@ export const fetchFoodByStoreId = async ({ id }: StoreIdRequest) => {
     return querySnapshot.docs.map((docSnap) => ({
       id: docSnap.id,
       name: docSnap.data().name,
+      storeId: docSnap.data().id,
       image: docSnap.data().image,
       price: docSnap.data().price,
       quantity: docSnap.data().quantity,

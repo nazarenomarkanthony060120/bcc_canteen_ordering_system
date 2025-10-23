@@ -6,11 +6,13 @@ import { StatusBar } from 'react-native'
 import { verifyInstallation } from 'nativewind'
 import { AuthProvider } from '@/context/auth'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { useExpirationChecker } from '@/hooks/useExpirationChecker'
 
 const client = new QueryClient()
 
 const RootLayout = () => {
   verifyInstallation()
+  useExpirationChecker() // Check for expired orders
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

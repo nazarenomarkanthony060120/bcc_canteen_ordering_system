@@ -18,15 +18,20 @@ export const getReservationStatusResult = ({
   )
   if (hasCancelledItems) return ReservationStatus.CANCELLED
 
+  const hasReadyForPickupItems = storeOwnerItems.some(
+    (item) => item.status === ReservationStatus.READY_FOR_PICKUP,
+  )
+  if (hasReadyForPickupItems) return ReservationStatus.READY_FOR_PICKUP
+
   const hasConfirmedItems = storeOwnerItems.some(
     (item) => item.status === ReservationStatus.CONFIRMED,
   )
   if (hasConfirmedItems) return ReservationStatus.CONFIRMED
 
   const hasCompletedItems = storeOwnerItems.some(
-    (item) => item.status !== ReservationStatus.PENDING,
+    (item) => item.status === ReservationStatus.COMPLETED,
   )
-  return hasCompletedItems
-    ? ReservationStatus.COMPLETED
-    : ReservationStatus.PENDING
+  if (hasCompletedItems) return ReservationStatus.COMPLETED
+
+  return ReservationStatus.PENDING
 }

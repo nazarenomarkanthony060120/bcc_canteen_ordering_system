@@ -6,5 +6,6 @@ export const useGetStoreByStoreId = ({ id }: StoreIdRequest) => {
   return useQuery({
     queryKey: ['getStoreByStoreId', id],
     queryFn: () => getStoreByStoreId({ id }),
+    enabled: !!id,
   })
 }

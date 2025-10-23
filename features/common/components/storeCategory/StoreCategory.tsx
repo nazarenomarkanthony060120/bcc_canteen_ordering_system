@@ -67,17 +67,14 @@ const StoreCategory = () => {
     >
       <BlurView intensity={10} className="rounded-2xl overflow-hidden">
         <View className="bg-white/90">
-          <View style={{ height: 270 }}>
-            <FlashList
-              horizontal
-              data={stores}
-              estimatedItemSize={270}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => <CategoryList store={item} />}
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ padding: 8 }}
-            />
-          </View>
+          <FlashList
+            data={stores}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <CategoryList store={item} />}
+            showsVerticalScrollIndicator={false}
+            estimatedItemSize={250}
+            contentContainerStyle={{ paddingBottom: 8 }}
+          />
         </View>
       </BlurView>
     </Animated.View>

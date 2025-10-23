@@ -5,12 +5,14 @@ import { BlurView } from 'expo-blur'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Store } from '@/utils/types'
 import { getStoreStatusColor } from '@/features/common/parts/getStoreStatusColor'
+import { useGetUserByUserId } from '@/hooks/useQuery/common/get/useGetUserByUserId'
 
 interface MyStoreFormHeaderProps {
   store: Store | undefined | null
 }
 
 const MyStoreFormHeader = ({ store }: MyStoreFormHeaderProps) => {
+  const { data: userData } = useGetUserByUserId({id: store?.userId})
   const status = getStoreStatusColor(store?.status || 0)
   const fadeAnim = useRef(new Animated.Value(0)).current
   const scaleAnim = useRef(new Animated.Value(0.95)).current
@@ -128,17 +130,17 @@ const MyStoreFormHeader = ({ store }: MyStoreFormHeaderProps) => {
                   <View className="flex-row items-start gap-3">
                     <View className="bg-gray-50 p-2.5 rounded-lg mt-1">
                       <MaterialIcons
-                        name="location-on"
+                        name="contact-phone"
                         size={22}
                         color="#10B981"
                       />
                     </View>
                     <View className="flex-1">
                       <Text className="text-gray-500 text-sm font-medium mb-1">
-                        Location
+                        Contact Number
                       </Text>
                       <Text className="text-gray-800 text-base leading-5">
-                        {store?.address}
+                        {userData?.phoneNumber}
                       </Text>
                     </View>
                   </View>

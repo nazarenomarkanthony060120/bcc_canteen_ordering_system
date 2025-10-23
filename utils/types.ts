@@ -116,6 +116,7 @@ export type User = {
   name: string
   email: string
   address?: string
+  phoneNumber?: string
   status: UserKYCStatus
   image: string
   createdAt: FieldValue
@@ -237,6 +238,7 @@ export enum ReservationStatusText {
   COMPLETED = 'Completed',
   CANCELLED = 'Cancelled',
   CONFIRMED = 'Confirmed',
+  READY_FOR_PICKUP = 'Ready for Pickup',
   UNKNOWN = 'Unknown',
 }
 
@@ -245,6 +247,7 @@ export enum FoodReservationStatusText {
   COMPLETED = 'Completed',
   CANCELLED = 'Cancelled',
   CONFIRMED = 'Confirmed',
+  READY_FOR_PICKUP = 'Ready for Pickup',
   UNKNOWN = 'Unknown',
 }
 
@@ -254,6 +257,7 @@ export enum FoodReservationStatus {
   COMPLETED = 2,
   CANCELLED = 3,
   CONFIRMED = 4,
+  READY_FOR_PICKUP = 5,
 }
 
 export enum ReservationStatus {
@@ -262,6 +266,7 @@ export enum ReservationStatus {
   COMPLETED = 2,
   CANCELLED = 3,
   CONFIRMED = 4,
+  READY_FOR_PICKUP = 5
 }
 
 export enum UserKYCStatus {
