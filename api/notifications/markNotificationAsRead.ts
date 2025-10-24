@@ -21,3 +21,4 @@ export const markNotificationAsRead = async (notificationId: string) => {
   }
 }
 
+

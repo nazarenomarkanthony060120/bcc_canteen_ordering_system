@@ -613,7 +613,7 @@ const ViewAnalytics = ({ storeId }: ViewAnalyticsProps) => {
                 />
                 <SummaryCard
                   title="Orders"
-                  value={stats.totalOrders}
+                  value={stats.totalOrders.toString()}
                   icon="shopping-cart-checkout"
                   iconColor="#2563eb"
                   bgColor="bg-blue-500"

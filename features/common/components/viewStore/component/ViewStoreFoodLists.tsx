@@ -49,14 +49,21 @@ const ViewStoreFoodLists = ({ food }: ViewStoreFoodListsProps) => {
       >
         <View className="relative mb-4">
           <View className="overflow-hidden rounded-xl">
-            <ImageWrapper
-              source={
-                food?.image
-                  ? { uri: `data:image/jpeg;base64,${food.image}` }
-                  : CANTEEN_IMAGE
-              }
-              style={{ height: 150, width: '100%' }}
-            />
+              {food?.quantity > 0 ? (
+                <ImageWrapper
+                  source={
+                    food.image
+                      ? { uri: `data:image/jpeg;base64,${food.image}` }
+                      : CANTEEN_IMAGE
+                  }
+                  style={{ height: 200, width: '100%' }}
+                />
+              ) : (
+                <ImageWrapper
+                  source={require('@/assets/images/out-of-stock.png')}
+                  style={{ height: 200, width: '100%' }}
+                />
+              )}
           </View>
           <LinearGradient
             colors={['transparent', 'rgba(0,0,0,0.8)']}

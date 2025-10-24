@@ -47,3 +47,4 @@ export const fetchNotificationsByUserId = async (userId: string): Promise<Notifi
   }
 }
 
+
